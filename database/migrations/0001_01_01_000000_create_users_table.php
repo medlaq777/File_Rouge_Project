@@ -16,13 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->string('username')->unique();
             $table->string('phone')->unique();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('country')->nullable();
-            $table->string('password');
+            $table->string('country')->default('Morocco');
             $table->enum('role', ['admin', 'owner', 'Artist'])->default('Artist');
             $table->string('bio');
             $table->string('profile_image')->default('default.png');
