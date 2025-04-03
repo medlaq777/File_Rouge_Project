@@ -56,4 +56,15 @@ class AuthController extends Controller
             'email' => ['The provided credentials are incorrect.'],
         ]);
     }
+
+
+    public function Logout(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            $user->tokens()->delete();
+            return response()->json(['message' => 'Logged out successfully'], 200);
+        }
+        return response()->json(['message' => 'User not found'], 404);
+    }
 }
