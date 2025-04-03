@@ -12,7 +12,6 @@ class AuthController extends Controller
 
     public function Register(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -24,7 +23,6 @@ class AuthController extends Controller
             'country' => 'nullable|string|max:255',
         ]);
 
-        // Create a new user
         $user = \App\Models\User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -49,17 +47,13 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8',
         ]);
-
-        // Attempt to log the user in
-        if (Auth::attempt(['email' => $request->email, 'password' => Hash::make($request->password)])) {
-            // Authentication passed, return user data
-            $user = Auth::user();
-            return response()->json(['user' => $user], 200);
-        } else {
-            // Authentication failed, return error response
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        $user = \App\Models\User::where('email', $request->email)->first();
+        if ($user && Hash::check($request->password, $user->password)) {
+            $token = $user->createToken('auth_token')->plainTextToken;
+            return response()->json(['user' => $user, 'token' => $token], 200);
         }
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
     }
 }
