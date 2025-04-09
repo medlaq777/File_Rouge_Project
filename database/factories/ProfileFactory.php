@@ -17,6 +17,7 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => fake()->unique()->numberBetween(1, 10),
             'bio' => $this->faker->sentence(),
             'profile_image' => $this->faker->imageUrl(640, 480, 'people'),
             'contact_info' => $this->faker->phoneNumber(),
