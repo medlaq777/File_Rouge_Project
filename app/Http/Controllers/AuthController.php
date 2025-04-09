@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,7 @@ class AuthController extends Controller
             'country' => 'nullable|string|max:255',
         ]);
 
-        $user = \App\Models\User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -47,7 +48,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8',
         ]);
-        $user = \App\Models\User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {
             $token = $user->createToken('auth_token')->plainTextToken;
             return response()->json(['user' => $user, 'token' => $token], 200);
