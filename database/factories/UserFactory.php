@@ -27,7 +27,6 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => fake()->dateTime(),
-            'remember_token' => Str::random(10),
             'username' => fake()->unique()->userName(),
             'phone' => '+212' . fake()->numberBetween(6, 7) . fake()->numerify('########'),
             'address' => fake()->address(),
@@ -40,7 +39,6 @@ class UserFactory extends Factory
             'contact_info' => fake()->text(100),
         ];
     }
-
 
     /**
      * Indicate that the model's email address should be unverified.

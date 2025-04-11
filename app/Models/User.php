@@ -9,8 +9,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-
-    use HasFactory,  Notifiable;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,5 +55,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
 }

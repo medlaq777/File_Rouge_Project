@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('bio');
             $table->string('profile_image')->default('default.png');
             $table->string('contact_info')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
 
