@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Welcome to StudioSpace')
+@section('BEATRECORDS', 'Welcome to StudioSpace')
 @section('navbar')
     @include('layouts.nav')
 @endsection

@@ -4,12 +4,10 @@
 
             <div class="md:col-span-1">
                 <div class="flex items-center mb-4">
-                    <i class="fas fa-music text-primary text-2xl"></i>
-                    <span
-                        class="ml-2 text-xl font-bold text-light">{{ config('app.name', 'StudioSpace') }}</span>
+                    <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="BEATSRECORD Logo" class="w-18"> ">
                 </div>
                 <p class="text-textMuted text-sm">
-                    {{ __('StudioSpace connects musicians with professional recording studios. Find, book, and record at top studios around the world.') }}
+                    {{ __('BeatsRecord connects musicians with professional recording studios. Find, book, and record at top studios around the world.') }}
                 </p>
                 <div class="mt-5 flex space-x-4">
                     <a href="#" class="text-textMuted hover:text-light">
@@ -72,7 +70,7 @@
 
         <div class="border-t border-border mt-12 pt-6">
             <p class="text-center text-textMuted text-sm">
-                © {{ now()->year }} {{ config('app.name', 'StudioSpace') }}.
+                © {{ now()->year }} {{ config('app.name', 'BEATSRECORD') }}.
                 {{ __('All rights reserved.') }}
             </p>
         </div>
