@@ -4,7 +4,7 @@
             <div class="flex items-center">
 
                 <a href="{{ '#' }}" class="flex-shrink-0 flex items-center">
-                    <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="StudioSpace Logo" class="w-18"> ">
+                    <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="StudioSpace Logo" class="w-24">
                 </a>
 
                 <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">

@@ -122,6 +122,10 @@
             @yield('hero')
             @yield('hiw')
             @yield('studios')
+            @yield('help')
+            @yield('terms')
+            @yield('contact')
+            @yield('faq')
             @yield('footer')
         </main>
         <script>

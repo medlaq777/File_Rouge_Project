@@ -4,7 +4,7 @@
 
             <div class="md:col-span-1">
                 <div class="flex items-center mb-4">
-                    <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="BEATSRECORD Logo" class="w-18"> ">
+                    <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="BEATSRECORD Logo" class="w-24 bg-contain">
                 </div>
                 <p class="text-textMuted text-sm">
                     {{ __('BeatsRecord connects musicians with professional recording studios. Find, book, and record at top studios around the world.') }}
@@ -36,17 +36,14 @@
             <div class="md:col-span-1">
                 <h3 class="text-lg font-medium text-light mb-4">{{ __('Support') }}</h3>
                 <ul class="space-y-3">
-                    <li><a href="#"
+                    <li><a href="{{ route('helpCenter') }}"
                             class="text-textMuted hover:text-light text-sm">{{ __('Help Center') }}</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('faq') }}"
                             class="text-textMuted hover:text-light text-sm">{{ __('FAQ') }}</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('contact') }}"
                             class="text-textMuted hover:text-light text-sm">{{ __('Contact Us') }}</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('terms') }}"
                             class="text-textMuted hover:text-light text-sm">{{ __('Terms of Service') }}</a>
-                    </li>
-                    <li><a href="#"
-                            class="text-textMuted hover:text-light text-sm">{{ __('Privacy Policy') }}</a>
                     </li>
                 </ul>
             </div>
