@@ -30,7 +30,7 @@
                 style="animation-delay: 0.3s">
                 <div class="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
                     <div class="relative block w-full bg-darkAccent rounded-lg overflow-hidden">
-                        <img src="{{ asset('images/help-center.jpg') }}" alt="Help center support" class="w-full">
+                        <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="Help center support" class="w-full">
                         <div class="absolute inset-0 flex items-center justify-center">
                             <button type="button"
                                 class="flex items-center justify-center h-16 w-16 rounded-full bg-primary bg-opacity-75 transition-colors duration-300 hover:bg-opacity-100 focus:outline-none">
@@ -49,7 +49,7 @@
                 <div class="relative">
                     <input type="text" placeholder="Search for tutorials, FAQs, and more..."
                         class="w-full px-6 py-4 bg-darkBg text-light border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                    <button class="absolute right-3 top-3 p-1 bg-primary text-white rounded-lg p-2">
+                    <button class="absolute right-3 top-3 bg-primary text-white rounded-lg p-2">
                         <i class="fas fa-search text-lg"></i>
                     </button>
                 </div>
