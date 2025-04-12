@@ -23,11 +23,11 @@ Une Laravel web application Pour Finale Projet File Rouge
 
 ## Requirements
 
-- PHP >= 8.0
-- tailwind css >= 4.0
-- Composer
-- PostgreSQL
-- Node.js & NPM
+- PHP >= 8.2
+- TAILWIND CSS >= 4.0
+- COMPOSER
+- POSTGRESQL
+- NODE.JS & NPM
 - [Laravel requirements](https://laravel.com/docs/12.x/deployment#server-requirements)
 
 ## Installation
