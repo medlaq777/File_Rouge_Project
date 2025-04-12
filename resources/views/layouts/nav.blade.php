@@ -3,7 +3,7 @@
         <div class="flex justify-between h-16">
             <div class="flex items-center">
 
-                <a href="{{ '#' }}" class="flex-shrink-0 flex items-center">
+                <a href="{{ '/' }}" class="flex-shrink-0 flex items-center">
                     <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="StudioSpace Logo" class="w-24">
                 </a>
 
