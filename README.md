@@ -11,14 +11,12 @@ Une Laravel web application Pour Finale Projet File Rouge
   - [Installation](#installation)
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Install PHP dependencies](#2-install-php-dependencies)
-    - [3. Install JavaScript dependencies](#3-install-javascript-dependencies)
+    - [3. Install Tailwind css 4 dependencies](#3-install-tailwind-css-4-dependencies)
     - [4. Copy environment file and generate application key](#4-copy-environment-file-and-generate-application-key)
   - [Configuration](#configuration)
     - [1. Database Setup](#1-database-setup)
-    - [2. Run migrations](#2-run-migrations)
-    - [3. Seed the database (if applicable)](#3-seed-the-database-if-applicable)
+    - [2. Run migrations with Seed the database](#2-run-migrations-with-seed-the-database)
   - [Running the Application](#running-the-application)
-    - [Development server](#development-server)
     - [Frontend assets compilation](#frontend-assets-compilation)
   - [Testing](#testing)
   - [Deployement](#deployement)
@@ -47,10 +45,10 @@ cd beatrecords
 composer install
 ```
 
-### 3. Install JavaScript dependencies
+### 3. Install Tailwind css 4 dependencies
 
 ```bash
-npm install
+npm install tailwindcss @tailwindcss/vite
 ```
 
 ### 4. Copy environment file and generate application key
@@ -75,21 +73,17 @@ DB_USERNAME=postgress
 DB_PASSWORD=postgress
 ```
 
-### 2. Run migrations
+### 2. Run migrations with Seed the database
 
 ```bash
 php artisan migrate
 ```
-
-### 3. Seed the database (if applicable)
 
 ```bash
 php artisan db:seed
 ```
 
 ## Running the Application
-
-### Development server
 
 ```bash
 php artisan serve
