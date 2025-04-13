@@ -19,7 +19,7 @@ class ProfileUserFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'name' => $this->faker->name(),
+            'full_name' => $this->faker->name(),
             'username' => $this->faker->unique()->userName(),
             'phone' => '+212' . $this->faker->unique()->numberBetween(600000000, 699999999),
             'address' => $this->faker->address(),
