@@ -17,7 +17,18 @@ class ProfileUserFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id' => $this->faker->unique()->numberBetween(1, 1000),
+            'user_id' => \App\Models\User::factory(),
+            'name' => $this->faker->name(),
+            'username' => $this->faker->unique()->userName(),
+            'phone' => $this->faker->phoneNumber(),
+            'address' => $this->faker->address(),
+            'city' => $this->faker->city(),
+            'country' => $this->faker->country(),
+            'bio' => $this->faker->text(200),
+            'profile_image' => $this->faker->imageUrl(640, 480, 'people'),
+            'contact_info' => $this->faker->text(100),
+            'timestamps' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }
