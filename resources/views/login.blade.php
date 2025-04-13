@@ -92,21 +92,9 @@
         <h1
           class="text-4xl font-bold text-primary tracking-tight flex justify-center items-center gap-2"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-10 w-10"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M9 18V5l12-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="18" cy="16" r="3"></circle>
-          </svg>
-          StudioSpace
+        <a href="{{ '/' }}" class="flex-shrink-0 flex items-center">
+            <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="BEATRECORDS Logo" class="w-24">
+        </a>
         </h1>
         <p class="text-textMuted mt-2 text-sm sm:text-base">
           Premium Music Studio Rental Platform
