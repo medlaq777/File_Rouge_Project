@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,3 +31,6 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+// Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showProfile')->middleware('auth');

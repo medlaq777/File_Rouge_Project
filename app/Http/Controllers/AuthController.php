@@ -36,7 +36,7 @@
 
             if ($this->authService->attemptLogin($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->route('profile'); // Redirect to the profile route
+                return redirect()->route('showProfile');
             }
 
             return back()->withErrors([
