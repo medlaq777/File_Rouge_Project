@@ -30,4 +30,5 @@ class AuthService
 
         return $user;
     }
+
 }

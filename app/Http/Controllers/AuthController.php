@@ -3,7 +3,6 @@
     namespace App\Http\Controllers;
 
     use App\Http\Controllers\Controller;
-    use App\Http\Requests\LoginRequest;
     use App\Services\AuthService;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
@@ -30,13 +29,14 @@
 
         public function login(Request $request)
         {
-            $credentials = $request->validated();
+            $credentials = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|string',
+            ]);
 
             if ($this->authService->attemptLogin($credentials)) {
                 $request->session()->regenerate();
                 return view('profile');
-
-                // return redirect()->intended(route('profile'));
             }
 
             return back()->withErrors([
