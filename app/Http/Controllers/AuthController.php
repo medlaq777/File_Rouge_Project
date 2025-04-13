@@ -19,13 +19,13 @@
 
         public function showRegisterForm()
         {
-            return view('register');
+            return view('Auth.register');
         }
 
 
         public function showLoginForm()
         {
-            return view('login');
+            return view('Auth.login');
         }
 
         // public function login(Request public function login(Request $request)

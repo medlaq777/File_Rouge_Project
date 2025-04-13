@@ -95,5 +95,4 @@
         </form>
         <div id="register-message" class="mt-4 text-center hidden"></div>
     </div>
-    </div>
 </main>

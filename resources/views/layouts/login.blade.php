@@ -1,7 +1,6 @@
 <main class="flex justify-center items-center flex-col py-12">
-    <div class="p-6 custom-scrollbar">
         <h2 class="text-2xl font-semibold text-light mb-6 text-center">Sign In</h2>
-        <form id="login-form-element" class="space-y-5">
+        <form id="login-form-element" class="space-y-4">
             <div class="space-y-1">
                 <label for="login-email" class="block text-sm font-medium text-gray-300">Email</label>
                 <input type="email" id="login-email"
@@ -24,10 +23,16 @@
                     class="h-4 w-4 text-primary focus:ring-primary focus:ring-offset-darkBg border-border rounded bg-inputBg" />
                 <label for="remember-me" class="ml-2 block text-sm text-textMuted">Remember me</label>
             </div>
-            <button type="submit"
-                class="w-full bg-primary hover:bg-primaryHover text-white py-3 px-4 rounded-lg font-medium transition-all duration-200 transform hover:translate-y-[-1px] active:translate-y-[1px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent">
-                Sign In
-            </button>
+
+            <div>
+                <button type="submit"
+                    class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkBg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    Sign In
+                </button>
+            </div>
 
             <div class="relative my-6">
                 <div class="absolute inset-0 flex items-center">
@@ -80,5 +85,5 @@
                 Register now
             </a>
         </div>
-    </div>
+        <div id="login-message" class="mt-4 text-center hidden"></div>
 </main>
