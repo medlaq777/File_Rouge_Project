@@ -1,7 +1,8 @@
 <main class="flex justify-center items-center flex-col py-12">
     <div class="p-6 custom-scrollbar">
         <h2 class="text-2xl font-semibold text-light mb-6 text-center">Sign In</h2>
-        <form id="login-form-element" class="space-y-4">
+        <form id="login-form-element" action="{{ route('login') }}" method="POST" class="space-y-4">
+            @csrf
             <div class="space-y-1">
                 <label for="login-email" class="block text-sm font-medium text-gray-300">Email</label>
                 <input type="email" id="login-email"
