@@ -34,8 +34,9 @@
 
             if ($this->authService->attemptLogin($credentials)) {
                 $request->session()->regenerate();
+                return view('profile');
 
-                return redirect()->intended(route('home'));
+                // return redirect()->intended(route('profile'));
             }
 
             return back()->withErrors([
