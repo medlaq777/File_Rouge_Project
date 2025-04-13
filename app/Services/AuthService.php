@@ -8,28 +8,26 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
-    public function register(array $userData): User
+    public function attemptLogin(array $credentials)
     {
-        $userData['password'] = Hash::make($userData['password']);
-        return User::create($userData);
+        return Auth::attempt($credentials);
     }
 
-    public function login(array $credentials): ?string
+    public function logout()
     {
-        if (!Auth::attempt($credentials)) {
-            return null;
-        }
-
-        /** @var User $user */
-        $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return $token;
+        Auth::logout();
     }
 
-    public function logout(): void
+    public function register(array $data)
     {
-        /** @var User $user */
-        $user = Auth::user();
-        $user->currentAccessToken()->delete();
+        $user = User::create([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'role'=> $data['role'] ?? 'artist',
+        ]);
+
+        Auth::login($user);
+
+        return $user;
     }
 }

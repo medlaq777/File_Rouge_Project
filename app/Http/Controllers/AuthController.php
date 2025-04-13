@@ -1,45 +1,85 @@
 <?php
 
-namespace App\Http\Controllers;
+    namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Services\AuthService;
+    use App\Http\Controllers\Controller;
+    use App\Http\Requests\LoginRequest;
+    use App\Services\AuthService;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
-{
-    protected $authService;
-
-    public function __construct(AuthService $authService)
+    class AuthController extends Controller
     {
-        $this->authService = $authService;
-    }
-    public function register(Request $request)
-    {
-        $userData = $request->validate([
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:artist,owner',
-        ]);
+        protected $authService;
 
-        $user = $this->authService->register($userData);
-
-        return response()->json(['user' => $user], 201);
-    }
-
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:8',
-        ]);
-
-        $token = $this->authService->login($credentials);
-
-        if (!$token) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        public function __construct(AuthService $authService)
+        {
+            $this->authService = $authService;
         }
 
-        return response()->json(['token' => $token], 200);
+        public function showLoginForm()
+        {
+            return view('login');
+        }
+
+        // public function login(Request public function login(Request $request)
+        // {
+        //     $credentials = $request->validated();
+
+        //     if ($this->authService->attemptLogin($credentials)) {
+        //         $request->session()->regenerate();
+
+        //         return redirect()->intended(route('home'));
+        //     }
+
+        //     return back()->withErrors([
+        //         'email' => 'Invalid credentials.',
+        //     ])->onlyInput('email');
+        // }
+
+        // public function logout(Request $request)
+        // {
+        //     $this->authService->logout();
+
+        //     $request->session()->invalidate();
+        //     $request->session()->regenerateToken();
+
+        //     return redirect('/');
+        // }$request)
+        // {
+        //     $credentials = $request->validated();
+
+        //     if ($this->authService->attemptLogin($credentials)) {
+        //         $request->session()->regenerate();
+
+        //         return redirect()->intended(route('home'));
+        //     }
+
+        //     return back()->withErrors([
+        //         'email' => 'Invalid credentials.',
+        //     ])->onlyInput('email');
+        // }
+
+        // public function logout(Request $request)
+        // {
+        //     $this->authService->logout();
+
+        //     $request->session()->invalidate();
+        //     $request->session()->regenerateToken();
+
+        //     return redirect('/');
+        // }
+
+        // public function showRegistrationForm()
+        // {
+        //     return view('auth.register');
+        // }
+
+        // public function register(Request $request)
+        // {
+        //     $user = $this->authService->register($request->all());
+        //     Auth::login($user);
+
+        //     return redirect()->route('home');
+        // }
     }
-}
