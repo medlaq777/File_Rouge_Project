@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProfileUser>
@@ -17,7 +18,7 @@ class ProfileUserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
+            'user_id' => User::factory(),
             'name' => $this->faker->name(),
             'username' => $this->faker->unique()->userName(),
             'phone' => $this->faker->phoneNumber(),
