@@ -17,7 +17,7 @@
             $this->authService = $authService;
         }
 
-        public function showRegistrationForm()
+        public function showRegisterForm()
         {
             return view('register');
         }
