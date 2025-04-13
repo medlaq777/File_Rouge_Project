@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Auth\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,5 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-// Alternative controller-based approach:
-// Route::get('/', [PageController::class, 'welcome'])->name('welcome');
-// Route::get('/help-center', [PageController::class, 'helpCenter'])->name('help-center');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
