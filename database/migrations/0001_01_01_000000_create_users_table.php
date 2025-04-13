@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn([
-                'username',
-                'phone',
-                'address',
-                'city',
-                'country',
-                'bio',
-                'profile_image',
-                'contact_info',
-                'name'
-            ]);
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->enum('role', ['admin', 'artist', 'owner'])->default('artist');
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 
@@ -31,16 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('name');
-            $table->string('username')->unique();
-            $table->string('phone')->unique();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->default('Morocco');
-            $table->string('bio');
-            $table->string('profile_image')->default('default.png');
-            $table->string('contact_info')->nullable();
-        });
+        Schema::dropIfExists('users');
     }
 };

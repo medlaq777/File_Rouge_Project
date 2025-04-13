@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\profileUser>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProfileUser>
  */
 class ProfileUserFactory extends Factory
 {
@@ -17,7 +17,6 @@ class ProfileUserFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->unique()->numberBetween(1, 1000),
             'user_id' => \App\Models\User::factory(),
             'name' => $this->faker->name(),
             'username' => $this->faker->unique()->userName(),
@@ -28,7 +27,6 @@ class ProfileUserFactory extends Factory
             'bio' => $this->faker->text(200),
             'profile_image' => $this->faker->imageUrl(640, 480, 'people'),
             'contact_info' => $this->faker->text(100),
-            'timestamps' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }
