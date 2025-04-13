@@ -121,6 +121,7 @@
             @yield('navbar')
             @yield('login')
             @yield('register')
+            @yield('profile')
             @yield('hero')
             @yield('hiw')
             @yield('studios')

@@ -28,20 +28,20 @@
             return view('Auth.login');
         }
 
-        // public function login(Request public function login(Request $request)
-        // {
-        //     $credentials = $request->validated();
+        public function login(Request $request)
+        {
+            $credentials = $request->validated();
 
-        //     if ($this->authService->attemptLogin($credentials)) {
-        //         $request->session()->regenerate();
+            if ($this->authService->attemptLogin($credentials)) {
+                $request->session()->regenerate();
 
-        //         return redirect()->intended(route('home'));
-        //     }
+                return redirect()->intended(route('home'));
+            }
 
-        //     return back()->withErrors([
-        //         'email' => 'Invalid credentials.',
-        //     ])->onlyInput('email');
-        // }
+            return back()->withErrors([
+                'email' => 'Invalid credentials.',
+            ])->onlyInput('email');
+        }
 
         // public function logout(Request $request)
         // {
