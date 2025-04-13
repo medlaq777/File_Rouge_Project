@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');

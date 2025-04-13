@@ -21,7 +21,7 @@
                 </button>
 
                 <div class="ml-4 relative flex items-center space-x-3">
-                    <a href="{{ '#' }}" class="text-sm text-textMuted hover:text-light">Sign In</a>
+                    <a href="{{ route('login') }}" class="text-sm text-textMuted hover:text-light">Sign In</a>
                     <a href="{{ '#' }}"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent">
                         Sign Up
