@@ -27,4 +27,4 @@ Route::get('/faq', function () {
 
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::get('/register', [AuthController::class, 'showLoginForm'])->name('register');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
