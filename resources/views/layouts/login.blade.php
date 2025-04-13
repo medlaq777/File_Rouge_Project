@@ -1,4 +1,5 @@
 <main class="flex justify-center items-center flex-col py-12">
+    <div class="p-6 custom-scrollbar">
         <h2 class="text-2xl font-semibold text-light mb-6 text-center">Sign In</h2>
         <form id="login-form-element" class="space-y-4">
             <div class="space-y-1">
@@ -28,7 +29,7 @@
                 <button type="submit"
                     class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkBg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                     </svg>
                     Sign In
                 </button>
@@ -78,12 +79,12 @@
                 </button>
             </div>
         </form>
-        <div class="mt-6 text-center text-sm text-textMuted">
-            Don't have an account?
-            <a href="{{ route('register') }}"
-                class="text-primary hover:text-primaryHover font-medium transition duration-200">
-                Register now
-            </a>
+        <div class="text-center mt-6">
+            <p class="text-textMuted">
+                Don't have an account?
+                <a href="{{ route('register') }}" class="text-primary hover:underline">Register now</a>
+            </p>
         </div>
         <div id="login-message" class="mt-4 text-center hidden"></div>
+    </div>
 </main>
