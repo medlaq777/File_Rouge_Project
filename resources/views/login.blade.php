@@ -248,7 +248,7 @@
           <div class="mt-6 text-center text-sm text-textMuted">
             Don't have an account?
             <a
-              href="register.html"
+              href="{{ route('register') }}"
               class="text-primary hover:text-primaryHover font-medium transition duration-200"
             >
               Register now
@@ -319,8 +319,6 @@
         }
         console.log("Login attempt:", { email });
         showFeedback("Login successful! Redirecting to dashboard...");
-        // Redirect to dashboard after successful login
-        // setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
       });
     </script>
   </body>
