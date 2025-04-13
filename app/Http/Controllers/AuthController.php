@@ -26,4 +26,20 @@ class AuthController extends Controller
 
         return response()->json(['user' => $user], 201);
     }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $token = $this->authService->login($credentials);
+
+        if (!$token) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return response()->json(['token' => $token], 200);
+    }
 }
