@@ -119,6 +119,8 @@
 
         <main>
             @yield('navbar')
+            @yield('login')
+            @yield('register')
             @yield('hero')
             @yield('hiw')
             @yield('studios')
