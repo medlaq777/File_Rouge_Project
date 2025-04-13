@@ -17,9 +17,9 @@
             $this->authService = $authService;
         }
 
-        public function showLoginForm()
+        public function showRegistrationForm()
         {
-            return view('login');
+            return view('register');
         }
 
         // public function login(Request public function login(Request $request)
@@ -68,11 +68,6 @@
         //     $request->session()->regenerateToken();
 
         //     return redirect('/');
-        // }
-
-        // public function showRegistrationForm()
-        // {
-        //     return view('auth.register');
         // }
 
         // public function register(Request $request)
