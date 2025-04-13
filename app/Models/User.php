@@ -6,8 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Enums\RoleEnum;
-use App\Models\ProfileUser;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -44,7 +44,7 @@ class User extends Authenticatable
         'role' => RoleEnum::class,
     ];
 
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(ProfileUser::class);
     }

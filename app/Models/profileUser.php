@@ -31,7 +31,7 @@ class ProfileUser extends Model
     /**
      * Get the user that owns the profile.
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
