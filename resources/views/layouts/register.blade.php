@@ -1,7 +1,8 @@
 <main class="flex justify-center items-center flex-col py-12">
     <div class="p-6 custom-scrollbar">
         <h2 class="text-2xl font-semibold text-light mb-6 text-center">Create Account</h2>
-        <form id="register-form-element" class="space-y-4">
+        <form id="register-form-element" action="{{ route('register') }}" method="POST" class="space-y-4">
+            @csrf
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="space-y-1">
                     <label for="first-name" class="block text-sm font-medium text-gray-300">First Name</label>
