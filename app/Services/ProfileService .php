@@ -8,5 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileService
 {
+    public function getProfile()
+    {
 
+    }
 }
