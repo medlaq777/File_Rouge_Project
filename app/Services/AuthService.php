@@ -17,7 +17,7 @@ class AuthService
             'role' => $validatedData['role'],
         ]);
         $user->profile()->create([
-            'full_name' => $validatedData['full-name'],
+            'full_name' => $validatedData['fullname'],
             'username' => $validatedData['username'],
 
         ]);
