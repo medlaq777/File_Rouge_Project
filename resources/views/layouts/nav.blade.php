@@ -20,10 +20,10 @@
                     <i class="fas fa-search"></i>
                 </button>
 
+                @guest
                 <div class="ml-4 relative flex items-center space-x-3">
                     <a href="{{ route('login') }}" class="text-sm text-textMuted hover:text-light">Sign In</a>
                     <a href="{{ route('register') }}"
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent">
                         Sign Up
                     </a>
                 </div>
@@ -40,7 +40,7 @@
 
     <div id="mobile-menu" class="md:hidden hidden bg-darkAccent border-b border-border">
         <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="{{ '#' }}"
+            <a href="{{ '/' }}"
                 class="block px-3 py-2 rounded-md text-base font-medium text-light bg-darkUI">Home</a>
             <a href="{{ '#' }}"
                 class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-light hover:bg-darkUI">Explore
