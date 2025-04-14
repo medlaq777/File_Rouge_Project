@@ -30,7 +30,7 @@
                 </label>
                 <div class="relative">
                     <i class="fas fa-music absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                    <input type="text" id="artist-name" value="{{ $user->username }}"
+                    <input type="text" id="artist-name" value="{{ $profile->username }}"
                         class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 </label>
                 <div class="relative">
                     <i class="fas fa-phone-alt absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                    <input type="tel" id="phone" value="{{ $user->phone }}"
+                    <input type="tel" id="phone" value="{{ $profile->phone }}"
                         class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                 </div>
             </div>
