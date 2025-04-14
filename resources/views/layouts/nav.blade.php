@@ -33,7 +33,7 @@
                             </button>
                             <div
                                 class="user-menu-dropdown hidden absolute right-0 mt-2 w-48 bg-darkAccent rounded-md shadow-lg py-1 z-50">
-                                <a href=""
+                                <a href="{{ route('showProfile') }}"
                                     class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Profile</a>
                                 @if (Auth::user()->isOwner())
                                     <a href=""
