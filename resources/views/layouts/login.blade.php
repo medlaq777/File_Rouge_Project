@@ -5,7 +5,7 @@
             @csrf
             <div class="space-y-1">
                 <label for="login-email" class="block text-sm font-medium text-gray-300">Email</label>
-                <input type="email" id="login-email"
+                <input type="email" id="login-email" name="email"
                     class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                     placeholder="your@email.com" required />
             </div>
@@ -16,7 +16,7 @@
                         class="text-xs text-primary hover:text-primaryHover transition duration-200">Forgot
                         password?</a>
                 </div>
-                <input type="password" id="login-password"
+                <input type="password" id="login-password" name="password"
                     class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                     placeholder="••••••••" required />
             </div>

@@ -40,22 +40,19 @@
         ])->onlyInput('email');
     }
 
-        // public function login(Request $request)
-        // {
-        //     $credentials = $request->validate([
-        //         'email' => 'required|email',
-        //         'password' => 'required|string|min:8',
-        //     ]);
-
-        //     if ($this->authService->attemptLogin($credentials)) {
-        //         $request->session()->regenerate();
-        //         return redirect()->route('showProfile');
-        //     }
-
-        //     return back()->withErrors([
-        //         'email' => 'Invalid credentials.',
-        //     ])->onlyInput('email');
-        // }
+        public function login(Request $request)
+        {
+            $credentials = $request->only('email', 'password');
+            $user = $this->authService->login($credentials);
+            if ($user) {
+                Auth::login($user);
+                // $request->session()->regenerate();
+                return redirect()->intended(route('showProfile', ['id' => $user->id]));
+            }
+            return back()->withErrors([
+                'email' => 'Invalid credentials.',
+            ])->onlyInput('email');
+        }
 
         // public function logout(Request $request)
         // {
