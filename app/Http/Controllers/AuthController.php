@@ -29,16 +29,16 @@
 
 
         public function register(Request $request)
-        {
-            $user = $this->authService->register($request->all());
-            if ($user) {
-                Auth::login($user);
-                return redirect()->route('showLoginForm')->with('success', 'Registration successful. Please log in.');
-            }
-            return back()->withErrors([
-                'email' => 'Registration failed.',
-            ])->onlyInput('email');
+    {
+        $user = $this->authService->register($request->all());
+        if ($user) {
+            Auth::login($user);
+            return redirect()->route('showLoginForm')->with('success', 'Registration successful. Please log in.');
         }
+        return back()->withErrors([
+            'email' => 'Registration failed.',
+        ])->onlyInput('email');
+    }
 
         // public function login(Request $request)
         // {
