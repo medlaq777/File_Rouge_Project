@@ -4,8 +4,8 @@
         <form id="register-form-element" action="{{ route('register') }}" method="POST" class="space-y-4">
             @csrf
             <div class="space-y-1">
-                <label for="full-name" class="block text-sm font-medium text-gray-300">Full Name</label>
-                <input type="text" id="full-name" name="full-name"
+                <label for="fullname" class="block text-sm font-medium text-gray-300">Full Name</label>
+                <input type="text" id="fullname" name="fullname"
                     class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                     placeholder="John Doe" required />
             </div>
