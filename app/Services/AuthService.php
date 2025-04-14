@@ -27,8 +27,10 @@ class AuthService
         $validatedData = $this->validateRegistrationData($data);
         $user = User::create([
             'name' => $validatedData['name'],
+            'username' => $validatedData['username'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
+            'role' => $validatedData['role'],
         ]);
 
         Auth::login($user);
