@@ -33,7 +33,7 @@
             $user = $this->authService->register($request->all());
             if ($user) {
                 Auth::login($user);
-                return redirect()->route('showProfile');
+                return redirect()->route('showLoginForm')->with('success', 'Registration successful. Please log in.');
             }
             return back()->withErrors([
                 'email' => 'Registration failed.',
