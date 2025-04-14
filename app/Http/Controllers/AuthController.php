@@ -31,9 +31,13 @@
         public function register(Request $request)
         {
             $user = $this->authService->register($request->all());
-            Auth::login($user);
-
-            return redirect()->route('showProfile');
+            if ($user) {
+                Auth::login($user);
+                return redirect()->route('showProfile');
+            }
+            return back()->withErrors([
+                'email' => 'Registration failed.',
+            ])->onlyInput('email');
         }
 
         // public function login(Request $request)
