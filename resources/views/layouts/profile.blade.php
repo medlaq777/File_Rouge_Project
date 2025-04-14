@@ -1,9 +1,9 @@
 <div class="max-w-4xl mx-auto p-6 border-b">
-    <h2 class="text-2xl font-semibold flex items-center justify-center mb-6">
+    <h2 class="text-2xl font-semibold flex items-center justify-center mb-6 text-primary">
         <i class="fas fa-user-circle mr-3 text-primary"></i>
         Profile Settings
     </h2>
-    <p class="text-textMuted text-center mb-8">
+    <p class="text-light text-center mb-8">
         Update your personal information and preferences
     </p>
     <form id="profile-form" class="space-y-8">
