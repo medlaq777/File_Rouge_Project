@@ -48,4 +48,18 @@ class User extends Authenticatable
     {
         return $this->hasOne(ProfileUser::class);
     }
+
+    public function isArtist(): bool
+    {
+        return $this->role === RoleEnum::Artist;
+    }
+
+    public function isOwner(): bool
+    {
+        return $this->role === RoleEnum::Owner;
+    }
+    public function isAdmin(): bool
+    {
+        return $this->role === RoleEnum::Admin;
+    }
 }
