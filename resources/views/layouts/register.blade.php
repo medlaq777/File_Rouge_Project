@@ -17,12 +17,12 @@
                 </div>
             </div>
             <div class="space-y-1">
-                <label for="username" class="block text-sm font-medium text-gray-300">Artist/Producer Name</label>
+                <label for="username" class="block text-sm font-medium text-gray-300">Username</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">@</span>
                     <input type="text" id="username"
                         class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                        placeholder="producer_name" required />
+                        placeholder="Username" required />
                 </div>
             </div>
             <div class="space-y-1">
@@ -52,7 +52,7 @@
                         <input type="radio" name="user-type" id="artist"
                             class="h-4 w-4 text-primary border-border focus:ring-primary focus:ring-offset-darkBg"
                             checked />
-                        <label for="artist" class="ml-3 block text-sm font-medium text-light">Artist/Producer</label>
+                        <label for="artist" class="ml-3 block text-sm font-medium text-light">Artist</label>
                     </div>
                     <div
                         class="flex items-center bg-darkUI border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-primary transition-all">
