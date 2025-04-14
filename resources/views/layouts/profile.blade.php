@@ -6,7 +6,8 @@
     <p class="text-light text-center mb-8">
         Update your personal information and preferences
     </p>
-    <form id="profile-form" class="space-y-8">
+    <form id="profile-form" class="space-y-8" action="{{ route('updateProfile') }}" method="POST">
+        @csrf
         <!-- Personal Information Section -->
         <div class="rounded-xl p-8 border transition-all duration-300 hover:shadow-lg">
             <h3 class="text-lg font-medium mb-6 flex items-center text-primary">
