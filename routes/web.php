@@ -33,4 +33,4 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('show
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showProfile');
+Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showProfile')->middleware('auth');
