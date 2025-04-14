@@ -33,8 +33,6 @@ class AuthService
             'role' => $validatedData['role'],
         ]);
 
-        Auth::login($user);
-
         return $user;
     }
 
