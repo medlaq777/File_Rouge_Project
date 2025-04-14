@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function showProfile()
     {
         $user = Auth::user();
-        $profile = $this->profileService->getProfile();
+        $profile = $this->profileService->getProfile($user->id);
         return view('profile', compact('user', 'profile'));
     }
 }

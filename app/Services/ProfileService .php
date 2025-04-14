@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileService
 {
-    public function getProfile()
+    public function getProfile($userId)
     {
-
+        return ProfileUser::where('user_id', $userId)->first();
     }
 }
