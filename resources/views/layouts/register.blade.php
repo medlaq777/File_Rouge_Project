@@ -42,14 +42,14 @@
                 <div class="grid grid-cols-2 gap-3 mt-1">
                     <div
                         class="flex items-center bg-darkUI border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-primary transition-all">
-                        <input type="radio" name="user-type" id="artist"
+                        <input type="radio" name="role" id="artist" name="artist" value="artist"
                             class="h-4 w-4 text-primary border-border focus:ring-primary focus:ring-offset-darkBg"
                             checked />
                         <label for="artist" class="ml-3 block text-sm font-medium text-light">Artist</label>
                     </div>
                     <div
                         class="flex items-center bg-darkUI border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-primary transition-all">
-                        <input type="radio" name="user-type" id="studio-owner"
+                        <input type="radio" name="role" id="studio-owner" name="owner" value="owner"
                             class="h-4 w-4 text-primary border-border focus:ring-primary focus:ring-offset-darkBg" />
                         <label for="studio-owner" class="ml-3 block text-sm font-medium text-light">Studio Owner</label>
                     </div>
