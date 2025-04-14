@@ -36,4 +36,26 @@ class AuthService
             'role' => 'required|string|in:artist,owner',
         ])->validate();
     }
+
+
+    public function login(array $data)
+    {
+        $validatedData = $this->validateLoginData($data);
+        $user = User::where('email', $validatedData['email'])->first();
+        if (!$user ) {
+            throw new \Exception('Invalid credentials');
+        }
+        if (!Hash::check($validatedData['password'], $user->password)) {
+            throw new \Exception('Invalid credentials');
+        }
+        return $user;
+    }
+
+    public function validateLoginData(array $data)
+    {
+        return validator($data, [
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:8',
+        ])->validate();
+    }
 }
