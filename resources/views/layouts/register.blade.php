@@ -3,13 +3,13 @@
         <h2 class="text-2xl font-semibold text-light mb-6 text-center">Create Account</h2>
         <form id="register-form-element" action="{{ route('register') }}" method="POST" class="space-y-4">
             @csrf
-            <div class="space-y-1">
+            {{-- <div class="space-y-1">
                 <label for="full-name" class="block text-sm font-medium text-gray-300">Full Name</label>
                 <input type="text" id="full-name"
                     class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                     placeholder="John Doe" required />
-            </div>
-            <div class="space-y-1">
+            </div> --}}
+            {{-- <div class="space-y-1">
                 <label for="username" class="block text-sm font-medium text-gray-300">Username</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">@</span>
@@ -17,22 +17,22 @@
                         class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                         placeholder="Username" required />
                 </div>
-            </div>
+            </div> --}}
             <div class="space-y-1">
                 <label for="register-email" class="block text-sm font-medium text-gray-300">Email</label>
-                <input type="email" id="register-email"
+                <input type="email" id="register-email" name="email"
                     class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                     placeholder="your@email.com" required />
             </div>
             <div class="space-y-1">
                 <label for="register-password" class="block text-sm font-medium text-gray-300">Password</label>
-                <input type="password" id="register-password"
+                <input type="password" id="register-password" name="password"
                     class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                     placeholder="••••••••" required />
             </div>
             <div class="space-y-1">
                 <label for="confirm-password" class="block text-sm font-medium text-gray-300">Confirm Password</label>
-                <input type="password" id="confirm-password"
+                <input type="password" id="confirm-password" name="password_confirmation"
                     class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                     placeholder="••••••••" required />
             </div>

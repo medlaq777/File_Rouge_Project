@@ -26,8 +26,8 @@ class AuthService
     {
         $validatedData = $this->validateRegistrationData($data);
         $user = User::create([
-            'fullname' => $validatedData['fullname'],
-            'username' => $validatedData['username'],
+            // 'fullname' => $validatedData['fullname'],
+            // 'username' => $validatedData['username'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'role' => $validatedData['role'],
@@ -39,8 +39,8 @@ class AuthService
     public function validateRegistrationData(array $data)
     {
         return validator($data, [
-            'fullname' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
+            // 'fullname' => 'required|string|max:255',
+            // 'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|string|in:artist,owner',
