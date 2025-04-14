@@ -3,34 +3,23 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\ProfileUser;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
-    public function attemptLogin(array $credentials)
-    {
-        $credentials['password'] = Hash::make($credentials['password']);
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            return $user;
-        }
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-    }
-
     public function register(array $data)
     {
         $validatedData = $this->validateRegistrationData($data);
         $user = User::create([
-            'fullname' => $validatedData['fullname'],
-            'username' => $validatedData['username'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'role' => $validatedData['role'],
+        ]);
+        $user = ProfileUser::create([
+            'full_name' => $validatedData['fullname'],
+            'username' => $validatedData['username'],
+
         ]);
 
         return $user;
@@ -40,11 +29,10 @@ class AuthService
     {
         return validator($data, [
             'fullname' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:profile_users,username',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|string|in:artist,owner',
         ])->validate();
     }
-
 }
