@@ -27,22 +27,31 @@
             return view('Auth.login');
         }
 
-        public function login(Request $request)
+
+        public function register(Request $request)
         {
-            $credentials = $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|string|min:8',
-            ]);
+            $user = $this->authService->register($request->all());
+            Auth::login($user);
 
-            if ($this->authService->attemptLogin($credentials)) {
-                $request->session()->regenerate();
-                return redirect()->route('showProfile');
-            }
-
-            return back()->withErrors([
-                'email' => 'Invalid credentials.',
-            ])->onlyInput('email');
+            return redirect()->route('showProfile');
         }
+
+        // public function login(Request $request)
+        // {
+        //     $credentials = $request->validate([
+        //         'email' => 'required|email',
+        //         'password' => 'required|string|min:8',
+        //     ]);
+
+        //     if ($this->authService->attemptLogin($credentials)) {
+        //         $request->session()->regenerate();
+        //         return redirect()->route('showProfile');
+        //     }
+
+        //     return back()->withErrors([
+        //         'email' => 'Invalid credentials.',
+        //     ])->onlyInput('email');
+        // }
 
         // public function logout(Request $request)
         // {
@@ -75,13 +84,5 @@
         //     $request->session()->regenerateToken();
 
         //     return redirect('/');
-        // }
-
-        // public function register(Request $request)
-        // {
-        //     $user = $this->authService->register($request->all());
-        //     Auth::login($user);
-
-        //     return redirect()->route('home');
         // }
     }

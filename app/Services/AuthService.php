@@ -24,15 +24,27 @@ class AuthService
 
     public function register(array $data)
     {
+        $validatedData = $this->validateRegistrationData($data);
         $user = User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role'=> $data['role'] ?? 'artist',
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
         ]);
 
         Auth::login($user);
 
         return $user;
+    }
+
+    public function validateRegistrationData(array $data)
+    {
+        return validator($data, [
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|in:artist,owner',
+        ])->validate();
     }
 
 }
