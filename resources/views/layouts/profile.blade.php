@@ -1,15 +1,17 @@
-<div class="max-w-4xl mx-auto p-6 border-b border-border">
+<div class="max-w-4xl mx-auto p-6 border-b">
     <h2 class="text-2xl font-semibold flex items-center justify-center mb-6">
-        <i class="fas fa-user-circle mr-3 text-primary"></i>Profile Settings
+        <i class="fas fa-user-circle mr-3 text-primary"></i>
+        Profile Settings
     </h2>
     <p class="text-textMuted text-center mb-8">
         Update your personal information and preferences
     </p>
     <form id="profile-form" class="space-y-8">
         <!-- Personal Information Section -->
-        <div class="bg-darkUI rounded-xl p-8 border border-border transition-all duration-300 hover:shadow-lg">
-            <h3 class="text-lg font-medium mb-6 flex items-center">
-                <i class="fas fa-id-card mr-2 text-primary"></i>Personal Information
+        <div class="rounded-xl p-8 border transition-all duration-300 hover:shadow-lg">
+            <h3 class="text-lg font-medium mb-6 flex items-center text-primary">
+                <i class="fas fa-id-card mr-2 text-primary"></i>
+                Personal Information
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
@@ -149,19 +151,6 @@
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
-            </div>
-
-            <p class="text-xs text-textMuted mt-2 flex items-center">
-                <i class="fas fa-info-circle mr-1"></i>
-                Leave password fields empty if you don't want to change it
-            </p>
-
-            <div class="mt-6">
-                <button type="button"
-                    class="text-primary hover:text-primaryHover text-sm font-medium flex items-center group transition-all duration-200">
-                    <i class="fas fa-shield-alt h-4 w-4 mr-2 group-hover:scale-110 transition-transform"></i>
-                    Enable Two-Factor Authentication
-                </button>
             </div>
         </div>
 
