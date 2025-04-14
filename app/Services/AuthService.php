@@ -16,7 +16,8 @@ class AuthService
             'password' => Hash::make($validatedData['password']),
             'role' => $validatedData['role'],
         ]);
-        $user->profile()->create([
+        ProfileUser::create([
+            'user_id' => $user->id,
             'full_name' => $validatedData['fullname'],
             'username' => $validatedData['username'],
 

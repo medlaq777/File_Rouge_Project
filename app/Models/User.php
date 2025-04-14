@@ -63,13 +63,13 @@ class User extends Authenticatable
         return $this->role === RoleEnum::Admin;
     }
 
-    protected static function booted()
-    {
-        static::created(function (User $user) {
-            $user->profile()->create([
-                'full_name' => request('full_name'),
-                'username' => request('username'),
-            ]);
-        });
-    }
+    // protected static function booted()
+    // {
+    //     static::created(function (User $user) {
+    //         $user->profile()->create([
+    //             'full_name' => request('full_name'),
+    //             'username' => request('username'),
+    //         ]);
+    //     });
+    // }
 }
