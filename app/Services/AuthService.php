@@ -16,8 +16,8 @@ class AuthService
             'password' => Hash::make($validatedData['password']),
             'role' => $validatedData['role'],
         ]);
-        $user = ProfileUser::create([
-            'full_name' => $validatedData['fullname'],
+        $user->profile()->create([
+            'full_name' => $validatedData['full-name'],
             'username' => $validatedData['username'],
 
         ]);
@@ -28,7 +28,7 @@ class AuthService
     public function validateRegistrationData(array $data)
     {
         return validator($data, [
-            'fullname' => 'required|string|max:255',
+            'full-name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:profile_users,username',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
