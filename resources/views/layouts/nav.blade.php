@@ -22,14 +22,13 @@
 
                 <div class="ml-4 relative flex items-center space-x-3">
                     @auth
-                        <!-- User Menu -->
                         <div class="relative user-menu">
                             <button
                                 class="user-menu-button flex items-center space-x-2 text-textMuted hover:text-light focus:outline-none"
                                 aria-expanded="false">
-                                <span>{{ Auth::user()->name }}</span>
-                                <img src="{{ Auth::user()->profile_photo_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"
-                                    alt="{{ Auth::user()->name }}" class="h-8 w-8 rounded-full">
+                                <span>{{ Auth::user()->fullname }}</span>
+                                <img src="{{ Auth::user()->profile_picture }}"
+                                    alt="{{ Auth::user()->fullname }}" class="h-8 w-8 rounded-full">
                                 <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
                             </button>
                             <div
@@ -56,7 +55,6 @@
                             </div>
                         </div>
                     @else
-                        <!-- Login/Register Links -->
                         <a href="{{ route('login') }}" class="text-sm text-textMuted hover:text-light">Sign In</a>
                         <a href="{{ route('register') }}"
                             class="ml-4 px-3 py-2 rounded-md bg-primary text-light hover:bg-primaryHover text-sm font-medium">Sign
