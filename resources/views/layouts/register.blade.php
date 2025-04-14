@@ -3,19 +3,11 @@
         <h2 class="text-2xl font-semibold text-light mb-6 text-center">Create Account</h2>
         <form id="register-form-element" action="{{ route('register') }}" method="POST" class="space-y-4">
             @csrf
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="space-y-1">
-                    <label for="first-name" class="block text-sm font-medium text-gray-300">First Name</label>
-                    <input type="text" id="first-name"
-                        class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                        placeholder="John" required />
-                </div>
-                <div class="space-y-1">
-                    <label for="last-name" class="block text-sm font-medium text-gray-300">Last Name</label>
-                    <input type="text" id="last-name"
-                        class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                        placeholder="Doe" required />
-                </div>
+            <div class="space-y-1">
+                <label for="full-name" class="block text-sm font-medium text-gray-300">Full Name</label>
+                <input type="text" id="full-name"
+                    class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
+                    placeholder="John Doe" required />
             </div>
             <div class="space-y-1">
                 <label for="username" class="block text-sm font-medium text-gray-300">Username</label>
