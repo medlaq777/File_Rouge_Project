@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ProfileService;
+use Illuminate\Http\Request;
+
 
 class ProfileController extends Controller
 {
@@ -25,5 +27,20 @@ class ProfileController extends Controller
             return redirect()->route('showLoginForm')->with('error', 'Please log in to view your profile.');
         }
         return view('profile', compact('user', 'profile'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('showLoginForm')->with('error', 'Please log in to update your profile.');
+        }
+        $profile = $this->profileService->getProfile($user->id);
+        $updatedProfile = $this->profileService->updateProfile($profile, $request->all());
+        if ($updatedProfile) {
+            return redirect()->route('showProfile')->with('success', 'Profile updated successfully.');
+        } else {
+            return redirect()->route('showProfile')->with('error', 'Failed to update profile.');
+        }
     }
 }
