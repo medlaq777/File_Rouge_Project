@@ -10,7 +10,11 @@ class AuthService
 {
     public function attemptLogin(array $credentials)
     {
-        return Auth::attempt($credentials);
+        $credentials['password'] = Hash::make($credentials['password']);
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            return $user;
+        }
     }
 
     public function logout()
