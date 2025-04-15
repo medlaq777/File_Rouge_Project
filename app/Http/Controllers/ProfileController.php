@@ -53,6 +53,7 @@ class ProfileController extends Controller
             'city',
             'country',
             'bio',
+
         ]);
         if ($request->hasFile('profile_image')) {
             $image = $request->file('profile_image');
