@@ -25,7 +25,6 @@ class ProfileUser extends Model
         'country',
         'bio',
         'profile_image',
-        'contact_info',
     ];
 
     /**
