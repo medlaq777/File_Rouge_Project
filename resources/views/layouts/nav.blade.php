@@ -36,7 +36,7 @@
                                 <a href="{{ route('showProfile') }}"
                                     class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Profile</a>
                                 @if (Auth::user()->isOwner())
-                                    <a href=""
+                                    <a href="{{ route('owner.dashboard') }}"
                                         class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Dashboard</a>
                                 @elseif (Auth::user()->isArtist())
                                     <a href=""
