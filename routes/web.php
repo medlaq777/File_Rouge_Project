@@ -36,3 +36,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showProfile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
+
+
+Route::get("dashboard", function () {
+    return view("Dashboard.Owner.overview");
+})->name("dashboard")->middleware('auth');
