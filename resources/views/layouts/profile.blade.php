@@ -15,13 +15,47 @@
                 Profile Image
             </h3>
             <div class="space-y-2">
-                <label for="profile_image" class="block text-sm font-medium text-gray-300">
+                <label for="profile_image" class="block text-sm font-medium text-gray-300 mb-4">
                     Upload Profile Image
                 </label>
-                <div class="relative">
-                    <input type="file" id="profile_image" name="profile_image"
-                        class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
+                <div class="flex flex-col sm:flex-row items-center gap-6">
+                    <div class="relative group w-32 h-32 rounded-full overflow-hidden border-2 border-primary cursor-pointer" onclick="document.getElementById('profile_image').click()">
+                        <img
+                            id="image-preview"
+                            src="{{ $profile->image ? asset('storage/' . $profile->image) : asset('images/default-profile.png') }}"
+                            alt="Profile Image"
+                            class="w-full h-full object-cover"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-camera text-white text-2xl"></i>
+                        </div>
+                        <input
+                            type="file"
+                            id="profile_image"
+                            name="profile_image"
+                            class="hidden"
+                            onchange="previewImage(this)"
+                        />
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs text-textMuted mt-2">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Click on the image to upload a new profile photo. Square images work best. Maximum size: 2MB
+                        </p>
+                    </div>
                 </div>
+
+                <script>
+                    function previewImage(input) {
+                        if (input.files && input.files[0]) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                document.getElementById('image-preview').src = e.target.result;
+                            }
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                </script>
                 @if ($profile->image)
                     <div class="mt-4">
                         <div class="max-w-4xl mx-auto p-6 border-b">
