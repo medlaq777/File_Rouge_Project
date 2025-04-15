@@ -27,7 +27,6 @@ class ProfileUserFactory extends Factory
             'country' => 'Morocco',
             'bio' => $this->faker->text(200),
             'profile_image' => $this->faker->imageUrl(640, 480, 'people'),
-            'contact_info' => $this->faker->text(100),
         ];
     }
 }

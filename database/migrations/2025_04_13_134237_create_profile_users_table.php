@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('country')->nullable()->default('Morocco');
             $table->text('bio')->nullable();
             $table->string('profile_image')->nullable();
-            $table->text('contact_info')->nullable();
             $table->timestamps();
         });
     }
