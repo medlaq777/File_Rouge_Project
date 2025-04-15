@@ -23,7 +23,7 @@
                     <div class="relative group w-32 h-32 rounded-full overflow-hidden border-2 border-primary cursor-pointer" onclick="document.getElementById('profile_image').click()">
                         <img
                             id="image-preview"
-                            src="{{ $profile->profile_image ? $profile->profile_image : asset('images/default-profile.png') }}"
+                            src="{{ $profile->profile_image == 'https://placehold.co/200x200/EEE/31343C' ? $profile->profile_image : asset('storage/' . $profile->profile_image) }}"
                             alt="Profile Image"
                             class="w-full h-full object-cover"
                         >
