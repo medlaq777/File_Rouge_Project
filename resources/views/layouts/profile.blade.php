@@ -22,7 +22,7 @@
                     <div class="relative group w-32 h-32 rounded-full overflow-hidden border-2 border-primary cursor-pointer" onclick="document.getElementById('profile_image').click()">
                         <img
                             id="image-preview"
-                            src="{{ $profile->profile_image ?? asset('images/default-profile.png') }}"
+                            src="{{ $profile->profile_image ? $profile->profile_image : asset('images/default-profile.png') }}"
                             alt="Profile Image"
                             class="w-full h-full object-cover"
                         >
@@ -250,7 +250,7 @@
                             </form>
                         </div>
 
-                        <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image"
+                        <img src="{{ $profile->profile_image }}" alt="Profile Image"
                             class="rounded-lg w-32 h-32 object-cover">
                     </div>
                 @endif
@@ -354,7 +354,7 @@
                 </label>
                 <div class="relative">
                     <textarea id="bio" rows="4" name="bio"
-                        class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200 resize-none">{{ $user->bio }}</textarea>
+                        class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200 resize-none">{{ $profile->bio }}</textarea>
                     <p class="text-xs text-textMuted mt-2 flex items-center">
                         <i class="fas fa-info-circle mr-1"></i>
                         Brief description about yourself that will appear on your profile

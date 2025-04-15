@@ -26,9 +26,9 @@
                             <button
                                 class="user-menu-button flex items-center space-x-2 text-textMuted hover:text-light focus:outline-none"
                                 aria-expanded="false">
-                                <span>{{ Auth::user()->profile->full_name }}</span>
-                                <img src="{{ Auth::user()->profile->profile_image ? asset('storage/' . Auth::user()->profile->profile_image) : Vite::asset('resources/img/default-profile.png') }}"
-                                    alt="{{ Auth::user()->profile->fullname }}" class="h-8 w-8 rounded-full">
+                                <span>{{ $user->profile->full_name }}</span>
+                                <img src="{{ $user->profile->profile_image ? $user->profile->profile_image : asset('images/default-profile.png') }}"
+                                    alt="{{ $user->profile->full_name }}" class="h-8 w-8 rounded-full">
                                 <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
                             </button>
                             <div
@@ -40,7 +40,8 @@
                                         class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Dashboard</a>
                                 @elseif (Auth::user()->isArtist())
                                     <a href=""
-                                        class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">My Reservations</a>
+                                        class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">My
+                                        Reservations</a>
                                 @elseif (Auth::user()->isAdmin())
                                     <a href=""
                                         class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Dashboard</a>
@@ -75,10 +76,8 @@
     <div id="mobile-menu"
         class="md:hidden hidden bg-darkAccent border-b border-border transition-all duration-300 max-h-0 overflow-hidden">
         <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="{{ '/' }}"
-                class="block px-3 py-2 rounded-md text-base font-medium ">Home</a>
-            <a href=""
-                class="block px-3 py-2 rounded-md text-base font-medium">Explore
+            <a href="{{ '/' }}" class="block px-3 py-2 rounded-md text-base font-medium ">Home</a>
+            <a href="" class="block px-3 py-2 rounded-md text-base font-medium">Explore
                 Studios</a>
 
             @guest
