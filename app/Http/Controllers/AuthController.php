@@ -53,37 +53,9 @@
                 'email' => 'Invalid credentials.',
             ])->onlyInput('email');
         }
-
-        // public function logout(Request $request)
-        // {
-        //     $this->authService->logout();
-
-        //     $request->session()->invalidate();
-        //     $request->session()->regenerateToken();
-
-        //     return redirect('/');
-        // }$request)
-        // {
-        //     $credentials = $request->validated();
-
-        //     if ($this->authService->attemptLogin($credentials)) {
-        //         $request->session()->regenerate();
-
-        //         return redirect()->intended(route('home'));
-        //     }
-
-        //     return back()->withErrors([
-        //         'email' => 'Invalid credentials.',
-        //     ])->onlyInput('email');
-        // }
-
-        // public function logout(Request $request)
-        // {
-        //     $this->authService->logout();
-
-        //     $request->session()->invalidate();
-        //     $request->session()->regenerateToken();
-
-        //     return redirect('/');
-        // }
+        public function logout(Request $request)
+        {
+            Auth::logout();
+            return redirect()->route('showLoginForm')->with('success', 'Logged out successfully.');
+        }
     }

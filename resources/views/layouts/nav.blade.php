@@ -45,7 +45,7 @@
                                     <a href=""
                                         class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Dashboard</a>
                                 @endif
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('logout') }}" class="px-4 py-2">
                                     @csrf
                                     <button type="submit"
                                         class="block w-full text-left px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">

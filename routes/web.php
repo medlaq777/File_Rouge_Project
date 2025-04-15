@@ -32,6 +32,7 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('show
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showProfile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
