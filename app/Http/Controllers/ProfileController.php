@@ -31,20 +31,36 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'nullable|string|max:15',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'bio' => 'nullable|string|max:500'
+        ]);
+
+        if ($request->hasFile('profile_picture')) {
+            $request->validate([
+                'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+            $file = $request->file('profile_picture');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $data['profile_picture'] = $filename;
+        }
+
         $user = Auth::user();
         if (!$user) {
             return redirect()->route('showLoginForm')->with('error', 'Please log in to update your profile.');
         }
 
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
+        $data = $request->all();
+        $data['user_id'] = $user->id;
 
-        $this->profileService->updateProfile($validatedData);
+        $this->profileService->updateProfile($data);
 
         return redirect()->route('showProfile')->with('success', 'Profile updated successfully.');
-
     }
 }
