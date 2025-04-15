@@ -11,22 +11,19 @@ class ProfileService
         return ProfileUser::where('user_id', $userId)->first();
     }
 
-    public function updateProfile($profileData)
+    public function updateProfile(array $data)
     {
-        $validator = $this->validateProfileData($profileData);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-        $profile = ProfileUser::where('user_id', $profileData['user_id'])->first();
+        $this->validatedata($data);
+        $profile = ProfileUser::where('user_id', $data['user_id'])->first();
         if ($profile) {
-            $profile->update($profileData);
+            $profile->update($data);
             return $profile;
         }
 
-        return ProfileUser::create($profileData);
+        return ProfileUser::create($data);
     }
 
-    public function validateProfileData($data)
+    public function validatedata(array $data)
     {
         return validator($data, [
             'full_name' => 'required|string|max:255',

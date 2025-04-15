@@ -21,18 +21,18 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-user absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="text" id="fullName" value="{{ $profile->full_name }}"
+                        <input type="text" id="fullName" value="{{ $profile->full_name }}" name="fullName"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
 
                 <div class="space-y-2">
-                    <label for="artist-name" class="block text-sm font-medium text-gray-300">
-                        Artist/Producer Name
+                    <label for="username" class="block text-sm font-medium text-gray-300">
+                        Username
                     </label>
                     <div class="relative">
                         <i class="fas fa-music absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="text" id="artist-name" value="{{ $profile->username }}"
+                        <input type="text" id="username" value="{{ $profile->username }}" name="username"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-envelope absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="email" id="email" value="{{ $user->email }}"
+                        <input type="email" id="email" value="{{ $user->email }}" name="email"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-phone-alt absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="tel" id="phone" value="{{ $profile->phone }}"
+                        <input type="tel" id="phone" value="{{ $profile->phone }}" name="phone"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-map-marker-alt absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="text" id="address" value="{{ $profile->address }}"
+                        <input type="text" id="address" value="{{ $profile->address }}" name="address"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-city absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="text" id="city" value="{{ $profile->city }}"
+                        <input type="text" id="city" value="{{ $profile->city }}" name="city"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-globe-americas absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="text" id="country" value="{{ $profile->country }}"
+                        <input type="text" id="country" value="{{ $profile->country }}" name="country"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
