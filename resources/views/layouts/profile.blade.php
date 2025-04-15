@@ -22,7 +22,7 @@
                     <div class="relative group w-32 h-32 rounded-full overflow-hidden border-2 border-primary cursor-pointer" onclick="document.getElementById('profile_image').click()">
                         <img
                             id="image-preview"
-                            src="{{ $profile->profile_image ? asset('storage/' . $profile->profile_image) : asset('images/default-profile.png') }}"
+                            src="{{ $profile->profile_image ?? asset('images/default-profile.png') }}"
                             alt="Profile Image"
                             class="w-full h-full object-cover"
                         >
@@ -395,10 +395,6 @@
 
         <!-- Form Actions -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <button type="button"
-                class="px-8 py-3 bg-darkUI border border-border text-light rounded-lg hover:bg-opacity-80 transition-all duration-200 flex items-center justify-center">
-                <i class="fas fa-times mr-2"></i>Cancel
-            </button>
             <button type="submit"
                 class="px-8 py-3 bg-primary hover:bg-primaryHover text-white rounded-lg font-medium transition-all duration-200 transform hover:translate-y-[-1px] active:translate-y-[1px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent flex items-center justify-center shadow-md">
                 <i class="fas fa-save mr-2"></i>Save Changes
