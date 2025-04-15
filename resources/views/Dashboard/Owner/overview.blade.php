@@ -3,3 +3,6 @@
 @section('header')
 @include('Dashboard.layouts.header')
 @endsection
+@section('global')
+@include('Dashboard.layouts.global')
+@endsection
