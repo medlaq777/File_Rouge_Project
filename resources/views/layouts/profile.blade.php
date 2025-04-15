@@ -6,7 +6,7 @@
     <p class="text-light text-center mb-8">
         Update your personal information and preferences
     </p>
-    <form id="profile-form" class="space-y-8" action="{{ route('updateProfile') }}" method="POST">
+    <form id="profile-form" class="space-y-8" action="{{ route('updateProfile') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Profile Image Section -->
         <div class="rounded-xl p-8 border transition-all duration-300 hover:shadow-lg">

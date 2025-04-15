@@ -39,7 +39,7 @@ class ProfileController extends Controller
         'city' => 'nullable|string|max:100',
         'country' => 'nullable|string|max:100',
         'bio' => 'nullable|string|max:500',
-        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         'password' => 'nullable|string|min:8|confirmed',
     ]);
 
@@ -62,8 +62,18 @@ class ProfileController extends Controller
     if ($request->hasFile('profile_image')) {
         $image = $request->file('profile_image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/images', $imageName); // Save to storage/app/public/images
-        $data['profile_image'] = 'images/' . $imageName; // Save relative path to the database
+
+        if (!$image->isValid()) {
+            return redirect()->back()->with('error', 'Invalid image file.');
+        }
+
+        $path = $image->storeAs('public/images', $imageName);
+
+        if (!$path) {
+            return redirect()->back()->with('error', 'Failed to store the image.');
+        }
+
+        $data['profile_image'] = 'images/' . $imageName;
     }
 
     $data['user_id'] = $user->id;
