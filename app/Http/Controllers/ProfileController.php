@@ -57,8 +57,6 @@ class ProfileController extends Controller
         'country',
         'bio',
     ]);
-
-    // Handle profile image upload
     if ($request->hasFile('profile_image')) {
         $image = $request->file('profile_image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -77,11 +75,7 @@ class ProfileController extends Controller
     }
 
     $data['user_id'] = $user->id;
-
-    // Update or create profile
     $this->profileService->updateProfile($data);
-
-    // Handle password update
     if ($request->filled('password')) {
         $user->password = bcrypt($request->input('password'));
         $user->save();
