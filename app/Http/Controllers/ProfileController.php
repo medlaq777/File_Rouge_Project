@@ -67,7 +67,7 @@ class ProfileController extends Controller
             return redirect()->back()->with('error', 'Invalid image file.');
         }
 
-        $path = $image->storeAs('public/images', $imageName);
+        $path = $image->storeAs('images', $imageName, 'public');
 
         if (!$path) {
             return redirect()->back()->with('error', 'Failed to store the image.');
