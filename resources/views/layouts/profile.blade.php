@@ -8,6 +8,29 @@
     </p>
     <form id="profile-form" class="space-y-8" action="{{ route('updateProfile') }}" method="POST">
         @csrf
+        <!-- Profile Image Section -->
+        <div class="rounded-xl p-8 border transition-all duration-300 hover:shadow-lg">
+            <h3 class="text-lg font-medium mb-6 flex items-center text-primary">
+                <i class="fas fa-image mr-2 text-primary"></i>
+                Profile Image
+            </h3>
+            <div class="space-y-2">
+                <label for="profileImage" class="block text-sm font-medium text-gray-300">
+                    Upload Profile Image
+                </label>
+                <div class="relative">
+                    <input type="file" id="profileImage" name="profileImage"
+                        class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
+                </div>
+                @if ($profile->image)
+                    <div class="mt-4">
+                        <img src="{{ asset('storage/' . $profile->image) }}" alt="Profile Image"
+                            class="w-32 h-32 rounded-full object-cover">
+                    </div>
+                @endif
+            </div>
+        </div>
+
         <!-- Personal Information Section -->
         <div class="rounded-xl p-8 border transition-all duration-300 hover:shadow-lg">
             <h3 class="text-lg font-medium mb-6 flex items-center text-primary">
