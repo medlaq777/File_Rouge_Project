@@ -18,11 +18,11 @@
                 <label for="profile_image" class="block text-sm font-medium text-gray-300 mb-4">
                     Upload Profile Image
                 </label>
-                <div class="flex flex-col sm:flex-row items-center gap-6">
+                <div class="flex flex-col items-center gap-6">
                     <div class="relative group w-32 h-32 rounded-full overflow-hidden border-2 border-primary cursor-pointer" onclick="document.getElementById('profile_image').click()">
                         <img
                             id="image-preview"
-                            src="{{ $profile->image ? asset('storage/' . $profile->image) : asset('images/default-profile.png') }}"
+                            src="{{ $profile->profile_image ? asset('storage/' . $profile->profile_image) : asset('images/default-profile.png') }}"
                             alt="Profile Image"
                             class="w-full h-full object-cover"
                         >
@@ -40,7 +40,7 @@
                     <div class="flex-1">
                         <p class="text-xs text-textMuted mt-2">
                             <i class="fas fa-info-circle mr-1"></i>
-                            Click on the image to upload a new profile photo. Square images work best. Maximum size: 2MB
+                            Click on the image to upload a new profile photo. Maximum size: 10MB
                         </p>
                     </div>
                 </div>
