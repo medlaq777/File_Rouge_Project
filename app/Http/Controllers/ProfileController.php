@@ -30,40 +30,55 @@ class ProfileController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {
-        $request->validate([
-            'full_name' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:100',
-            'country' => 'nullable|string|max:100',
-            'bio' => 'nullable|string|max:500',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->route('showLoginForm')->with('error', 'Please log in to update your profile.');
-        }
-        $data = $request->only([
-            'full_name',
-            'username',
-            'phone',
-            'address',
-            'city',
-            'country',
-            'bio',
+{
+    $request->validate([
+        'full_name' => 'required|string|max:255',
+        'username' => 'required|string|max:255',
+        'phone' => 'nullable|string|max:20',
+        'address' => 'nullable|string|max:255',
+        'city' => 'nullable|string|max:100',
+        'country' => 'nullable|string|max:100',
+        'bio' => 'nullable|string|max:500',
+        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'password' => 'nullable|string|min:8|confirmed',
+    ]);
 
-        ]);
-        if ($request->hasFile('profile_image')) {
-            $image = $request->file('profile_image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            $data['profile_image'] = 'images/' . $imageName;
-        }
-        $data['user_id'] = $user->id;
-        $this->profileService->updateProfile($data);
-        $profile = $this->profileService->getProfile($user->id);
-        return redirect()->route('showProfile', ['profile' => $profile])->with('success', 'Profile updated successfully.');
+    $user = Auth::user();
+    if (!$user) {
+        return redirect()->route('showLoginForm')->with('error', 'Please log in to update your profile.');
     }
+
+    $data = $request->only([
+        'full_name',
+        'username',
+        'phone',
+        'address',
+        'city',
+        'country',
+        'bio',
+    ]);
+
+    // Handle profile image upload
+    if ($request->hasFile('profile_image')) {
+        $image = $request->file('profile_image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('public/images', $imageName); // Save to storage/app/public/images
+        $data['profile_image'] = 'images/' . $imageName; // Save relative path to the database
+    }
+
+    $data['user_id'] = $user->id;
+
+    // Update or create profile
+    $this->profileService->updateProfile($data);
+
+    // Handle password update
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+    }
+
+    $profile = $this->profileService->getProfile($user->id);
+
+    return redirect()->route('showProfile', ['profile' => $profile])->with('success', 'Profile updated successfully.');
+}
 }

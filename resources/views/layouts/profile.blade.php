@@ -216,8 +216,8 @@
                             </form>
                         </div>
 
-                        <img src="{{ asset('storage/' . $profile->image) }}" alt="Profile Image"
-                            class="w-32 h-32 rounded-full object-cover">
+                        <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image"
+                            class="rounded-lg w-32 h-32 object-cover">
                     </div>
                 @endif
             </div>
@@ -351,7 +351,8 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-check-circle absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
-                        <input type="password" id="confirm-password" placeholder="••••••••" name="password_confirmation"
+                        <input type="password" id="confirm-password" placeholder="••••••••"
+                            name="password_confirmation"
                             class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                     </div>
                 </div>
