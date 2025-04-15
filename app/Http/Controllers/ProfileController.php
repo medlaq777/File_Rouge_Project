@@ -32,6 +32,19 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('showLoginForm')->with('error', 'Please log in to update your profile.');
+        }
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        $this->profileService->updateProfile($validatedData);
+
+        return redirect()->route('showProfile')->with('success', 'Profile updated successfully.');
 
     }
 }

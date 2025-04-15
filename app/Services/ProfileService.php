@@ -13,14 +13,20 @@ class ProfileService
 
     public function updateProfile(array $data)
     {
-        $this->validatedata($data);
         $profile = ProfileUser::where('user_id', $data['user_id'])->first();
+
         if ($profile) {
-            $profile->update($data);
-            return $profile;
+            $userId = $profile->user_id;
+            $data['user_id'] = $userId;
+            $data['profile_image'] = $data['profile_image'] ?? $profile->profile_image;
+            $data['contact_info'] = $data['contact_info'] ?? $profile->contact_info;
+            $validatedData = $this->validatedata($data);
+            $profile->update($validatedData);
+        } else {
+            $profile = ProfileUser::create($data);
         }
 
-        return ProfileUser::create($data);
+        return $profile;
     }
 
     public function validatedata(array $data)
