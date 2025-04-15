@@ -41,14 +41,14 @@ class ProfileController extends Controller
             'bio' => 'nullable|string|max:500'
         ]);
 
-        if ($request->hasFile('profile_picture')) {
+        if ($request->hasFile('profile_image')) {
             $request->validate([
-                'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-            $file = $request->file('profile_picture');
+            $file = $request->file('profile_image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images'), $filename);
-            $data['profile_picture'] = $filename;
+            $data['profile_image'] = $filename;
         }
 
         $user = Auth::user();
