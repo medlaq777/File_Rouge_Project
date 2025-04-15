@@ -66,7 +66,7 @@
                 Personal Information
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @foreach (['full_name' => 'Full Name', 'username' => 'Username', 'email' => 'Email', 'phone' => 'Phone Number', 'address' => 'Address', 'city' => 'City', 'country' => 'Country'] as $field => $label)
+                @foreach (['full_name' => 'Full Name', 'email' => 'Email', 'username' => 'Username', 'phone' => 'Phone Number', 'address' => 'Address', 'city' => 'City', 'country' => 'Country'] as $field => $label)
                     <div class="space-y-2">
                         <label for="{{ $field }}" class="block text-sm font-medium text-gray-300">
                             {{ $label }}
