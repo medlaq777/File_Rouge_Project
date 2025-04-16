@@ -6,3 +6,6 @@
 @section('global')
 @include('Dashboard.layouts.global')
 @endsection
+@section('addStudio')
+@include('Dashboard.layouts.addStudio')
+@endsection

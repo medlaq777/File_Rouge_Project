@@ -117,8 +117,56 @@
         </style>
         @stack('styles')
     </head>
-    <body>
+    <body class="bg-darkBg text-light min-h-screen font-sans antialiased custom-scrollbar">
         @yield('header')
         @yield('global')
-    </body>
+        @yield('addStudio')
+<!-- JavaScript -->
+<script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Tab switching functionality
+    function showTab(tabId) {
+      // Hide all sections
+      document.querySelectorAll('main > section').forEach(section => {
+        section.classList.add('hidden');
+      });
+
+      // Show the selected section
+      document.getElementById(tabId).classList.remove('hidden');
+
+      // Update sidebar active state
+      document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('sidebar-active');
+      });
+      document.getElementById(tabId + '-link')?.classList.add('sidebar-active');
+
+      // Close mobile menu when tab is selected
+      mobileMenu.classList.add('hidden');
+    }
+
+    // Modal functions
+    function showAddStudioModal() {
+      document.getElementById('add-studio-modal').style.display = 'block';
+    }
+
+    function closeAddStudioModal() {
+      document.getElementById('add-studio-modal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('add-studio-modal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
 </html>
