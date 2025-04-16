@@ -10,15 +10,20 @@
                     <div class="flex flex-col sm:flex-row gap-3">
                         <div class="flex-1">
                             <div class="relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
-                                <input type="text" placeholder="City, neighborhood, or address" class="w-full bg-inputBg border border-border rounded-lg py-3 px-10 text-light placeholder-textMuted focus:outline-none focus:ring-1 focus:ring-primary">
+                                <input type="text" placeholder="City, neighborhood, or address"
+                                    class="w-full bg-inputBg border border-border rounded-lg py-3 px-10 text-light placeholder-textMuted focus:outline-none focus:ring-1 focus:ring-primary">
                             </div>
                         </div>
                         <div class="sm:w-40">
-                            <button class="w-full bg-primary hover:bg-primaryHover text-white py-3 px-4 rounded-lg font-medium transition-all duration-200">
+                            <button
+                                class="w-full bg-primary hover:bg-primaryHover text-white py-3 px-4 rounded-lg font-medium transition-all duration-200">
                                 Search
                             </button>
                         </div>
@@ -42,25 +47,29 @@
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <input type="checkbox" id="recording" class="filter-checkbox hidden">
-                                <label for="recording" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
+                                <label for="recording"
+                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Recording
                                 </label>
                             </div>
                             <div>
                                 <input type="checkbox" id="production" class="filter-checkbox hidden">
-                                <label for="production" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
+                                <label for="production"
+                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Production
                                 </label>
                             </div>
                             <div>
                                 <input type="checkbox" id="mixing" class="filter-checkbox hidden">
-                                <label for="mixing" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
+                                <label for="mixing"
+                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Mixing
                                 </label>
                             </div>
                             <div>
                                 <input type="checkbox" id="rehearsal" class="filter-checkbox hidden">
-                                <label for="rehearsal" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
+                                <label for="rehearsal"
+                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Rehearsal
                                 </label>
                             </div>
@@ -71,7 +80,8 @@
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Price Range (per hour)</h3>
                         <div class="px-1">
-                            <input type="range" min="20" max="200" value="100" class="w-full h-2 bg-darkUI rounded-lg appearance-none cursor-pointer" id="priceRange">
+                            <input type="range" min="20" max="200" value="100"
+                                class="w-full h-2 bg-darkUI rounded-lg appearance-none cursor-pointer" id="priceRange">
                             <div class="flex justify-between mt-2">
                                 <span class="text-sm text-textMuted">$20</span>
                                 <span class="text-sm font-medium text-textMuted" id="priceValue">$100</span>
@@ -85,23 +95,28 @@
                         <h3 class="font-medium mb-3 text-primary">Equipment</h3>
                         <div class="space-y-2">
                             <div class="flex items-center">
-                                <input type="checkbox" id="proTools" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
+                                <input type="checkbox" id="proTools"
+                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
                                 <label for="proTools" class="ml-2 text-sm text-textMuted">Pro Tools</label>
                             </div>
                             <div class="flex items-center">
-                                <input type="checkbox" id="logicPro" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
+                                <input type="checkbox" id="logicPro"
+                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
                                 <label for="logicPro" class="ml-2 text-sm text-textMuted">Logic Pro</label>
                             </div>
                             <div class="flex items-center">
-                                <input type="checkbox" id="ableton" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
+                                <input type="checkbox" id="ableton"
+                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
                                 <label for="ableton" class="ml-2 text-sm text-textMuted">Ableton Live</label>
                             </div>
                             <div class="flex items-center">
-                                <input type="checkbox" id="flStudio" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
+                                <input type="checkbox" id="flStudio"
+                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
                                 <label for="flStudio" class="ml-2 text-sm text-textMuted">FL Studio</label>
                             </div>
                             <div class="flex items-center">
-                                <input type="checkbox" id="drumKit" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
+                                <input type="checkbox" id="drumKit"
+                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
                                 <label for="drumKit" class="ml-2 text-sm text-textMuted">Drum Kit</label>
                             </div>
                         </div>
@@ -111,7 +126,8 @@
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Availability</h3>
                         <div class="relative">
-                            <input type="date" class="w-full bg-inputBg border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
+                            <input type="date"
+                                class="w-full bg-inputBg border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
                         </div>
                     </div>
 
@@ -119,7 +135,8 @@
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Minimum Rating</h3>
                         <div class="flex items-center space-x-2">
-                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white">
+                            <button
+                                class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white">
                                 <i class="fas fa-star"></i>
                             </button>
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
@@ -138,7 +155,8 @@
                     </div>
 
 
-                    <button class="w-full bg-primary hover:bg-primaryHover text-white py-3 rounded-lg font-medium transition-all duration-200">
+                    <button
+                        class="w-full bg-primary hover:bg-primaryHover text-white py-3 rounded-lg font-medium transition-all duration-200">
                         Apply Filters
                     </button>
 
@@ -149,16 +167,15 @@
                 </div>
             </div>
 
-
             <div class="lg:w-3/4">
-
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                     <div>
                         <h2 class="text-2xl font-bold text-primary">{{ count($studios) }} Studios Found</h2>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="text-sm text-textMuted">Sort by:</span>
-                        <select class="bg-darkUI border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
+                        <select
+                            class="bg-darkUI border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
                             <option>Recommended</option>
                             <option>Price: Low to High</option>
                             <option>Price: High to Low</option>
@@ -167,8 +184,6 @@
                         </select>
                     </div>
                 </div>
-
-
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($studios as $studio)
                         <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card animate-fade-in"
@@ -206,22 +221,30 @@
                         </div>
                     @endforeach
                 </div>
-
-
                 <div class="flex justify-center mt-10">
                     <nav class="flex items-center gap-1">
-                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </a>
-                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white">1</a>
-                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">2</a>
-                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">3</a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white">1</a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">2</a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">3</a>
                         <span class="w-10 h-10 flex items-center justify-center text-textMuted">...</span>
-                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">8</a>
-                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">8</a>
+                        <a href="#"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </a>
@@ -232,7 +255,6 @@
     </section>
 </main>
 <script>
-
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
 
@@ -243,7 +265,8 @@
 
 
     document.addEventListener('click', (event) => {
-        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && !mobileMenu
+            .classList.contains('hidden')) {
             mobileMenu.classList.add('hidden');
         }
     });
@@ -303,4 +326,4 @@
 
     const logo = document.querySelector('header a svg');
     logo.classList.add('animate-pulse-slow');
-  </script>
+</script>
