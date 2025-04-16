@@ -39,5 +39,5 @@ Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->nam
 
 
 Route::get("dashboard", function () {
-    return view("Dashboard.Owner.overview");
+    return view("Dashboard.Owner.index");
 })->name("dashboard")->middleware('auth');
