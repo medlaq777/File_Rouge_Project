@@ -34,8 +34,10 @@ class StudiosFactory extends Factory
             'price' => $this->faker->randomFloat(2, 100, 1000),
             'availability' => $this->faker->boolean,
             'equipment' => $this->faker->sentence,
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
+            'rating' => $this->faker->randomFloat(1, 1, 5),
+            'feature' => $this->faker->word,
+            'start_date' => now(),
+            'end_date' => now()->addDays(3),
         ];
     }
 }

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->string('availability')->nullable();
             $table->string('equipment')->nullable();
+            $table->string('rating')->nullable();
+            $table->string('feature')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->timestamps();
