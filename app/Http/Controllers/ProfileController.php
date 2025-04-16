@@ -30,7 +30,7 @@ class ProfileController extends Controller
     }
 
     public function updateProfile(Request $request)
-{
+    {
     $request->validate([
         'full_name' => 'required|string|max:255',
         'username' => 'required|string|max:255',
@@ -84,5 +84,6 @@ class ProfileController extends Controller
     $profile = $this->profileService->getProfile($user->id);
 
     return redirect()->route('showProfile', ['profile' => $profile])->with('success', 'Profile updated successfully.');
-}
+    }
+
 }
