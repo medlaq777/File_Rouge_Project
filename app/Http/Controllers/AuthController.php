@@ -27,9 +27,8 @@
             return view('Auth.login');
         }
 
-
         public function register(Request $request)
-    {
+        {
         $user = $this->authService->register($request->all());
         if ($user) {
             Auth::login($user);
@@ -38,7 +37,7 @@
         return back()->withErrors([
             'email' => 'Registration failed.',
         ])->onlyInput('email');
-    }
+        }
 
         public function login(Request $request)
         {
@@ -61,8 +60,6 @@
                 'email' => 'Invalid credentials.',
             ])->onlyInput('email');
         }
-
-
 
         public function logout(Request $request)
         {
