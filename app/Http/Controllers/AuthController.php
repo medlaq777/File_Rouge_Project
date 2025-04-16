@@ -46,13 +46,15 @@
             $user = $this->authService->login($credentials);
             if ($user) {
                 Auth::login($user);
-                // $request->session()->regenerate();
                 return redirect()->intended(route('showProfile', ['id' => $user->id]));
             }
             return back()->withErrors([
                 'email' => 'Invalid credentials.',
             ])->onlyInput('email');
         }
+
+
+
         public function logout(Request $request)
         {
             Auth::logout();
