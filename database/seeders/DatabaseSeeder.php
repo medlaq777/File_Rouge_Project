@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\ProfileUser;
 use App\Models\Studios;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,9 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create users and their profiles
         User::factory(10)->create()->each(function ($user) {
             ProfileUser::factory()->create(['user_id' => $user->id]);
-            Studios::factory(5)->create(['user_id' => $user->id]);
+        });
+
+        // Fetch all owner users
+        $ownerUsers = User::where('role', 'owner')->get();
+
+        // Ensure there are owners in the database
+        if ($ownerUsers->isEmpty()) {
+            throw new \Exception('No users with the "owner" role found. Please create at least one owner.');
+        }
+
+        // Create studios and assign them to random owners
+        Studios::factory(10)->create()->each(function ($studio) use ($ownerUsers) {
+            $studio->user_id = $ownerUsers->random()->id;
+            $studio->save();
         });
     }
 }
