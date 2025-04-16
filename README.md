@@ -1,7 +1,9 @@
 # BeatRecords
 
-Une Laravel web application Pour Finale Projet File Rouge
 ![BeatRecords Logo](./resources/img/logo.svg "BeatRecords Logo")
+
+
+Une Laravel web application Pour Finale Projet File Rouge
 
 ## Table of Contents
 
