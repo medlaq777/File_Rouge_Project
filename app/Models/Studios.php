@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Studios extends Model
 {
@@ -26,7 +27,7 @@ class Studios extends Model
         'end_date' => 'date',
         'availability' => 'boolean',
     ];
-    public function user()
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
     }
