@@ -125,6 +125,7 @@
             @yield('hero')
             @yield('hiw')
             @yield('studios')
+            @yield('explore')
             @yield('help')
             @yield('terms')
             @yield('contact')
