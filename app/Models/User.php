@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $this->role === RoleEnum::Admin;
     }
 
-    public function ownerStudios(): HasOneOrMany
+    public function studios(): HasOneOrMany
     {
         return $this->hasMany(Studios::class);
     }

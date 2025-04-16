@@ -12,6 +12,7 @@ class Studios extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'description',
         'address',
@@ -27,7 +28,8 @@ class Studios extends Model
         'end_date' => 'date',
         'availability' => 'boolean',
     ];
-    public function user() : BelongsTo
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

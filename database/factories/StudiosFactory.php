@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class StudiosFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => User::factory(),
             'name' => $this->faker->company,
             'description' => $this->faker->text(200),
             'address' => $this->faker->address,
