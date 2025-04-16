@@ -48,7 +48,7 @@
                 Auth::login($user);
                 $user = Auth::user();
                 if ($user->isOwner()) {
-                    return redirect()->intended(route('Dashboard.Owner.'));
+                    return redirect()->intended(route('dashboard'));
                 }
                 return redirect()->intended(route('', ['id' => $user->id]));
             }

@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudiosController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    StudiosController::class, 'index'
+])->name('welcome');
 
 Route::get('/help-center', function () {
     return view('helpCenter');
