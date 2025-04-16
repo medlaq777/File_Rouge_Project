@@ -80,12 +80,12 @@
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Price Range (per hour)</h3>
                         <div class="px-1">
-                            <input type="range" min="20" max="200" value="100"
+                            <input type="range" min="0" max="100" value="50"
                                 class="w-full h-2 bg-darkUI rounded-lg appearance-none cursor-pointer" id="priceRange">
                             <div class="flex justify-between mt-2">
-                                <span class="text-sm text-textMuted">$20</span>
-                                <span class="text-sm font-medium text-textMuted" id="priceValue">$100</span>
-                                <span class="text-sm text-textMuted">$200</span>
+                                <span class="text-sm text-textMuted">$0</span>
+                                <span class="text-sm font-medium text-textMuted" id="priceValue">$50</span>
+                                <span class="text-sm text-textMuted">$100</span>
                             </div>
                         </div>
                     </div>
