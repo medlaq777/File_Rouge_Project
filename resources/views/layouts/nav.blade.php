@@ -9,7 +9,7 @@
                 <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                     <a href="{{ '/' }}"
                         class="nav-link {{ request()->is('/') ? 'active text-light' : 'text-textMuted hover:text-light' }} px-3 py-2 font-medium">Home</a>
-                    <a href=""
+                    <a href="{{ route('explore') }}"
                         class="nav-link {{ request()->routeIs('explore') ? 'active text-light' : 'text-textMuted hover:text-light' }} px-3 py-2 font-medium">Explore
                         Studios</a>
                 </div>

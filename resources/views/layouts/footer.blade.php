@@ -27,7 +27,7 @@
                 <ul class="space-y-3">
                     <li><a href="#"
                             class="text-textMuted hover:text-light text-sm">Find Studios</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('explore') }}"
                             class="text-textMuted hover:text-light text-sm">List Your Studio</a>
                     </li>
                 </ul>
