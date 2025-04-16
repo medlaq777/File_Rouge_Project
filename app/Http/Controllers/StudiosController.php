@@ -9,10 +9,8 @@ class StudiosController extends Controller
 {
     public function index()
     {
-        // Fetch all studios from the database
         $studios = Studios::paginate(4);
-
-        // Return the view with the studios data
-        return view('welcome', compact('studios'));
+        $json = json_encode($studios);
+        return view('welcome', compact('studios', 'json'));
     }
 }
