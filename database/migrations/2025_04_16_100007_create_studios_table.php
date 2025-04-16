@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('address')->nullable();
             $table->string('location')->nullable();
             $table->string('price')->nullable();
             $table->string('availability')->nullable();
             $table->string('equipment')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
             $table->timestamps();
         });
     }
