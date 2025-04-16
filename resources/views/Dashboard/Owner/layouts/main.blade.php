@@ -30,7 +30,7 @@
               </a>
             </li>
             <li class="mt-8">
-              <a href="#" class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200">
+              <a href="{{ route('logout') }}" class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200">
                 <i class="fas fa-sign-out-alt mr-3"></i>
                 Log Out
               </a>

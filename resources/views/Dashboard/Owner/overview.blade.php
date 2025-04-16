@@ -3,7 +3,7 @@
 @section('header')
 @include('Dashboard.Owner.layouts.header')
 @endsection
-@section('global')
+@section('main')
 @include('Dashboard.Owner.layouts.main')
 @endsection
 @section('addStudio')
