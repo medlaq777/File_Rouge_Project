@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-8">
             <h2 class="text-2xl font-bold text-light">Featured Studios</h2>
-            <a href="{{ '#' }}"
+            <a href="{{ route('explore') }}"
                 class="text-primary hover:text-primaryHover font-medium flex items-center">
                 View All
                 <i class="fas fa-chevron-right ml-1"></i>

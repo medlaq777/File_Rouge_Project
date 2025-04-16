@@ -120,29 +120,19 @@
                         <h3 class="font-medium mb-3">Minimum Rating</h3>
                         <div class="flex items-center space-x-2">
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
+                                <i class="fas fa-star"></i>
                             </button>
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
+                                <i class="fas fa-star"></i>
                             </button>
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
+                                <i class="fas fa-star"></i>
                             </button>
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
+                                <i class="fas fa-star"></i>
                             </button>
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
+                                <i class="fas fa-star"></i>
                             </button>
                         </div>
                     </div>
@@ -180,231 +170,47 @@
                 </div>
 
 
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-                    <div class="studio-card bg-darkUI rounded-xl overflow-hidden border border-border hover:shadow-custom transition-all duration-300 animate-fade-in" style="animation-delay: 0.05s">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/api/placeholder/600/300" alt="Studio One" class="studio-image w-full h-full object-cover transition-transform duration-300">
-                            <div class="absolute top-3 left-3 bg-primary text-white px-2 py-1 rounded text-xs font-medium">
-                                Popular
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    @foreach ($studios as $studio)
+                        <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card animate-fade-in"
+                            style="animation-delay: {{ $loop->iteration * 0.1 }}s">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://placehold.co/600x400" alt="{{ $studio['name'] }}"
+                                    class="w-full h-full object-cover studio-img">
+                                @if (isset($studio['badge']))
+                                    <div class="absolute top-0 right-0 p-2">
+                                        <span
+                                            class="bg-{{ $studio['badge']['color'] }} text-white text-xs font-medium px-2.5 py-0.5 rounded">
+                                            {{ $studio['badge']['text'] }}
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
-                            <div class="absolute top-3 right-3 bg-darkUI bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
-                                4.9
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-semibold mb-2">Harmony Studios</h3>
-                            <div class="flex items-center mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-textMuted mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span class="text-sm text-textMuted">Downtown, New York</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <span class="text-primary font-bold">$65</span>
-                                    <span class="text-sm text-textMuted">/hour</span>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-medium text-light">{{ $studio['name'] }}</h3>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                        <span class="ml-1 text-sm text-textMuted">{{ $studio['rating'] }}</span>
+                                    </div>
                                 </div>
-                                <div class="flex gap-2">
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Recording</span>
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Mixing</span>
+                                <p class="mt-1 text-sm text-textMuted">{{ $studio['location'] }}</p>
+                                <div class="mt-2 flex flex-wrap gap-1">
+                                    {{-- @foreach ($studio['features'] as $feature)
+                                        <span class="bg-darkUI text-textMuted text-xs px-2 py-1 rounded">{{ $feature }}</span>
+                                    @endforeach --}}
                                 </div>
-                            </div>
-                            <a href="#" class="block w-full bg-darkAccent hover:bg-opacity-70 text-center py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-border">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <div class="studio-card bg-darkUI rounded-xl overflow-hidden border border-border hover:shadow-custom transition-all duration-300 animate-fade-in" style="animation-delay: 0.1s">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/api/placeholder/600/301" alt="Studio Two" class="studio-image w-full h-full object-cover transition-transform duration-300">
-                            <div class="absolute top-3 right-3 bg-darkUI bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
-                                4.7
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-semibold mb-2">Beat Factory</h3>
-                            <div class="flex items-center mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-textMuted mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span class="text-sm text-textMuted">Midtown, New York</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <span class="text-primary font-bold">$75</span>
-                                    <span class="text-sm text-textMuted">/hour</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Production</span>
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Recording</span>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <span class="text-light font-bold">${{ $studio['price'] }}<span
+                                            class="text-textMuted font-normal text-sm">/hr</span></span>
+                                    <button
+                                        class="px-3 py-1 bg-primary hover:bg-primaryHover text-white text-sm font-medium rounded">
+                                        Book Now
+                                    </button>
                                 </div>
                             </div>
-                            <a href="#" class="block w-full bg-darkAccent hover:bg-opacity-70 text-center py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-border">
-                                View Details
-                            </a>
                         </div>
-                    </div>
-
-
-                    <div class="studio-card bg-darkUI rounded-xl overflow-hidden border border-border hover:shadow-custom transition-all duration-300 animate-fade-in" style="animation-delay: 0.15s">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/api/placeholder/600/302" alt="Studio Three" class="studio-image w-full h-full object-cover transition-transform duration-300">
-                            <div class="absolute top-3 left-3 bg-primary text-white px-2 py-1 rounded text-xs font-medium">
-                                New
-                            </div>
-                            <div class="absolute top-3 right-3 bg-darkUI bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
-                                4.8
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-semibold mb-2">Soundwave Studios</h3>
-                            <div class="flex items-center mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-textMuted mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span class="text-sm text-textMuted">Brooklyn, New York</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <span class="text-primary font-bold">$55</span>
-                                    <span class="text-sm text-textMuted">/hour</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Rehearsal</span>
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Recording</span>
-                                </div>
-                            </div>
-                            <a href="#" class="block w-full bg-darkAccent hover:bg-opacity-70 text-center py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-border">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <div class="studio-card bg-darkUI rounded-xl overflow-hidden border border-border hover:shadow-custom transition-all duration-300 animate-fade-in" style="animation-delay: 0.2s">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/api/placeholder/600/303" alt="Studio Four" class="studio-image w-full h-full object-cover transition-transform duration-300">
-                            <div class="absolute top-3 right-3 bg-darkUI bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
-                                4.6
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-semibold mb-2">Rhythm Room</h3>
-                            <div class="flex items-center mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-textMuted mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span class="text-sm text-textMuted">SoHo, New York</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <span class="text-primary font-bold">$80</span>
-                                    <span class="text-sm text-textMuted">/hour</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Mixing</span>
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Production</span>
-                                </div>
-                            </div>
-                            <a href="#" class="block w-full bg-darkAccent hover:bg-opacity-70 text-center py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-border">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <div class="studio-card bg-darkUI rounded-xl overflow-hidden border border-border hover:shadow-custom transition-all duration-300 animate-fade-in" style="animation-delay: 0.25s">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/api/placeholder/600/304" alt="Studio Five" class="studio-image w-full h-full object-cover transition-transform duration-300">
-                            <div class="absolute top-3 right-3 bg-darkUI bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
-                                4.5
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-semibold mb-2">Echo Chamber</h3>
-                            <div class="flex items-center mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-textMuted mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span class="text-sm text-textMuted">East Village, New York</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <span class="text-primary font-bold">$60</span>
-                                    <span class="text-sm text-textMuted">/hour</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Recording</span>
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Rehearsal</span>
-                                </div>
-                            </div>
-                            <a href="#" class="block w-full bg-darkAccent hover:bg-opacity-70 text-center py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-border">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <div class="studio-card bg-darkUI rounded-xl overflow-hidden border border-border hover:shadow-custom transition-all duration-300 animate-fade-in" style="animation-delay: 0.3s">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/api/placeholder/600/305" alt="Studio Six" class="studio-image w-full h-full object-cover transition-transform duration-300">
-                            <div class="absolute top-3 left-3 bg-primary text-white px-2 py-1 rounded text-xs font-medium">
-                                Featured
-                            </div>
-                            <div class="absolute top-3 right-3 bg-darkUI bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                </svg>
-                                4.9
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-semibold mb-2">Groove Lab</h3>
-                            <div class="flex items-center mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-textMuted mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span class="text-sm text-textMuted">Chelsea, New York</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div>
-                                    <span class="text-primary font-bold">$90</span>
-                                    <span class="text-sm text-textMuted">/hour</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Production</span>
-                                    <span class="bg-darkAccent px-2 py-1 rounded-md text-xs">Mixing</span>
-                                </div>
-                            </div>
-                            <a href="#" class="block w-full bg-darkAccent hover:bg-opacity-70 text-center py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-border">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
 
