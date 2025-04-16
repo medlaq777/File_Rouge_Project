@@ -27,7 +27,7 @@ class StudiosFactory extends Factory
 
         return [
             'user_id' => $this->faker->randomElement($ownerIds),
-            'name' => $this->faker->company,
+            'name' => $this->faker->word .' Studio',
             'description' => $this->faker->text(200),
             'address' => $this->faker->address,
             'location' => $this->faker->randomElement(['Casablanca', 'Rabat', 'Marrakech', 'Fes', 'Tangier', 'Agadir', 'Oujda', 'Kenitra', 'Tetouan', 'Safi']),
