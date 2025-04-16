@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Enums\RoleEnum;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -61,5 +63,10 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === RoleEnum::Admin;
+    }
+
+    public function ownerStudios(): HasOneOrMany
+    {
+        return $this->hasMany(Studios::class);
     }
 }
