@@ -3,7 +3,7 @@
     <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
       <div class="hidden md:flex items-center space-x-6">
         <a href="{{ '/' }}" class="flex-shrink-0 flex items-center">
-            <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="StudioSpace Logo" class="w-12">
+            <img src="{{ Vite::asset('resources/img/logo.svg') }}" alt="StudioSpace Logo" class="w-16">
         </a>
       </div>
 
