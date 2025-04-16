@@ -9,9 +9,6 @@
 @section('hiw')
     @include('layouts.hiw')
 @endsection
-{{-- @section('explore')
-    @include('layouts.explore')
-@endsection --}}
 @section('studios')
     @include('layouts.studios')
 @endsection
