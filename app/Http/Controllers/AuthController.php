@@ -46,7 +46,11 @@
             $user = $this->authService->login($credentials);
             if ($user) {
                 Auth::login($user);
-                return redirect()->intended(route('showProfile', ['id' => $user->id]));
+                $user = Auth::user();
+                if ($user->isOwner()) {
+                    return redirect()->intended(route('Dashboard.Owner.'));
+                }
+                return redirect()->intended(route('', ['id' => $user->id]));
             }
             return back()->withErrors([
                 'email' => 'Invalid credentials.',
