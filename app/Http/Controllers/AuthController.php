@@ -48,9 +48,14 @@
                 Auth::login($user);
                 $user = Auth::user();
                 if ($user->isOwner()) {
-                    return redirect()->intended(route('dashboard'));
+                    return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
                 }
-                return redirect()->intended(route('', ['id' => $user->id]));
+                if ($user->isAdmin()) {
+                    return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+                }
+                if ($user->isArtist()) {
+                    return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+                }
             }
             return back()->withErrors([
                 'email' => 'Invalid credentials.',
