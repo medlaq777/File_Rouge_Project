@@ -26,7 +26,7 @@ class ProfileUserFactory extends Factory
             'city' => $this->faker->city(),
             'country' => 'Morocco',
             'bio' => $this->faker->text(200),
-            'profile_image' => $this->faker->imageUrl(640, 480, 'people'),
+            'profile_image' => 'https://placehold.co/200x200/EEE/31343C',
         ];
     }
 }
