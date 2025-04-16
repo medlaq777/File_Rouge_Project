@@ -25,7 +25,7 @@
       <div class="px-4 py-3 space-y-3">
         <div class="flex items-center space-x-3 mb-4">
           <i class="fas fa-user-circle text-primary h-5 w-5"></i>
-          <span class="text-light">John Doe</span>
+          <span class="text-light">{{ Auth::user()->profile->full_name }}</span>
         </div>
         <a href="#" onclick="showTab('dashboard')" class="block text-textMuted hover:text-light font-medium py-2 border-l-2 border-transparent hover:border-primary pl-3 transition-all duration-200">
           <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
