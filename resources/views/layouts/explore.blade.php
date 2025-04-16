@@ -154,8 +154,7 @@
 
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold">24 Studios Found</h2>
-                        <p class="text-textMuted">in New York, NY</p>
+                        <h2 class="text-2xl font-bold text-primary">{{ count($studios) }} Studios Found</h2>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="text-sm text-textMuted">Sort by:</span>
@@ -195,11 +194,6 @@
                                     </div>
                                 </div>
                                 <p class="mt-1 text-sm text-textMuted">{{ $studio['location'] }}</p>
-                                <div class="mt-2 flex flex-wrap gap-1">
-                                    {{-- @foreach ($studio['features'] as $feature)
-                                        <span class="bg-darkUI text-textMuted text-xs px-2 py-1 rounded">{{ $feature }}</span>
-                                    @endforeach --}}
-                                </div>
                                 <div class="mt-4 flex items-center justify-between">
                                     <span class="text-light font-bold">${{ $studio['price'] }}<span
                                             class="text-textMuted font-normal text-sm">/hr</span></span>

@@ -9,8 +9,13 @@ class StudiosController extends Controller
 {
     public function index()
     {
-        $studios = Studios::paginate(4);
-        $json = json_encode($studios);
-        return view('welcome', compact('studios', 'json'));
+        if (request()->routeIs('welcome')) {
+            $pagination = Studios::paginate(4);
+            return view('welcome', ['studios' => $pagination]);
+        } else {
+            $studios = Studios::all();
+            return view('explore', ['studios' => $studios]);
+        }
     }
+
 }
