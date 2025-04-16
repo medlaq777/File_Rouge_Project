@@ -34,33 +34,33 @@
 
             <div class="lg:w-1/4">
                 <div class="bg-darkAccent rounded-lg border border-border p-5 sticky top-20">
-                    <h2 class="text-xl font-bold mb-4">Filters</h2>
+                    <h2 class="text-primary text-xl font-bold mb-4">Filters</h2>
 
 
                     <div class="mb-6">
-                        <h3 class="font-medium mb-3">Studio Type</h3>
+                        <h3 class="font-medium mb-3 text-textMuted">Studio Type</h3>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <input type="checkbox" id="recording" class="filter-checkbox hidden">
-                                <label for="recording" class="block text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primary">
+                                <label for="recording" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Recording
                                 </label>
                             </div>
                             <div>
                                 <input type="checkbox" id="production" class="filter-checkbox hidden">
-                                <label for="production" class="block text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primary">
+                                <label for="production" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Production
                                 </label>
                             </div>
                             <div>
                                 <input type="checkbox" id="mixing" class="filter-checkbox hidden">
-                                <label for="mixing" class="block text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primary">
+                                <label for="mixing" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Mixing
                                 </label>
                             </div>
                             <div>
                                 <input type="checkbox" id="rehearsal" class="filter-checkbox hidden">
-                                <label for="rehearsal" class="block text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primary">
+                                <label for="rehearsal" class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
                                     Rehearsal
                                 </label>
                             </div>
@@ -69,12 +69,12 @@
 
 
                     <div class="mb-6">
-                        <h3 class="font-medium mb-3">Price Range (per hour)</h3>
+                        <h3 class="font-medium mb-3 text-primary">Price Range (per hour)</h3>
                         <div class="px-1">
                             <input type="range" min="20" max="200" value="100" class="w-full h-2 bg-darkUI rounded-lg appearance-none cursor-pointer" id="priceRange">
                             <div class="flex justify-between mt-2">
                                 <span class="text-sm text-textMuted">$20</span>
-                                <span class="text-sm font-medium" id="priceValue">$100</span>
+                                <span class="text-sm font-medium text-textMuted" id="priceValue">$100</span>
                                 <span class="text-sm text-textMuted">$200</span>
                             </div>
                         </div>
@@ -82,34 +82,34 @@
 
 
                     <div class="mb-6">
-                        <h3 class="font-medium mb-3">Equipment</h3>
+                        <h3 class="font-medium mb-3 text-primary">Equipment</h3>
                         <div class="space-y-2">
                             <div class="flex items-center">
                                 <input type="checkbox" id="proTools" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="proTools" class="ml-2 text-sm">Pro Tools</label>
+                                <label for="proTools" class="ml-2 text-sm text-textMuted">Pro Tools</label>
                             </div>
                             <div class="flex items-center">
                                 <input type="checkbox" id="logicPro" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="logicPro" class="ml-2 text-sm">Logic Pro</label>
+                                <label for="logicPro" class="ml-2 text-sm text-textMuted">Logic Pro</label>
                             </div>
                             <div class="flex items-center">
                                 <input type="checkbox" id="ableton" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="ableton" class="ml-2 text-sm">Ableton Live</label>
+                                <label for="ableton" class="ml-2 text-sm text-textMuted">Ableton Live</label>
                             </div>
                             <div class="flex items-center">
                                 <input type="checkbox" id="flStudio" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="flStudio" class="ml-2 text-sm">FL Studio</label>
+                                <label for="flStudio" class="ml-2 text-sm text-textMuted">FL Studio</label>
                             </div>
                             <div class="flex items-center">
                                 <input type="checkbox" id="drumKit" class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="drumKit" class="ml-2 text-sm">Drum Kit</label>
+                                <label for="drumKit" class="ml-2 text-sm text-textMuted">Drum Kit</label>
                             </div>
                         </div>
                     </div>
 
 
                     <div class="mb-6">
-                        <h3 class="font-medium mb-3">Availability</h3>
+                        <h3 class="font-medium mb-3 text-primary">Availability</h3>
                         <div class="relative">
                             <input type="date" class="w-full bg-inputBg border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
                         </div>
@@ -117,7 +117,7 @@
 
 
                     <div class="mb-6">
-                        <h3 class="font-medium mb-3">Minimum Rating</h3>
+                        <h3 class="font-medium mb-3 text-primary">Minimum Rating</h3>
                         <div class="flex items-center space-x-2">
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white">
                                 <i class="fas fa-star"></i>
