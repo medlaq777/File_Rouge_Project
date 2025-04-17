@@ -25,6 +25,7 @@ class StudiosService
         }
     }
 
+
     public function Search(?string $search = null)
     {
         if (!$search) {
@@ -35,11 +36,5 @@ class StudiosService
             ->get();
         }
         return $studios;
-    }
-
-    public function show($id)
-    {
-        $studio = Studios::findOrFail($id);
-        return view('studios.show', ['studio' => $studio]);
     }
 }
