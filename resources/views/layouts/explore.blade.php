@@ -2,13 +2,15 @@
     <section class="relative search-gradient py-12">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-4xl mx-auto">
-                <h1 class="text-3xl sm:text-4xl font-bold mb-6 text-center text-primary">Find Your Perfect Studio Space</h1>
+                <h1 class="text-3xl sm:text-4xl font-bold mb-6 text-center text-primary">Find Your Perfect Studio Space
+                </h1>
 
                 <div class="bg-darkUI bg-opacity-80 p-4 rounded-lg border border-border shadow-custom mb-6">
                     <div class="flex flex-col sm:flex-row gap-3">
                         <div class="flex-1">
                             <div class="relative">
-                                <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted"></i>
+                                <i
+                                    class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted"></i>
                                 <input type="text" placeholder="City, address"
                                     class="w-full bg-inputBg border border-border rounded-lg py-3 px-10 text-light placeholder-textMuted focus:outline-none focus:ring-1 focus:ring-primary">
                             </div>
@@ -30,43 +32,6 @@
             <div class="lg:w-1/4">
                 <div class="bg-darkAccent rounded-lg border border-border p-5 sticky top-20">
                     <h2 class="text-primary text-xl font-bold mb-4">Filters</h2>
-
-
-                    <div class="mb-6">
-                        <h3 class="font-medium mb-3 text-textMuted">Studio Type</h3>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <input type="checkbox" id="recording" class="filter-checkbox hidden">
-                                <label for="recording"
-                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
-                                    Recording
-                                </label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="production" class="filter-checkbox hidden">
-                                <label for="production"
-                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
-                                    Production
-                                </label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="mixing" class="filter-checkbox hidden">
-                                <label for="mixing"
-                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
-                                    Mixing
-                                </label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="rehearsal" class="filter-checkbox hidden">
-                                <label for="rehearsal"
-                                    class="block text-primary text-center py-2 px-3 border border-border rounded-md text-sm cursor-pointer transition-colors duration-200 hover:border-primaryHover">
-                                    Rehearsal
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Price Range (per hour)</h3>
                         <div class="px-1">
@@ -125,8 +90,7 @@
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Minimum Rating</h3>
                         <div class="flex items-center space-x-2">
-                            <button
-                                class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white">
+                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white">
                                 <i class="fas fa-star"></i>
                             </button>
                             <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
