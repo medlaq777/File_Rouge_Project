@@ -221,39 +221,28 @@
                     searchInput.addEventListener('input', performSearch);
                 </script>
                 <div class="flex justify-center mt-12">
-                    <nav class="flex items-center gap-2 px-2 py-3 bg-white/5 backdrop-blur-sm rounded-xl shadow-sm">
-                        @if ($pagination['current_page'] > 1)
-                            <a href="{{ $pagination['prev_page_url'] }}"
-                                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-200">
-                                <i class="fas fa-chevron-left text-sm"></i>
-                            </a>
-                        @else
-                            <span class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed">
-                                <i class="fas fa-chevron-left text-sm"></i>
-                            </span>
-                        @endif
+                    <nav class="inline-flex items-center gap-3 p-4 bg-darkAccent rounded-2xl shadow-lg">
+                        <!-- Previous page button -->
+                        <a href="{{ $pagination['current_page'] > 1 ? $pagination['prev_page_url'] : '#' }}"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border {{ $pagination['current_page'] > 1 ? 'text-textMuted hover:bg-primary hover:text-white transition-all duration-200' : 'text-textMuted opacity-50 cursor-not-allowed' }}">
+                            <i class="fas fa-chevron-left text-sm"></i>
+                        </a>
 
+                        <!-- Page numbers -->
                         @foreach ($pagination['links'] as $link)
-                            @if ($link['url'])
+                            @if (is_numeric(trim(strip_tags($link['label']))) && $link['url'])
                                 <a href="{{ $link['url'] }}"
-                                    class="w-10 h-10 flex items-center justify-center rounded-lg {{ $link['active'] ? 'bg-primary text-white font-medium shadow-md' : 'border border-gray-200 text-gray-600 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-200' }}">
-                                    {{ $link['label'] }}
+                                    class="w-10 h-10 flex items-center justify-center rounded-lg {{ $link['active'] ? 'bg-primary text-white font-medium' : 'border border-border text-light hover:bg-primary hover:text-white transition-all duration-200' }}">
+                                    {{ trim(strip_tags($link['label'])) }}
                                 </a>
-                            @else
-                                <span class="w-10 h-10 flex items-center justify-center text-gray-400">{{ $link['label'] }}</span>
                             @endif
                         @endforeach
 
-                        @if ($pagination['current_page'] < $pagination['last_page'])
-                            <a href="{{ $pagination['next_page_url'] }}"
-                                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-200">
-                                <i class="fas fa-chevron-right text-sm"></i>
-                            </a>
-                        @else
-                            <span class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed">
-                                <i class="fas fa-chevron-right text-sm"></i>
-                            </span>
-                        @endif
+                        <!-- Next page arrow -->
+                        <a href="{{ $pagination['current_page'] < $pagination['last_page'] ? $pagination['next_page_url'] : '#' }}"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border {{ $pagination['current_page'] < $pagination['last_page'] ? 'text-textMuted hover:bg-primary hover:text-white transition-all duration-200' : 'text-textMuted opacity-50 cursor-not-allowed' }}">
+                            <i class="fas fa-chevron-right text-sm"></i>
+                        </a>
                     </nav>
                 </div>
             </div>
