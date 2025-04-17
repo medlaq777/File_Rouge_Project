@@ -14,14 +14,16 @@ class StudiosService
     if (request()->routeIs('welcome')) {
         $pagination = Studios::paginate(4);
         return view('welcome', ['studios' => $pagination]);
-    } else {
-        $pagination = Studios::paginate(12);
-        $stud = Studios::all();
-        return view('explore', [
-            'studios' => $pagination,
-            'pagination' => $pagination->toArray(),
-            'stud' => $stud->toArray(),
-        ]);
+    }
+    else {
+        $pagination = Studios::paginate(12); // Eager load equipement
+        $equipements = Studios::with('equipments')->get();
+        dd($equipements->pluck('name'));
+        // return view('explore', [
+        //     'studios' => $pagination,
+        //     'pagination' => $pagination->toArray(),
+        //     'stud' => $equipements->toArray(), // Pass equipement data to the view
+        // ]);
     }
 }
 
