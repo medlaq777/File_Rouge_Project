@@ -2,21 +2,14 @@
     <section class="relative search-gradient py-12">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-4xl mx-auto">
-                <h1 class="text-3xl sm:text-4xl font-bold mb-6 text-center">Find Your Perfect Studio Space</h1>
-
+                <h1 class="text-3xl sm:text-4xl font-bold mb-6 text-center text-primary">Find Your Perfect Studio Space</h1>
 
                 <div class="bg-darkUI bg-opacity-80 p-4 rounded-lg border border-border shadow-custom mb-6">
                     <div class="flex flex-col sm:flex-row gap-3">
                         <div class="flex-1">
                             <div class="relative">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <input type="text" placeholder="City, neighborhood, or address"
+                                <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted"></i>
+                                <input type="text" placeholder="City, address"
                                     class="w-full bg-inputBg border border-border rounded-lg py-3 px-10 text-light placeholder-textMuted focus:outline-none focus:ring-1 focus:ring-primary">
                             </div>
                         </div>
