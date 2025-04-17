@@ -32,9 +32,11 @@ class DatabaseSeeder extends Seeder
         Studios::factory(20)->create()->each(function ($studio) use ($ownerUsers) {
             $studio->user_id = $ownerUsers->random()->id;
             $studio->save();
+        });
 
-            // Create 3 equipments for each studio
-            Equipement::factory(3)->create(['studio_id' => $studio->id]);
+        Equipement::factory(20)->create()->each(function ($equipement) use ($ownerUsers) {
+            $equipement->studio_id = Studios::all()->random()->id;
+            $equipement->save();
         });
     }
 }

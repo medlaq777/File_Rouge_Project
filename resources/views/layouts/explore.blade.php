@@ -50,10 +50,10 @@
                         <h3 class="font-medium mb-3 text-primary">Equipment</h3>
                         @foreach ($stud as $equipment)
                             <div class="flex items-center mb-2">
-                                <input type="checkbox" id="{{ $equipment['id'] }}"
+                                <input type="checkbox" id="{{ $equipment['name'] }}"
                                     class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary filter-checkbox">
-                                <label for="{{ $equipment['equipement'] }}"
-                                    class="ml-2 text-sm text-textMuted">{{ $equipment['equipement'] }}</label>
+                                <label for="{{ $equipment['name'] }}"
+                                    class="ml-2 text-sm text-textMuted">{{ $equipment['name'] }}</label>
                             </div>
                         @endforeach
 

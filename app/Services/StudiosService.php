@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Studios;
+use App\Models\Equipement;
 
 class StudiosService
 {
@@ -15,15 +16,15 @@ class StudiosService
     }
     else {
         $pagination = Studios::paginate(12); // Eager load equipement
-        $equipement = Studios::with('Equipement')->get();
-        dd($equipement->pluck('name'));
-        // return view('explore', [
-        //     'studios' => $pagination,
-        //     'pagination' => $pagination->toArray(),
-        //     'stud' => $equipements->toArray(), // Pass equipement data to the view
-        // ]);
+        $equipements = Equipement::distinct('name')->get(); // Eager load unique equipement names
+        return view('explore', [
+            'studios' => $pagination,
+            'pagination' => $pagination->toArray(),
+            'stud' => $equipements->toArray(), // Pass equipement data to the view
+        ]);
     }
 }
+
 
     public function Search(?string $search = null)
     {
