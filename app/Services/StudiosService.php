@@ -14,7 +14,7 @@ class StudiosService
             $pagination = Studios::paginate(4);
             return view('welcome', ['studios' => $pagination]);
         } else {
-            $studios = Studios::all();
+            $studios = Studios::paginate(12);
             return view('explore', ['studios' => $studios]);
         }
     }

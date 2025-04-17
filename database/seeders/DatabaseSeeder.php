@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create users and their profiles
-        User::factory(10)->create()->each(function ($user) {
+        User::factory(20)->create()->each(function ($user) {
             ProfileUser::factory()->create(['user_id' => $user->id]);
         });
 
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create studios and assign them to random owners
-        Studios::factory(10)->create()->each(function ($studio) use ($ownerUsers) {
+        Studios::factory(20)->create()->each(function ($studio) use ($ownerUsers) {
             $studio->user_id = $ownerUsers->random()->id;
             $studio->save();
         });
