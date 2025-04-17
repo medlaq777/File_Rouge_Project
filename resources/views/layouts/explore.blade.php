@@ -11,7 +11,7 @@
                             <div class="relative">
                                 <i
                                     class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted"></i>
-                                <input type="text" placeholder="City, address"
+                                <input type="text" placeholder="City, or Studio Name"
                                     class="w-full bg-inputBg border border-border rounded-lg py-3 px-10 text-light placeholder-textMuted focus:outline-none focus:ring-1 focus:ring-primary">
                             </div>
                         </div>
@@ -26,6 +26,42 @@
             </div>
         </div>
     </section>
+    <script>
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchButton = document.querySelector('button[type="submit"]');
+
+        searchButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const query = searchInput.value.trim();
+            if (query) {
+                fetch(`/search?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the search results here
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching search results:', error);
+                    });
+            }
+        });
+        searchInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const query = searchInput.value.trim();
+                if (query) {
+                    fetch(`/search?query=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the search results here
+                            console.log(data);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching search results:', error);
+                        });
+            }
+        });
+    </script>
     <section class="py-8 container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row gap-6">
 
@@ -276,8 +312,4 @@
             mobileMenu.classList.add('hidden');
         }
     });
-
-
-    const logo = document.querySelector('header a svg');
-    logo.classList.add('animate-pulse-slow');
 </script>
