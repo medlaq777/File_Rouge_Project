@@ -19,7 +19,6 @@ class Studios extends Model
         'location',
         'price',
         'availability',
-        'equipement',
         'start_date',
         'end_date',
     ];
