@@ -220,25 +220,40 @@
                     };
                     searchInput.addEventListener('input', performSearch);
                 </script>
-                <div class="flex justify-center mt-10">
-                    <nav class="flex items-center gap-1">
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white">1</a>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">2</a>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">3</a>
-                        <span class="w-10 h-10 flex items-center justify-center text-textMuted">...</span>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">8</a>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
+                <div class="flex justify-center mt-12">
+                    <nav class="flex items-center gap-2 px-2 py-3 bg-white/5 backdrop-blur-sm rounded-xl shadow-sm">
+                        @if ($pagination['current_page'] > 1)
+                            <a href="{{ $pagination['prev_page_url'] }}"
+                                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-200">
+                                <i class="fas fa-chevron-left text-sm"></i>
+                            </a>
+                        @else
+                            <span class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed">
+                                <i class="fas fa-chevron-left text-sm"></i>
+                            </span>
+                        @endif
+
+                        @foreach ($pagination['links'] as $link)
+                            @if ($link['url'])
+                                <a href="{{ $link['url'] }}"
+                                    class="w-10 h-10 flex items-center justify-center rounded-lg {{ $link['active'] ? 'bg-primary text-white font-medium shadow-md' : 'border border-gray-200 text-gray-600 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-200' }}">
+                                    {{ $link['label'] }}
+                                </a>
+                            @else
+                                <span class="w-10 h-10 flex items-center justify-center text-gray-400">{{ $link['label'] }}</span>
+                            @endif
+                        @endforeach
+
+                        @if ($pagination['current_page'] < $pagination['last_page'])
+                            <a href="{{ $pagination['next_page_url'] }}"
+                                class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-200">
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </a>
+                        @else
+                            <span class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed">
+                                <i class="fas fa-chevron-right text-sm"></i>
+                            </span>
+                        @endif
                     </nav>
                 </div>
             </div>

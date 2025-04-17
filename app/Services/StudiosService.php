@@ -8,14 +8,18 @@ use Illuminate\Support\Facades\Hash;
 
 class StudiosService
 {
+
     public function index()
     {
         if (request()->routeIs('welcome')) {
             $pagination = Studios::paginate(4);
             return view('welcome', ['studios' => $pagination]);
         } else {
-            $studios = Studios::paginate(12);
-            return view('explore', ['studios' => $studios]);
+            $pagination = Studios::paginate(12);
+            return view('explore', [
+                'studios' => $pagination,
+                'pagination' => $pagination->toArray(),
+            ]);
         }
     }
 
