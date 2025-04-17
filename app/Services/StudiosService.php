@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Studios;
-use App\Models\ProfileUser;
-use Illuminate\Support\Facades\Hash;
 
 class StudiosService
 {
@@ -17,8 +15,8 @@ class StudiosService
     }
     else {
         $pagination = Studios::paginate(12); // Eager load equipement
-        $equipements = Studios::with('equipments')->get();
-        dd($equipements->pluck('name'));
+        $equipement = Studios::with('Equipement')->get();
+        dd($equipement->pluck('name'));
         // return view('explore', [
         //     'studios' => $pagination,
         //     'pagination' => $pagination->toArray(),

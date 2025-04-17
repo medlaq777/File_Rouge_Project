@@ -10,6 +10,7 @@ class Equipement extends Model
 {
     /** @use HasFactory<\Database\Factories\EquipementFactory> */
     use HasFactory;
+    protected $table = 'equipement';
 
     protected $fillable = [
         'studio_id',
@@ -20,7 +21,7 @@ class Equipement extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-    public function studio(): BelongsTo
+    public function studios(): BelongsTo
     {
         return $this->belongsTo(Studios::class);
     }

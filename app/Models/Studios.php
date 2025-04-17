@@ -34,7 +34,7 @@ class Studios extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function equipments(): HasMany
+    public function equipements(): HasMany
     {
         return $this->hasMany(Equipement::class);
     }
