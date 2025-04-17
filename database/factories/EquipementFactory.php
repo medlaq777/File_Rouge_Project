@@ -20,7 +20,7 @@ class EquipementFactory extends Factory
         return [
             'studio_id' => Studios::factory(),
             'name' => $this->faker->randomElement(['FL Studio', 'Ableton Live', 'Logic Pro X', 'Pro Tools', 'Cubase', 'Studio One', 'GarageBand']),
-            // 'description' => $this->faker->text(200),
+            'description' => $this->faker->text(200),
             // Add any other fields you want to include in the factory
         ];
     }
