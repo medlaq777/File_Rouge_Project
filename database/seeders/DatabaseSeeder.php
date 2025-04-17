@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Equipement;
 use App\Models\User;
 use App\Models\ProfileUser;
 use App\Models\Studios;
@@ -31,6 +32,9 @@ class DatabaseSeeder extends Seeder
         Studios::factory(20)->create()->each(function ($studio) use ($ownerUsers) {
             $studio->user_id = $ownerUsers->random()->id;
             $studio->save();
+
+            // Create 3 equipments for each studio
+            Equipement::factory(3)->create(['studio_id' => $studio->id]);
         });
     }
 }
