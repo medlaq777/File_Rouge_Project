@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Studios;
+use App\Services\StudiosService;
 
 class StudiosController extends Controller
 {
+    private $studiosService;
+    public function __construct(StudiosService $studiosService)
+    {
+        $this->studiosService = $studiosService;
+    }
     public function index()
     {
-        if (request()->routeIs('welcome')) {
-            $pagination = Studios::paginate(4);
-            return view('welcome', ['studios' => $pagination]);
-        } else {
-            $studios = Studios::all();
-            return view('explore', ['studios' => $studios]);
-        }
+        return $this->studiosService->index();
     }
 
 }
