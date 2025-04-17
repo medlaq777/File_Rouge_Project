@@ -11,12 +11,12 @@
                             <div class="relative">
                                 <i
                                     class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted"></i>
-                                <input type="text" placeholder="City, or Studio Name"
+                                <input type="text" placeholder="City, or Studio Name" id="searchInput"
                                     class="w-full bg-inputBg border border-border rounded-lg py-3 px-10 text-light placeholder-textMuted focus:outline-none focus:ring-1 focus:ring-primary">
                             </div>
                         </div>
                         <div class="sm:w-40">
-                            <button
+                            <button type="button" id="searchButton"
                                 class="w-full bg-primary hover:bg-primaryHover text-white py-3 px-4 rounded-lg font-medium transition-all duration-200">
                                 Search
                             </button>
@@ -26,42 +26,6 @@
             </div>
         </div>
     </section>
-    <script>
-        const searchInput = document.querySelector('input[type="text"]');
-        const searchButton = document.querySelector('button[type="submit"]');
-
-        searchButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            const query = searchInput.value.trim();
-            if (query) {
-                fetch(`/search?query=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Handle the search results here
-                        console.log(data);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching search results:', error);
-                    });
-            }
-        });
-        searchInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                const query = searchInput.value.trim();
-                if (query) {
-                    fetch(`/search?query=${encodeURIComponent(query)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Handle the search results here
-                            console.log(data);
-                        })
-                        .catch(error => {
-                            console.error('Error fetching search results:', error);
-                        });
-            }
-        });
-    </script>
     <section class="py-8 container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row gap-6">
 
@@ -174,7 +138,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="studiosContainer">
                     @foreach ($studios as $studio)
                         <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card animate-fade-in"
                             style="animation-delay: {{ $loop->iteration * 0.1 }}s">
@@ -211,15 +175,56 @@
                         </div>
                     @endforeach
                 </div>
+                <script>
+                    const searchInput = document.getElementById('searchInput');
+                    const studiosContainer = document.getElementById('studiosContainer');
+
+                    const performSearch = () => {
+                        const query = searchInput.value.trim();
+                        const url = query ? `/explore/search?search=${encodeURIComponent(query)}` : '/explore/search';
+
+                        fetch(url, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                studiosContainer.innerHTML = '';
+
+                                if (data.length === 0) {
+                                    studiosContainer.innerHTML = '<p class="text-center text-textMuted">No studios found.</p>';
+                                    return;
+                                }
+
+                                data.forEach(studio => {
+                                    const studioCard = `
+                    <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
+                                class="w-full h-full object-cover studio-img">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-medium text-light">${studio.name}</h3>
+                            <p class="mt-1 text-sm text-textMuted">${studio.location}</p>
+                            <span class="text-light font-bold">$${studio.price}<span
+                                class="text-textMuted font-normal text-sm">/hr</span></span>
+                        </div>
+                    </div>
+                `;
+                                    studiosContainer.innerHTML += studioCard;
+                                });
+                            })
+                            .catch(error => console.error('Error:', error));
+                    };
+                    searchInput.addEventListener('input', performSearch);
+                </script>
                 <div class="flex justify-center mt-10">
                     <nav class="flex items-center gap-1">
                         <a href="#"
                             class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <polyline points="15 18 9 12 15 6"></polyline>
-                            </svg>
+                            <i class="fas fa-chevron-left"></i>
                         </a>
                         <a href="#"
                             class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white">1</a>
@@ -232,11 +237,7 @@
                             class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">8</a>
                         <a href="#"
                             class="w-10 h-10 flex items-center justify-center rounded-lg border border-border text-textMuted hover:text-light hover:border-primary transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
+                            <i class="fas fa-chevron-right"></i>
                         </a>
                     </nav>
                 </div>

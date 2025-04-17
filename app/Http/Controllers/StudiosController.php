@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\StudiosService;
+use Illuminate\Http\Request;
 
 class StudiosController extends Controller
 {
@@ -14,6 +15,13 @@ class StudiosController extends Controller
     public function index()
     {
         return $this->studiosService->index();
+    }
+
+    public function Search(Request $request)
+    {
+        $search = $request->input('search', null);
+        $studios = $this->studiosService->Search($search);
+        return response()->json($studios);
     }
 
 }

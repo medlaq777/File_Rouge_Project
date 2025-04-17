@@ -28,6 +28,7 @@ Route::get('/faq', function () {
 })->name('faq');
 
 Route::get('/explore', [StudiosController::class, 'index'])->name('explore');
+Route::get('/explore/search', [StudiosController::class, 'Search'])->name('search');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('showLoginForm');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('showRegisterForm');
