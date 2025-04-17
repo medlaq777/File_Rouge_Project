@@ -56,70 +56,26 @@
                                     class="ml-2 text-sm text-textMuted">{{ $equipment['name'] }}</label>
                             </div>
                         @endforeach
-
-
-
-                        {{-- <div class="space-y-2">
-                            <div class="flex items-center">
-                                <input type="checkbox" id="proTools"
-                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="proTools" class="ml-2 text-sm text-textMuted">Pro Tools</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="logicPro"
-                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="logicPro" class="ml-2 text-sm text-textMuted">Logic Pro</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="ableton"
-                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="ableton" class="ml-2 text-sm text-textMuted">Ableton Live</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="flStudio"
-                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="flStudio" class="ml-2 text-sm text-textMuted">FL Studio</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="drumKit"
-                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
-                                <label for="drumKit" class="ml-2 text-sm text-textMuted">Drum Kit</label>
-                            </div>
-                        </div> --}}
                     </div>
-
-
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Availability</h3>
                         <div class="relative">
-                            <input type="date"
-                                class="w-full bg-inputBg border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
+                            <input type="text" id="availabilityCalendar"
+                                class="w-full bg-inputBg border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary"
+                                placeholder="Select a date">
                         </div>
                     </div>
-
-
-                    <div class="mb-6">
-                        <h3 class="font-medium mb-3 text-primary">Minimum Rating</h3>
-                        <div class="flex items-center space-x-2">
-                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white">
-                                <i class="fas fa-star"></i>
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <i class="fas fa-star"></i>
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <i class="fas fa-star"></i>
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <i class="fas fa-star"></i>
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center rounded-full bg-darkUI text-white">
-                                <i class="fas fa-star"></i>
-                            </button>
-                        </div>
-                    </div>
-
-
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const calendarInput = document.getElementById('availabilityCalendar');
+                            flatpickr(calendarInput, {
+                                dateFormat: "Y-m-d",
+                                minDate: "today",
+                            });
+                        });
+                    </script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+                    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
                     <button
                         class="w-full bg-primary hover:bg-primaryHover text-white py-3 rounded-lg font-medium transition-all duration-200">
                         Apply Filters
