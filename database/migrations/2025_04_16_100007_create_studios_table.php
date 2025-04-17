@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('price')->nullable();
             $table->string('availability')->nullable();
-            $table->string('equipment')->nullable();
+            $table->string('equipement')->nullable();
             $table->string('rating')->nullable();
             $table->string('feature')->nullable();
             $table->date('start_date')->nullable();

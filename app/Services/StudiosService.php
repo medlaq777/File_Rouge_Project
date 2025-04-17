@@ -10,18 +10,20 @@ class StudiosService
 {
 
     public function index()
-    {
-        if (request()->routeIs('welcome')) {
-            $pagination = Studios::paginate(4);
-            return view('welcome', ['studios' => $pagination]);
-        } else {
-            $pagination = Studios::paginate(12);
-            return view('explore', [
-                'studios' => $pagination,
-                'pagination' => $pagination->toArray(),
-            ]);
-        }
+{
+    if (request()->routeIs('welcome')) {
+        $pagination = Studios::paginate(4);
+        return view('welcome', ['studios' => $pagination]);
+    } else {
+        $pagination = Studios::paginate(12);
+        $stud = Studios::all();
+        return view('explore', [
+            'studios' => $pagination,
+            'pagination' => $pagination->toArray(),
+            'stud' => $stud->toArray(),
+        ]);
     }
+}
 
     public function Search(?string $search = null)
     {

@@ -33,7 +33,7 @@ class StudiosFactory extends Factory
             'location' => $this->faker->randomElement(['Casablanca', 'Rabat', 'Marrakech', 'Fes', 'Tangier', 'Agadir', 'Oujda', 'Kenitra', 'Tetouan', 'Safi']),
             'price' => $this->faker->randomFloat(2, 50, 100),
             'availability' => $this->faker->boolean,
-            'equipment' => $this->faker->randomElement(['FL Studio', 'FL Studio 20', 'Ableton Live', 'Logic Pro X', 'Pro Tools', 'Cubase', 'Studio One', 'GarageBand']),
+            'equipement' => $this->faker->randomElement(['FLStudio', 'AbletonLive', 'LogicProX', 'ProTools', 'Cubase', 'StudioOne', 'GarageBand']),
             'rating' => $this->faker->randomFloat(1, 1, 5),
             'feature' => $this->faker->word,
             'start_date' => now(),

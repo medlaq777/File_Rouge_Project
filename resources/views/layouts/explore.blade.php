@@ -48,7 +48,18 @@
 
                     <div class="mb-6">
                         <h3 class="font-medium mb-3 text-primary">Equipment</h3>
-                        <div class="space-y-2">
+                        @foreach ($stud as $equipment)
+                            <div class="flex items-center mb-2">
+                                <input type="checkbox" id="{{ $equipment['id'] }}"
+                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary filter-checkbox">
+                                <label for="{{ $equipment['equipement'] }}"
+                                    class="ml-2 text-sm text-textMuted">{{ $equipment['equipement'] }}</label>
+                            </div>
+                        @endforeach
+
+
+
+                        {{-- <div class="space-y-2">
                             <div class="flex items-center">
                                 <input type="checkbox" id="proTools"
                                     class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
@@ -74,7 +85,7 @@
                                     class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary">
                                 <label for="drumKit" class="ml-2 text-sm text-textMuted">Drum Kit</label>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
 
