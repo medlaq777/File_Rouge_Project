@@ -15,16 +15,15 @@ class StudiosService
             return view('welcome', ['studios' => $pagination]);
         }
         else {
-            $pagination = Studios::paginate(12); // Eager load equipement
-            $equipements = Equipement::distinct('name')->get(); // Eager load unique equipement names
+            $pagination = Studios::paginate(12);
+            $equipements = Equipement::distinct('name')->get();
             return view('explore', [
                 'studios' => $pagination,
                 'pagination' => $pagination->toArray(),
-                'stud' => $equipements->toArray(), // Pass equipement data to the view
+                'stud' => $equipements->toArray(),
             ]);
         }
     }
-
 
     public function Search(?string $search = null)
     {
@@ -36,5 +35,11 @@ class StudiosService
             ->get();
         }
         return $studios;
+    }
+
+    public function show($id)
+    {
+        $studio = Studios::findOrFail($id);
+        return view('studios.show', ['studio' => $studio]);
     }
 }
