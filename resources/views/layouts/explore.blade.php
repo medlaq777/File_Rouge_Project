@@ -91,7 +91,7 @@
             <div class="lg:w-3/4">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold text-primary">{{ count($studios) }} Studios Found</h2>
+                        <h2 class="text-2xl font-bold text-primary">{{ $count }} Studios Found</h2>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="text-sm text-textMuted">Sort by:</span>

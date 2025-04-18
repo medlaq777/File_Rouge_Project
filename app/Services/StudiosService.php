@@ -15,9 +15,11 @@ class StudiosService
             return view('welcome', ['studios' => $pagination]);
         }
         else {
+            $count = Studios::count();
             $pagination = Studios::paginate(12);
             $equipements = Equipement::distinct('name')->get();
             return view('explore', [
+                'count' => $count,
                 'studios' => $pagination,
                 'pagination' => $pagination->toArray(),
                 'stud' => $equipements->toArray(),
