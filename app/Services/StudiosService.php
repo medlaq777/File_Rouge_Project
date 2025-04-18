@@ -53,5 +53,4 @@ class StudiosService
     {
         return Studios::orderBy('rating', 'desc')->get();
     }
-
 }
