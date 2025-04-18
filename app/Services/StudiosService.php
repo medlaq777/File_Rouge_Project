@@ -27,7 +27,6 @@ class StudiosService
         }
     }
 
-
     public function Search(?string $search = null)
     {
         if (!$search) {
@@ -39,4 +38,32 @@ class StudiosService
         }
         return $studios;
     }
+
+    public function orderLowest()
+    {
+        $studios = Studios::orderBy('price', 'asc')->paginate(12);
+        return view('explore', [
+            'studios' => $studios,
+            'pagination' => $studios->toArray(),
+        ]);
+    }
+
+    public function orderHighest()
+    {
+        $studios = Studios::orderBy('price', 'desc')->paginate(12);
+        return view('explore', [
+            'studios' => $studios,
+            'pagination' => $studios->toArray(),
+        ]);
+    }
+
+    public function mostRated()
+    {
+        $studios = Studios::orderBy('rating', 'desc')->paginate(12);
+        return view('explore', [
+            'studios' => $studios,
+            'pagination' => $studios->toArray(),
+        ]);
+    }
+
 }
