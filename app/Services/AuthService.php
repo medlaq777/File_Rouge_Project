@@ -5,7 +5,8 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\ProfileUser;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Contracts\User as SocialiteUser;
 class AuthService
 {
     public function register(array $data)
@@ -22,7 +23,7 @@ class AuthService
             'username' => $validatedData['username'],
 
         ]);
-
+        Auth::login($user, true);
         return $user;
     }
 
@@ -48,6 +49,7 @@ class AuthService
         if (!Hash::check($validatedData['password'], $user->password)) {
             throw new \Exception('Invalid credentials');
         }
+        Auth::login($user, true);
         return $user;
     }
 
@@ -57,5 +59,25 @@ class AuthService
             'email' => 'required|string|email',
             'password' => 'required|string|min:8',
         ])->validate();
+    }
+
+    public function handleSocialiteUser(string $provider, SocialiteUser $socialiteUser)
+    {
+        $user = User::where('email', $socialiteUser->getEmail())->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $socialiteUser->getName(),
+                'email' => $socialiteUser->getEmail(),
+                'provider' => $provider,
+                'provider_id' => $socialiteUser->getId(),
+                'email_verified_at' => now(),
+                'password' => bcrypt(rand(100000, 999999)),
+            ]);
+        }
+
+        Auth::login($user, true);
+
+        return $user;
     }
 }

@@ -31,8 +31,11 @@
         {
         $user = $this->authService->register($request->all());
         if ($user) {
-            Auth::login($user);
-            return redirect()->route('showLoginForm')->with('success', 'Registration successful. Please log in.');
+            $login = $this->authService->login($request->only('email', 'password'));
+            if ($login) {
+                $user = $this->authService->login($request->only('email', 'password'));
+                return redirect()->route('showLoginForm')->with('success', 'Registration successful. Please log in.');
+            }
         }
         return back()->withErrors([
             'email' => 'Registration failed.',
@@ -44,8 +47,7 @@
             $credentials = $request->only('email', 'password');
             $user = $this->authService->login($credentials);
             if ($user) {
-                Auth::login($user);
-                $user = Auth::user();
+                $user = $this->authService->login($credentials);
                 if ($user->isOwner()) {
                     return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
                 }
@@ -66,4 +68,4 @@
             Auth::logout();
             return redirect()->route('showLoginForm')->with('success', 'Logged out successfully.');
         }
-    }
+}
