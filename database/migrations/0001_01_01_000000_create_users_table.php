@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password')->nullable();
-            $table->enum('role', ['admin', 'artist', 'owner'])->default('artist');
+            $table->enum('role', ['admin', 'artist', 'owner'])->default('owner');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->rememberToken();
