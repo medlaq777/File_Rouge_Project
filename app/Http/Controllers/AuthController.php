@@ -65,7 +65,7 @@
 
         public function logout(Request $request)
         {
-            Auth::logout();
+            $this->authService->logout();
             return redirect()->route('showLoginForm')->with('success', 'Logged out successfully.');
         }
 }

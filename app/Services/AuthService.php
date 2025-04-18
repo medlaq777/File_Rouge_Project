@@ -61,6 +61,11 @@ class AuthService
         ])->validate();
     }
 
+    public function logout()
+    {
+        Auth::logout();
+    }
+
     public function handleSocialiteUser(string $provider, SocialiteUser $socialiteUser)
     {
         $user = User::where('email', $socialiteUser->getEmail())->first();
