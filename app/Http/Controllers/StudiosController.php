@@ -24,25 +24,25 @@ class StudiosController extends Controller
         return response()->json($studios);
     }
 
-    public function sort(Request $request)
-    {
-        $sort = $request->query('sort');
-        $studios = null;
 
-        switch ($sort) {
-            case 'orderLowest':
-                $studios = $this->studiosService->orderLowest();
-                break;
-            case 'orderHighest':
-                $studios = $this->studiosService->orderHighest();
-                break;
-            case 'mostRated':
-                $studios = $this->studiosService->mostRated();
-                break;
-            default:
-                $studios = $this->studiosService->index();
-                break;
-        }
+public function sort(Request $request)
+{
+    $sort = $request->input('sort', null);
+    $studios = null;
+
+    if ($sort == 'lowest') {
+        $studios = $this->studiosService->orderLowest();
+    } elseif ($sort == 'highest') {
+        $studios = $this->studiosService->orderHighest();
+    } elseif ($sort == 'mostRated') {
+        $studios = $this->studiosService->mostRated();
+    }
+
+    if ($studios) {
         return response()->json($studios);
     }
+
+    return response()->json(['error' => 'Invalid sort option'], 400);
+}
+
 }

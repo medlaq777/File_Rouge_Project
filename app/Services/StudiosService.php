@@ -41,29 +41,17 @@ class StudiosService
 
     public function orderLowest()
     {
-        $studios = Studios::orderBy('price', 'asc')->paginate(12);
-        return view('explore', [
-            'studios' => $studios,
-            'pagination' => $studios->toArray(),
-        ]);
+        return Studios::orderBy('price', 'asc')->get();
     }
 
     public function orderHighest()
     {
-        $studios = Studios::orderBy('price', 'desc')->paginate(12);
-        return view('explore', [
-            'studios' => $studios,
-            'pagination' => $studios->toArray(),
-        ]);
+        return Studios::orderBy('price', 'desc')->get();
     }
 
     public function mostRated()
     {
-        $studios = Studios::orderBy('rating', 'desc')->paginate(12);
-        return view('explore', [
-            'studios' => $studios,
-            'pagination' => $studios->toArray(),
-        ]);
+        return Studios::orderBy('rating', 'desc')->get();
     }
 
 }

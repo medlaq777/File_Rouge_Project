@@ -97,36 +97,61 @@
                         <span class="text-sm text-textMuted">Sort by:</span>
                         <select
                             class="bg-darkUI border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary"
-                            onchange="handleSortChange(this.value)">
-                            <option value="orderLowest"
-                                {{ isset($currentSort) && $currentSort === 'orderLowest' ? 'selected' : '' }}>Price: Low
-                                to High</option>
-                            <option value="orderHighest"
-                                {{ isset($currentSort) && $currentSort === 'orderHighest' ? 'selected' : '' }}>Price:
-                                High to Low</option>
-                            <option value="mostRated"
-                                {{ isset($currentSort) && $currentSort === 'mostRated' ? 'selected' : '' }}>Highest
-                                Rated</option>
+                            onchange="handleSortChange(this.value, event)">
+                            <option value="lowest">Price: Low to High</option>
+                            <option value="highest">Price: High to Low</option>
+                            <option value="mostRated">Highest Rated</option>
                         </select>
                     </div>
                     <script>
-                        function handleSortChange(value) {
-                            const url = `/explore/sort?sort=${encodeURIComponent(value)}`;
-
-                            fetch(url, {
-                                    method: 'GET',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    }
-                                })
+                        function handleSortChange(value, event) {
+                            event.preventDefault();
+                            fetch(`/explore/sort?sort=${value}`)
                                 .then(response => {
-                                    if (response.ok) {
-                                        return response.json();
-                                    } else {
-                                        throw new Error('Network response was not ok');
+                                    if (!response.ok) {
+                                        throw new Error('Failed to fetch sorted data');
                                     }
+                                    return response.json();
                                 })
-                            }
+                                .then(data => {
+                                    const studiosContainer = document.getElementById('studiosContainer');
+                                    studiosContainer.innerHTML = '';
+
+                                    if (data.length === 0) {
+                                        studiosContainer.innerHTML = '<p class="text-center text-textMuted">No studios found.</p>';
+                                        return;
+                                    }
+
+                                    data.forEach(studio => {
+                                        const studioCard = `
+                                        <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
+                                            <div class="relative h-48 overflow-hidden">
+                                                <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
+                                                    class="w-full h-full object-cover studio-img">
+                                            </div>
+                                            <div class="p-4">
+                                                <div class="flex items-center justify-between">
+                                                    <h3 class="text-lg font-medium text-light">${studio.name}</h3>
+                                                    <div class="flex items-center">
+                                                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                        <span class="ml-1 text-sm text-textMuted">${studio.rating}</span>
+                                                    </div>
+                                                </div>
+                                                <p class="mt-1 text-sm text-textMuted">${studio.location}</p>
+                                                <div class="mt-4 flex items-center justify-between">
+                                                    <span class="text-light font-bold">$${studio.price}<span class="text-textMuted font-normal text-sm">/hr</span></span>
+                                                    <button class="px-3 py-1 bg-primary hover:bg-primaryHover text-white text-sm font-medium rounded">
+                                                        Book Now
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                `;
+                                        studiosContainer.innerHTML += studioCard;
+                                    });
+                                })
+                                .catch(error => console.error('Error:', error));
+                        }
                     </script>
                 </div>
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="studiosContainer">
@@ -191,18 +216,16 @@
 
                                 data.forEach(studio => {
                                     const studioCard = `
-                                    <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
-                                        <div class="relative h-48 overflow-hidden">
-                                            <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
-                                                class="w-full h-full object-cover studio-img">
-                                        </div>
-                                        <div class="p-4">
-                                            <h3 class="text-lg font-medium text-light">${studio.name}</h3>
-                                            <p class="mt-1 text-sm text-textMuted">${studio.location}</p>
-                                            <span class="text-light font-bold">$${studio.price}<span
-                                                class="text-textMuted font-normal text-sm">/hr</span></span>
-                                        </div>
-                                    </div>
+                                        <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
+                                            <div class="relative h-48 overflow-hidden">
+                                                <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
+                                                    class="w-full h-full object-cover studio-img">
+                                            </div>
+                                            <div class="p-4">
+                                                <h3 class="text-lg font-medium text-light">${studio.name}</h3>
+                                                <p class="mt-1 text-sm text-textMuted">${studio.location}</p>
+                                                <span class="text-light font-bold">$${studio.price}<span
+                                                    class="text-textMuted font-normal text-sm">/hr</span></span>
                                 `;
                                     studiosContainer.innerHTML += studioCard;
                                 });
