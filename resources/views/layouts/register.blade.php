@@ -5,14 +5,21 @@
             @csrf
             <div class="space-y-1">
                 <label for="fullname" class="block text-sm font-medium text-gray-300">Full Name</label>
-                <input type="text" id="fullname" name="fullname"
-                    class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                    placeholder="John Doe" required />
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <input type="text" id="fullname" name="fullname"
+                        class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
+                        placeholder="John Doe" required />
+                </div>
             </div>
             <div class="space-y-1">
                 <label for="username" class="block text-sm font-medium text-gray-300">Username</label>
                 <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">@</span>
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">
+                        <i class="fas fa-at"></i>
+                    </span>
                     <input type="text" id="username" name="username"
                         class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
                         placeholder="Username" required />
@@ -20,23 +27,37 @@
             </div>
             <div class="space-y-1">
                 <label for="register-email" class="block text-sm font-medium text-gray-300">Email</label>
-                <input type="email" id="register-email" name="email"
-                    class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                    placeholder="your@email.com" required />
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <input type="email" id="register-email" name="email"
+                        class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
+                        placeholder="your@email.com" required />
+                </div>
             </div>
             <div class="space-y-1">
                 <label for="register-password" class="block text-sm font-medium text-gray-300">Password</label>
-                <input type="password" id="register-password" name="password"
-                    class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                    placeholder="••••••••" required />
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" id="register-password" name="password"
+                        class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
+                        placeholder="••••••••" required />
+                </div>
             </div>
             <div class="space-y-1">
                 <label for="confirm-password" class="block text-sm font-medium text-gray-300">Confirm Password</label>
-                <input type="password" id="confirm-password" name="password_confirmation"
-                    class="w-full px-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                    placeholder="••••••••" required />
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-textMuted">
+                        <i class="fas fa-check-double"></i>
+                    </span>
+                    <input type="password" id="confirm-password" name="password_confirmation"
+                        class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
+                        placeholder="••••••••" required />
+                </div>
             </div>
-
             <div class="space-y-1">
                 <label class="block text-sm font-medium text-gray-300">I am a:</label>
                 <div class="grid grid-cols-2 gap-3 mt-1">
@@ -70,12 +91,20 @@
             <div>
                 <button type="submit"
                     class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkBg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                            clip-rule="evenodd" />
-                    </svg>
+                    <i class="fas fa-plus h-5 w-5"></i>
                     Create Account
+                </button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button type="button"
+                    class="flex justify-center items-center gap-3 py-3 px-4 w-full rounded-lg bg-white hover:bg-gray-50 text-gray-700 font-medium border border-gray-200 shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent cursor-pointer">
+                    <i class="fab fa-google text-xl bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 bg-clip-text text-transparent"></i>
+                    <span>Google</span>
+                </button>
+                <button type="button"
+                    class="flex justify-center items-center gap-3 py-3 px-4 w-full rounded-lg bg-[#1877F2] hover:bg-[#166FE5] text-white font-medium border border-[#0d65d9] shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent cursor-pointer">
+                    <i class="fab fa-facebook text-xl"></i>
+                    <span>Facebook</span>
                 </button>
             </div>
 
