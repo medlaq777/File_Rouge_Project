@@ -15,27 +15,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create users and their profiles
-        User::factory(20)->create()->each(function ($user) {
+        // Create 10 owner users and 10 regular users
+        User::factory(10)->create(['role' => 'owner']);
+        User::factory(10)->create();
+
+        // Create profiles for all users
+        User::all()->each(function ($user) {
             ProfileUser::factory()->create(['user_id' => $user->id]);
         });
 
-        // Fetch all owner users
+        // Get all owner users
         $ownerUsers = User::where('role', 'owner')->get();
 
-        // Ensure there are owners in the database
-        if ($ownerUsers->isEmpty()) {
-            throw new \Exception('No users with the "owner" role found. Please create at least one owner.');
-        }
-
-        // Create studios and assign them to random owners
-        Studios::factory(20)->create()->each(function ($studio) use ($ownerUsers) {
-            $studio->user_id = $ownerUsers->random()->id;
+        // Create 20 studios and distribute them among owners
+        Studios::factory(20)->create()->each(function ($studio, $index) use ($ownerUsers) {
+            $studio->user_id = $ownerUsers[$index % $ownerUsers->count()]->id;
             $studio->save();
         });
 
-        Equipement::factory(20)->create()->each(function ($equipement) use ($ownerUsers) {
-            $equipement->studio_id = Studios::all()->random()->id;
+        // Create 20 equipment items and distribute them among studios
+        $studios = Studios::all();
+        Equipement::factory(20)->create()->each(function ($equipement, $index) use ($studios) {
+            $equipement->studio_id = $studios[$index % $studios->count()]->id;
             $equipement->save();
         });
     }
