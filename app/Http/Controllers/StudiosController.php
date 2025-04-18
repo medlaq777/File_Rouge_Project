@@ -43,11 +43,6 @@ class StudiosController extends Controller
                 $studios = $this->studiosService->index();
                 break;
         }
-
-        if ($request->ajax()) {
-            return response()->json($studios);
-        }
-
-        return $studios;
+        return response()->json($studios);
     }
 }

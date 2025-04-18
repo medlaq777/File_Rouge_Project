@@ -120,22 +120,14 @@
                                     }
                                 })
                                 .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(`HTTP error! status: ${response.status}`);
+                                    if (response.ok) {
+                                        return response.json();
+                                    } else {
+                                        throw new Error('Network response was not ok');
                                     }
-                                    return response.json();
                                 })
-                                .then(data => {
-                                    // Handle data
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                    studiosContainer.innerHTML =
-                                        '<p class="text-center text-textMuted">An error occurred while fetching studios.</p>';
-                                });
-                        }
+                            }
                     </script>
-
                 </div>
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="studiosContainer">
                     @foreach ($studios as $studio)
