@@ -11,7 +11,7 @@
                     </span>
                     <input type="text" id="fullname" name="fullname"
                         class="w-full pl-8 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200"
-                        placeholder="John Doe" required />
+                        placeholder="Med Laq" required />
                 </div>
             </div>
             <div class="space-y-1">
@@ -94,6 +94,14 @@
                     <i class="fas fa-plus h-5 w-5"></i>
                     Create Account
                 </button>
+            </div>
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-border"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-darkAccent text-textMuted">Or continue with</span>
+                </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <button type="button"
