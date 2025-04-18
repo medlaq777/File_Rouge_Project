@@ -24,4 +24,19 @@ class StudiosController extends Controller
         return response()->json($studios);
     }
 
+    public function orderLowest()
+    {
+        return $this->studiosService->orderLowest();
+    }
+
+    public function orderHighest()
+    {
+        return $this->studiosService->orderHighest();
+    }
+
+    public function mostRated()
+    {
+        return $this->studiosService->mostRated();
+    }
+
 }
