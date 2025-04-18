@@ -115,7 +115,6 @@
                     <span>Facebook</span>
                 </a>
             </div>
-
             <div class="text-center mt-6">
                 <p class="text-textMuted">
                     Already have an account?
