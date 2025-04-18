@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <script>
-                        document.addEventListener('DOMContentLoaded', function () {
+                        document.addEventListener('DOMContentLoaded', function() {
                             const calendarInput = document.getElementById('availabilityCalendar');
                             flatpickr(calendarInput, {
                                 dateFormat: "Y-m-d",
@@ -96,12 +96,46 @@
                     <div class="flex items-center gap-3">
                         <span class="text-sm text-textMuted">Sort by:</span>
                         <select
-                            class="bg-darkUI border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
-                            <option>Price: Low to High</option>
-                            <option>Price: High to Low</option>
-                            <option>Highest Rated</option>
+                            class="bg-darkUI border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary"
+                            onchange="handleSortChange(this.value)">
+                            <option value="orderLowest"
+                                {{ isset($currentSort) && $currentSort === 'orderLowest' ? 'selected' : '' }}>Price: Low
+                                to High</option>
+                            <option value="orderHighest"
+                                {{ isset($currentSort) && $currentSort === 'orderHighest' ? 'selected' : '' }}>Price:
+                                High to Low</option>
+                            <option value="mostRated"
+                                {{ isset($currentSort) && $currentSort === 'mostRated' ? 'selected' : '' }}>Highest
+                                Rated</option>
                         </select>
                     </div>
+                    <script>
+                        function handleSortChange(value) {
+                            const url = `/explore/sort?sort=${encodeURIComponent(value)}`;
+
+                            fetch(url, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    }
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(`HTTP error! status: ${response.status}`);
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    // Handle data
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    studiosContainer.innerHTML =
+                                        '<p class="text-center text-textMuted">An error occurred while fetching studios.</p>';
+                                });
+                        }
+                    </script>
+
                 </div>
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="studiosContainer">
                     @foreach ($studios as $studio)
@@ -165,19 +199,19 @@
 
                                 data.forEach(studio => {
                                     const studioCard = `
-                    <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
-                        <div class="relative h-48 overflow-hidden">
-                            <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
-                                class="w-full h-full object-cover studio-img">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-medium text-light">${studio.name}</h3>
-                            <p class="mt-1 text-sm text-textMuted">${studio.location}</p>
-                            <span class="text-light font-bold">$${studio.price}<span
-                                class="text-textMuted font-normal text-sm">/hr</span></span>
-                        </div>
-                    </div>
-                `;
+                                    <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
+                                        <div class="relative h-48 overflow-hidden">
+                                            <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
+                                                class="w-full h-full object-cover studio-img">
+                                        </div>
+                                        <div class="p-4">
+                                            <h3 class="text-lg font-medium text-light">${studio.name}</h3>
+                                            <p class="mt-1 text-sm text-textMuted">${studio.location}</p>
+                                            <span class="text-light font-bold">$${studio.price}<span
+                                                class="text-textMuted font-normal text-sm">/hr</span></span>
+                                        </div>
+                                    </div>
+                                `;
                                     studiosContainer.innerHTML += studioCard;
                                 });
                             })

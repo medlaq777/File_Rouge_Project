@@ -43,8 +43,9 @@ class StudiosService
     {
         $studios = Studios::orderBy('price', 'asc')->paginate(12);
         return view('explore', [
-            'studios' => $studios,
+            'studios' => $studios->toArray(),
             'pagination' => $studios->toArray(),
+            'currentSort' => 'orderLowest',
         ]);
     }
 
@@ -52,8 +53,9 @@ class StudiosService
     {
         $studios = Studios::orderBy('price', 'desc')->paginate(12);
         return view('explore', [
-            'studios' => $studios,
+            'studios' => $studios->toArray(),
             'pagination' => $studios->toArray(),
+            'currentSort' => 'orderHighest',
         ]);
     }
 
@@ -61,9 +63,9 @@ class StudiosService
     {
         $studios = Studios::orderBy('rating', 'desc')->paginate(12);
         return view('explore', [
-            'studios' => $studios,
+            'studios' => $studios->toArray(),
             'pagination' => $studios->toArray(),
+            'currentSort' => 'mostRated',
         ]);
     }
-
 }
