@@ -96,12 +96,6 @@ class AuthService
             'user_id' => $user->id,
             'full_name' => $socialiteUser->getName(),
             'username' => $this->generateUsername($socialiteUser),
-            'phone' => $socialiteUser->user['phone'] ?? null,
-            'address' => $socialiteUser->user['address'] ?? null,
-            'city' => $socialiteUser->user['city'] ?? null,
-            'country' => $socialiteUser->user['country'] ?? null,
-            'bio' => $socialiteUser->user['bio'] ?? null,
-            'profile_picture' => $socialiteUser->getAvatar(),
         ];
 
         // Add provider-specific data
@@ -109,24 +103,12 @@ class AuthService
             $profileData = array_merge($profileData, [
                 'first_name' => $socialiteUser->user['first_name'] ?? null,
                 'last_name' => $socialiteUser->user['last_name'] ?? null,
-                'phone' => $socialiteUser->user['phone'] ?? null,
-                'address' => $socialiteUser->user['address'] ?? null,
-                'city' => $socialiteUser->user['city'] ?? null,
-                'country' => $socialiteUser->user['country'] ?? null,
-                'bio' => $socialiteUser->user['bio'] ?? null,
-                'profile_picture' => $socialiteUser->getAvatar(),
             ]);
         } elseif ($provider === 'google') {
             $nameParts = explode(' ', $socialiteUser->getName());
             $profileData = array_merge($profileData, [
                 'first_name' => $nameParts[0] ?? null,
                 'last_name' => end($nameParts) ?? null,
-                'phone' => $socialiteUser->user['phone'] ?? null,
-                'address' => $socialiteUser->user['address'] ?? null,
-                'city' => $socialiteUser->user['city'] ?? null,
-                'country' => $socialiteUser->user['country'] ?? null,
-                'bio' => $socialiteUser->user['bio'] ?? null,
-                'profile_picture' => $socialiteUser->getAvatar(),
             ]);
         }
 
