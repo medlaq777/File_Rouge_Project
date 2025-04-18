@@ -5,6 +5,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudiosController;
 
+
+// Google routes
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+// Facebook routes
+Route::get('/auth/facebook', [AuthController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('/auth/facebook/callback', [AuthController::class, 'handleFacebookCallback']);
+
 Route::get('/', [
     StudiosController::class, 'index'
 ])->name('welcome');
