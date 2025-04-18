@@ -42,18 +42,17 @@
                     <span class="px-2 bg-darkAccent text-textMuted">Or continue with</span>
                 </div>
             </div>
-
             <div class="grid grid-cols-2 gap-4">
-                <button type="button"
-                    class="flex justify-center items-center gap-3 py-3 px-4 w-full rounded-lg bg-white hover:bg-gray-50 text-gray-700 font-medium border border-gray-200 shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent cursor-pointer">
+                <a href="{{ route('auth.provider', 'google') }}"
+                    class="flex justify-center items-center gap-3 py-3 px-4 w-full rounded-lg bg-white hover:bg-gray-50 text-gray-700 font-medium border border-gray-200 shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent">
                     <i class="fab fa-google text-xl bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 bg-clip-text text-transparent"></i>
                     <span>Google</span>
-                </button>
-                <button type="button"
-                    class="flex justify-center items-center gap-3 py-3 px-4 w-full rounded-lg bg-[#1877F2] hover:bg-[#166FE5] text-white font-medium border border-[#0d65d9] shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent cursor-pointer">
+                </a>
+                <a href="{{ route('auth.provider', 'facebook') }}"
+                    class="flex justify-center items-center gap-3 py-3 px-4 w-full rounded-lg bg-[#1877F2] hover:bg-[#166FE5] text-white font-medium border border-[#0d65d9] shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-darkAccent">
                     <i class="fab fa-facebook text-xl"></i>
                     <span>Facebook</span>
-                </button>
+                </a>
             </div>
         </form>
         <div class="text-center mt-6">

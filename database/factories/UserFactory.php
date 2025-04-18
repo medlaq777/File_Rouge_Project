@@ -23,6 +23,8 @@ class UserFactory extends Factory
             'password' => Hash::make('password123'),
             'remember_token' => Str::random(10),
             'role' => fake()->randomElement(['admin', 'owner', 'artist']),
+            'provider' => fake()->randomElement(['google', 'facebook']),
+            'provider_id' => fake()->randomNumber(),
         ];
     }
 
