@@ -75,14 +75,18 @@
         }
 
         public function handleProviderCallback($provider)
-        {
-            try {
-                $socialiteUser = Socialite::driver($provider)->user();
-                $user = $this->authService->handleSocialiteUser($provider, $socialiteUser);
+    {
+        try {
+            $socialiteUser = Socialite::driver($provider)->user();
+            $user = $this->authService->handleSocialiteUser($provider, $socialiteUser);
 
-                return redirect()->intended('/dashboard');
-            } catch (\Exception $e) {
-                return redirect('/login')->withErrors(['error' => 'Unable to login using ' . ucfirst($provider)]);
+            if ($user->isOwner()) {
+                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
             }
+            return redirect()->intended('/dashboard');
+
+        } catch (\Exception $e) {
+            return redirect('/login')->withErrors(['error' => 'Unable to login using ' . ucfirst($provider)]);
         }
+    }
 }

@@ -71,18 +71,103 @@ class AuthService
         $user = User::where('email', $socialiteUser->getEmail())->first();
 
         if (!$user) {
+            // Create the user
             $user = User::create([
-                'name' => $socialiteUser->getName(),
                 'email' => $socialiteUser->getEmail(),
+                'name' => $socialiteUser->getName() ?? $socialiteUser->getNickname(),
                 'provider' => $provider,
                 'provider_id' => $socialiteUser->getId(),
                 'email_verified_at' => now(),
                 'password' => bcrypt(rand(100000, 999999)),
+                'role' => 'owner', // Default role for social login
             ]);
+
+            // Create the profile with social data
+            $this->createSocialProfile($user, $socialiteUser, $provider);
         }
 
         Auth::login($user, true);
-
         return $user;
     }
+
+    protected function createSocialProfile(User $user, SocialiteUser $socialiteUser, string $provider)
+    {
+        $profileData = [
+            'user_id' => $user->id,
+            'full_name' => $socialiteUser->getName(),
+            'username' => $this->generateUsername($socialiteUser),
+            'phone' => $socialiteUser->user['phone'] ?? null,
+            'address' => $socialiteUser->user['address'] ?? null,
+            'city' => $socialiteUser->user['city'] ?? null,
+            'country' => $socialiteUser->user['country'] ?? null,
+            'bio' => $socialiteUser->user['bio'] ?? null,
+            'profile_picture' => $socialiteUser->getAvatar(),
+        ];
+
+        // Add provider-specific data
+        if ($provider === 'facebook') {
+            $profileData = array_merge($profileData, [
+                'first_name' => $socialiteUser->user['first_name'] ?? null,
+                'last_name' => $socialiteUser->user['last_name'] ?? null,
+                'phone' => $socialiteUser->user['phone'] ?? null,
+                'address' => $socialiteUser->user['address'] ?? null,
+                'city' => $socialiteUser->user['city'] ?? null,
+                'country' => $socialiteUser->user['country'] ?? null,
+                'bio' => $socialiteUser->user['bio'] ?? null,
+                'profile_picture' => $socialiteUser->getAvatar(),
+            ]);
+        } elseif ($provider === 'google') {
+            $nameParts = explode(' ', $socialiteUser->getName());
+            $profileData = array_merge($profileData, [
+                'first_name' => $nameParts[0] ?? null,
+                'last_name' => end($nameParts) ?? null,
+                'phone' => $socialiteUser->user['phone'] ?? null,
+                'address' => $socialiteUser->user['address'] ?? null,
+                'city' => $socialiteUser->user['city'] ?? null,
+                'country' => $socialiteUser->user['country'] ?? null,
+                'bio' => $socialiteUser->user['bio'] ?? null,
+                'profile_picture' => $socialiteUser->getAvatar(),
+            ]);
+        }
+
+        ProfileUser::create($profileData);
+    }
+
+    protected function generateUsername(SocialiteUser $socialiteUser)
+    {
+        // Generate username from email or name
+        $base = strtok($socialiteUser->getEmail(), '@') ??
+                str_replace(' ', '', strtolower($socialiteUser->getName()));
+
+        $username = $base;
+        $counter = 1;
+
+        // Ensure username is unique
+        while (ProfileUser::where('username', $username)->exists()) {
+            $username = $base . $counter;
+            $counter++;
+        }
+
+        return $username;
+    }
+
+    // public function handleSocialiteUser(string $provider, SocialiteUser $socialiteUser)
+    // {
+    //     $user = User::where('email', $socialiteUser->getEmail())->first();
+
+    //     if (!$user) {
+    //         $user = User::create([
+    //             'name' => $socialiteUser->getName(),
+    //             'email' => $socialiteUser->getEmail(),
+    //             'provider' => $provider,
+    //             'provider_id' => $socialiteUser->getId(),
+    //             'email_verified_at' => now(),
+    //             'password' => bcrypt(rand(100000, 999999)),
+    //         ]);
+    //     }
+
+    //     Auth::login($user, true);
+
+    //     return $user;
+    // }
 }
