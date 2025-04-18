@@ -97,11 +97,9 @@
                         <span class="text-sm text-textMuted">Sort by:</span>
                         <select
                             class="bg-darkUI border border-border rounded-lg py-2 px-3 text-light focus:outline-none focus:ring-1 focus:ring-primary">
-                            <option>Recommended</option>
                             <option>Price: Low to High</option>
                             <option>Price: High to Low</option>
                             <option>Highest Rated</option>
-                            <option>Most Popular</option>
                         </select>
                     </div>
                 </div>
