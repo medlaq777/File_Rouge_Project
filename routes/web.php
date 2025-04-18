@@ -5,14 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudiosController;
 
+#Provider Auth
+Route::get('/auth/{provider}', [AuthController::class, 'redirectToProvider'])->name('auth.provider');
+Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
 
-// Google routes
-Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
-// Facebook routes
-Route::get('/auth/facebook', [AuthController::class, 'redirectToFacebook'])->name('auth.facebook');
-Route::get('/auth/facebook/callback', [AuthController::class, 'handleFacebookCallback']);
 
 Route::get('/', [
     StudiosController::class, 'index'

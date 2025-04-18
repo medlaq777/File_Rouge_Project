@@ -5,7 +5,7 @@
     use App\Http\Controllers\Controller;
     use App\Services\AuthService;
     use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Auth;
+    use Laravel\Socialite\Facades\Socialite;
 
     class AuthController extends Controller
     {
@@ -67,5 +67,22 @@
         {
             $this->authService->logout();
             return redirect()->route('showLoginForm')->with('success', 'Logged out successfully.');
+        }
+
+        public function redirectToProvider($provider)
+        {
+            return Socialite::driver($provider)->redirect();
+        }
+
+        public function handleProviderCallback($provider)
+        {
+            try {
+                $socialiteUser = Socialite::driver($provider)->user();
+                $user = $this->authService->handleSocialiteUser($provider, $socialiteUser);
+
+                return redirect()->intended('/dashboard');
+            } catch (\Exception $e) {
+                return redirect('/login')->withErrors(['error' => 'Unable to login using ' . ucfirst($provider)]);
+            }
         }
 }
