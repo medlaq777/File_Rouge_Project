@@ -132,24 +132,4 @@ class AuthService
 
         return $username;
     }
-
-    // public function handleSocialiteUser(string $provider, SocialiteUser $socialiteUser)
-    // {
-    //     $user = User::where('email', $socialiteUser->getEmail())->first();
-
-    //     if (!$user) {
-    //         $user = User::create([
-    //             'name' => $socialiteUser->getName(),
-    //             'email' => $socialiteUser->getEmail(),
-    //             'provider' => $provider,
-    //             'provider_id' => $socialiteUser->getId(),
-    //             'email_verified_at' => now(),
-    //             'password' => bcrypt(rand(100000, 999999)),
-    //         ]);
-    //     }
-
-    //     Auth::login($user, true);
-
-    //     return $user;
-    // }
 }
