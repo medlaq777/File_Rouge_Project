@@ -23,10 +23,8 @@ class StudiosController extends Controller
         $studios = $this->studiosService->Search($search);
         return response()->json($studios);
     }
-
-
-public function sort(Request $request)
-{
+    public function sort(Request $request)
+    {
     $sort = $request->input('sort', null);
     $studios = null;
 
@@ -43,6 +41,28 @@ public function sort(Request $request)
     }
 
     return response()->json(['error' => 'Invalid sort option'], 400);
-}
+    }
+
+
+    public function filters(Request $request)
+    {
+        $min = $request->input('min', null);
+        $max = $request->input('max', null);
+        $studios = null;
+        $equipements = null;
+        if ($min && $max) {
+            $studios = $this->studiosService->filterByPrice($min, $max);
+        } else {
+            $studios = $this->studiosService->index();
+        }
+        if ($request->has('equipement')) {
+            $equipements = $request->input('equipement');
+            $studios = $this->studiosService->filterByEquipement($equipements);
+        }
+        if ($studios) {
+            return response()->json($studios);
+        }
+        return response()->json(['error' => 'Invalid filter option'], 400);
+    }
 
 }
