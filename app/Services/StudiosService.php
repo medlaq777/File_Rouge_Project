@@ -53,4 +53,20 @@ class StudiosService
     {
         return Studios::orderBy('rating', 'desc')->get();
     }
+
+    public function filterByPrice($min, $max)
+    {
+        return Studios::whereBetween('price', [$min, $max])->get();
+    }
+
+    public function filterByEquipement($equipement)
+    {
+        return Studios::whereHas('equipements', function ($query) use ($equipement) {
+            $query->where('name', $equipement);
+        })->get();
+    }
+    // public function filterByAvailability($availability)
+    // {
+    //     return Studios::where('availability', $availability)->get();
+    // }
 }
