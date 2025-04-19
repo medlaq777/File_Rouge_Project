@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('address')->nullable();
             $table->string('location')->nullable();
-            $table->string('price')->nullable();
+            $table->decimal('price', 10, 2)->nullable();
             $table->string('availability')->nullable();
             $table->float('rating')->default(0);
             $table->string('feature')->nullable();

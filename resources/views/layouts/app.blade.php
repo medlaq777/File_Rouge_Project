@@ -12,6 +12,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta> name="CSRF-Token" content="{{ csrf_token() }}">
 </head>
 <style>
     @keyframes fadeIn {

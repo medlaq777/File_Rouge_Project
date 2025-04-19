@@ -45,24 +45,20 @@ class StudiosController extends Controller
 
 
     public function filters(Request $request)
-    {
-        $min = $request->input('min', null);
-        $max = $request->input('max', null);
-        $studios = null;
-        $equipements = null;
-        if ($min && $max) {
-            $studios = $this->studiosService->filterByPrice($min, $max);
-        } else {
-            $studios = $this->studiosService->index();
-        }
-        if ($request->has('equipement')) {
-            $equipements = $request->input('equipement');
-            $studios = $this->studiosService->filterByEquipement($equipements);
-        }
-        if ($studios) {
-            return response()->json($studios);
-        }
-        return response()->json(['error' => 'Invalid filter option'], 400);
+{
+    $min = $request->input('min');
+    $max = $request->input('max');
+
+    // Validate that min and max are numeric and min is less than or equal to max
+    if (!is_numeric($min) || !is_numeric($max) || $min > $max) {
+        return response()->json(['error' => 'Invalid filter parameters'], 400);
     }
+
+    // Fetch studios based on the price range
+    $studios = $this->studiosService->filterByPrice($min, $max);
+
+    // Return the filtered studios
+    return response()->json($studios);
+}
 
 }
