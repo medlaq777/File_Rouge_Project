@@ -7,7 +7,9 @@
     <title>@yield('BEATRECORDS', 'BEATRECORDS') - Premium Music Studio Rental</title>
     <link rel="icon" href="{{ Vite::asset('resources/img/logo.svg') }}" type="image/svg+xml">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -104,6 +106,7 @@
     @yield('header')
     @yield('main')
     @yield('addStudios')
+    @yield('editStudios')
     <!-- JavaScript -->
     <script>
         // Mobile menu toggle
@@ -134,7 +137,6 @@
             mobileMenu.classList.add('hidden');
         }
 
-
         // Modal functions
         function showAddStudioModal() {
             document.getElementById('add-studio-modal').style.display = 'block';
@@ -150,6 +152,36 @@
                 modal.style.display = 'none';
             }
         }
+
+        // Function to open the edit studio modal and populate it with data
+        function showEditStudioModal(studioId, studioName, studioDescription, studioPrice, studioLocation, studioAddress,
+            studioImage) {
+            // Set the modal to visible
+            document.getElementById('edit-studio-modal').style.display = 'block';
+
+
+            // Set the form values
+            document.getElementById('edit-studio-id').value = studioId;
+            document.getElementById('edit-studio-name').value = studioName;
+            document.getElementById('edit-studio-description').value = studioDescription;
+            document.getElementById('edit-studio-price').value = studioPrice;
+            document.getElementById('edit-studio-location').value = studioLocation;
+            document.getElementById('edit-studio-address').value = studioAddress;
+
+            // Handle the image preview if one exists
+            if (studioImage) {
+                document.getElementById('current-image-preview').classList.remove('hidden');
+                document.getElementById('studio-current-image').src = studioImage;
+            } else {
+                document.getElementById('current-image-preview').classList.add('hidden');
+            }
+        }
+
+        // Function to close the edit studio modal
+        function closeEditStudioModal() {
+            document.getElementById('edit-studio-modal').style.display = 'none';
+        }
     </script>
 </body>
+
 </html>

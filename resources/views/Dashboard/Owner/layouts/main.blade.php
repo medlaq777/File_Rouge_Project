@@ -317,11 +317,20 @@
 
                             <!-- Action Buttons -->
                             <div class="flex space-x-2 mt-4">
-                                <button onclick="showEditStudioModal({{ $studio->id }})"
-                                    class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
-                                    <i class="fas fa-edit mr-2"></i>
-                                    Edit
-                                </button>
+                                <button type="button"
+                                onclick="showEditStudioModal(
+                                    {{ $studio->id }},
+                                    '{{ addslashes($studio->name) }}',
+                                    '{{ addslashes($studio->description) }}',
+                                    {{ $studio->price }},
+                                    '{{ addslashes($studio->location) }}',
+                                    '{{ addslashes($studio->address) }}',
+                                    '{{ asset('storage/' . $studio->images->first()->image_path) }}'
+                                )"
+                                class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                                <i class="fas fa-edit mr-2"></i>
+                                Edit
+                            </button>
                                 <button onclick="deleteStudio({{ $studio->id }})"
                                     class="flex-1 bg-darkAccent hover:bg-danger text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                     <i class="fas fa-trash mr-2"></i>
