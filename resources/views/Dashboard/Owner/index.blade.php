@@ -6,6 +6,6 @@
 @section('main')
 @include('Dashboard.Owner.layouts.main')
 @endsection
-@section('addStudio')
+@section('addStudios')
 @include('Dashboard.Owner.layouts.addStudios')
 @endsection
