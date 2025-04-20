@@ -2,38 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\StudiosService;
+use App\Services\ExploreService;
 use Illuminate\Http\Request;
 
-class StudiosController extends Controller
+class ExploreController extends Controller
 {
-    private $studiosService;
-    public function __construct(StudiosService $studiosService)
+    private $ExploreService;
+    public function __construct(ExploreService $ExploreService)
     {
-        $this->studiosService = $studiosService;
+        $this->ExploreService = $ExploreService;
     }
+
     public function index()
     {
-        return $this->studiosService->index();
+        return $this->ExploreService->index();
     }
 
     public function Search(Request $request)
     {
         $search = $request->input('search', null);
-        $studios = $this->studiosService->Search($search);
+        $studios = $this->ExploreService->Search($search);
         return response()->json($studios);
     }
+
     public function sort(Request $request)
     {
     $sort = $request->input('sort', null);
     $studios = null;
 
     if ($sort == 'lowest') {
-        $studios = $this->studiosService->orderLowest();
+        $studios = $this->ExploreService->orderLowest();
     } elseif ($sort == 'highest') {
-        $studios = $this->studiosService->orderHighest();
+        $studios = $this->ExploreService->orderHighest();
     } elseif ($sort == 'mostRated') {
-        $studios = $this->studiosService->mostRated();
+        $studios = $this->ExploreService->mostRated();
     }
 
     if ($studios) {
@@ -43,9 +45,8 @@ class StudiosController extends Controller
     return response()->json(['error' => 'Invalid sort option'], 400);
     }
 
-
     public function filters(Request $request)
-{
+    {
     $min = $request->input('min', null);
     $max = $request->input('max', null);
     $equipment = $request->input('equipment', []); // Accept multiple equipment as an array
@@ -71,10 +72,10 @@ class StudiosController extends Controller
     }
 
     try {
-        $studios = $this->studiosService->filterByCriteria($criteria);
+        $studios = $this->ExploreService->filterByCriteria($criteria);
         return response()->json($studios);
     } catch (\Exception $e) {
         return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
     }
-}
+    }
 }

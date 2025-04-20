@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudiosController;
+use App\Http\Controllers\ExploreController;
 
 #Provider Auth
 Route::get('/auth/{provider}', [AuthController::class, 'redirectToProvider'])->name('auth.provider');
@@ -12,7 +12,7 @@ Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderC
 
 
 Route::get('/', [
-    StudiosController::class, 'index'
+    ExploreController::class, 'index'
 ])->name('welcome');
 
 Route::get('/help-center', function () {
@@ -33,10 +33,10 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::get('/explore', [StudiosController::class, 'index'])->name('explore');
-Route::get('/explore/search', [StudiosController::class, 'Search'])->name('search');
-Route::get('/explore/sort', [StudiosController::class, 'sort'])->name('sort');
-Route::get('/explore/filters', [StudiosController::class, 'filters'])->name('filters');
+Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
+Route::get('/explore/search', [ExploreController::class, 'Search'])->name('search');
+Route::get('/explore/sort', [ExploreController::class, 'sort'])->name('sort');
+Route::get('/explore/filters', [ExploreController::class, 'filters'])->name('filters');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('showLoginForm');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('showRegisterForm');
