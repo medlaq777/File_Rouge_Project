@@ -35,7 +35,7 @@ class Studios extends Model
     }
 
     public function equipements(): HasMany
-    {
-        return $this->hasMany(Equipement::class);
-    }
+{
+    return $this->hasMany(Equipement::class, 'studio_id');
+}
 }

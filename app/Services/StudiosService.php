@@ -59,14 +59,33 @@ class StudiosService
         return Studios::whereBetween('price', [$min, $max])->get();
     }
 
-    // public function filterByEquipement($equipement)
-    // {
-    //     return Studios::whereHas('equipements', function ($query) use ($equipement) {
-    //         $query->where('name', $equipement);
-    //     })->get();
-    // }
+    public function filterByEquipement($equipement)
+    {
+        return Studios::whereHas('equipements', function ($query) use ($equipement) {
+            $query->where('name', $equipement);
+        })->get();
+    }
     // public function filterByAvailability($availability)
     // {
     //     return Studios::where('availability', $availability)->get();
     // }
+
+    public function filterByCriteria(array $criteria)
+{
+    $query = Studios::query();
+
+    // Apply price range filter if provided
+    if (isset($criteria['price_min']) && isset($criteria['price_max'])) {
+        $query->whereBetween('price', [$criteria['price_min'], $criteria['price_max']]);
+    }
+
+    // Apply equipment filter if provided
+    if (isset($criteria['equipments']) && is_array($criteria['equipments'])) {
+        $query->whereHas('equipements', function ($q) use ($criteria) {
+            $q->whereIn('name', $criteria['equipments']); // Use whereIn for multiple equipment
+        });
+    }
+
+    return $query->get();
+}
 }

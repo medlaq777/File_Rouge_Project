@@ -22,7 +22,7 @@ class Equipement extends Model
         'updated_at' => 'datetime',
     ];
     public function studios(): BelongsTo
-    {
-        return $this->belongsTo(Studios::class);
-    }
+{
+    return $this->belongsTo(Studios::class, 'studio_id');
+}
 }
