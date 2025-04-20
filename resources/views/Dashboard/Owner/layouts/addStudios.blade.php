@@ -9,40 +9,41 @@
       </div>
       <form class="space-y-6" action="{{ route('store.studio') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
         <div>
           <label for="studio-name" class="block text-light mb-2">Studio Name</label>
-          <input type="text" id="studio-name" name="stusio-name" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter studio name">
+          <input type="text" id="studio-name" name="studio-name" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter studio name">
         </div>
 
         <div>
           <label for="studio-description" class="block text-light mb-2">Description</label>
-          <textarea id="studio-description" name="stusio-description"  rows="4" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Describe your studio"></textarea>
+          <textarea id="studio-description" name="studio-description" rows="4" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Describe your studio"></textarea>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label for="studio-price" class="block text-light mb-2">Hourly Rate Max(200$)</label>
-            <input type="number" id="studio-price" name="stusio-price"  class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g. 75">
+            <input type="number" id="studio-price" name="studio-price" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g. 75">
           </div>
 
           <div>
             <label for="studio-location" class="block text-light mb-2">Location</label>
-            <input type="text" id="studio-location" name="stusio-location"  class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="City, State">
+            <input type="text" id="studio-location" name="studio-location" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="City, State">
           </div>
         </div>
 
         <div>
           <label for="studio-address" class="block text-light mb-2">Full Address</label>
-          <input type="text" id="studio-address" name="stusio-address"  class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter street address">
+          <input type="text" id="studio-address" name="studio-address" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter street address">
         </div>
 
         <div>
-          <label class="block text-light mb-2" for="studio-images" id="studio-images-label">Studio Images</label>
-          <input type="file" id="studio-images" name="studio-images[]" multiple class="hidden" />
+          <label class="block text-light mb-2" for="studio-image">Studio Image</label>
+          <input type="file" id="studio-image" name="studio-image" class="hidden" />
           <div class="border-2 border-dashed border-border rounded-md p-8 text-center">
             <i class="fas fa-image mx-auto h-12 w-12 text-textMuted" style="font-size:3rem;"></i>
-            <p class="mt-2 text-sm text-textMuted">Drag and drop images here, or click to browse</p>
-            <button type="button" class="mt-4 bg-darkAccent text-light py-2 px-4 rounded-md hover:bg-border transition-colors" onclick="document.getElementById('studio-images').click();">Select Files</button>
+            <p class="mt-2 text-sm text-textMuted">Drag and drop an image here, or click to browse</p>
+            <button type="button" class="mt-4 bg-darkAccent text-light py-2 px-4 rounded-md hover:bg-border transition-colors" onclick="document.getElementById('studio-image').click();">Select File</button>
           </div>
         </div>
 
