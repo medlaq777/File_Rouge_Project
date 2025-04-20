@@ -7,5 +7,5 @@
 @include('Dashboard.Owner.layouts.main')
 @endsection
 @section('addStudio')
-@include('Dashboard.Owner.layouts.addStudio')
+@include('Dashboard.Owner.layouts.addStudios')
 @endsection

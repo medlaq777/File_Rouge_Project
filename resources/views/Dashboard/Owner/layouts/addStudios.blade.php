@@ -9,7 +9,8 @@
           </svg>
         </button>
       </div>
-      <form class="space-y-6">
+      <form class="space-y-6" action="" method="POST">
+        @csrf
         <div>
           <label for="studio-name" class="block text-light mb-2">Studio Name</label>
           <input type="text" id="studio-name" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter studio name">

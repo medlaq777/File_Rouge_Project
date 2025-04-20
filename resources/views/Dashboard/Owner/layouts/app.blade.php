@@ -106,7 +106,7 @@
 <body class="bg-darkBg text-light min-h-screen font-sans antialiased custom-scrollbar">
     @yield('header')
     @yield('main')
-    @yield('addStudio')
+    @yield('addStudios')
     <!-- JavaScript -->
     <script>
         // Mobile menu toggle
