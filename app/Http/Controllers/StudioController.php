@@ -25,27 +25,33 @@ class StudioController extends Controller
         ]);
     }
 
-    // public function store(Request $request)
-    // {
-    //     $user = Auth::id();
-    //     $request->validate([
-    //         'user_id' => 'required|integer|exists:users,id',
-    //         'studio-name' => 'required|string|max:255',
-    //         'studio-description' => 'required|string|max:1000',
-    //         'studio-address' => 'required|string|max:255',
-    //         'studio-location' => 'required|string|max:255',
-    //         'studio-price' => 'required|numeric|min:0|max:200',
-    //         'studio-feature' => 'boolean',
-    //         'studio-image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-    //     $data = $request->only(['user_id', 'studio-name', 'studio-description', 'studio-address', 'studio-location', 'studio-price', 'studio-available', 'studio-feature']);
-    //     if($request->hasFile('image')) {
-    //         $data['image'] = $this->StudiosService->uploadImage($request->file('image'));
-    //     }
-    //     $studio = $this->StudiosService->store($data);
-    //     dd($studio);
-        // return view('Dashboard.Owner.index', [
-        //     'studio' => $studio,
-        // ]);
-    // }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'studio-name' => 'required|string|max:255',
+            'studio-description' => 'required|string|max:255',
+            'studio-address' => 'required|string|max:255',
+            'studio-location' => 'required|string|max:255',
+            'studio-price' => 'required|numeric',
+            'studio-image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $data = $request->only([
+            'studio-name',
+            'studio-description',
+            'studio-address',
+            'studio-location',
+            'studio-price',
+            'studio-available',
+            'studio-feature',
+            'start_date',
+            'end_date',
+        ]);
+        if ($request->hasFile('studio-image')) {
+            $data['studio-image'] = $request->file('studio-image')->store('images/studios', 'public');
+            $data['user_id'] = Auth::id();
+            $studios = $this->StudiosService->store($data);
+            return redirect()->route('dashboard')->with('success', 'Studio created successfully.');
+        }
+    }
 }

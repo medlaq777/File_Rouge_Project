@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('studio_id')->constrained('studios')->onDelete('cascade');
             $table->string('image_path');
-            $table->string('image_name');
-            $table->string('image_type');
-            $table->string('image_size');
             $table->timestamps();
         });
     }

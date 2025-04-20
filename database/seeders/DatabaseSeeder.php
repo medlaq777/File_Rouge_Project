@@ -30,9 +30,6 @@ class DatabaseSeeder extends Seeder
             $studios->each(function ($studio) {
                 $studio->images()->create([
                     'image_path' => 'https://placehold.co/400x400/EEE/31343C',
-                    'image_name' => 'Image 1',
-                    'image_type' => 'image/jpeg',
-                    'image_size' => rand(100, 2000),
                 ]);
             });
         });

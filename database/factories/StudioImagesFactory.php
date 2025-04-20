@@ -20,9 +20,6 @@ class StudioImagesFactory extends Factory
         return [
             'studio_id' => StudioImages::factory(),
             'image_path' => 'https://placehold.co/200x200/EEE/31343C',
-            'image_name' => $this->faker->word(),
-            'image_type' => $this->faker->word(),
-            'image_size' => $this->faker->numberBetween(100, 5000),
         ];
     }
 }
