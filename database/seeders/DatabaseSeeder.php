@@ -28,16 +28,27 @@ class DatabaseSeeder extends Seeder
         $ownerUsers = User::where('role', 'owner')->get();
 
         // Create 20 studios and distribute them among owners
-        Studios::factory(20)->create()->each(function ($studio, $index) use ($ownerUsers) {
+        $studios = Studios::factory(20)->create()->each(function ($studio, $index) use ($ownerUsers) {
             $studio->user_id = $ownerUsers[$index % $ownerUsers->count()]->id;
             $studio->save();
         });
 
         // Create 20 equipment items and distribute them among studios
-        $studios = Studios::all();
         Equipement::factory(20)->create()->each(function ($equipement, $index) use ($studios) {
             $equipement->studio_id = $studios[$index % $studios->count()]->id;
             $equipement->save();
+        });
+
+        // Create 10 images for each studio
+        $studios->each(function ($studio) {
+            for ($i = 0; $i < 10; $i++) {
+                $studio->images()->create([
+                    'image_path' => 'https://placehold.co/400x400/EEE/31343C',
+                    'image_name' => 'Image ' . ($i + 1),
+                    'image_type' => 'image/jpeg',
+                    'image_size' => rand(100, 5000),
+                ]);
+            }
         });
     }
 }
