@@ -2,36 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\studiosService;
+use App\Services\StudiosService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class StudioController extends Controller
 {
-    private $studiosService;
+    private $StudiosService;
 
-    public function __construct(studiosService $studiosService)
+    public function __construct(StudiosService $StudiosService)
     {
-        $this->studiosService = $studiosService;
+        $this->StudiosService = $StudiosService;
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'price' => 'required|numeric|min:0|max:200',
-            'location' => 'required|string|max:255',
-            'FullAddress' => 'required|string|max:255',
-            'Studio_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'studio-name' => 'required|string|max:255',
+            'studio-description' => 'required|string|max:1000',
+            'studio-price' => 'required|numeric|min:0|max:200',
+            'studio-location' => 'required|string|max:255',
+            'studio-address' => 'required|string|max:255',
         ]);
-        $data = $request->only(['name', 'description', 'price', 'location', 'FullAddress', 'Studio_image']);
+        $data = $request->only(['name', 'description', 'price', 'location', 'FullAddress']);
+        if($request->hasFile('image')) {
+            $data['image'] = $this->StudiosService->uploadImage($request->file('image'));
+        }
         $data['user_id'] = Auth::id();
-        $data['Studio_image'] = $request->file('Studio_image');
-        $studio = $this->studiosService->store($data);
-        return view('studio.create', [
+        $studio = $this->StudiosService->store($data);
+        return view('Dashboard.Owner.index', [
             'studio' => $studio,
-            'message' => 'Studio created successfully!',
         ]);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExploreController;
-
+use App\Http\Controllers\StudioController;
 #Provider Auth
 Route::get('/auth/{provider}', [AuthController::class, 'redirectToProvider'])->name('auth.provider');
 Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
@@ -52,3 +52,6 @@ Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->nam
 Route::get("dashboard", function () {
     return view("Dashboard.Owner.index");
 })->name("dashboard")->middleware('auth');
+
+
+Route::post('store/studio', [StudioController::class, 'store'])->name('store.studio')->middleware('auth');

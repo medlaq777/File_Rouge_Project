@@ -7,9 +7,7 @@
     <title>@yield('BEATRECORDS', 'BEATRECORDS') - Premium Music Studio Rental</title>
     <link rel="icon" href="{{ Vite::asset('resources/img/logo.svg') }}" type="image/svg+xml">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
@@ -100,7 +98,6 @@
             animation: fadeIn 0.3s;
         }
     </style>
-    @stack('styles')
 </head>
 
 <body class="bg-darkBg text-light min-h-screen font-sans antialiased custom-scrollbar">
@@ -137,6 +134,7 @@
             mobileMenu.classList.add('hidden');
         }
 
+
         // Modal functions
         function showAddStudioModal() {
             document.getElementById('add-studio-modal').style.display = 'block';
@@ -146,7 +144,6 @@
             document.getElementById('add-studio-modal').style.display = 'none';
         }
 
-        // Close modal when clicking outside of it
         window.onclick = function(event) {
             const modal = document.getElementById('add-studio-modal');
             if (event.target === modal) {

@@ -25,4 +25,10 @@ class StudiosService
 
         return $studio->save();
     }
+
+    public function uploadImage($image)
+    {
+        $imagePath = $image->store('images', 'public');
+        return '/storage/' . $imagePath;
+    }
 }
