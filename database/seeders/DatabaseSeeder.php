@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $ownerUsers = User::where('role', 'owner')->get();
 
         // Create 20 studios and distribute them among owners
-        $studios = Studios::factory(20)->create()->each(function ($studio, $index) use ($ownerUsers) {
+        $studios = Studios::factory(20)->make()->each(function ($studio, $index) use ($ownerUsers) {
             $studio->user_id = $ownerUsers[$index % $ownerUsers->count()]->id;
             $studio->save();
         });
@@ -39,9 +39,9 @@ class DatabaseSeeder extends Seeder
             $equipement->save();
         });
 
-        // Create 10 images for each studio
+        // Create 3 images for each studio
         $studios->each(function ($studio) {
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 3; $i++) {
                 $studio->images()->create([
                     'image_path' => 'https://placehold.co/400x400/EEE/31343C',
                     'image_name' => 'Image ' . ($i + 1),
