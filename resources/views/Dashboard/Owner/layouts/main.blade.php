@@ -253,94 +253,45 @@
 
     <!-- My Studios Section -->
     <section id="my-studios" class="hidden animate-fade-in">
-      <div class="mb-8 flex justify-between items-center">
-        <div>
-        <h1 class="text-3xl font-bold text-white">My Studios</h1>
-        <p class="text-textMuted mt-2">Manage your registered studios</p>
-        </div>
-        <button onclick="showAddStudioModal()" class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-        <i class="fas fa-plus-circle h-5 w-5 mr-2"></i>
-        Add New Studio
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Studio Card 1 -->
-        <div class="bg-darkUI rounded-lg border border-border overflow-hidden studio-card">
-        <div class="relative h-48 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="Studio" class="w-full h-full object-cover transition-transform duration-500 studio-image">
-          <div class="absolute top-0 right-0 m-3">
-            <span class="bg-success bg-opacity-90 text-white text-xs px-2 py-1 rounded-full">Active</span>
+        <div class="mb-8 flex justify-between items-center">
+          <div>
+            <h1 class="text-3xl font-bold text-white">My Studios</h1>
+            <p class="text-textMuted mt-2">Manage your registered studios</p>
           </div>
-        </div>
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-white mb-2">Soundwave Studios</h3>
-          <p class="text-textMuted mb-4">Professional recording studio with state-of-the-art equipment.</p>
-          <div class="flex justify-between items-center text-sm mb-4">
-            <span class="text-textMuted">$80/hour</span>
-            <span class="flex items-center text-warning">
-            <i class="fas fa-star h-4 w-4 mr-1"></i>
-            4.9 (28 reviews)
-            </span>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <button class="bg-darkAccent hover:bg-dark text-white py-2 px-4 rounded-md transition-all duration-200 text-sm">Edit Studio</button>
-            <button class="bg-transparent hover:bg-darkAccent border border-border text-white py-2 px-4 rounded-md transition-all duration-200 text-sm">View Bookings</button>
-          </div>
-        </div>
+          <button onclick="showAddStudioModal()" class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200 flex items-center">
+            <i class="fas fa-plus-circle h-5 w-5 mr-2"></i>
+            Add New Studio
+          </button>
         </div>
 
-        <!-- Studio Card 2 -->
-        <div class="bg-darkUI rounded-lg border border-border overflow-hidden studio-card">
-        <div class="relative h-48 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1610041321420-a596dd14ebc9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="Studio" class="w-full h-full object-cover transition-transform duration-500 studio-image">
-          <div class="absolute top-0 right-0 m-3">
-            <span class="bg-success bg-opacity-90 text-white text-xs px-2 py-1 rounded-full">Active</span>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @foreach ($studios as $studio)
+            <div class="bg-darkUI rounded-lg border border-border p-6">
+                <img
+                src="{{ $studio->images->first()->image_path }}"
+                alt="{{ $studio->name }}"
+                class="w-full h-32 object-cover rounded-md mb-4">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-light">{{ $studio->name }}</h3>
+                <div class="p-2 rounded-md">
+                  <i class="fas fa-building text-danger text-xl"></i>
+                </div>
+              </div>
+              <p class="text-sm text-textMuted mb-2">Location: {{ $studio->location ?? '-' }}</p>
+              <p class="text-sm text-textMuted mb-2">Type: {{ $studio->type ?? '-' }}</p>
+              <p class="text-sm text-textMuted mb-2">Status: {{ $studio->status ?? ($studio->available ? 'Available' : 'Unavailable') }}</p>
+              <button onclick="showEditStudioModal({{ $studio->id }})" class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200 flex items-center">
+                <i class="fas fa-edit h-5 w-5 mr-2"></i>
+                Edit Studio
+              </button>
+              <button onclick="deleteStudio({{ $studio->id }})" class="bg-danger hover:bg-dangerHover text-white py-2 px-4 rounded-md transition-all duration-200 flex items-center mt-2">
+                <i class="fas fa-trash h-5 w-5 mr-2"></i>
+                Delete Studio
+              </button>
+            </div>
+          @endforeach
         </div>
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-white mb-2">Rhythm Room</h3>
-          <p class="text-textMuted mb-4">Cozy recording space perfect for podcasts and vocal sessions.</p>
-          <div class="flex justify-between items-center text-sm mb-4">
-            <span class="text-textMuted">$65/hour</span>
-            <span class="flex items-center text-warning">
-            <i class="fas fa-star h-4 w-4 mr-1"></i>
-            4.8 (14 reviews)
-            </span>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <button class="bg-darkAccent hover:bg-dark text-white py-2 px-4 rounded-md transition-all duration-200 text-sm">Edit Studio</button>
-            <button class="bg-transparent hover:bg-darkAccent border border-border text-white py-2 px-4 rounded-md transition-all duration-200 text-sm">View Bookings</button>
-          </div>
-        </div>
-        </div>
-
-        <!-- Studio Card 3 -->
-        <div class="bg-darkUI rounded-lg border border-border overflow-hidden studio-card">
-        <div class="relative h-48 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80" alt="Studio" class="w-full h-full object-cover transition-transform duration-500 studio-image">
-          <div class="absolute top-0 right-0 m-3">
-            <span class="bg-success bg-opacity-90 text-white text-xs px-2 py-1 rounded-full">Active</span>
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-white mb-2">Beat Box Studio</h3>
-          <p class="text-textMuted mb-4">Modern production suite with live room and mixing capabilities.</p>
-          <div class="flex justify-between items-center text-sm mb-4">
-            <span class="text-textMuted">$95/hour</span>
-            <span class="flex items-center text-warning">
-            <i class="fas fa-star h-4 w-4 mr-1"></i>
-            4.7 (9 reviews)
-            </span>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <button class="bg-darkAccent hover:bg-dark text-white py-2 px-4 rounded-md transition-all duration-200 text-sm">Edit Studio</button>
-            <button class="bg-transparent hover:bg-darkAccent border border-border text-white py-2 px-4 rounded-md transition-all duration-200 text-sm">View Bookings</button>
-          </div>
-        </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
       <!-- Payments Section -->
     <section id="payments" class="hidden animate-fade-in">

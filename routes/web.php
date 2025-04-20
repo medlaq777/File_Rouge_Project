@@ -48,10 +48,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showProfile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
 
-
-Route::get("dashboard", function () {
-    return view("Dashboard.Owner.index");
-})->name("dashboard")->middleware('auth');
+Route::get("dashboard", [StudioController::class, 'index'])->name("dashboard")->middleware('auth');
 
 
 Route::post('store/studio', [StudioController::class, 'store'])->name('store.studio')->middleware('auth');
