@@ -290,10 +290,29 @@
                                     class="w-full h-48 object-cover">
                             @endif
                             <div class="absolute top-3 right-3">
-                                <span class="bg-darkAccent bg-opacity-80 text-light text-xs px-2 py-1 rounded-full">
-                                    {{ isset($studio->availabilities->first()->status) ? $studio->availabilities->first()->status : 'unavailable' }}
+                                @php
+                                    $isAvailable = isset($studio->availabilities->first()->status) && strtolower($studio->availabilities->first()->status) === 'available';
+                                    $statusColor = $isAvailable ? 'text-success' : 'text-danger';
+                                    $icon = $isAvailable ? 'fa-circle-check' : 'fa-circle-xmark';
+                                    $labelText = isset($studio->availabilities->first()->status) ? $studio->availabilities->first()->status : 'Unavailable';
+                                @endphp
+                                <span class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center {{ $statusColor }} pulse-led">
+                                    <i class="fas {{ $icon }} text-sm mr-1.5"></i>
+                                    {{ $labelText }}
                                 </span>
                             </div>
+
+                            <style>
+                                @keyframes pulse {
+                                    0% { opacity: 0.7; }
+                                    50% { opacity: 1; }
+                                    100% { opacity: 0.7; }
+                                }
+                                .pulse-led {
+                                    animation: pulse 2s infinite;
+                                    text-shadow: 0 0 5px currentColor;
+                                }
+                            </style>
                         </div>
 
                         <!-- Studio Details -->
