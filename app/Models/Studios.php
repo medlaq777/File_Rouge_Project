@@ -20,7 +20,6 @@ class Studios extends Model
         'location',
         'price',
         'feature',
-        // 'image',
         'availability',
         'start_date',
         'end_date',
@@ -44,5 +43,10 @@ class Studios extends Model
     public function images(): HasMany
     {
         return $this->hasMany(StudioImages::class, 'studio_id');
+    }
+
+    public function availabilities(): HasMany
+    {
+        return $this->hasMany(Availability::class, 'studio_id');
     }
 }
