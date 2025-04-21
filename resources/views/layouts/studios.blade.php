@@ -2,8 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-8">
             <h2 class="text-2xl font-bold text-light">Featured Studios</h2>
-            <a href="{{ route('explore') }}"
-                class="text-primary hover:text-primaryHover font-medium flex items-center">
+            <a href="{{ route('explore') }}" class="text-primary hover:text-primaryHover font-medium flex items-center">
                 View All
                 <i class="fas fa-chevron-right ml-1"></i>
             </a>
@@ -14,8 +13,12 @@
                 <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card animate-fade-in"
                     style="animation-delay: {{ $loop->iteration * 0.1 }}s">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="https://placehold.co/600x400" alt="{{ $studio['name'] }}"
-                            class="w-full h-full object-cover studio-img">
+                        @if ($studio->images->isNotEmpty())
+                            <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}"
+                                alt="{{ $studio->name }}" class="w-full h-48 object-cover">
+                        @else
+                            <img src="{{ 'no image' }}" alt="Default Studio Image" class="w-full h-48 object-cover">
+                        @endif
                         @if (isset($studio['badge']))
                             <div class="absolute top-0 right-0 p-2">
                                 <span

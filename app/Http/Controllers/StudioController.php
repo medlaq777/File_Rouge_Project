@@ -19,8 +19,10 @@ class StudioController extends Controller
     {
         $user = Auth::id();
         $studios = $this->StudiosService->index($user);
+        $count = $studios->count();
         return view('Dashboard.Owner.index', [
             'studios' => $studios,
+            'count' => $count,
         ]);
     }
 
@@ -31,39 +33,7 @@ class StudioController extends Controller
             'studio-description' => 'required|string|max:255',
             'studio-address' => 'required|string|max:255',
             'studio-location' => 'required|string|max:255',
-            'studio-price' => 'required|numeric',
-            'studio-image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $data = $request->only([
-            'studio-name',
-            'studio-description',
-            'studio-address',
-            'studio-location',
-            'studio-price',
-            'studio-available',
-            'studio-feature',
-            'start_date',
-            'end_date',
-        ]);
-        if ($request->hasFile('studio-image')) {
-            $data['studio-image'] = $request->file('studio-image')->store('images/studios', 'public');
-        }
-            $data['user_id'] = Auth::id();
-            $studios = $this->StudiosService->store($data);
-            return view('Dashboard.Owner.index', [
-                'studios' => $studios,
-            ])->with('success', 'Studio created successfully.');
-    }
-
-    public function update(Request $request)
-    {
-        $request->validate([
-            'studio-name' => 'required|string|max:255',
-            'studio-description' => 'required|string|max:255',
-            'studio-address' => 'required|string|max:255',
-            'studio-location' => 'required|string|max:255',
-            'studio-price' => 'required|numeric',
+            'studio-price' => 'required|numeric|min:0|max:200',
             'studio-image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -73,27 +43,60 @@ class StudioController extends Controller
             'studio-address',
             'studio-location',
             'studio-price',
-            'studio-available',
-            'studio-feature',
-            'start_date',
-            'end_date',
+        ]);
+        if ($request->hasFile('studio-image')) {
+            $data['studio-image'] = $request->file('studio-image')->store('images/studios', 'public');
+        }
+        $data['user_id'] = Auth::id();
+        $this->StudiosService->store($data);
+        $studios = $this->StudiosService->index($data['user_id']);
+        $count = $studios->count();
+        return view('Dashboard.Owner.index', [
+            'studios' => $studios,
+            'count' => $count,
+        ])->with('success', 'Studio deleted successfully.');
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'studio-name' => 'required|string|max:255',
+            'studio-description' => 'required|string|max:255',
+            'studio-address' => 'required|string|max:255',
+            'studio-location' => 'required|string|max:255',
+            'studio-price' => 'required|numeric|min:0|max:200',
+            'studio-image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $data = $request->only([
+            'studio-name',
+            'studio-description',
+            'studio-address',
+            'studio-location',
+            'studio-price',
         ]);
         if ($request->hasFile('studio-image')) {
             $data['studio-image'] = $request->file('studio-image')->store('images/studios', 'public');
         }
         $data['studio_id'] = $request->input('studio_id');
+        
+        $data['user_id'] = Auth::id();
         $this->StudiosService->update($data);
-        $user = Auth::id();
-        $studios = $this->StudiosService->index($user);
+        $studios = $this->StudiosService->index($data['user_id']);
+        $count = $studios->count();
         return view('Dashboard.Owner.index', [
             'studios' => $studios,
-        ])->with('success', 'Studio updated successfully.');
-}
+            'count' => $count,
+        ])->with('success', 'Studio deleted successfully.');
+    }
     public function destroy($id)
     {
-        $studios = $this->StudiosService->destroy($id);
+        $this->StudiosService->destroy($id);
+        $studios = $this->StudiosService->index(Auth::id());
+        $count = $studios->count();
         return view('Dashboard.Owner.index', [
             'studios' => $studios,
+            'count' => $count,
         ])->with('success', 'Studio deleted successfully.');
     }
 

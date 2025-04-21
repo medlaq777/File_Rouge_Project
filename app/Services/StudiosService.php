@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Studios;
-use Illuminate\Support\Facades\Storage;
 
 class StudiosService
 {
@@ -12,7 +11,7 @@ class StudiosService
         return Studios::all()->where('user_id', $userId);
     }
 
-    public function store(array $data)
+    public function store($data)
     {
         $studios = Studios::create([
             'user_id' => $data['user_id'],
@@ -51,7 +50,11 @@ class StudiosService
                 'end_date' => $data['end_date'] ?? now()->addYear(1),
             ]);
             if (isset($data['studio-image'])) {
-                $studios->images()->update([
+                $oldImage = $studios->images()->first();
+                if ($oldImage) {
+                    $oldImage->delete();
+                }
+                $studios->images()->create([
                     'image_path' => $data['studio-image'],
                 ]);
             }

@@ -53,4 +53,4 @@ Route::get("dashboard", [StudioController::class, 'index'])->name("dashboard")->
 
 Route::post('store/studio', [StudioController::class, 'store'])->name('store.studio')->middleware('auth');
 Route::put('update/studio', [StudioController::class, 'update'])->name('update.studio')->middleware('auth');
-Route::post('delete/studio', [StudioController::class, 'destroy'])->name('delete.studio')->middleware('auth');
+Route::delete('/delete/studio/{id}', [StudioController::class, 'destroy'])->name('delete.studio')->middleware('auth');

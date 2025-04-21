@@ -57,7 +57,7 @@
                             <i class="fas fa-building text-danger text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">{{ $studios->count() }}</p>
+                    <p class="text-3xl font-bold text-white">{{ $count }}</p>
                     <p class="text-sm text-textMuted mt-2">All your registered studios</p>
                 </div>
 
@@ -90,7 +90,7 @@
                             <i class="fas fa-star text-warning text-2xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">4.8</p>
+                    <p class="text-3xl font-bold text-white">{{ $studios->first()->rating ?? '0' }}</p>
                     <p class="text-sm text-textMuted mt-2">Based on 42 reviews</p>
                 </div>
             </div>
@@ -282,8 +282,13 @@
                         class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <!-- Studio Image with Overlay -->
                         <div class="relative">
-                            <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}"
-                                alt="{{ $studio->name }}" class="w-full h-48 object-cover">
+                            @if($studio->images->isNotEmpty())
+                                <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}" alt="{{ $studio->name }}"
+                                    class="w-full h-48 object-cover">
+                            @else
+                                <img src="{{ 'no image' }}" alt="Default Studio Image"
+                                    class="w-full h-48 object-cover">
+                            @endif
                             <div class="absolute top-3 right-3">
                                 <span class="bg-darkAccent bg-opacity-80 text-light text-xs px-2 py-1 rounded-full">
                                     {{ $studio->available ? 'Available' : 'Unavailable' }}
@@ -331,11 +336,15 @@
                                     <i class="fas fa-edit mr-2"></i>
                                     Edit
                                 </button>
-                                <button onclick="deleteStudio({{ $studio->id }})"
-                                    class="flex-1 bg-darkAccent hover:bg-danger text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
-                                    <i class="fas fa-trash mr-2"></i>
-                                    Delete
-                                </button>
+                                <form action="{{ route('delete.studio', $id = $studio->id) }}" method="POST" class="flex-1">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="w-full bg-darkAccent hover:bg-danger text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                                        <i class="fas fa-trash mr-2"></i>
+                                        Delete
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

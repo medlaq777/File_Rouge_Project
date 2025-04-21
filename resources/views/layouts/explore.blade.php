@@ -147,8 +147,14 @@
                         <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card animate-fade-in"
                             style="animation-delay: {{ $loop->iteration * 0.1 }}s">
                             <div class="relative h-48 overflow-hidden">
-                                <img src="https://placehold.co/600x400" alt="{{ $studio['name'] }}"
-                                    class="w-full h-full object-cover studio-img">
+                                @if ($studio->images->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}"
+                                        alt="{{ $studio->name }}" class="w-full h-48 object-cover">
+                                @else
+                                    <img src="{{ 'no image' }}" alt="Default Studio Image"
+                                        class="w-full h-48 object-cover">
+                                @endif
+                                class="w-full h-full object-cover studio-img">
                                 @if (isset($studio['badge']))
                                     <div class="absolute top-0 right-0 p-2">
                                         <span
