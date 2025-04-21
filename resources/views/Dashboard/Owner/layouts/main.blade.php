@@ -291,7 +291,7 @@
                             @endif
                             <div class="absolute top-3 right-3">
                                 <span class="bg-darkAccent bg-opacity-80 text-light text-xs px-2 py-1 rounded-full">
-                                    {{ $studio->available ? 'Available' : 'Unavailable' }}
+                                    {{ isset($studio->availabilities->first()->status) ? $studio->availabilities->first()->status : 'unavailable' }}
                                 </span>
                             </div>
                         </div>

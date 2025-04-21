@@ -13,9 +13,11 @@ class Availability extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'studio_id',
+        'date',
         'start_time',
         'end_time',
-        'day_of_week',
+        'status',
     ];
     protected $casts = [
         'start_time' => 'datetime',

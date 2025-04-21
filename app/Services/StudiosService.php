@@ -3,6 +3,11 @@
 namespace App\Services;
 
 use App\Models\Studios;
+use App\Models\Availability;
+use DateTime;
+use DateInterval;
+use DatePeriod;
+use Exception;
 
 class StudiosService
 {
@@ -31,6 +36,38 @@ class StudiosService
                 'image_path' => $data['studio-image'],
             ]);
         }
+
+
+        if (isset($data['availability']) && isset($data['availability']['type'])) {
+            $type = $data['availability']['type'];
+            if ($type === 'custom') {
+                $slots = $data['availability']['slots'] ?? [];
+                $dates = [];
+                $starts = [];
+                $ends = [];
+                foreach ($slots as $slot) {
+                    $dates[] = $slot['date'];
+                    $starts[] = $slot['start'];
+                    $ends[] = $slot['end'];
+                }
+                $this->handleCustom($studios->id, $studios->user_id, [
+                    'availability_date' => $dates,
+                    'start_time' => $starts,
+                    'end_time' => $ends,
+                ]);
+            } elseif ($type === 'recurring') {
+                $this->handleRecurring($studios->id, $studios->user_id, [
+                    'recurring_days' => $data['availability']['days'] ?? [],
+                    'recurring_start_time' => $data['availability']['start_time'] ?? null,
+                    'recurring_end_time' => $data['availability']['end_time'] ?? null,
+                    'recurring_start_date' => $data['availability']['start_date'] ?? null,
+                    'recurring_end_date' => $data['availability']['end_date'] ?? null,
+                ]);
+            } elseif ($type === 'always') {
+                $this->handleAlways($studios->id, $studios->user_id);
+            }
+        }
+
         return $studios;
     }
 
@@ -73,4 +110,113 @@ class StudiosService
         return false;
     }
 
+    public function setAvailability($studioId, array $data)
+    {
+        $studio = Studios::find($studioId);
+
+        if (!$studio) {
+            throw new Exception("Studio not found.");
+        }
+
+        $type = $data['availability_type'] ?? null;
+
+        if ($type === 'custom') {
+            $this->handleCustom($studioId, $studio->user_id, $data);
+        } elseif ($type === 'recurring') {
+            $this->handleRecurring($studioId, $studio->user_id, $data);
+        } elseif ($type === 'always') {
+            $this->handleAlways($studioId, $studio->user_id); // <-- FIXED
+        } else {
+            throw new Exception("Invalid availability type.");
+            }
+    }
+
+    public function getAvailability($studioId)
+    {
+        return Availability::where('studio_id', $studioId)->get();
+    }
+
+    private function handleCustom($studioId, $userId, $data)
+    {
+        $dates = $data['availability_date'] ?? [];
+        $starts = $data['start_time'] ?? [];
+        $ends = $data['end_time'] ?? [];
+
+        if (count($dates) !== count($starts) || count($starts) !== count($ends)) {
+            throw new Exception("Invalid custom availability data.");
+        }
+
+        for ($i = 0; $i < count($dates); $i++) {
+            try {
+                $date = new DateTime($dates[$i]);
+                $startTime = new DateTime($starts[$i]);
+                $endTime = new DateTime($ends[$i]);
+            } catch (\Exception $e) {
+                throw new Exception("Invalid date or time format.");
+            }
+
+            Availability::create([
+                'studio_id' => $studioId,
+                'user_id' => $userId,
+                'date' => $date->format('Y-m-d'),
+                'start_time' => $startTime->format('H:i:s'),
+                'end_time' => $endTime->format('H:i:s'),
+                'status' => 'available',
+            ]);
+        }
+    }
+
+    private function handleRecurring($studioId, $userId, $data)
+    {
+        $days = $data['recurring_days'] ?? [];
+        $startTimeStr = $data['recurring_start_time'] ?? null;
+        $endTimeStr = $data['recurring_end_time'] ?? null;
+        $startDateStr = $data['recurring_start_date'] ?? null;
+        $endDateStr = $data['recurring_end_date'] ?? null;
+
+        if (!$startTimeStr || !$endTimeStr || !$startDateStr || !$endDateStr || empty($days)) {
+            throw new Exception("Missing recurring availability data.");
+        }
+
+        try {
+            $startTime = new DateTime($startTimeStr);
+            $endTime = new DateTime($endTimeStr);
+            $startDate = new DateTime($startDateStr);
+            $endDate = new DateTime($endDateStr);
+        } catch (\Exception $e) {
+            throw new Exception("Invalid date/time format.");
+        }
+
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod($startDate, $interval, $endDate->modify('+1 day'));
+
+        foreach ($period as $date) {
+            $dayName = strtolower($date->format('l'));
+            foreach ($days as $selectedDay) {
+                if (strtolower($selectedDay) === $dayName) {
+                    Availability::create([
+                        'studio_id' => $studioId,
+                        'user_id' => $userId,
+                        'date' => $date->format('Y-m-d'),
+                        'start_time' => $startTime->format('H:i:s'),
+                        'end_time' => $endTime->format('H:i:s'),
+                        'status' => 'available',
+                    ]);
+                    break;
+                }
+            }
+        }
+    }
+
+    private function handleAlways($studioId, $userId)
+    {
+        Availability::create([
+            'studio_id' => $studioId,
+            'user_id' => $userId,
+            'date' => '1900-01-01',
+            'start_time' => '00:00:00',
+            'end_time' => '23:59:59',
+            'status' => 'available',
+        ]);
+    }
 }

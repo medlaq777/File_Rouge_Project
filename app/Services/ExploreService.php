@@ -66,20 +66,20 @@ class ExploreService
 
     public function filterByCriteria(array $criteria)
     {
-    $query = Studios::query();
+        $query = Studios::query();
 
 
-    if (isset($criteria['price_min']) && isset($criteria['price_max'])) {
-        $query->whereBetween('price', [$criteria['price_min'], $criteria['price_max']]);
-    }
+        if (isset($criteria['price_min']) && isset($criteria['price_max'])) {
+            $query->whereBetween('price', [$criteria['price_min'], $criteria['price_max']]);
+        }
 
 
-    if (isset($criteria['equipments']) && is_array($criteria['equipments'])) {
-        $query->whereHas('equipements', function ($q) use ($criteria) {
-            $q->whereIn('name', $criteria['equipments']);
-        });
-    }
+        if (isset($criteria['equipments']) && is_array($criteria['equipments'])) {
+            $query->whereHas('equipements', function ($q) use ($criteria) {
+                $q->whereIn('name', $criteria['equipments']);
+            });
+        }
 
-    return $query->get();
+        return $query->get();
     }
 }
