@@ -16,9 +16,6 @@
             </div>
 
             <div class="flex items-center">
-                <button class="p-2 rounded-full text-textMuted hover:text-light focus:outline-none" id="search-toggle">
-                    <i class="fas fa-search"></i>
-                </button>
 
                 <div class="ml-4 relative flex items-center space-x-3">
                     @auth
@@ -63,100 +60,12 @@
                     @endauth
                 </div>
 
-                <div class="flex md:hidden ml-4">
-                    <button type="button" id="mobile-menu-button" aria-expanded="false"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-textMuted hover:text-light focus:outline-none">
-                        <i class="fas fa-bars mobile-icon"></i>
-                    </button>
-                </div>
             </div>
-        </div>
-    </div>
-
-    <div id="mobile-menu"
-        class="md:hidden hidden bg-darkAccent border-b border-border transition-all duration-300 max-h-0 overflow-hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="{{ '/' }}" class="block px-3 py-2 rounded-md text-base font-medium ">Home</a>
-            <a href="" class="block px-3 py-2 rounded-md text-base font-medium">Explore
-                Studios</a>
-
-            @guest
-                <a href="{{ route('login') }}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-light hover:bg-darkUI">Sign
-                    In</a>
-                <a href="{{ route('register') }}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-light hover:bg-darkUI">Sign
-                    Up</a>
-            @endguest
-
-            @auth
-                <a href=""
-                    class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-light hover:bg-darkUI">Profile</a>
-                @if (Auth::user()->isOwner() || Auth::user()->isArtist() || Auth::user()->isAdmin())
-                    <a href=""
-                        class="block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-light hover:bg-darkUI">Dashboard</a>
-                @endif
-                <form method="POST" action="">
-                    @csrf
-                    <button type="submit"
-                        class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-textMuted hover:text-light hover:bg-darkUI">Sign
-                        Out</button>
-                </form>
-            @endauth
         </div>
     </div>
 </nav>
-
-<div id="search-overlay"
-    class="fixed inset-0 bg-dark bg-opacity-90 z-50 hidden opacity-0 transition-opacity duration-300">
-    <div class="container mx-auto px-4 h-full flex items-center justify-center">
-        <div class="w-full max-w-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl text-light font-bold">Search</h2>
-                <button id="search-close" class="text-light hover:text-primary">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <form action="" method="GET">
-                <div class="relative">
-                    <input type="text" name="q" placeholder="Search for studios, artists, tracks..."
-                        class="w-full bg-darkAccent border border-border rounded-lg py-4 px-5 text-light placeholder-textMuted focus:outline-none focus:ring-2 focus:ring-primary">
-                    <button type="submit"
-                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-textMuted hover:text-light">
-                        <i class="fas fa-search text-lg"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileIcon = mobileMenuButton.querySelector('.mobile-icon');
-
-        mobileMenuButton.addEventListener('click', function() {
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-
-            if (isExpanded) {
-                mobileMenu.style.maxHeight = '0';
-                mobileIcon.classList.remove('fa-times');
-                mobileIcon.classList.add('fa-bars');
-                setTimeout(() => {
-                    mobileMenu.classList.add('hidden');
-                }, 300);
-            } else {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.offsetHeight;
-                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-                mobileIcon.classList.remove('fa-bars');
-                mobileIcon.classList.add('fa-times');
-            }
-        });
         const userMenuButtons = document.querySelectorAll('.user-menu-button');
         userMenuButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -202,45 +111,5 @@
                 }
             });
         });
-
-
-        const searchToggle = document.getElementById('search-toggle');
-        const searchOverlay = document.getElementById('search-overlay');
-        const searchClose = document.getElementById('search-close');
-
-        searchToggle.addEventListener('click', function() {
-            searchOverlay.classList.remove('hidden');
-
-            searchOverlay.offsetHeight;
-            searchOverlay.classList.add('opacity-100');
-            document.body.classList.add('overflow-hidden');
-
-
-            const searchInput = searchOverlay.querySelector('input');
-            if (searchInput) {
-                searchInput.focus();
-            }
-        });
-
-        searchClose.addEventListener('click', function() {
-            closeSearchOverlay();
-        });
-
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && !searchOverlay.classList.contains('hidden')) {
-                closeSearchOverlay();
-            }
-        });
-
-        function closeSearchOverlay() {
-            searchOverlay.classList.remove('opacity-100');
-            document.body.classList.remove('overflow-hidden');
-
-
-            setTimeout(() => {
-                searchOverlay.classList.add('hidden');
-            }, 300);
-        }
     });
 </script>

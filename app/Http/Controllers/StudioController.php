@@ -48,10 +48,12 @@ class StudioController extends Controller
         ]);
         if ($request->hasFile('studio-image')) {
             $data['studio-image'] = $request->file('studio-image')->store('images/studios', 'public');
+        }
             $data['user_id'] = Auth::id();
             $studios = $this->StudiosService->store($data);
-            return redirect()->route('dashboard')->with('success', 'Studio created successfully.');
-        }
+            return view('Dashboard.Owner.index', [
+                'studios' => $studios,
+            ])->with('success', 'Studio created successfully.');
     }
 
     public function update(Request $request)

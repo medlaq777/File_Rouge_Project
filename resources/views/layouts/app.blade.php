@@ -135,22 +135,6 @@
         </main>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                const menuButton = document.getElementById("mobile-menu-button");
-                const mobileMenu = document.getElementById("mobile-menu");
-
-                menuButton.addEventListener("click", function() {
-                    if (mobileMenu.classList.contains("hidden")) {
-                        mobileMenu.classList.remove("hidden");
-
-                        mobileMenu.style.animation = "fadeIn 0.3s ease forwards";
-                    } else {
-                        mobileMenu.style.animation = "fadeIn 0.3s ease backwards reverse";
-                        setTimeout(() => {
-                            mobileMenu.classList.add("hidden");
-                        }, 300);
-                    }
-                });
-
                 const studioCards = document.querySelectorAll(".studio-card");
                 studioCards.forEach((card) => {
                     card.addEventListener("mouseenter", function() {

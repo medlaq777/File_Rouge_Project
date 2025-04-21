@@ -23,7 +23,7 @@
                     <div class="relative group w-32 h-32 rounded-full overflow-hidden border-2 border-primary cursor-pointer" onclick="document.getElementById('profile_image').click()">
                         <img
                             id="image-preview"
-                            src="{{ $profile->profile_image == 'https://placehold.co/200x200/EEE/31343C' ? $profile->profile_image : asset('storage/' . $profile->profile_image) }}"
+                            src="{{ asset('storage/' . $profile->profile_image) }}"
                             alt="Profile Image"
                             class="w-full h-full object-cover"
                         >
@@ -72,7 +72,7 @@
                             {{ $label }}
                         </label>
                         <div class="relative">
-                            <i class="fas fa-{{ $field === 'email' ? 'envelope' : ($field === 'phone' ? 'phone-alt' : ($field === 'address' ? 'map-marker-alt' : ($field === 'city' ? 'city' : ($field === 'country' ? 'globe-americas' : 'user')))) }} absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
+                            <i class="fas fa-{{ $field === 'email' ? 'envelope' : ($field === 'phone' ? 'phone-alt' : ($field === 'address' ? 'map-marker-alt' : ($field === 'city' ? 'city' : ($field === 'country' ? 'Morocco' : 'user')))) }} absolute top-1/2 left-3 -translate-y-1/2 text-textMuted"></i>
                             <input type="{{ $field === 'email' ? 'email' : 'text' }}" id="{{ $field }}" value="{{ $profile->$field ?? $user->$field }}" name="{{ $field }}"
                                 class="w-full pl-10 pr-4 py-3 rounded-lg bg-inputBg border border-border text-light placeholder-textMuted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-input transition duration-200" />
                         </div>

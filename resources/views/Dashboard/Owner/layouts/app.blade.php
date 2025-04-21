@@ -103,20 +103,12 @@
 </head>
 
 <body class="bg-darkBg text-light min-h-screen font-sans antialiased custom-scrollbar">
-    @yield('header')
+    @yield('nav')
     @yield('main')
     @yield('addStudios')
     @yield('editStudios')
     <!-- JavaScript -->
     <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
         // Tab switching functionality
         function showTab(tabId) {
             // Hide all sections
@@ -132,9 +124,6 @@
                 link.classList.remove('sidebar-active');
             });
             document.getElementById(tabId + '-link')?.classList.add('sidebar-active');
-
-            // Close mobile menu when tab is selected
-            mobileMenu.classList.add('hidden');
         }
 
         // Modal functions

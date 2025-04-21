@@ -1,5 +1,5 @@
 <!-- Main Content with Sidebar -->
-<div class="pt-16 flex flex-col md:flex-row min-h-screen">
+<div class="flex flex-col md:flex-row min-h-screen">
     <!-- Sidebar (Desktop) -->
     <aside class="hidden md:block w-64 bg-darkAccent border-r border-border min-h-screen">
         <div class="p-4">
@@ -282,13 +282,8 @@
                         class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <!-- Studio Image with Overlay -->
                         <div class="relative">
-                            @if ($studio->images->isNotEmpty())
-                                <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}"
-                                    alt="{{ $studio->name }}" class="w-full h-48 object-cover">
-                            @else
-                                <img src="{{ asset('images/default-studio.jpg') }}" alt="{{ $studio->name }}"
-                                    class="w-full h-48 object-cover">
-                            @endif
+                            <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}"
+                                alt="{{ $studio->name }}" class="w-full h-48 object-cover">
                             <div class="absolute top-3 right-3">
                                 <span class="bg-darkAccent bg-opacity-80 text-light text-xs px-2 py-1 rounded-full">
                                     {{ $studio->available ? 'Available' : 'Unavailable' }}
@@ -327,11 +322,9 @@
                                     {{ $studio->id }},
                                      '{{ $studio->name }}',
                                      '{{ $studio->description }}',
+                                     '{{ $studio->price }}',
                                      '{{ $studio->location }}',
                                      '{{ $studio->address }}',
-                                     '{{ $studio->price }}',
-                                     '{{ $studio->available }}',
-                                     '{{ $studio->type }}',
                                      '{{ $studio->images->first()->image_path ?? '' }}'
                                      )"
                                     class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">

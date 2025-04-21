@@ -56,7 +56,7 @@
                 <form class="space-y-3">
                     <div>
                         <label for="email" class="sr-only">Email address</label>
-                        <input id="email" name="email" type="email"
+                        <input id="newsletter-email" name="newsletter-email" type="email"
                             class="w-full px-3 py-2 bg-inputBg border border-border rounded-md text-light placeholder-textMuted focus:outline-none focus:ring-1 focus:ring-primary"
                             placeholder="Your email address">
                     </div>
