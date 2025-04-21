@@ -7,7 +7,7 @@
                 <i class="fas fa-times h-6 w-6"></i>
             </button>
         </div>
-        <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+        <form class="space-y-6" action="{{ route('update.studio') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <input type="hidden" name="studio_id" id="edit-studio-id">

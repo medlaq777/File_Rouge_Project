@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StudioImages extends Model
 {
-    /** @use HasFactory<\Database\Factories\StudioImagesFactory> */
     use HasFactory;
 
     protected $fillable = [
