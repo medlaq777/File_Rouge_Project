@@ -25,7 +25,6 @@ class StudiosService
             'address' => $data['studio-address'],
             'location' => $data['studio-location'],
             'price' => $data['studio-price'],
-            'available' => $data['studio-available'] ?? 1,
             'feature' => $data['studio-feature'] ?? 0,
             'start_date' => $data['start_date'] ?? now(),
             'end_date' => $data['end_date'] ?? now()->addYear(1),
@@ -81,7 +80,6 @@ class StudiosService
                 'address' => $data['studio-address'],
                 'location' => $data['studio-location'],
                 'price' => $data['studio-price'],
-                'available' => $data['studio-available'] ?? 1,
                 'feature' => $data['studio-feature'] ?? 0,
                 'start_date' => $data['start_date'] ?? now(),
                 'end_date' => $data['end_date'] ?? now()->addYear(1),
@@ -94,6 +92,35 @@ class StudiosService
                 $studios->images()->create([
                     'image_path' => $data['studio-image'],
                 ]);
+            }
+            if (isset($data['availability']) && isset($data['availability']['type'])) {
+                $type = $data['availability']['type'];
+                if ($type === 'custom') {
+                    $slots = $data['availability']['slots'] ?? [];
+                    $dates = [];
+                    $starts = [];
+                    $ends = [];
+                    foreach ($slots as $slot) {
+                        $dates[] = $slot['date'];
+                        $starts[] = $slot['start'];
+                        $ends[] = $slot['end'];
+                    }
+                    $this->handleCustom($studios->id, $studios->user_id, [
+                        'availability_date' => $dates,
+                        'start_time' => $starts,
+                        'end_time' => $ends,
+                    ]);
+                } elseif ($type === 'recurring') {
+                    $this->handleRecurring($studios->id, $studios->user_id, [
+                        'recurring_days' => $data['availability']['days'] ?? [],
+                        'recurring_start_time' => $data['availability']['start_time'] ?? null,
+                        'recurring_end_time' => $data['availability']['end_time'] ?? null,
+                        'recurring_start_date' => $data['availability']['start_date'] ?? null,
+                        'recurring_end_date' => $data['availability']['end_date'] ?? null,
+                    ]);
+                } elseif ($type === 'always') {
+                    $this->handleAlways($studios->id, $studios->user_id);
+                }
             }
             return $studios;
         }

@@ -1,5 +1,5 @@
 <!-- Add Studio Modal -->
-<div id="add-add-studio-modal" class="modal">
+<div id="add-studio-modal" class="modal">
     <div class="modal-content p-6">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-semibold text-white">Add New Studio</h2>
@@ -45,16 +45,16 @@
                 <div class="mb-6">
                     <span id="add-quick-setup-label" class="block text-light mb-2">Quick Setup</span>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3" aria-labelledby="quick-setup-label">
-                        <button type="button" onclick="setAvailability('24/7')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
+                        <button type="button" onclick="setAddAvailability('24/7')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
                             <i class="fas fa-infinity mr-2"></i> 24/7
                         </button>
-                        <button type="button" onclick="setAvailability('weekdays')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
+                        <button type="button" onclick="setAddAvailability('weekdays')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
                             <i class="fas fa-briefcase mr-2"></i> Weekdays
                         </button>
-                        <button type="button" onclick="setAvailability('weekends')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
+                        <button type="button" onclick="setAddAvailability('weekends')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
                             <i class="fas fa-umbrella-beach mr-2"></i> Weekends
                         </button>
-                        <button type="button" onclick="setAvailability('current-month')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
+                        <button type="button" onclick="setAddAvailability('current-month')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
                             <i class="fas fa-calendar-alt mr-2"></i> This Month
                         </button>
                     </div>
@@ -63,7 +63,7 @@
                 <!-- Custom Availability Selection -->
                 <div class="space-y-4">
                     <div class="flex items-center space-x-4">
-                        <select id="add-availability-type" name="availability_type" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" onchange="toggleCustomAvailability()">
+                        <select id="add-availability-type" name="availability_type" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" onchange="toggleAddCustomAvailability()">
                             <option value="custom">Custom Time Slots</option>
                             <option value="always">Always Available</option>
                             <option value="recurring">Recurring Schedule</option>
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div id="add-additional-availability-slots"></div>
-                        <button type="button" onclick="addAvailabilitySlot()" class="mt-2 text-primary hover:text-primaryHover flex items-center">
+                        <button type="button" onclick="addAddAvailabilitySlot()" class="mt-2 text-primary hover:text-primaryHover flex items-center">
                             <i class="fas fa-plus-circle mr-2"></i> Add More Time Slots
                         </button>
                     </div>

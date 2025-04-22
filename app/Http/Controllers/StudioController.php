@@ -29,24 +29,23 @@ class StudioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'studio-name' => 'required|string|max:255',
-        'studio-description' => 'required|string|max:255',
-        'studio-address' => 'required|string|max:255',
-        'studio-location' => 'required|string|max:255',
-        'studio-price' => 'required|numeric|min:0|max:200',
-        'studio-image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        'availability_type' => 'required|in:custom,always,recurring',
-        // Custom slots
-        'availability_date.*' => 'nullable|date',
-        'start_time.*' => 'nullable|date_format:H:i',
-        'end_time.*' => 'nullable|date_format:H:i',
-        // Recurring
-        'recurring_days' => 'nullable|array',
-        'recurring_days.*' => 'nullable|string|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
-        'recurring_start_time' => 'nullable|date_format:H:i',
-        'recurring_end_time' => 'nullable|date_format:H:i',
-        'recurring_start_date' => 'nullable|date',
-        'recurring_end_date' => 'nullable|date|after_or_equal:recurring_start_date',
+            'studio-name' => 'required|string|max:255',
+            'studio-description' => 'required|string|max:255',
+            'studio-address' => 'required|string|max:255',
+            'studio-location' => 'required|string|max:255',
+            'studio-price' => 'required|numeric|min:0|max:200',
+            'studio-image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'availability_type' => 'required|in:custom,always,recurring',
+            'availability_date.*' => 'nullable|date',
+            'start_time.*' => 'nullable|date_format:H:i',
+            'end_time.*' => 'nullable|date_format:H:i',
+            'recurring_days' => 'nullable|array',
+            'recurring_days.*' => 'nullable|string|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'recurring_start_time' => 'nullable|date_format:H:i',
+            'recurring_end_time' => 'nullable|date_format:H:i',
+            'recurring_start_date' => 'nullable|date',
+            'recurring_end_date' => 'nullable|date|after_or_equal:recurring_start_date',
+            'studio_id' => 'required|exists:studios,id',
         ]);
 
         $data = $request->only([
@@ -61,7 +60,6 @@ class StudioController extends Controller
         }
         $data['user_id'] = Auth::id();
 
-        // Handle availability
         $availability = [
             'type' => $request->input('availability_type'),
         ];
@@ -86,7 +84,6 @@ class StudioController extends Controller
             $availability['start_date'] = $request->input('recurring_start_date');
             $availability['end_date'] = $request->input('recurring_end_date');
         }
-        // For 'always', nothing extra needed
 
         $data['availability'] = $availability;
         $data['studio_id'] = $request->input('studio_id', null);
@@ -110,9 +107,17 @@ class StudioController extends Controller
             'studio-location' => 'required|string|max:255',
             'studio-price' => 'required|numeric|min:0|max:200',
             'studio-image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'availability_date' => 'required|date',
+            'availability_type' => 'required|in:custom,always,recurring',
+            'availability_date.*' => 'nullable|date',
+            'start_time.*' => 'nullable|date_format:H:i',
+            'end_time.*' => 'nullable|date_format:H:i',
+            'recurring_days' => 'nullable|array',
+            'recurring_days.*' => 'nullable|string|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'recurring_start_time' => 'nullable|date_format:H:i',
+            'recurring_end_time' => 'nullable|date_format:H:i',
+            'recurring_start_date' => 'nullable|date',
+            'recurring_end_date' => 'nullable|date|after_or_equal:recurring_start_date',
             'studio_id' => 'required|exists:studios,id',
-            'av'
         ]);
 
         $data = $request->only([
@@ -125,16 +130,43 @@ class StudioController extends Controller
         if ($request->hasFile('studio-image')) {
             $data['studio-image'] = $request->file('studio-image')->store('images/studios', 'public');
         }
-        $data['studio_id'] = $request->input('studio_id');
-
         $data['user_id'] = Auth::id();
+
+        $availability = [
+            'type' => $request->input('availability_type'),
+        ];
+        if ($availability['type'] === 'custom') {
+            $availability['slots'] = [];
+            $dates = $request->input('availability_date', []);
+            $starts = $request->input('start_time', []);
+            $ends = $request->input('end_time', []);
+            for ($i = 0; $i < count($dates); $i++) {
+                if (!empty($dates[$i]) && !empty($starts[$i]) && !empty($ends[$i])) {
+                    $availability['slots'][] = [
+                        'date' => $dates[$i],
+                        'start' => $starts[$i],
+                        'end' => $ends[$i],
+                    ];
+                }
+            }
+        } elseif ($availability['type'] === 'recurring') {
+            $availability['days'] = $request->input('recurring_days', []);
+            $availability['start_time'] = $request->input('recurring_start_time');
+            $availability['end_time'] = $request->input('recurring_end_time');
+            $availability['start_date'] = $request->input('recurring_start_date');
+            $availability['end_date'] = $request->input('recurring_end_date');
+        }
+
+        $data['availability'] = $availability;
+        $data['studio_id'] = $request->input('studio_id', null);
+
         $this->StudiosService->update($data);
         $studios = $this->StudiosService->index($data['user_id']);
         $count = $studios->count();
         return view('Dashboard.Owner.index', [
             'studios' => $studios,
             'count' => $count,
-        ])->with('success', 'Studio deleted successfully.');
+        ])->with('success', 'Studio updated successfully.');
     }
 
 

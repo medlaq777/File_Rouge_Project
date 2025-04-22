@@ -335,11 +335,11 @@
                                 <button type="button"
                                     onclick="showEditStudioModal(
                                     {{ $studio->id }},
-                                     '{{ $studio->name }}',
-                                     '{{ $studio->description }}',
-                                     '{{ $studio->price }}',
-                                     '{{ $studio->location }}',
-                                     '{{ $studio->address }}',
+                                    '{{ $studio->name }}',
+                                    '{{ $studio->description }}',
+                                    '{{ $studio->price }}',
+                                    '{{ $studio->location }}',
+                                    '{{ $studio->address }}',
                                      '{{ $studio->images->first()->image_path ?? '' }}'
                                      )"
                                     class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
