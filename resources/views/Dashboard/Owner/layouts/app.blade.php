@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="BEATRECORDS - Premium Music Studio Rental">
     <meta name="keywords" content="music, studio, rental, premium, beatrecords">
     <meta name="author" content="BEATRECORDS">
@@ -193,6 +193,137 @@
         function closeEditStudioModal() {
             document.getElementById('edit-studio-modal').style.display = 'none';
         }
+
+        function addAvailabilitySlot() {
+            const additionalSlotsContainer = document.getElementById('additional-availability-slots');
+            const slotCount = additionalSlotsContainer.querySelectorAll('.availability-slot').length + 1;
+
+            const newSlot = document.createElement('div');
+            newSlot.className = 'availability-slot grid grid-cols-1 md:grid-cols-3 gap-4 mt-4';
+            newSlot.innerHTML = `
+            <div>
+                <label for="availability-date-${slotCount}" class="block text-light mb-2">Date</label>
+                <input type="date" id="availability-date-${slotCount}" name="availability_date[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            <div>
+                <label for="start-time-${slotCount}" class="block text-light mb-2">Start Time</label>
+                <input<!-- Image Upload -->
+            <div>
+                <label class="block text-light mb-2" for="studio-image">Studio Image</label>
+                <input type="file" id="studio-image" name="studio-image" class="hidden" />
+                <div class="border-2 border-dashed border-border rounded-md p-8 text-center">
+                    <i class="fas fa-image mx-auto h-12 w-12 text-textMuted" style="font-size:3rem;"></i>
+                    <p class="mt-2 text-sm text-textMuted">Drag and drop an image here, or click to browse</p>
+                    <button type="button" class="mt-4 bg-darkAccent text-light py-2 px-4 rounded-md hover:bg-border transition-colors" onclick="document.getElementById('studio-image').click();">Select File</button>
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-4 pt-4 border-t border-border">
+                <button type="button" onclick="closeAddStudioModal()" class="bg-transparent hover:bg-darkAccent border border-border text-white py-2 px-6 rounded-md transition-all duration-200">Cancel</button>
+                <button type="submit" class="bg-primary hover:bg-primaryHover text-white py-2 px-6 rounded-md transition-all duration-200 cursor-pointer">Add Studio</button>
+            </div>
+            </form>
+            </div>
+            </div> type="time" id="start-time-${slotCount}" name="start_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            <div>
+                <label for="end-time-${slotCount}" class="block text-light mb-2">End Time</label>
+                <input type="time" id="end-time-${slotCount}" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+        `;
+
+            additionalSlotsContainer.appendChild(newSlot);
+        }
+
+        function toggleCustomAvailability() {
+            const type = document.getElementById('availability-type').value;
+            const customSection = document.getElementById('custom-availability-section');
+            const recurringSection = document.getElementById('recurring-availability-section');
+
+            if (type === 'custom') {
+                customSection.classList.remove('hidden');
+                recurringSection.classList.add('hidden');
+            } else if (type === 'recurring') {
+                customSection.classList.add('hidden');
+                recurringSection.classList.remove('hidden');
+            } else {
+                customSection.classList.add('hidden');
+                recurringSection.classList.add('hidden');
+            }
+        }
+
+        function setAvailability(type) {
+            const availabilityType = document.getElementById('availability-type');
+            const today = new Date();
+
+            switch (type) {
+                case '24/7':
+                    availabilityType.value = 'always';
+                    toggleCustomAvailability();
+                    break;
+
+                case 'weekdays':
+                    availabilityType.value = 'recurring';
+                    toggleCustomAvailability();
+
+                    // Check all weekday checkboxes
+                    ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].forEach(day => {
+                        document.querySelector(`input[name="recurring_days[]"][value="${day}"]`).checked = true;
+                    });
+
+                    // Set typical business hours
+                    document.getElementById('recurring-start-time').value = '09:00';
+                    document.getElementById('recurring-end-time').value = '17:00';
+
+                    // Set from today to end of year
+                    document.getElementById('recurring-start-date').value = today.toISOString().split('T')[0];
+                    document.getElementById('recurring-end-date').value = `${today.getFullYear()}-12-31`;
+                    break;
+
+                case 'weekends':
+                    availabilityType.value = 'recurring';
+                    toggleCustomAvailability();
+
+                    // Check weekend checkboxes
+                    ['saturday', 'sunday'].forEach(day => {
+                        document.querySelector(`input[name="recurring_days[]"][value="${day}"]`).checked = true;
+                    });
+
+                    // Set typical weekend hours
+                    document.getElementById('recurring-start-time').value = '10:00';
+                    document.getElementById('recurring-end-time').value = '20:00';
+
+                    // Set from today to end of year
+                    document.getElementById('recurring-start-date').value = today.toISOString().split('T')[0];
+                    document.getElementById('recurring-end-date').value = `${today.getFullYear()}-12-31`;
+                    break;
+
+                case 'current-month':
+                    availabilityType.value = 'recurring';
+                    toggleCustomAvailability();
+
+                    // Check all days
+                    document.querySelectorAll('input[name="recurring_days[]"]').forEach(checkbox => {
+                        checkbox.checked = true;
+                    });
+
+                    // Set all day availability
+                    document.getElementById('recurring-start-time').value = '00:00';
+                    document.getElementById('recurring-end-time').value = '23:59';
+
+                    // Set for current month only
+                    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+                    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+                    document.getElementById('recurring-start-date').value = firstDay.toISOString().split('T')[0];
+                    document.getElementById('recurring-end-date').value = lastDay.toISOString().split('T')[0];
+                    break;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleCustomAvailability();
+        });
     </script>
 </body>
 

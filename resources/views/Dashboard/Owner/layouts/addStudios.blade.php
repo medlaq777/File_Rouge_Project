@@ -1,5 +1,5 @@
 <!-- Add Studio Modal -->
-<div id="add-studio-modal" class="modal">
+<div id="add-add-studio-modal" class="modal">
     <div class="modal-content p-6">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-semibold text-white">Add New Studio</h2>
@@ -12,29 +12,29 @@
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <input type="hidden" name="studio_id" value="{{ $studio->id ?? '' }}">
             <div>
-                <label for="studio-name" class="block text-light mb-2">Studio Name</label>
-                <input type="text" id="studio-name" name="studio-name" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter studio name">
+                <label for="add-studio-name" class="block text-light mb-2">Studio Name</label>
+                <input type="text" id="add-studio-name" name="studio-name" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter studio name">
             </div>
 
             <div>
-                <label for="studio-description" class="block text-light mb-2">Description</label>
-                <textarea id="studio-description" name="studio-description" rows="4" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Describe your studio"></textarea>
+                <label for="add-studio-description" class="block text-light mb-2">Description</label>
+                <textarea id="add-studio-description" name="studio-description" rows="4" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Describe your studio"></textarea>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="studio-price" class="block text-light mb-2">Hourly Rate Max(200$)</label>
-                    <input type="number" id="studio-price" name="studio-price" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g. 75">
+                    <label for="add-studio-price" class="block text-light mb-2">Hourly Rate Max(200$)</label>
+                    <input type="number" id="add-studio-price" name="studio-price" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g. 75">
                 </div>
                 <div>
-                    <label for="studio-location" class="block text-light mb-2">Location</label>
-                    <input type="text" id="studio-location" name="studio-location" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="City, State">
+                    <label for="add-studio-location" class="block text-light mb-2">Location</label>
+                    <input type="text" id="add-studio-location" name="studio-location" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="City, State">
                 </div>
             </div>
 
             <div>
-                <label for="studio-address" class="block text-light mb-2">Full Address</label>
-                <input type="text" id="studio-address" name="studio-address" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter street address">
+                <label for="add-studio-address" class="block text-light mb-2">Full Address</label>
+                <input type="text" id="add-studio-address" name="studio-address" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter street address">
             </div>
 
             <!-- Enhanced Availability Section with Quick Options -->
@@ -43,7 +43,7 @@
 
                 <!-- Quick Availability Options -->
                 <div class="mb-6">
-                    <span id="quick-setup-label" class="block text-light mb-2">Quick Setup</span>
+                    <span id="add-quick-setup-label" class="block text-light mb-2">Quick Setup</span>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3" aria-labelledby="quick-setup-label">
                         <button type="button" onclick="setAvailability('24/7')" class="bg-inputBg border border-border text-light py-2 px-4 rounded-md hover:bg-darkAccent transition-colors flex items-center justify-center">
                             <i class="fas fa-infinity mr-2"></i> 24/7
@@ -63,7 +63,7 @@
                 <!-- Custom Availability Selection -->
                 <div class="space-y-4">
                     <div class="flex items-center space-x-4">
-                        <select id="availability-type" name="availability_type" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" onchange="toggleCustomAvailability()">
+                        <select id="add-availability-type" name="availability_type" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" onchange="toggleCustomAvailability()">
                             <option value="custom">Custom Time Slots</option>
                             <option value="always">Always Available</option>
                             <option value="recurring">Recurring Schedule</option>
@@ -71,32 +71,32 @@
                     </div>
 
                     <!-- Custom Time Slots -->
-                    <div id="custom-availability-section" class="space-y-4">
+                    <div id="add-custom-availability-section" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label for="availability-date" class="block text-light mb-2">Date</label>
-                                <input type="date" id="availability-date" name="availability_date[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <label for="add-availability-date" class="block text-light mb-2">Date</label>
+                                <input type="date" id="add-availability-date" name="availability_date[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                             </div>
                             <div>
-                                <label for="start-time" class="block text-light mb-2">Start Time</label>
-                                <input type="time" id="start-time" name="start_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <label for="add-start-time" class="block text-light mb-2">Start Time</label>
+                                <input type="time" id="add-start-time" name="start_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                             </div>
                             <div>
-                                <label for="end-time" class="block text-light mb-2">End Time</label>
-                                <input type="time" id="end-time" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <label for="add-end-time" class="block text-light mb-2">End Time</label>
+                                <input type="time" id="add-end-time" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                             </div>
                         </div>
-                        <div id="additional-availability-slots"></div>
+                        <div id="add-additional-availability-slots"></div>
                         <button type="button" onclick="addAvailabilitySlot()" class="mt-2 text-primary hover:text-primaryHover flex items-center">
                             <i class="fas fa-plus-circle mr-2"></i> Add More Time Slots
                         </button>
                     </div>
 
                     <!-- Recurring Schedule -->
-                    <div id="recurring-availability-section" class="hidden space-y-4">
+                    <div id="add-recurring-availability-section" class="hidden space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label id="recurring-days-label" class="block text-light mb-2">Select Days</label>
+                                <span id="add-recurring-days-label" class="block text-light mb-2">Select Days</span>
                                 <div class="flex flex-wrap gap-2" aria-labelledby="recurring-days-label">
                                     <label class="flex items-center space-x-2 bg-inputBg p-2 rounded-md border border-border cursor-pointer hover:bg-darkAccent">
                                         <input type="checkbox" name="recurring_days[]" value="monday" class="form-checkbox h-4 w-4 text-primary border-border bg-inputBg rounded focus:ring-primary">
@@ -129,29 +129,29 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-light mb-2">Time Range</label>
+                                <span class="block text-light mb-2">Time Range</span>
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label for="recurring-start-time" class="block text-light mb-2">Start Time</label>
-                                        <input type="time" id="recurring-start-time" name="recurring_start_time" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <label for="add-recurring-start-time" class="block text-light mb-2">Start Time</label>
+                                        <input type="time" id="add-recurring-start-time" name="recurring_start_time" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                                     </div>
                                     <div>
-                                        <label for="recurring-end-time" class="block text-light mb-2">End Time</label>
-                                        <input type="time" id="recurring-end-time" name="recurring_end_time" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                        <label for="add-recurring-end-time" class="block text-light mb-2">End Time</label>
+                                        <input type="time" id="add-recurring-end-time" name="recurring_end_time" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-light mb-2">Validity Period</label>
+                            <span class="block text-light mb-2">Validity Period</span>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label for="recurring-start-date" class="block text-light mb-2">From Date</label>
-                                    <input type="date" id="recurring-start-date" name="recurring_start_date" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <label for="add-recurring-start-date" class="block text-light mb-2">From Date</label>
+                                    <input type="date" id="add-recurring-start-date" name="recurring_start_date" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                                 </div>
                                 <div>
-                                    <label for="recurring-end-date" class="block text-light mb-2">To Date</label>
-                                    <input type="date" id="recurring-end-date" name="recurring_end_date" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <label for="add-recurring-end-date" class="block text-light mb-2">To Date</label>
+                                    <input type="date" id="add-recurring-end-date" name="recurring_end_date" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                                 </div>
                             </div>
                         </div>
@@ -201,15 +201,15 @@
                     </label>
                 </div>
                 <div class="mt-4">
-                    <label for="custom-features" class="block text-light mb-2">Other Features (comma-separated)</label>
-                    <input type="text" id="custom-features" name="custom_features" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Green Room, Lounge Area, Kitchen">
+                    <label for="add-custom-features" class="block text-light mb-2">Other Features (comma-separated)</label>
+                    <input type="text" id="add-custom-features" name="custom_features" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Green Room, Lounge Area, Kitchen">
                 </div>
             </div>
 
             <!-- Image Upload -->
             <div>
-                <label class="block text-light mb-2" for="studio-image">Studio Image</label>
-                <input type="file" id="studio-image" name="studio-image" class="hidden" />
+                <label class="block text-light mb-2" for="add-studio-image">Studio Image</label>
+                <input type="file" id="add-studio-image" name="studio-image" class="hidden" />
                 <div class="border-2 border-dashed border-border rounded-md p-8 text-center">
                     <i class="fas fa-image mx-auto h-12 w-12 text-textMuted" style="font-size:3rem;"></i>
                     <p class="mt-2 text-sm text-textMuted">Drag and drop an image here, or click to browse</p>
@@ -224,120 +224,3 @@
         </form>
     </div>
 </div>
-
-<script>
-    function addAvailabilitySlot() {
-        const additionalSlotsContainer = document.getElementById('additional-availability-slots');
-        const slotCount = additionalSlotsContainer.querySelectorAll('.availability-slot').length + 1;
-
-        const newSlot = document.createElement('div');
-        newSlot.className = 'availability-slot grid grid-cols-1 md:grid-cols-3 gap-4 mt-4';
-        newSlot.innerHTML = `
-            <div>
-                <label for="availability-date-${slotCount}" class="block text-light mb-2">Date</label>
-                <input type="date" id="availability-date-${slotCount}" name="availability_date[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-            </div>
-            <div>
-                <label for="start-time-${slotCount}" class="block text-light mb-2">Start Time</label>
-                <input type="time" id="start-time-${slotCount}" name="start_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-            </div>
-            <div>
-                <label for="end-time-${slotCount}" class="block text-light mb-2">End Time</label>
-                <input type="time" id="end-time-${slotCount}" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-            </div>
-        `;
-
-        additionalSlotsContainer.appendChild(newSlot);
-    }
-
-    function toggleCustomAvailability() {
-        const type = document.getElementById('availability-type').value;
-        const customSection = document.getElementById('custom-availability-section');
-        const recurringSection = document.getElementById('recurring-availability-section');
-
-        if (type === 'custom') {
-            customSection.classList.remove('hidden');
-            recurringSection.classList.add('hidden');
-        } else if (type === 'recurring') {
-            customSection.classList.add('hidden');
-            recurringSection.classList.remove('hidden');
-        } else {
-            customSection.classList.add('hidden');
-            recurringSection.classList.add('hidden');
-        }
-    }
-
-    function setAvailability(type) {
-        const availabilityType = document.getElementById('availability-type');
-        const today = new Date();
-
-        switch(type) {
-            case '24/7':
-                availabilityType.value = 'always';
-                toggleCustomAvailability();
-                break;
-
-            case 'weekdays':
-                availabilityType.value = 'recurring';
-                toggleCustomAvailability();
-
-                // Check all weekday checkboxes
-                ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].forEach(day => {
-                    document.querySelector(`input[name="recurring_days[]"][value="${day}"]`).checked = true;
-                });
-
-                // Set typical business hours
-                document.getElementById('recurring-start-time').value = '09:00';
-                document.getElementById('recurring-end-time').value = '17:00';
-
-                // Set from today to end of year
-                document.getElementById('recurring-start-date').value = today.toISOString().split('T')[0];
-                document.getElementById('recurring-end-date').value = `${today.getFullYear()}-12-31`;
-                break;
-
-            case 'weekends':
-                availabilityType.value = 'recurring';
-                toggleCustomAvailability();
-
-                // Check weekend checkboxes
-                ['saturday', 'sunday'].forEach(day => {
-                    document.querySelector(`input[name="recurring_days[]"][value="${day}"]`).checked = true;
-                });
-
-                // Set typical weekend hours
-                document.getElementById('recurring-start-time').value = '10:00';
-                document.getElementById('recurring-end-time').value = '20:00';
-
-                // Set from today to end of year
-                document.getElementById('recurring-start-date').value = today.toISOString().split('T')[0];
-                document.getElementById('recurring-end-date').value = `${today.getFullYear()}-12-31`;
-                break;
-
-            case 'current-month':
-                availabilityType.value = 'recurring';
-                toggleCustomAvailability();
-
-                // Check all days
-                document.querySelectorAll('input[name="recurring_days[]"]').forEach(checkbox => {
-                    checkbox.checked = true;
-                });
-
-                // Set all day availability
-                document.getElementById('recurring-start-time').value = '00:00';
-                document.getElementById('recurring-end-time').value = '23:59';
-
-                // Set for current month only
-                const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-                const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
-                document.getElementById('recurring-start-date').value = firstDay.toISOString().split('T')[0];
-                document.getElementById('recurring-end-date').value = lastDay.toISOString().split('T')[0];
-                break;
-        }
-    }
-
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        toggleCustomAvailability();
-    });
-    </script>
