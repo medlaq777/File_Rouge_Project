@@ -395,13 +395,13 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-white">Payment History</h2>
                     <div class="flex space-x-2">
-                        <select class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
+                        <select id="studio-filter" name="studio-filter" class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                             <option>All Studios</option>
                             <option>Soundwave Studios</option>
                             <option>Rhythm Room</option>
                             <option>Beat Box Studio</option>
                         </select>
-                        <select class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
+                        <select id="date-range-filter" name="date-range-filter" class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                             <option>Last 30 Days</option>
                             <option>Last 3 Months</option>
                             <option>Last 6 Months</option>
@@ -595,7 +595,7 @@
             <div class="bg-darkUI rounded-lg border border-border p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-white">Recent Reviews</h2>
-                    <select class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
+                    <select id="review-filter" name="review-filter" class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                         <option>All Studios</option>
                         <option>Soundwave Studios</option>
                         <option>Rhythm Room</option>

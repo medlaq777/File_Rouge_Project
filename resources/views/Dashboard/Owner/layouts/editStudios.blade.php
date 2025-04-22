@@ -1,4 +1,4 @@
-<!-- Edit Studio Modal -->
+{{-- <!-- Edit Studio Modal -->
 <div id="edit-studio-modal" class="modal">
     <div class="modal-content p-6">
         <div class="flex justify-between items-center mb-6">
@@ -75,4 +75,4 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
