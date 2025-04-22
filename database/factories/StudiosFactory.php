@@ -32,7 +32,6 @@ class StudiosFactory extends Factory
             'address' => $this->faker->streetAddress(),
             'location' => $this->faker->randomElement(['Casablanca', 'Rabat', 'Marrakech', 'Fes', 'Tangier', 'Agadir', 'Oujda', 'Kenitra', 'Tetouan', 'Safi']),
             'price' => $this->faker->randomFloat(2, 50, 200),
-            'availability' => $this->faker->boolean,
             'rating' => $this->faker->randomFloat(1, 1, 5),
             'feature' => $this->faker->word,
             'start_date' => now(),
