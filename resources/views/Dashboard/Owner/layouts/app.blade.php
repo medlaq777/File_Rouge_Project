@@ -15,6 +15,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <style>
+        @keyframes pulse {
+            0% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        .pulse-led {
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 5px currentColor;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;

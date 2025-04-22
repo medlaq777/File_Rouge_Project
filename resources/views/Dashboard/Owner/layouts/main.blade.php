@@ -303,15 +303,6 @@
                             </div>
 
                             <style>
-                                @keyframes pulse {
-                                    0% { opacity: 0.7; }
-                                    50% { opacity: 1; }
-                                    100% { opacity: 0.7; }
-                                }
-                                .pulse-led {
-                                    animation: pulse 2s infinite;
-                                    text-shadow: 0 0 5px currentColor;
-                                }
                             </style>
                         </div>
 
