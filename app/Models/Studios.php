@@ -38,22 +38,17 @@ class Studios extends Model
     //     return $this->hasMany(Review::class, 'studio_id');
     // }
 
-    // public function features(): HasMany
-    // {
-    //     return $this->hasMany(StudioFeatures::class, 'studio_id');
-    // }
-
-    // public function bookings(): HasMany
-    // {
-    //     return $this->hasMany(Booking::class, 'studio_id');
-    // }
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'studio_id');
+    }
 
     // public function statistics()
     // {
     //     return $this->hasMany(StudioStatistics::class);
     // }
 
-    public function images(): HasMany
+    public function Photos(): HasMany
     {
         return $this->hasMany(Photos::class, 'studio_id');
     }

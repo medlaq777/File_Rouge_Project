@@ -277,18 +277,18 @@
 
             <!-- Studio Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($studios as $studio)
+                @foreach ($myStudios as $studio)
                     <div
                         class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <!-- Studio Image with Overlay -->
                         <div class="relative">
-                            @if($studio->images->isNotEmpty())
+                            {{-- @if($studio->images->isNotEmpty())
                                 <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}" alt="{{ $studio->name }}"
                                     class="w-full h-48 object-cover">
                             @else
                                 <img src="{{ 'no image' }}" alt="Default Studio Image"
                                     class="w-full h-48 object-cover">
-                            @endif
+                            @endif --}}
                             <div class="absolute top-3 right-3">
                                 @php
                                     $isAvailable = isset($studio->availabilities->first()->status) && strtolower($studio->availabilities->first()->status) === 'available';
@@ -340,7 +340,6 @@
                                     '{{ $studio->price }}',
                                     '{{ $studio->location }}',
                                     '{{ $studio->address }}',
-                                     '{{ $studio->images->first()->image_path ?? '' }}'
                                      )"
                                     class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                     <i class="fas fa-edit mr-2"></i>
