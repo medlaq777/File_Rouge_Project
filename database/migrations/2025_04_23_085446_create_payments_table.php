@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('amount', 10, 2);
+            $table->decimal('total_price', 10, 2);
             $table->datetime('payment_date');
             $table->string('transaction_id')->nullable();
             $table->string('method', ['stripe', 'paypal'])->default('stripe');
