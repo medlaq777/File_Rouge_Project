@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->rememberToken();
-            $table->enum('type', ['Artist', 'Owner', 'Admin'])->default('Artist');
             $table->timestamps();
         });
 
