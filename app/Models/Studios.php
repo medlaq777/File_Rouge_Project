@@ -55,7 +55,7 @@ class Studios extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(StudioImages::class, 'studio_id');
+        return $this->hasMany(Photos::class, 'studio_id');
     }
 
     public function availabilities(): HasMany
