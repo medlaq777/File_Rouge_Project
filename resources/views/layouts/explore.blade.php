@@ -44,18 +44,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="mb-6" id="equipmentFilter">
-                        <h3 class="font-medium mb-3 text-primary" id="equipmentTitle">Equipment</h3>
-                        @foreach ($stud as $equipment)
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" id="{{ $equipment['name'] }}"
-                                    class="w-4 h-4 rounded border-border bg-inputBg text-primary focus:ring-primary filter-checkbox">
-                                <label for="{{ $equipment['name'] }}"
-                                    class="ml-2 text-sm text-textMuted">{{ $equipment['name'] }}</label>
-                            </div>
-                        @endforeach
-                    </div>
                     <div class="mb-6" id="availabilityFilter">
                         <h3 class="font-medium mb-3 text-primary" id="availabilityTitle">Availability</h3>
                         <div class="relative">

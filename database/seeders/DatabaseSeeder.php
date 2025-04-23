@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Equipement;
 use App\Models\User;
 use App\Models\ProfileUser;
 use App\Models\Studios;
