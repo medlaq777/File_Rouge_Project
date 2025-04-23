@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('studio_id')->constrained('studios')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('availability_id')->constrained('availabilities')->onDelete('cascade');
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->decimal('total_price', 10, 2);
