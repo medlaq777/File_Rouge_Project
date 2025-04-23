@@ -14,30 +14,44 @@ class Studios extends Model
 
     protected $fillable = [
         'user_id',
+        'category_id',
         'name',
         'description',
-        'address',
         'location',
         'price',
-        'feature',
-        'start_date',
-        'end_date',
-    ];
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-        'availability' => 'boolean',
+        'rating',
+        'TotalReviews',
     ];
 
-    public function user(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function equipements(): HasMany
-    {
-        return $this->hasMany(Equipement::class, 'studio_id');
-    }
+    // public function category(): BelongsTo
+    // {
+    //     return $this->belongsTo(Category::class, 'category_id');
+    // }
+
+    // public function reviews(): HasMany
+    // {
+    //     return $this->hasMany(Review::class, 'studio_id');
+    // }
+
+    // public function features(): HasMany
+    // {
+    //     return $this->hasMany(StudioFeatures::class, 'studio_id');
+    // }
+
+    // public function bookings(): HasMany
+    // {
+    //     return $this->hasMany(Booking::class, 'studio_id');
+    // }
+
+    // public function statistics()
+    // {
+    //     return $this->hasMany(StudioStatistics::class);
+    // }
 
     public function images(): HasMany
     {
@@ -47,5 +61,12 @@ class Studios extends Model
     public function availabilities(): HasMany
     {
         return $this->hasMany(Availability::class, 'studio_id');
+    }
+
+    public function updateRating()
+    {
+        $this->note_moyenne = $this->reviews()->avg('note') ?? 0;
+        $this->nombre_avis = $this->reviews()->count();
+        $this->save();
     }
 }
