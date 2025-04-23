@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('studio_id')->constrained('studios')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->integer('rating')->between(1, 5);
+            $table->decimal('rating')->between(1, 5);
             $table->text('comment')->nullable();
             $table->timestamps();
         });
