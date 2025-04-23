@@ -282,13 +282,13 @@
                         class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <!-- Studio Image with Overlay -->
                         <div class="relative">
-                            {{-- @if($studio->images->isNotEmpty())
+                            @if($studio->images)
                                 <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}" alt="{{ $studio->name }}"
                                     class="w-full h-48 object-cover">
                             @else
                                 <img src="{{ 'no image' }}" alt="Default Studio Image"
                                     class="w-full h-48 object-cover">
-                            @endif --}}
+                            @endif
                             <div class="absolute top-3 right-3">
                                 @php
                                     $isAvailable = isset($studio->availabilities->first()->status) && strtolower($studio->availabilities->first()->status) === 'available';
@@ -326,7 +326,7 @@
                                 </div>
                                 <div class="flex items-center text-sm text-textMuted">
                                     <i class="fas fa-info-circle w-5"></i>
-                                    <span>{{ $studio->status ?? ($studio->available ? 'Available' : 'Unavailable') }}</span>
+                                    <span>{{ $studioAvailability }}</span>
                                 </div>
                             </div>
 

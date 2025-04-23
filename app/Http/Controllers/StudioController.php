@@ -22,11 +22,15 @@ class StudioController extends Controller
     public function index()
     {
         $studios = Studios::with(['category', 'photos'])->paginate(10);
+        $myStudios = Studios::where('user_id', Auth::id())->get();
+        $studioAvailability = $myStudios->map(function ($studio) {
+            return $studio->availabilities->first()->status;
+        })->implode(',');
+        // dd($studioAvailability);
         $categories = Category::all();
         $features = Feature::all();
-        $myStudios = Studios::where('user_id', Auth::id())->get();
         $count = $myStudios->count();
-        return view('Dashboard.Owner.index', compact('studios', 'categories', 'features', 'count', 'myStudios'));
+        return view('Dashboard.Owner.index', compact('studios', 'categories', 'features', 'count', 'myStudios', 'studioAvailability'));
     }
     // public function index()
     // {
