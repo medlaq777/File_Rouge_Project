@@ -4,16 +4,18 @@
 
     use App\Http\Controllers\Controller;
     use App\Services\AuthService;
+    use App\Services\StudiosService;
     use Illuminate\Http\Request;
     use Laravel\Socialite\Facades\Socialite;
 
     class AuthController extends Controller
     {
         protected $authService;
-
-        public function __construct(AuthService $authService)
+        protected $StudiosService;
+        public function __construct(AuthService $authService, StudiosService $StudiosService )
         {
             $this->authService = $authService;
+            $this->StudiosService = $StudiosService;
         }
 
         public function showRegisterForm()
@@ -29,38 +31,28 @@
 
         public function register(Request $request)
         {
-        $user = $this->authService->register($request->all());
-        if ($user) {
-            $login = $this->authService->login($request->only('email', 'password'));
-            if ($login) {
-                $user = $this->authService->login($request->only('email', 'password'));
+            $user = $this->authService->register($request->all());
+            if ($user) {
                 return redirect()->route('showLoginForm')->with('success', 'Registration successful. Please log in.');
             }
-        }
-        return back()->withErrors([
-            'email' => 'Registration failed.',
-        ])->onlyInput('email');
+            return back()->withErrors([
+                'email' => 'Email already exists.',
+            ])->onlyInput('email');
         }
 
         public function login(Request $request)
         {
             $credentials = $request->only('email', 'password');
-            $user = $this->authService->login($credentials);
-            if ($user) {
-                $user = $this->authService->login($credentials);
-                if ($user->isOwner()) {
-                    return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
-                }
-                // if ($user->isAdmin()) {
-                //     return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
-                // }
-                // if ($user->isArtist()) {
-                //     return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
-                // }
+            $login = $this->authService->login($credentials);
+            $checkRole = $login->role->value;
+            if($login && $checkRole == 'owner') {
+                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+            }elseif($login && $checkRole == 'artist' ){
+                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+            }elseif($login && $checkRole == 'admin'){
+                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
             }
-            return back()->withErrors([
-                'email' => 'Invalid credentials.',
-            ])->onlyInput('email');
+
         }
 
         public function logout(Request $request)

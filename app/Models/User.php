@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'provider',
         'provider_id',
+        'role',
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -73,15 +74,15 @@ class User extends Authenticatable
 
     public function isArtist(): bool
     {
-        return $this->role === RoleEnum::Artist;
+        return $this->role === RoleEnum::artist;
     }
 
     public function isOwner(): bool
     {
-        return $this->role === RoleEnum::Owner;
+        return $this->role === RoleEnum::owner;
     }
     public function isAdmin(): bool
     {
-        return $this->role === RoleEnum::Admin;
+        return $this->role === RoleEnum::admin;
     }
 }

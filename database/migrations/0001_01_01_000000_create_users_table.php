@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
+            $table->enum('role', ['admin', 'owner', 'artist'])->default('Artist');
             $table->rememberToken();
             $table->timestamps();
         });

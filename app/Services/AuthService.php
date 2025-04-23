@@ -23,7 +23,6 @@ class AuthService
             'username' => $validatedData['username'],
 
         ]);
-        Auth::login($user, true);
         return $user;
     }
 
@@ -40,18 +39,31 @@ class AuthService
 
 
     public function login(array $data)
-    {
-        $validatedData = $this->validateLoginData($data);
-        $user = User::where('email', $validatedData['email'])->first();
-        if (!$user ) {
-            throw new \Exception('Invalid credentials');
-        }
-        if (!Hash::check($validatedData['password'], $user->password)) {
-            throw new \Exception('Invalid credentials');
-        }
-        Auth::login($user, true);
+{
+    $validatedData = $this->validateLoginData($data);
+    $user = $this->getUserByEmail($validatedData['email']);
+    if (!$user) {
+        throw new \Exception('Invalid credentials');
+    }
+    if (!Hash::check($validatedData['password'], $user->password)) {
+        throw new \Exception('Invalid credentials');
+    }
+    if (!Auth::attempt($validatedData)) {
+        throw new \Exception('Invalid credentials');
+    }
+
+    $user = Auth::user();
+
+    if ($user->isOwner()) {
+        return $user;
+    } elseif ($user->isArtist()) {
+        return $user;
+    } elseif ($user->isAdmin()) {
         return $user;
     }
+
+    throw new \Exception('Access denied: User role not allowed');
+}
 
     public function validateLoginData(array $data)
     {
@@ -131,5 +143,38 @@ class AuthService
         }
 
         return $username;
+    }
+
+
+    public function getUserByEmail($email)
+    {
+        return User::where('email', $email)->first();
+    }
+    public function getUserById($id)
+    {
+        return User::find($id);
+    }
+
+    public function profileComplete($login)
+    {
+
+        $login = Auth::user();
+        if($login) {
+            $fullname = $login->profileUser->full_name;
+            $username = $login->profileUser->username;
+            $phone = $login->profileUser->phone;
+            $address = $login->profileUser->address;
+            $city = $login->profileUser->city;
+            $country = $login->profileUser->country;
+            $bio = $login->profileUser->bio;
+            $image = $login->profileUser->image;
+            if ($fullname && $username && $phone && $address && $city && $country && $bio && $image) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
 }
