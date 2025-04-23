@@ -32,15 +32,33 @@ class StudioController extends Controller
         $count = $myStudios->count();
         return view('Dashboard.Owner.index', compact('studios', 'categories', 'features', 'count', 'myStudios', 'studioAvailability'));
     }
-    // public function index()
+
+    // public function store(Request $request)
     // {
-    //     $user = Auth::id();
-    //     $studios = $this->StudiosService->index($user);
-    //     $count = $studios->count();
-    //     return view('Dashboard.Owner.index', [
-    //         'studios' => $studios,
-    //         'count' => $count,
+    //     $request->validate([
+    //         'studio-name' => 'required|string|max:255',
+    //         'studio-description' => 'required|string|max:255',
+    //         'studio-address' => 'required|string|max:255',
+    //         'studio-location' => 'required|string|max:255',
+    //         'studio-price' => 'required|numeric|min:0|max:200',
+    //         'studio-image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     //     ]);
+
+    //     $data = $request->only([
+    //         'studio-name',
+    //         'studio-description',
+    //         'studio-address',
+    //         'studio-location',
+    //         'studio-price',
+    //     ]);
+    //     if ($request->hasFile('studio-image')) {
+    //         $data['studio-image'] = $request->file('studio-image')->store('images/studios', 'public');
+    //     }
+    //     $data['user_id'] = Auth::id();
+
+    //     $this->StudiosService->store($data);
+
+    //     return redirect()->route('studios.index')->with('success', 'Studio created successfully.');
     // }
 
     // public function store(Request $request)
@@ -197,17 +215,4 @@ class StudioController extends Controller
     //         'count' => $count,
     //     ])->with('success', 'Studio deleted successfully.');
     // }
-
-    // public function setAvailability($studioId, Request $request)
-    // {
-    //     $this->StudiosService->setAvailability($studioId, $request->all());
-    //     return response()->json(['message' => 'Availability set successfully']);
-    // }
-
-    // public function getAvailability($studioId)
-    // {
-    //     $availabilities = $this->StudiosService->getAvailability($studioId);
-    //         return response()->json($availabilities);
-    // }
-
 }
