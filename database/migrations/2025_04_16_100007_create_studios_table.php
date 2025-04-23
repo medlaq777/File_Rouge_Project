@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('studios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('owner_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('name')->unique();
             $table->string('description')->nullable();
-            $table->string('address')->nullable();
             $table->string('location')->nullable();
             $table->decimal('price', 10, 2)->nullable();
-            $table->float('rating')->default(0);
-            $table->string('feature')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->decimal('rating', 3, 2)->default(0);
+            $table->integer('TotalReviews')->default(0);
             $table->timestamps();
         });
     }
