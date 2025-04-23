@@ -35,7 +35,7 @@
                     <div class="mb-6" id="priceRangeFilter">
                         <h3 class="font-medium mb-3 text-primary" id="priceRangeTitle">Price Range (per hour)</h3>
                         <div class="px-1">
-                            <input type="range" id="priceRange" min="0" max="100" value="50"
+                            <input type="range" id="priceRange" min="0" max="200" value="100"
                                 class="w-full h-2 bg-darkUI rounded-lg appearance-none cursor-pointer" id="priceRange">
                             <div class="flex justify-between mt-2" id="priceRangeValues">
                                 <span class="text-sm text-textMuted" id="priceValue">$0</span>
@@ -102,7 +102,7 @@
                                         const studioCard = `
                                         <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
                                             <div class="relative h-48 overflow-hidden">
-                                                <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
+                                                <img src="${studio.image}" alt="${studio.name}"
                                                     class="w-full h-full object-cover studio-img">
                                             </div>
                                             <div class="p-4">
@@ -200,7 +200,7 @@
                                     const studioCard = `
                                         <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
                                             <div class="relative h-48 overflow-hidden">
-                                                <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
+                                                <img src="${studio.image}" alt="${studio.name}"
                                                     class="w-full h-full object-cover studio-img">
                                             </div>
                                             <div class="p-4">
@@ -465,7 +465,7 @@
             return `
           <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
             <div class="relative h-48 overflow-hidden">
-              <img src="${studio.image || 'https://placehold.co/600x400'}" alt="${studio.name}"
+              <img src="${studio.image}" alt="${studio.name}"
                 class="w-full h-full object-cover studio-img">
               ${studio.badge ? `
                 <div class="absolute top-0 right-0 p-2">
