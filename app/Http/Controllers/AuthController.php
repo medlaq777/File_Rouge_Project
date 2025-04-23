@@ -11,11 +11,9 @@
     class AuthController extends Controller
     {
         protected $authService;
-        protected $StudiosService;
-        public function __construct(AuthService $authService, StudiosService $StudiosService )
+        public function __construct(AuthService $authService )
         {
             $this->authService = $authService;
-            $this->StudiosService = $StudiosService;
         }
 
         public function showRegisterForm()
