@@ -31,59 +31,58 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
-    $request->validate([
-        'full_name' => 'required|string|max:255',
-        'username' => 'required|string|max:255',
-        'phone' => 'nullable|string|max:20',
-        'address' => 'nullable|string|max:255',
-        'city' => 'nullable|string|max:100',
-        'country' => 'nullable|string|max:100',
-        'bio' => 'nullable|string|max:500',
-        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-        'password' => 'nullable|string|min:8|confirmed',
-    ]);
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
+            'bio' => 'nullable|string|max:500',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
 
-    $user = Auth::user();
-    if (!$user) {
-        return redirect()->route('showLoginForm')->with('error', 'Please log in to update your profile.');
-    }
-
-    $data = $request->only([
-        'full_name',
-        'username',
-        'phone',
-        'address',
-        'city',
-        'country',
-        'bio',
-    ]);
-    if ($request->hasFile('profile_image')) {
-        $image = $request->file('profile_image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-
-        if (!$image->isValid()) {
-            return redirect()->back()->with('error', 'Invalid image file.');
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('showLoginForm')->with('error', 'Please log in to update your profile.');
         }
 
-        $path = $image->storeAs('images', $imageName, 'public');
+        $data = $request->only([
+            'full_name',
+            'username',
+            'phone',
+            'address',
+            'city',
+            'country',
+            'bio',
+        ]);
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-        if (!$path) {
-            return redirect()->back()->with('error', 'Failed to store the image.');
+            if (!$image->isValid()) {
+                return redirect()->back()->with('error', 'Invalid image file.');
+            }
+
+            $path = $image->storeAs('images', $imageName, 'public');
+
+            if (!$path) {
+                return redirect()->back()->with('error', 'Failed to store the image.');
+            }
+
+            $data['profile_image'] = 'images/' . $imageName;
+        }
+        $data['user_id'] = $user->id;
+        $this->profileService->updateProfile($data);
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+            $user->save();
         }
 
-        $data['profile_image'] = 'images/' . $imageName;
-    }
+        $profile = $this->profileService->getProfile($user->id);
 
-    $data['user_id'] = $user->id;
-    $this->profileService->updateProfile($data);
-    if ($request->filled('password')) {
-        $user->password = bcrypt($request->input('password'));
-        $user->save();
-    }
-
-    $profile = $this->profileService->getProfile($user->id);
-
-    return redirect()->route('showProfile', ['profile' => $profile])->with('success', 'Profile updated successfully.');
+        return redirect()->route('showProfile', ['profile' => $profile])->with('success', 'Profile updated successfully.');
     }
 
 }

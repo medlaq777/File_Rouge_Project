@@ -24,13 +24,95 @@ class StudioController extends Controller
         $studios = Studios::with(['category', 'photos'])->paginate(10);
         $myStudios = Studios::where('user_id', Auth::id())->get();
         $studioAvailability = $myStudios->map(function ($studio) {
-            return $studio->availabilities->first()->status;
+            $availability = $studio->availabilities->first();
+            return $availability ? $availability->status : 'Unavailable';
         })->implode(',');
-        // dd($studioAvailability);
         $categories = Category::all();
         $features = Feature::all();
         $count = $myStudios->count();
-        return view('Dashboard.Owner.index', compact('studios', 'categories', 'features', 'count', 'myStudios', 'studioAvailability'));
+        return view('Dashboard.Owner.index', compact(
+            'studios',
+            'categories',
+            'features',
+            'count',
+            'myStudios',
+            'studioAvailability'
+        ));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0|max:200',
+            'category_id' => 'required|exists:categories,id',
+            'availability_type' => 'required|in:custom,always,recurring',
+            'availability_dates' => 'array',
+            'availability_dates.*' => 'nullable|date',
+            'start_times' => 'array',
+            'start_times.*' => 'nullable|date_format:H:i',
+            'end_times' => 'array',
+            'end_times.*' => 'nullable|date_format:H:i',
+            'recurring_days' => 'array',
+            'recurring_days.*' => 'nullable|string|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'recurring_start_time' => 'nullable|date_format:H:i',
+            'recurring_end_time' => 'nullable|date_format:H:i',
+            'recurring_start_date' => 'nullable|date',
+            'recurring_end_date' => 'nullable|date|after_or_equal:recurring_start_date',
+            'features' => 'array',
+            'features.*' => 'exists:features,id',
+            'custom_features' => 'nullable|string',
+            'photos' => 'array',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+
+        $data = [
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'location' => $request->input('location'),
+            'price' => $request->input('price'),
+            'category_id' => $request->input('category_id'),
+            'user_id' => Auth::id(),
+        ];
+
+        $features = $request->input('features', []);
+        $customFeatures = $request->input('custom_features', '');
+
+        $availability = [
+            'type' => $request->input('availability_type'),
+        ];
+        if ($availability['type'] === 'custom') {
+            $availability['slots'] = [];
+            $dates = $request->input('availability_dates', []);
+            $starts = $request->input('start_times', []);
+            $ends = $request->input('end_times', []);
+            for ($i = 0; $i < count($dates); $i++) {
+                if (!empty($dates[$i]) && !empty($starts[$i]) && !empty($ends[$i])) {
+                    $availability['slots'][] = [
+                        'date' => $dates[$i],
+                        'start' => $starts[$i],
+                        'end' => $ends[$i],
+                    ];
+                }
+            }
+        } elseif ($availability['type'] === 'recurring') {
+            $availability['days'] = $request->input('recurring_days', []);
+            $availability['start_time'] = $request->input('recurring_start_time');
+            $availability['end_time'] = $request->input('recurring_end_time');
+            $availability['start_date'] = $request->input('recurring_start_date');
+            $availability['end_date'] = $request->input('recurring_end_date');
+        }
+
+        $data['availability'] = json_encode($availability);
+
+        $photos = $request->file('photos', []);
+        $ownerId = Auth::user()->id;
+        $this->StudiosService->createStudios($data, $features, $photos, $ownerId);
+
+        return redirect()->route('dashboard')->with('success', 'Studio created successfully.');
     }
 
     // public function store(Request $request)

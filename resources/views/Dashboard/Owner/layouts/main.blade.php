@@ -280,10 +280,9 @@
                 @foreach ($myStudios as $studio)
                     <div
                         class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
-                        <!-- Studio Image with Overlay -->
                         <div class="relative">
-                            @if($studio->images)
-                                <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}" alt="{{ $studio->name }}"
+                            @if($studio->photos->first()->image_path)
+                                <img src="{{ asset('storage/' . $studio->photos->first()->image_path) }}" alt="{{ $studio->name }}"
                                     class="w-full h-48 object-cover">
                             @else
                                 <img src="{{ 'no image' }}" alt="Default Studio Image"
