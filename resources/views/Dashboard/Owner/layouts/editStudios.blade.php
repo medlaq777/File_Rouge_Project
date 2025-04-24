@@ -12,30 +12,38 @@
             @method('PUT')
             <input type="hidden" name="studio_id" id="edit-studio-id">
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+
+            <!-- Basic Info -->
             <div>
                 <label for="edit-studio-name" class="block text-light mb-2">Studio Name</label>
-                <input type="text" id="edit-studio-name" name="studio-name" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter studio name">
+                <input type="text" id="edit-studio-name" name="name" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter studio name" required>
             </div>
 
             <div>
                 <label for="edit-studio-description" class="block text-light mb-2">Description</label>
-                <textarea id="edit-studio-description" name="studio-description" rows="4" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Describe your studio"></textarea>
+                <textarea id="edit-studio-description" name="description" rows="4" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Describe your studio" required></textarea>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="edit-studio-price" class="block text-light mb-2">Hourly Rate Max(200$)</label>
-                    <input type="number" id="edit-studio-price" name="studio-price" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g. 75">
+                    <label for="edit-studio-location" class="block text-light mb-2">Location</label>
+                    <input type="text" id="edit-studio-location" name="location" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="City, State" required>
                 </div>
                 <div>
-                    <label for="edit-studio-location" class="block text-light mb-2">Location</label>
-                    <input type="text" id="edit-studio-location" name="studio-location" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="City, State">
+                    <label for="edit-studio-price" class="block text-light mb-2">Hourly Rate Max(200$)</label>
+                    <input type="number" id="edit-studio-price" name="price" min="1" max="200" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g. 75" required>
                 </div>
             </div>
 
+            <!-- Category Selection -->
             <div>
-                <label for="edit-studio-address" class="block text-light mb-2">Full Address</label>
-                <input type="text" id="edit-studio-address" name="studio-address" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter street address">
+                <label for="edit-category-id" class="block text-light mb-2">Studio Category</label>
+                <select id="edit-category-id" name="category_id" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                    <option value="">Select a category</option>
+                    @foreach($categories ?? [] as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <!-- Enhanced Availability Section with Quick Options -->
@@ -76,15 +84,15 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label for="edit-availability-date" class="block text-light mb-2">Date</label>
-                                <input type="date" id="edit-availability-date" name="availability_date[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <input type="date" id="edit-availability-date" name="availability_dates[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                             </div>
                             <div>
                                 <label for="edit-start-time" class="block text-light mb-2">Start Time</label>
-                                <input type="time" id="edit-start-time" name="start_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <input type="time" id="edit-start-time" name="start_times[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                             </div>
-                            <div>
+                            <div class="relative">
                                 <label for="edit-end-time" class="block text-light mb-2">End Time</label>
-                                <input type="time" id="edit-end-time" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <input type="time" id="edit-end-time" name="end_times[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                             </div>
                         </div>
                         <div id="edit-additional-availability-slots"></div>
@@ -164,62 +172,34 @@
             <div class="border-t border-border pt-6">
                 <h3 class="text-lg font-semibold text-white mb-4">Studio Features</h3>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="soundproof" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">Soundproof</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="sound_system" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">Sound System</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="lighting_equipment" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">Lighting Equipment</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="air_conditioning" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">Air Conditioning</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="wifi" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">WiFi</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="parking" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">Parking</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="instruments" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">Instruments Available</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="recording_equipment" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">Recording Equipment</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="features[]" value="24_7_access" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                        <span class="text-light">24/7 Access</span>
-                    </label>
+                    @foreach($features ?? [] as $feature)
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="features[]" value="{{ $feature->id }}" class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
+                            <span class="text-light">{{ $feature->name }}</span>
+                        </label>
+                    @endforeach
                 </div>
                 <div class="mt-4">
-                    <label for="custom-features" class="block text-light mb-2">Other Features (comma-separated)</label>
-                    <input type="text" id="custom-features" name="custom_features" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Green Room, Lounge Area, Kitchen">
+                    <label for="edit-custom-features" class="block text-light mb-2">Other Features (comma-separated)</label>
+                    <input type="text" id="edit-custom-features" name="custom_features" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="e.g., Green Room, Lounge Area, Kitchen">
                 </div>
             </div>
+
             <!-- Image Upload -->
             <div>
-                <label class="block text-light mb-2" for="studio-image">Studio Image</label>
-                <input type="file" id="studio-image" name="studio-image" class="hidden" />
-                <div class="border-2 border-dashed border-border rounded-md p-8 text-center">
+                <label class="block text-light mb-2" for="edit-studio-photos">Studio Images</label>
+                <input type="file" id="edit-studio-photos" name="photos[]" class="hidden" multiple accept="image/*" />
+                <div class="border-2 border-dashed border-border rounded-md p-8 text-center" id="edit-drop-area">
                     <i class="fas fa-image mx-auto h-12 w-12 text-textMuted" style="font-size:3rem;"></i>
-                    <p class="mt-2 text-sm text-textMuted">Drag and drop an image here, or click to browse</p>
-                    <button type="button" class="mt-4 bg-darkAccent text-light py-2 px-4 rounded-md hover:bg-border transition-colors" onclick="document.getElementById('studio-image').click();">Select File</button>
+                    <p class="mt-2 text-sm text-textMuted">Drag and drop images here, or click to browse</p>
+                    <button type="button" class="mt-4 bg-darkAccent text-light py-2 px-4 rounded-md hover:bg-border transition-colors" onclick="document.getElementById('edit-studio-photos').click();">Select Files</button>
+                    <div id="edit-preview-container" class="mt-4 flex flex-wrap gap-2"></div>
                 </div>
             </div>
 
             <div class="flex justify-end space-x-4 pt-4 border-t border-border">
-                <button type="button" onclick="closeAddStudioModal()" class="bg-transparent hover:bg-darkAccent border border-border text-white py-2 px-6 rounded-md transition-all duration-200">Cancel</button>
-                <button type="submit" class="bg-primary hover:bg-primaryHover text-white py-2 px-6 rounded-md transition-all duration-200 cursor-pointer">Add Studio</button>
+                <button type="button" onclick="closeEditStudioModal()" class="bg-transparent hover:bg-darkAccent border border-border text-white py-2 px-6 rounded-md transition-all duration-200">Cancel</button>
+                <button type="submit" class="bg-primary hover:bg-primaryHover text-white py-2 px-6 rounded-md transition-all duration-200 cursor-pointer">Update Studio</button>
             </div>
         </form>
     </div>

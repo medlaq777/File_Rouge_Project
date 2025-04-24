@@ -130,6 +130,7 @@
     @yield('main')
     @yield('addStudios')
     @yield('editStudios')
+
     <script>
         function showTab(tabId) {
             document.querySelectorAll('main > section').forEach(section => {
@@ -169,7 +170,15 @@
             document.getElementById('edit-studio-description').value = studioDescription;
             document.getElementById('edit-studio-price').value = studioPrice;
             document.getElementById('edit-studio-location').value = studioLocation;
-            document.getElementById('edit-studio-address').value = studioAddress;
+            document.getElementById('edit-studio-features').value = studioFeatures;
+            const categorySelect = document.getElementById('edit-category-id');
+            if (categorySelect) {
+                Array.from(categorySelect.options).forEach(option => {
+                    if (option.value == studioCategory) {
+                        option.selected = true;
+                    }
+                });
+            }
 
             // Handle the image preview if one exists
             if (studioImage) {
@@ -209,7 +218,7 @@
                 <input type="time" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input">
             </div>
         </div>
-    `;
+        `;
             container.insertAdjacentHTML('beforeend', slotHtml);
         }
 

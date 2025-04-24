@@ -223,7 +223,6 @@
         }
     }
 
-    // Add a new time slot for custom availability
     function addAvailabilitySlot() {
         const container = document.getElementById('additional-availability-slots');
         const slotCount = container.children.length + 1;

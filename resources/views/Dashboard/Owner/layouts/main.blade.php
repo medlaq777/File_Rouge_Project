@@ -281,21 +281,26 @@
                     <div
                         class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <div class="relative">
-                            @if($studio->photos->first()->image_path)
-                                <img src="{{ asset('storage/' . $studio->photos->first()->image_path) }}" alt="{{ $studio->name }}"
-                                    class="w-full h-48 object-cover">
+                            @if ($studio->photos->first()->image_path)
+                                <img src="{{ asset('storage/' . $studio->photos->first()->image_path) }}"
+                                    alt="{{ $studio->name }}" class="w-full h-48 object-cover">
                             @else
                                 <img src="{{ 'no image' }}" alt="Default Studio Image"
                                     class="w-full h-48 object-cover">
                             @endif
                             <div class="absolute top-3 right-3">
                                 @php
-                                    $isAvailable = isset($studio->availabilities->first()->status) && strtolower($studio->availabilities->first()->status) === 'available';
+                                    $isAvailable =
+                                        isset($studio->availabilities->first()->status) &&
+                                        strtolower($studio->availabilities->first()->status) === 'available';
                                     $statusColor = $isAvailable ? 'text-success' : 'text-danger';
                                     $icon = $isAvailable ? 'fa-circle-check' : 'fa-circle-xmark';
-                                    $labelText = isset($studio->availabilities->first()->status) ? $studio->availabilities->first()->status : 'Unavailable';
+                                    $labelText = isset($studio->availabilities->first()->status)
+                                        ? $studio->availabilities->first()->status
+                                        : 'Unavailable';
                                 @endphp
-                                <span class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center {{ $statusColor }} pulse-led">
+                                <span
+                                    class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center {{ $statusColor }} pulse-led">
                                     <i class="fas {{ $icon }} text-sm mr-1.5"></i>
                                     {{ $labelText }}
                                 </span>
@@ -333,18 +338,23 @@
                             <div class="flex space-x-2 mt-4">
                                 <button type="button"
                                     onclick="showEditStudioModal(
-                                    {{ $studio->id }},
-                                    '{{ $studio->name }}',
-                                    '{{ $studio->description }}',
-                                    '{{ $studio->price }}',
-                                    '{{ $studio->location }}',
-                                    '{{ $studio->address }}',
-                                     )"
+                                        '{{ $studio->id }}',
+                                        '{{ $studio->name }}',
+                                        '{{ $studio->description }}',
+                                        '{{ $studio->price }}',
+                                        '{{ $studio->location }}',
+                                        '{{ $studio->category->name }}',
+                                        '{{ $studio->Availabilities->first()->status }}',
+                                        '{{ $studio->features->pluck('id')->implode(',') }}',
+                                        '{{ $studio->rating }}',
+                                        '{{ $studio->photos->first()->image_path }}'
+                                    )"
                                     class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                     <i class="fas fa-edit mr-2"></i>
                                     Edit
                                 </button>
-                                <form action="{{ route('delete.studio', $id = $studio->id) }}" method="POST" class="flex-1">
+                                <form action="{{ route('delete.studio', $id = $studio->id) }}" method="POST"
+                                    class="flex-1">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -393,13 +403,15 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-white">Payment History</h2>
                     <div class="flex space-x-2">
-                        <select id="studio-filter" name="studio-filter" class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
+                        <select id="studio-filter" name="studio-filter"
+                            class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                             <option>All Studios</option>
                             <option>Soundwave Studios</option>
                             <option>Rhythm Room</option>
                             <option>Beat Box Studio</option>
                         </select>
-                        <select id="date-range-filter" name="date-range-filter" class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
+                        <select id="date-range-filter" name="date-range-filter"
+                            class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                             <option>Last 30 Days</option>
                             <option>Last 3 Months</option>
                             <option>Last 6 Months</option>
@@ -593,7 +605,8 @@
             <div class="bg-darkUI rounded-lg border border-border p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-white">Recent Reviews</h2>
-                    <select id="review-filter" name="review-filter" class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
+                    <select id="review-filter" name="review-filter"
+                        class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                         <option>All Studios</option>
                         <option>Soundwave Studios</option>
                         <option>Rhythm Room</option>

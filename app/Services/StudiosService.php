@@ -9,25 +9,21 @@ use Illuminate\Support\Facades\Storage;
 
 class StudiosService
 {
-     // ...existing code...
     public function createStudios(array $data, array $features, array $photos, $ownerId)
     {
         $data['user_id'] = $ownerId;
-        $Studios = Studios::create($data);
-        $Studios->category()->associate($data['category_id']);
-        $Studios->save();
-        $Studios->photos()->createMany(array_map(function ($photo) {
+        $studio = Studios::create($data);
+        $studio->category()->associate($data['category_id']);
+        $studio->save();
+        $studio->photos()->createMany(array_map(function ($photo) {
             return ['image_path' => $photo->store('studios/photos', 'public')];
         }, $photos));
-
-        // Sync features
-        $Studios->features()->sync($features);
+        $studio->features()->sync($features);
         $availability = json_decode($data['availability'], true);
-
         if ($availability['type'] === 'custom' && !empty($availability['slots'])) {
             foreach ($availability['slots'] as $slot) {
-                $Studios->availabilities()->create([
-                    'studios_id' => $Studios->id,
+                $studio->availabilities()->create([
+                    'studios_id' => $studio->id,
                     'user_id' => $ownerId,
                     'date' => $slot['date'],
                     'start_time' => $slot['start'],
@@ -36,8 +32,8 @@ class StudiosService
                 ]);
             }
         } else {
-            $Studios->availabilities()->create([
-                'studios_id' => $Studios->id,
+            $studio->availabilities()->create([
+                'studios_id' => $studio->id,
                 'user_id' => $ownerId,
                 'date' => null,
                 'start_time' => null,
@@ -46,84 +42,71 @@ class StudiosService
             ]);
         }
 
-        return $Studios;
+        return $studio;
     }
-// ...existing code...
 
-    // public function updateStudios(Studios $Studios, array $data, array $features, array $newPhotos = [], array $photosToDelete = [])
-    // {
-    //     $Studios->update($data);
 
-    //     // Sync features
-    //     $Studios->features()->sync($features);
 
-    //     // Delete selected photos
-    //     foreach ($photosToDelete as $photoId) {
-    //         $photo = $Studios->photos()->find($photoId);
-    //         if ($photo) {
-    //             Storage::disk('public')->delete($photo->url);
-    //             $photo->delete();
-    //         }
-    //     }
+    public function updateStudios(array $data, array $features, array $photos, $ownerId)
+    {
+        $studio = Studios::where('id', $data['id'])->where('user_id', $ownerId)->firstOrFail();
+        $studio->update($data);
+        if (!empty($photos)) {
+            foreach ($studio->photos as $photo) {
+                Storage::disk('public')->delete($photo->image_path);
+                $photo->delete();
+            }
+            $studio->photos()->createMany(array_map(function ($photo) {
+                return ['image_path' => $photo->store('studios/photos', 'public')];
+            }, $photos));
+        }
+        $studio->features()->sync($features);
+        $studio->availabilities()->delete();
+        $studio->category()->associate($data['category_id']);
+        $availability = json_decode($data['availability'], true);
+        if ($availability['type'] === 'custom' && !empty($availability['slots'])) {
+            foreach ($availability['slots'] as $slot) {
+                $studio->availabilities()->create([
+                    'studios_id' => $studio->id,
+                    'user_id' => $ownerId,
+                    'date' => $slot['date'],
+                    'start_time' => $slot['start'],
+                    'end_time' => $slot['end'],
+                    'status' => 'available',
+                ]);
+            }
+        } else {
+            $studio->availabilities()->create([
+                'studios_id' => $studio->id,
+                'user_id' => $ownerId,
+                'date' => null,
+                'start_time' => null,
+                'end_time' => null,
+                'status' => 'available',
+            ]);
+        }
+        return $studio;
+    }
 
-    //     // Add new photos
-    //     foreach ($newPhotos as $photo) {
-    //         $path = $photo->store('Studioss/photos', 'public');
-    //         $Studios->photos()->create(['url' => $path]);
-    //     }
+    public function findStudiosById($id)
+    {
+        return Studios::with(['category', 'features', 'photos'])->findOrFail($id);
+    }
 
-    //     return $Studios;
-    // }
+    public function findStudiosByOwnerId($ownerId)
+    {
+        return Studios::with(['category', 'features', 'photos'])->where('user_id', $ownerId)->get();
+    }
 
-    // public function addAvailability(Studios $Studios, array $availabilityData)
-    // {
-    //     return $Studios->availabilities()->create($availabilityData);
-    // }
-
-    // public function updateAvailability(Availability $availability, array $data)
-    // {
-    //     $availability->update($data);
-    //     return $availability;
-    // }
-
-    // public function deleteAvailability(Availability $availability)
-    // {
-    //     $availability->delete();
-    // }
-
-    // public function searchStudioss(array $filters)
-    // {
-    //     $query = Studios::query()->with(['category', 'features', 'photos']);
-
-    //     if (isset($filters['category'])) {
-    //         $query->where('Studios_category_id', $filters['category']);
-    //     }
-
-    //     if (isset($filters['min_price'])) {
-    //         $query->where('prix_par_heure', '>=', $filters['min_price']);
-    //     }
-
-    //     if (isset($filters['max_price'])) {
-    //         $query->where('prix_par_heure', '<=', $filters['max_price']);
-    //     }
-
-    //     if (isset($filters['features'])) {
-    //         $query->whereHas('features', function($q) use ($filters) {
-    //             $q->whereIn('features.id', $filters['features']);
-    //         });
-    //     }
-
-    //     if (isset($filters['location'])) {
-    //         $query->where('localisation', 'like', '%'.$filters['location'].'%');
-    //     }
-
-    //     if (isset($filters['date'])) {
-    //         $query->whereHas('availabilities', function($q) use ($filters) {
-    //             $q->where('date', $filters['date'])
-    //               ->where('is_booked', false);
-    //         });
-    //     }
-
-    //     return $query->orderBy('note_moyenne', 'desc')->paginate(10);
-    // }
+    public function destroy($studioId, $ownerId)
+    {
+        $studio = Studios::where('id', $studioId)->where('user_id', $ownerId)->firstOrFail();
+        foreach ($studio->photos as $photo) {
+            Storage::disk('public')->delete($photo->image_path);
+            $photo->delete();
+        }
+        $studio->features()->detach();
+        $studio->availabilities()->delete();
+        return $studio->delete();
+    }
 }
