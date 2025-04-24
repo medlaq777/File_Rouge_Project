@@ -79,7 +79,7 @@
                             <i class="fas fa-dollar-sign text-success text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">$3,240</p>
+                    <p class="text-3xl font-bold text-white">${{ $thisMonthIncome }}</p>
                     <p class="text-sm text-textMuted mt-2">+12% from last month</p>
                 </div>
 
@@ -381,19 +381,19 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-darkUI rounded-lg p-6 border border-border">
                     <h3 class="text-lg font-semibold text-light mb-4">Total Earnings</h3>
-                    <p class="text-3xl font-bold text-white">$12,480</p>
+                    <p class="text-3xl font-bold text-white">${{ $myTotalIncome }}</p>
                     <p class="text-sm text-textMuted mt-2">Lifetime earnings from all studios</p>
                 </div>
 
                 <div class="bg-darkUI rounded-lg p-6 border border-border">
                     <h3 class="text-lg font-semibold text-light mb-4">This Month</h3>
-                    <p class="text-3xl font-bold text-white">$3,240</p>
+                    <p class="text-3xl font-bold text-white">${{ $thisMonthIncome }}</p>
                     <p class="text-sm text-success mt-2">+12% from last month</p>
                 </div>
 
                 <div class="bg-darkUI rounded-lg p-6 border border-border">
                     <h3 class="text-lg font-semibold text-light mb-4">Pending</h3>
-                    <p class="text-3xl font-bold text-white">$640</p>
+                    <p class="text-3xl font-bold text-white">${{ $pendingPayment }}</p>
                     <p class="text-sm text-textMuted mt-2">From 4 upcoming bookings</p>
                 </div>
             </div>

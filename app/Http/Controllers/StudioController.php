@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Studios;
 use App\Models\Category;
 use App\Models\Feature;
+use App\Models\Payment;
 use App\Services\StudiosService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,13 +31,26 @@ class StudioController extends Controller
         $categories = Category::all();
         $features = Feature::all();
         $count = $myStudios->count();
+        $pendingPayment = number_format(
+            Payment::where('user_id', Auth::id())
+                ->where('status', 'pending')
+                ->sum('total_price'),
+            0, ',', ','
+        );
+        $myTotalIncome = number_format(Payment::where('user_id', Auth::id())->sum('total_price'), 0, ',', ',');
+        $thisMonthIncome = number_format(Payment::where('user_id', Auth::id())
+            ->whereMonth('payment_date', date('m'))
+            ->sum('total_price'), 0, ',', ',');
         return view('Dashboard.Owner.index', compact(
             'studios',
             'categories',
             'features',
             'count',
             'myStudios',
-            'studioAvailability'
+            'studioAvailability',
+            'myTotalIncome',
+            'thisMonthIncome',
+            'pendingPayment'
         ));
     }
 
@@ -190,7 +204,7 @@ class StudioController extends Controller
         // dd($data, $features, $photos, $ownerId);
         $this->StudiosService->updateStudios($data, $features, $photos, $ownerId);
         return redirect()->route('dashboard')->with('success', 'Studio updated successfully.');
-}
+    }
 
     // public function update(Request $request)
 
