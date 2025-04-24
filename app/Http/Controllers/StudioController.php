@@ -31,16 +31,19 @@ class StudioController extends Controller
         $categories = Category::all();
         $features = Feature::all();
         $count = $myStudios->count();
+        $myTotalIncome = number_format(Payment::where('user_id', Auth::id())->sum('total_price'), 0, ',', ',');
+        $paymentHistories = Payment::where('user_id', Auth::id())->get();
         $pendingPayment = number_format(
             Payment::where('user_id', Auth::id())
                 ->where('status', 'pending')
                 ->sum('total_price'),
             0, ',', ','
         );
-        $myTotalIncome = number_format(Payment::where('user_id', Auth::id())->sum('total_price'), 0, ',', ',');
+
         $thisMonthIncome = number_format(Payment::where('user_id', Auth::id())
             ->whereMonth('payment_date', date('m'))
             ->sum('total_price'), 0, ',', ',');
+
         return view('Dashboard.Owner.index', compact(
             'studios',
             'categories',
@@ -50,7 +53,8 @@ class StudioController extends Controller
             'studioAvailability',
             'myTotalIncome',
             'thisMonthIncome',
-            'pendingPayment'
+            'pendingPayment',
+            'paymentHistories'
         ));
     }
 

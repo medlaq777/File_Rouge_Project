@@ -406,9 +406,9 @@
                         <select id="studio-filter" name="studio-filter"
                             class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                             <option>All Studios</option>
-                            <option>Soundwave Studios</option>
-                            <option>Rhythm Room</option>
-                            <option>Beat Box Studio</option>
+                            @foreach($myStudios as $studio)
+                            <option value="{{ $studio->id }}">{{ $studio->name }}</option>
+                            @endforeach
                         </select>
                         <select id="date-range-filter" name="date-range-filter"
                             class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
@@ -423,69 +423,27 @@
                     <table class="w-full min-w-full">
                         <thead>
                             <tr class="border-b border-border">
+                                <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Full Name</th>
                                 <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Date</th>
-                                <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Description</th>
                                 <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Studio</th>
                                 <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Amount</th>
                                 <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2 text-light">Apr 10, 2025</td>
-                                <td class="py-3 px-2 text-light">Mike Thomas Booking</td>
-                                <td class="py-3 px-2 text-light">Beat Box Studio</td>
-                                <td class="py-3 px-2 text-light">$320</td>
-                                <td class="py-3 px-2">
+                            @foreach ($paymentHistories as $payment)
+                                <tr class="border-b border-border">
+                                    <td class="py-3 px-2 text-light">{{  }}</td>
+                                    <td class="py-3 px-2 text-light">{{ $payment->payment_date }}</td>
+                                    {{-- <td class="py-3 px-2 text-light">{{ $payment->studio->name }}</td> --}}
+                                    <td class="py-3 px-2 text-light">${{ $payment->total_price }}</td>
+                                    <td class="py-3 px-2">
                                     <span class="text-success text-xs px-2 py-1 rounded-full">
-                                        <i class="fas fa-check-circle"></i> Completed
+                                        <i class="fas fa-check-circle"></i> {{ $payment->status }}
                                     </span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2 text-light">Apr 8, 2025</td>
-                                <td class="py-3 px-2 text-light">Sarah Williams Booking</td>
-                                <td class="py-3 px-2 text-light">Rhythm Room</td>
-                                <td class="py-3 px-2 text-light">$195</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-success text-xs px-2 py-1 rounded-full">
-                                        <i class="fas fa-check-circle"></i> Completed
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2 text-light">Apr 5, 2025</td>
-                                <td class="py-3 px-2 text-light">Alex Johnson Booking</td>
-                                <td class="py-3 px-2 text-light">Soundwave Studios</td>
-                                <td class="py-3 px-2 text-light">$320</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-success text-xs px-2 py-1 rounded-full">
-                                        <i class="fas fa-check-circle"></i> Completed
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2 text-light">Apr 2, 2025</td>
-                                <td class="py-3 px-2 text-light">James Wilson Booking</td>
-                                <td class="py-3 px-2 text-light">Beat Box Studio</td>
-                                <td class="py-3 px-2 text-light">$285</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-success text-xs px-2 py-1 rounded-full">
-                                        <i class="fas fa-check-circle"></i> Completed
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2 text-light">Mar 30, 2025</td>
-                                <td class="py-3 px-2 text-light">Emma Davis Booking</td>
-                                <td class="py-3 px-2 text-light">Rhythm Room</td>
-                                <td class="py-3 px-2 text-light">$195</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-success text-xs px-2 py-1 rounded-full">
-                                        <i class="fas fa-check-circle"></i> Completed
-                                    </span>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
