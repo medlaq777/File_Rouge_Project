@@ -112,9 +112,7 @@
                         <thead>
                             <tr class="border-b border-border">
                                 <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Studio</th>
-                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Activity</th>
                                 <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Date</th>
-                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,24 +122,14 @@
                                         <i class="fas fa-studio-microphone text-danger mr-3"></i>
                                         {{ $activity['studio_name'] }}
                                     </td>
-                                    <td class="py-4 px-4 text-light">
-                                        <span class="flex items-center">
-                                            <i class="fas fa-calendar-check text-info mr-2"></i>
-                                            Booking
-                                        </span>
-                                    </td>
+
                                     <td class="py-4 px-4 text-light">
                                         <span class="flex items-center">
                                             <i class="far fa-clock text-textMuted mr-2"></i>
                                             {{ $activity['created_at'] }}
                                         </span>
                                     </td>
-                                    <td class="py-4 px-4">
-                                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-success/20 text-success inline-flex items-center">
-                                            <i class="fas fa-check-circle mr-1"></i>
-                                            Completed
-                                        </span>
-                                    </td>
+
                                 </tr>
                             @endforeach
                             @if(count($recentActivity) === 0)
