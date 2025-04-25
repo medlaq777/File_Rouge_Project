@@ -96,79 +96,62 @@
             </div>
 
             <!-- Recent Activity -->
-            <div class="bg-darkUI rounded-lg border border-border p-6 mb-8">
-                <h2 class="text-xl font-semibold text-white mb-4">Recent Activity</h2>
+            <div class="bg-darkUI rounded-lg border border-border p-6 mb-8 shadow-sm hover:shadow-md transition-all duration-300">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-white flex items-center">
+                        <i class="fas fa-history text-primary mr-3"></i>
+                        Recent Activity
+                    </h2>
+                    <a href="#" class="text-primary hover:text-primaryHover text-sm transition-colors flex items-center">
+                        <span>View All</span>
+                        <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                    </a>
+                </div>
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-full">
                         <thead>
                             <tr class="border-b border-border">
-                                <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Event</th>
-                                <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Studio</th>
-                                <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Date</th>
-                                <th class="py-3 px-2 text-left text-sm font-medium text-textMuted">Status</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Studio</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Activity</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Date</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2">
-                                    <div class="flex items-center">
-                                        <div class="p-1 rounded-md mr-3">
-                                            <i class="fas fa-calendar-alt text-info"></i>
-                                        </div>
-                                        <span class="text-light">New Booking</span>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-2 text-light">Soundwave Studios</td>
-                                <td class="py-3 px-2 text-textMuted">Apr 14, 2025</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-warning text-xs px-2 py-1 rounded-full">Upcoming</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2">
-                                    <div class="flex items-center">
-                                        <div class="p-1 rounded-md mr-3">
-                                            <i class="fas fa-star text-warning"></i>
-                                        </div>
-                                        <span class="text-light">New Review</span>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-2 text-light">Rhythm Room</td>
-                                <td class="py-3 px-2 text-textMuted">Apr 13, 2025</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-warning text-xs px-2 py-1 rounded-full">5 Stars</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2">
-                                    <div class="flex items-center">
-                                        <div class="p-1 rounded-md mr-3">
-                                            <i class="fas fa-dollar-sign text-success"></i>
-                                        </div>
-                                        <span class="text-light">Payment Received</span>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-2 text-light">Beat Box Studio</td>
-                                <td class="py-3 px-2 text-textMuted">Apr 10, 2025</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-warning text-xs px-2 py-1 rounded-full">$320</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border">
-                                <td class="py-3 px-2">
-                                    <div class="flex items-center">
-                                        <div class="p-1 rounded-md mr-3">
-                                            <i class="fas fa-check-circle text-danger"></i>
-                                        </div>
-                                        <span class="text-light">Completed Session</span>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-2 text-light">Soundwave Studios</td>
-                                <td class="py-3 px-2 text-textMuted">Apr 5, 2025</td>
-                                <td class="py-3 px-2">
-                                    <span class="text-warning text-xs px-2 py-1 rounded-full">Completed</span>
-                                </td>
-                            </tr>
+                            @foreach($recentActivity as $activity)
+                                <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
+                                    <td class="py-4 px-4 text-light flex items-center">
+                                        <i class="fas fa-studio-microphone text-danger mr-3"></i>
+                                        {{ $activity['studio_name'] }}
+                                    </td>
+                                    <td class="py-4 px-4 text-light">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-calendar-check text-info mr-2"></i>
+                                            Booking
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4 text-light">
+                                        <span class="flex items-center">
+                                            <i class="far fa-clock text-textMuted mr-2"></i>
+                                            {{ $activity['created_at'] }}
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-success/20 text-success inline-flex items-center">
+                                            <i class="fas fa-check-circle mr-1"></i>
+                                            Completed
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @if(count($recentActivity) === 0)
+                                <tr>
+                                    <td colspan="4" class="py-6 text-center text-textMuted">
+                                        <i class="fas fa-info-circle mr-2"></i>
+                                        No recent activity found
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -387,7 +370,7 @@
 
                 <div class="bg-darkUI rounded-lg p-6 border border-border">
                     <h3 class="text-lg font-semibold text-light mb-4">This Month</h3>
-                    <p class="text-3xl font-bold text-white">${{ $thisMonthIncome}}</p>
+                    <p class="text-3xl font-bold text-white">${{ $thisMonthIncome }}</p>
                     <p class="text-sm text-success mt-2">+12% from last month</p>
                 </div>
 
@@ -464,7 +447,6 @@
                 <h1 class="text-3xl font-bold text-white">Reviews</h1>
                 <p class="text-textMuted mt-2">See what clients are saying about your studios</p>
             </div>
-
             <!-- Review Stats -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="bg-darkUI rounded-lg p-6 border border-border flex items-center">
@@ -478,7 +460,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
-                            <span class="text-2xl font-bold text-white ml-3">4.8</span>
+                            <span class="text-2xl font-bold text-white ml-3">{{ $averageRating }}</span>
                         </div>
                         <p class="text-sm text-textMuted">Based on 42 reviews</p>
                     </div>
@@ -523,142 +505,87 @@
 
                 <div class="bg-darkUI rounded-lg p-6 border border-border">
                     <h3 class="text-lg font-semibold text-light mb-4">Studio Ratings</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-light">Soundwave Studios</span>
+                    @foreach($myStudios as $studio)
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-light">{{ $studio->name }}</span>
                             <div class="flex items-center">
                                 <div class="flex text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    @for ($i = 0; $i < round($studio->rating); $i++)
+                                        <i class="fas fa-star"></i>
+                                    @endfor
+                                    @if (round($studio->rating) < 5)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @endif
                                 </div>
-                                <span class="text-textMuted ml-2">4.9 (28 reviews)</span>
+                                <span class="text-textMuted ml-2">{{ round($studio->rating, 1) }} ({{ $studio->reviews_count }} reviews)</span>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-light">Rhythm Room</span>
-                            <div class="flex items-center">
-                                <div class="flex text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="text-textMuted ml-2">4.8 (14 reviews)</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-light">Beat Box Studio</span>
-                            <div class="flex items-center">
-                                <div class="flex text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="text-textMuted ml-2">4.7 (9 reviews)</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 
-            <!-- Review List -->
-            <div class="bg-darkUI rounded-lg border border-border p-6">
+            <!-- Refactored Review List Section -->
+            <div class="bg-darkUI rounded-lg border border-border p-6 overflow-hidden">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-semibold text-white">Recent Reviews</h2>
-                    <select id="review-filter" name="review-filter"
-                        class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
-                        <option>All Studios</option>
-                        <option>Soundwave Studios</option>
-                        <option>Rhythm Room</option>
-                        <option>Beat Box Studio</option>
-                    </select>
+                    <h2 class="text-xl font-semibold text-white relative inline-block">
+                        Recent Reviews
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-warning opacity-70"></span>
+                    </h2>
+                    <div class="relative">
+                        <select id="review-filter" name="review-filter"
+                            class="bg-inputBg text-textMuted border border-border rounded-md pl-3 pr-8 py-2 text-sm appearance-none cursor-pointer hover:bg-opacity-80 transition-all focus:outline-none focus:ring-1 focus:ring-warning">
+                            <option>All Reviews</option>
+                            @foreach($myStudios as $studio)
+                                <option value="{{ $studio->id }}">{{ $studio->name }}</option>
+                            @endforeach
+                        </select>
+                        <div
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-textMuted">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="space-y-6">
-                    <!-- Review 1 -->
-                    <div class="p-4 bg-darkAccent rounded-lg">
-                        <div class="flex justify-between items-start mb-3">
+                    @foreach ($recentReviews as $review)
+                        <div class="bg-darkAccent rounded-lg p-4 flex items-start">
+                            <div class="flex text-warning mr-3">
+                                @for ($i = 0; $i < round($review['rating']); $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
+                                @if (round($review['rating']) < 5)
+                                    <i class="fas fa-star-half-alt"></i>
+                                @endif
+                            </div>
                             <div>
-                                <div class="flex items-center">
-                                    <div class="flex text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span class="text-white ml-2 font-medium">Sarah Williams</span>
-                                </div>
-                                <div class="flex items-center mt-1 text-sm text-textMuted">
-                                    <span>Rhythm Room</span>
-                                    <span class="mx-2">•</span>
-                                    <span>Apr 13, 2025</span>
-                                </div>
+                                <h4 class="text-light font-semibold">{{ $review['studio_name'] }}</h4>
+                                <p class="text-textMuted text-sm">{{ $review['comment'] }}</p>
+                                <p class="text-textMuted text-xs mt-1">
+                                    {{ $review['created_at'] }}
+                                </p>
                             </div>
                         </div>
-                        <p class="text-light">"Amazing studio with top notch equipment. The acoustics are perfect for
-                            my podcast recordings. The staff was incredibly helpful in getting me set up and showing me
-                            how to use the equipment."</p>
-                    </div>
-
-                    <!-- Review 2 -->
-                    <div class="p-4 bg-darkAccent rounded-lg">
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <div class="flex items-center">
-                                    <div class="flex text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <span class="text-white ml-2 font-medium">Mike Thomas</span>
-                                </div>
-                                <div class="flex items-center mt-1 text-sm text-textMuted">
-                                    <span>Beat Box Studio</span>
-                                    <span class="mx-2">•</span>
-                                    <span>Apr 10, 2025</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light">"Great location and professional setup. The staff was very helpful and
-                            accommodating. The mixing equipment was top of the line and allowed me to get the exact
-                            sound I was looking for. Will definitely be back!"</p>
-                    </div>
-
-                    <!-- Review 3 -->
-                    <div class="p-4 bg-darkAccent rounded-lg">
-                        <div class="flex justify-between items-start mb-3">
-                            <div>
-                                <div class="flex items-center">
-                                    <div class="flex text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <span class="text-white ml-2 font-medium">Alex Johnson</span>
-                                </div>
-                                <div class="flex items-center mt-1 text-sm text-textMuted">
-                                    <span>Soundwave Studios</span>
-                                    <span class="mx-2">•</span>
-                                    <span>Apr 8, 2025</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light">"The studio had everything I needed for my recording session. The sound
-                            isolation was excellent and the monitoring system was crystal clear. I particularly
-                            appreciated the comfortable lounge area for breaks."</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </section>
-    </main>
-</div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const filter = document.getElementById('review-filter');
+                    const reviewItems = document.querySelectorAll('.bg-darkAccent.rounded-lg.overflow-hidden');
+
+                    filter.addEventListener('change', function() {
+                        const selected = this.value;
+
+                        reviewItems.forEach(item => {
+                            const studioName = item.querySelector('.fas.fa-music').nextSibling.textContent
+                                .trim();
+
+                            if (selected === 'All Studios' || studioName === selected) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            </script>

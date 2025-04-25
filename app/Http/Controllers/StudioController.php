@@ -32,6 +32,14 @@ class StudioController extends Controller
         $categories = Category::all();
         $features = Feature::all();
         $count = $myStudios->count();
+        $recentActivity= $myStudios->map(function ($studio) {
+            return [
+                'studio_name' => $studio->name,
+                'created_at' => $studio->created_at->diffForHumans(),
+            ];
+        })->sortByDesc('created_at')
+        ->take(5);
+
         $myTotalIncome = number_format(Payment::where('status', 'completed')
             ->whereRelation('booking.studio', 'user_id', $ownerId)
             ->sum('total_price'), 0, ',', ',');
@@ -61,19 +69,42 @@ class StudioController extends Controller
             ->orderBy('payment_date', 'desc')
             ->get();
 
-        return view('Dashboard.Owner.index', compact(
-            'studios',
-            'categories',
-            'features',
-            'count',
-            'myStudios',
-            'studioAvailability',
-            'myTotalIncome',
-            'thisMonthIncome',
-            'pendingPayment',
-            'paymentHistories',
-            'averageRating'
-        ));
+
+
+        $recentReviews = Studios::where('user_id', $ownerId)
+            ->with(['reviews' => function ($query) {
+                $query->orderBy('created_at', 'desc')->take(5);
+            }])
+            ->get()
+            ->pluck('reviews')
+            ->flatten()
+            ->map(function ($review) {
+                return [
+                    'studio_name' => $review->studio->name,
+                    'rating' => $review->rating,
+                    'comment' => $review->comment,
+                    'created_at' => $review->created_at->diffForHumans(),
+                ];
+            })->sortByDesc('created_at')
+            ->take(5);
+
+
+
+    return view('Dashboard.Owner.index', compact(
+    'studios',
+    'categories',
+    'features',
+    'count',
+    'myStudios',
+    'studioAvailability',
+    'myTotalIncome',
+    'thisMonthIncome',
+    'pendingPayment',
+    'paymentHistories',
+    'averageRating',
+    'recentReviews',
+    'recentActivity'
+    ));
     }
 
     public function store(Request $request)
