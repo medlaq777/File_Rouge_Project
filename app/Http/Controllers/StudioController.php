@@ -28,7 +28,7 @@ class StudioController extends Controller
         $studioAvailability = $myStudios->map(function ($studio) {
             $availability = $studio->availabilities->first();
             return $availability ? $availability->status : 'Unavailable';
-        })->implode(',');
+            })->implode(',');
         $categories = Category::all();
         $features = Feature::all();
         $count = $myStudios->count();
@@ -36,37 +36,30 @@ class StudioController extends Controller
             ->whereRelation('booking.studio', 'user_id', $ownerId)
             ->sum('total_price'), 0, ',', ',');
 
-        $thisMonthIncome = Payment::where('status', 'completed')
+        $thisMonthIncome = number_format(Payment::where('status', 'completed')
             ->whereRelation('booking.studio', 'user_id', $ownerId)
             ->whereMonth('payment_date', now()->month)
-            ->sum('total_price');
-        $thisMonthIncome = number_format($thisMonthIncome, 0, ',', ',');
+            ->sum('total_price'), 0, ',', ',');
 
 
 
-        $pendingPayment = Payment::where('status', 'pending')
+        $pendingPayment = number_format(Payment::where('status', 'pending')
             ->whereHas('booking.studio', fn($query) => $query->where('user_id', $ownerId))
-            ->sum('total_price');
-        $pendingPayment = number_format($pendingPayment, 0, ',', ',');
+            ->sum('total_price'), 0, ',', ',');
 
-        $averageRating = Studios::where('user_id', $ownerId)
+        $averageRating = number_format(Studios::where('user_id', $ownerId)
             ->withAvg('reviews', 'rating')
             ->get()
             ->pluck('reviews_avg_rating')
             ->filter()
-            ->avg();
-
-        $formattedOverallAverage = number_format($averageRating ?? 0, 1);
+            ->avg() ?? 0, 1);
 
 
-        $paymentHistories = Payment::with([
-            'booking.artist.profile',
-            'booking.studio'
-        ])
-        ->where('user_id', Auth::id())
-        ->select('id', 'total_price', 'payment_date', 'status', 'booking_id')
-        ->orderBy('payment_date', 'desc')
-        ->paginate(5);
+        $paymentHistories = Payment::where('status', 'completed')
+            ->whereHas('booking.studio', fn($query) => $query->where('user_id', $ownerId))
+            ->where('payment_date', '>=', now()->subMonth())
+            ->orderBy('payment_date', 'desc')
+            ->get();
 
         return view('Dashboard.Owner.index', compact(
             'studios',
