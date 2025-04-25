@@ -90,7 +90,7 @@
                             <i class="fas fa-star text-warning text-2xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">{{ $studios->first()->rating ?? '0' }}</p>
+                    <p class="text-3xl font-bold text-white">{{ $averageRating }}</p>
                     <p class="text-sm text-textMuted mt-2">Based on 42 reviews</p>
                 </div>
             </div>
@@ -281,7 +281,7 @@
                     <div
                         class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                         <div class="relative">
-                            @if ($studio->photos->first()->image_path)
+                            @if (!empty($studio->photos->first()->image_path))
                                 <img src="{{ asset('storage/' . $studio->photos->first()->image_path) }}"
                                     alt="{{ $studio->name }}" class="w-full h-48 object-cover">
                             @else
@@ -336,7 +336,7 @@
 
                             <!-- Action Buttons -->
                             <div class="flex space-x-2 mt-4">
-                                <button type="button"
+                                {{-- <button type="button"
                                     onclick="showEditStudioModal(
                                         '{{ $studio->id }}',
                                         '{{ $studio->name }}',
@@ -352,7 +352,7 @@
                                     class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                     <i class="fas fa-edit mr-2"></i>
                                     Edit
-                                </button>
+                                </button> --}}
                                 <form action="{{ route('delete.studio', $id = $studio->id) }}" method="POST"
                                     class="flex-1">
                                     @csrf
@@ -387,7 +387,7 @@
 
                 <div class="bg-darkUI rounded-lg p-6 border border-border">
                     <h3 class="text-lg font-semibold text-light mb-4">This Month</h3>
-                    <p class="text-3xl font-bold text-white">${{ $thisMonthIncome }}</p>
+                    <p class="text-3xl font-bold text-white">${{ $thisMonthIncome}}</p>
                     <p class="text-sm text-success mt-2">+12% from last month</p>
                 </div>
 
@@ -406,8 +406,8 @@
                         <select id="studio-filter" name="studio-filter"
                             class="bg-inputBg text-textMuted border border-border rounded-md p-2 text-sm">
                             <option>All Studios</option>
-                            @foreach($myStudios as $studio)
-                            <option value="{{ $studio->id }}">{{ $studio->name }}</option>
+                            @foreach ($myStudios as $studio)
+                                <option value="{{ $studio->id }}">{{ $studio->name }}</option>
                             @endforeach
                         </select>
                         <select id="date-range-filter" name="date-range-filter"
@@ -433,14 +433,22 @@
                         <tbody>
                             @foreach ($paymentHistories as $payment)
                                 <tr class="border-b border-border">
-                                    <td class="py-3 px-2 text-light">{{  }}</td>
-                                    <td class="py-3 px-2 text-light">{{ $payment->payment_date }}</td>
-                                    {{-- <td class="py-3 px-2 text-light">{{ $payment->studio->name }}</td> --}}
-                                    <td class="py-3 px-2 text-light">${{ $payment->total_price }}</td>
+                                    <td class="py-3 px-2 text-light">
+                                        {{ $payment->booking->artist->profile->full_name ?? 'N/A' }}
+                                    </td>
+                                    <td class="py-3 px-2 text-light">
+                                        {{ $payment->payment_date->format('M d, Y') }}
+                                    </td>
+                                    <td class="py-3 px-2 text-light">
+                                        {{ $payment->booking->studio->name ?? 'N/A' }}
+                                    </td>
+                                    <td class="py-3 px-2 text-light">
+                                        ${{ number_format($payment->total_price, 2) }}
+                                    </td>
                                     <td class="py-3 px-2">
-                                    <span class="text-success text-xs px-2 py-1 rounded-full">
-                                        <i class="fas fa-check-circle"></i> {{ $payment->status }}
-                                    </span>
+                                        <span class="text-success text-xs px-2 py-1 rounded-full">
+                                            <i class="fas fa-check-circle"></i> {{ ucfirst($payment->status) }}
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach

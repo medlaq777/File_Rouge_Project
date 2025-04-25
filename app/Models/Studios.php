@@ -40,10 +40,10 @@ class Studios extends Model
     }
 
 
-    // public function reviews(): HasMany
-    // {
-    //     return $this->hasMany(Review::class, 'studio_id');
-    // }
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'studio_id');
+    }
 
     public function bookings(): HasMany
     {

@@ -22,6 +22,7 @@ class StudioController extends Controller
 
     public function index()
     {
+        $ownerId = Auth::user()->id;
         $studios = Studios::with(['category', 'photos'])->paginate(10);
         $myStudios = Studios::where('user_id', Auth::id())->get();
         $studioAvailability = $myStudios->map(function ($studio) {
@@ -31,18 +32,41 @@ class StudioController extends Controller
         $categories = Category::all();
         $features = Feature::all();
         $count = $myStudios->count();
-        $myTotalIncome = number_format(Payment::where('user_id', Auth::id())->sum('total_price'), 0, ',', ',');
-        $paymentHistories = Payment::where('user_id', Auth::id())->get();
-        $pendingPayment = number_format(
-            Payment::where('user_id', Auth::id())
-                ->where('status', 'pending')
-                ->sum('total_price'),
-            0, ',', ','
-        );
-
-        $thisMonthIncome = number_format(Payment::where('user_id', Auth::id())
-            ->whereMonth('payment_date', date('m'))
+        $myTotalIncome = number_format(Payment::where('status', 'completed')
+            ->whereRelation('booking.studio', 'user_id', $ownerId)
             ->sum('total_price'), 0, ',', ',');
+
+        $thisMonthIncome = Payment::where('status', 'completed')
+            ->whereRelation('booking.studio', 'user_id', $ownerId)
+            ->whereMonth('payment_date', now()->month)
+            ->sum('total_price');
+        $thisMonthIncome = number_format($thisMonthIncome, 0, ',', ',');
+
+
+
+        $pendingPayment = Payment::where('status', 'pending')
+            ->whereHas('booking.studio', fn($query) => $query->where('user_id', $ownerId))
+            ->sum('total_price');
+        $pendingPayment = number_format($pendingPayment, 0, ',', ',');
+
+        $averageRating = Studios::where('user_id', $ownerId)
+            ->withAvg('reviews', 'rating')
+            ->get()
+            ->pluck('reviews_avg_rating')
+            ->filter()
+            ->avg();
+
+        $formattedOverallAverage = number_format($averageRating ?? 0, 1);
+
+
+        $paymentHistories = Payment::with([
+            'booking.artist.profile',
+            'booking.studio'
+        ])
+        ->where('user_id', Auth::id())
+        ->select('id', 'total_price', 'payment_date', 'status', 'booking_id')
+        ->orderBy('payment_date', 'desc')
+        ->paginate(5);
 
         return view('Dashboard.Owner.index', compact(
             'studios',
@@ -54,7 +78,8 @@ class StudioController extends Controller
             'myTotalIncome',
             'thisMonthIncome',
             'pendingPayment',
-            'paymentHistories'
+            'paymentHistories',
+            'averageRating'
         ));
     }
 

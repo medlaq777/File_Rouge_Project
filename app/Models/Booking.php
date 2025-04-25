@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\RoleEnum;
 
 class Booking extends Model
 {
@@ -24,9 +25,9 @@ class Booking extends Model
     ];
 
     public function artist()
-    {
-        return $this->belongsTo(User::class, 'artiste_id');
-    }
+{
+    return $this->belongsTo(User::class, 'user_id')->where('role', RoleEnum::artist);
+}
 
     public function studio()
     {
@@ -38,10 +39,10 @@ class Booking extends Model
         return $this->belongsTo(Availability::class);
     }
 
-    // public function payment()
-    // {
-    //     return $this->hasOne(Payment::class, 'reservation_id');
-    // }
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'reservation_id');
+    }
 
     public function confirm()
     {
