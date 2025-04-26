@@ -432,148 +432,164 @@
         <!-- Reviews Section -->
         <section id="reviews" class="hidden animate-fade-in">
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-white">Reviews</h1>
-                <p class="text-textMuted mt-2">See what clients are saying about your studios</p>
+            <h1 class="text-3xl font-bold text-white">Reviews</h1>
+            <p class="text-textMuted mt-2">See what clients are saying about your studios</p>
             </div>
             <!-- Review Stats -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-darkUI rounded-lg p-6 border border-border flex items-center">
-                    <div class="mr-6">
-                        <h3 class="text-lg font-semibold text-light mb-2">Overall Rating</h3>
-                        <div class="flex items-center mb-1">
-                            <div class="flex text-warning">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="text-2xl font-bold text-white ml-3">{{ $averageRating }}</span>
-                        </div>
-                        <p class="text-sm text-textMuted">Based on 42 reviews</p>
+            <div class="bg-darkUI rounded-lg p-6 border border-border flex items-center">
+                <div class="mr-6 relative">
+                <div class="absolute -top-3 -right-3 bg-danger/20 w-20 h-20 rounded-full blur-xl z-0"></div>
+                <h3 class="text-lg font-semibold text-light mb-4 flex items-center">
+                    <i class="fas fa-chart-line text-danger mr-2"></i>
+                    Overall Rating
+                </h3>
+                <div class="flex items-center mb-3">
+                    <div class="relative">
+                    <div class="w-16 h-16 rounded-full bg-darkBg border-2 border-warning flex items-center justify-center">
+                        <span class="text-2xl font-bold text-white">{{ number_format($averageRating, 1) }}</span>
                     </div>
-                    <div class="flex-1 space-y-2">
-                        <div class="flex items-center">
-                            <span class="text-xs text-textMuted w-6">5★</span>
-                            <div class="flex-1 h-2 mx-2 rounded-full bg-darkBg overflow-hidden">
-                                <div class="bg-warning h-full rounded-full" style="width: 80%"></div>
-                            </div>
-                            <span class="text-xs text-textMuted w-6">80%</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-xs text-textMuted w-6">4★</span>
-                            <div class="flex-1 h-2 mx-2 rounded-full bg-darkBg overflow-hidden">
-                                <div class="bg-warning h-full rounded-full" style="width: 15%"></div>
-                            </div>
-                            <span class="text-xs text-textMuted w-6">15%</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-xs text-textMuted w-6">3★</span>
-                            <div class="flex-1 h-2 mx-2 rounded-full bg-darkBg overflow-hidden">
-                                <div class="bg-warning h-full rounded-full" style="width: 5%"></div>
-                            </div>
-                            <span class="text-xs text-textMuted w-6">5%</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-xs text-textMuted w-6">2★</span>
-                            <div class="flex-1 h-2 mx-2 rounded-full bg-darkBg overflow-hidden">
-                                <div class="bg-warning h-full rounded-full" style="width: 0%"></div>
-                            </div>
-                            <span class="text-xs text-textMuted w-6">0%</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-xs text-textMuted w-6">1★</span>
-                            <div class="flex-1 h-2 mx-2 rounded-full bg-darkBg overflow-hidden">
-                                <div class="bg-warning h-full rounded-full" style="width: 0%"></div>
-                            </div>
-                            <span class="text-xs text-textMuted w-6">0%</span>
-                        </div>
+                    <div class="absolute -top-1 -right-1 w-5 h-5 bg-warning rounded-full flex items-center justify-center">
+                        <i class="fas fa-star text-xs text-black"></i>
+                    </div>
+                    </div>
+                    <div class="ml-4">
+                    <div class="flex text-warning mb-1">
+                        @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= floor($averageRating))
+                            <i class="fas fa-star"></i>
+                        @elseif ($i - 0.5 <= $averageRating)
+                            <i class="fas fa-star-half-alt"></i>
+                        @else
+                            <i class="far fa-star"></i>
+                        @endif
+                        @endfor
+                    </div>
+                    <p class="text-sm text-textMuted flex items-center">
+                        <i class="fas fa-check-circle text-success mr-1"></i>
+                        From <span class="mx-1 font-semibold text-light">{{ count($studiosReviews) }}</span> verified reviews
+                    </p>
                     </div>
                 </div>
+                </div>
+                <div class="flex-1 space-y-3">
+                @php
+                    $totalReviews = count($studiosReviews);
+                    $ratingCounts = [0, 0, 0, 0, 0, 0]; // Index 1-5 for star ratings
 
-                <div class="bg-darkUI rounded-lg p-6 border border-border">
-                    <h3 class="text-lg font-semibold text-light mb-4">Studio Ratings</h3>
-                    @foreach($myStudios as $studio)
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-light">{{ $studio->name }}</span>
-                            <div class="flex items-center">
-                                <div class="flex text-warning">
-                                    @for ($i = 0; $i < round($studio->rating); $i++)
-                                        <i class="fas fa-star"></i>
-                                    @endfor
-                                    @if (round($studio->rating) < 5)
-                                        <i class="fas fa-star-half-alt"></i>
-                                    @endif
-                                </div>
-                                <span class="text-textMuted ml-2">{{ round($studio->rating, 1) }} ({{ $studio->reviews_count }} reviews)</span>
-                            </div>
-                        </div>
-                    @endforeach
+                    foreach ($studiosReviews as $review) {
+                    $rating = round($review->rating);
+                    if ($rating >= 1 && $rating <= 5) {
+                        $ratingCounts[$rating]++;
+                    }
+                    }
+
+                    // Calculate percentages
+                    $percentages = [0, 0, 0, 0, 0, 0];
+                    for ($i = 1; $i <= 5; $i++) {
+                    $percentages[$i] = $totalReviews > 0 ? round(($ratingCounts[$i] / $totalReviews) * 100) : 0;
+                    }
+                @endphp
+
+                @for ($rating = 5; $rating >= 1; $rating--)
+                    <div class="flex items-center group">
+                    <span class="text-xs font-medium text-light w-6">{{ $rating }}★</span>
+                    <div class="flex-1 h-3 mx-2 rounded-full bg-darkBg overflow-hidden shadow-inner">
+                        <div class="bg-warning h-full rounded-full transition-all duration-500 ease-out"
+                         style="width: {{ $percentages[$rating] }}%"></div>
+                    </div>
+                    <span class="text-xs font-medium text-light w-10 text-right">
+                        {{ $percentages[$rating] }}%
+                        <span class="text-xs text-textMuted">({{ $ratingCounts[$rating] }})</span>
+                    </span>
+                    </div>
+                @endfor
                 </div>
+            </div>
+
+            <div class="bg-darkUI rounded-lg p-6 border border-border">
+                <h3 class="text-lg font-semibold text-light mb-4">Studio Ratings</h3>
+                @foreach($myStudios as $studio)
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-light">{{ $studio->name }}</span>
+                    <div class="flex items-center">
+                    <div class="flex text-warning">
+                        @for ($i = 0; $i < round($studio->rating); $i++)
+                        <i class="fas fa-star"></i>
+                        @endfor
+                        @if (round($studio->rating) < 5)
+                        <i class="fas fa-star-half-alt"></i>
+                        @endif
+                    </div>
+                    <span class="text-textMuted ml-2">{{ round($studio->rating, 1) }} ({{ $studio->reviews_count }} reviews)</span>
+                    </div>
+                </div>
+                @endforeach
+            </div>
             </div>
 
             <!-- Refactored Review List Section -->
             <div class="bg-darkUI rounded-lg border border-border p-6 overflow-hidden">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-semibold text-white relative inline-block">
-                        Recent Reviews
-                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-warning opacity-70"></span>
-                    </h2>
-                    <div class="relative">
-                        <select id="review-filter" name="review-filter"
-                            class="bg-inputBg text-textMuted border border-border rounded-md pl-3 pr-8 py-2 text-sm appearance-none cursor-pointer hover:bg-opacity-80 transition-all focus:outline-none focus:ring-1 focus:ring-warning">
-                            <option>All Reviews</option>
-                            @foreach($myStudios as $studio)
-                                <option value="{{ $studio->id }}">{{ $studio->name }}</option>
-                            @endforeach
-                        </select>
-                        <div
-                            class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-textMuted">
-                            <i class="fas fa-chevron-down text-xs"></i>
-                        </div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-white relative inline-block">
+                Recent Reviews
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-warning opacity-70"></span>
+                </h2>
+                <div class="relative">
+                <select id="review-filter" name="review-filter"
+                    class="bg-inputBg text-textMuted border border-border rounded-md pl-3 pr-8 py-2 text-sm appearance-none cursor-pointer hover:bg-opacity-80 transition-all focus:outline-none focus:ring-1 focus:ring-warning">
+                    <option>All Reviews</option>
+                    @foreach($myStudios as $studio)
+                    <option value="{{ $studio->id }}">{{ $studio->name }}</option>
+                    @endforeach
+                </select>
+                <div
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-textMuted">
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </div>
+                </div>
+            </div>
+            <div class="space-y-6">
+                @foreach ($recentReviews as $review)
+                <div class="bg-darkAccent rounded-lg p-4 flex items-start">
+                    <div class="flex text-warning mr-3">
+                    @for ($i = 0; $i < round($review['rating']); $i++)
+                        <i class="fas fa-star"></i>
+                    @endfor
+                    @if (round($review['rating']) < 5)
+                        <i class="fas fa-star-half-alt"></i>
+                    @endif
+                    </div>
+                    <div>
+                    <h4 class="text-light font-semibold">{{ $review['studio_name'] }}</h4>
+                    <p class="text-textMuted text-sm">{{ $review['comment'] }}</p>
+                    <p class="text-textMuted text-xs mt-1">
+                        {{ $review['created_at'] }}
+                    </p>
                     </div>
                 </div>
-                <div class="space-y-6">
-                    @foreach ($recentReviews as $review)
-                        <div class="bg-darkAccent rounded-lg p-4 flex items-start">
-                            <div class="flex text-warning mr-3">
-                                @for ($i = 0; $i < round($review['rating']); $i++)
-                                    <i class="fas fa-star"></i>
-                                @endfor
-                                @if (round($review['rating']) < 5)
-                                    <i class="fas fa-star-half-alt"></i>
-                                @endif
-                            </div>
-                            <div>
-                                <h4 class="text-light font-semibold">{{ $review['studio_name'] }}</h4>
-                                <p class="text-textMuted text-sm">{{ $review['comment'] }}</p>
-                                <p class="text-textMuted text-xs mt-1">
-                                    {{ $review['created_at'] }}
-                                </p>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+                @endforeach
+            </div>
             </div>
 
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const filter = document.getElementById('review-filter');
-                    const reviewItems = document.querySelectorAll('.bg-darkAccent.rounded-lg.overflow-hidden');
+            document.addEventListener('DOMContentLoaded', function() {
+                const filter = document.getElementById('review-filter');
+                const reviewItems = document.querySelectorAll('.bg-darkAccent.rounded-lg.overflow-hidden');
 
-                    filter.addEventListener('change', function() {
-                        const selected = this.value;
+                filter.addEventListener('change', function() {
+                const selected = this.value;
 
-                        reviewItems.forEach(item => {
-                            const studioName = item.querySelector('.fas.fa-music').nextSibling.textContent
-                                .trim();
+                reviewItems.forEach(item => {
+                    const studioName = item.querySelector('.fas.fa-music').nextSibling.textContent
+                    .trim();
 
-                            if (selected === 'All Studios' || studioName === selected) {
-                                item.style.display = 'block';
-                            } else {
-                                item.style.display = 'none';
-                            }
-                        });
-                    });
+                    if (selected === 'All Studios' || studioName === selected) {
+                    item.style.display = 'block';
+                    } else {
+                    item.style.display = 'none';
+                    }
                 });
+                });
+            });
             </script>

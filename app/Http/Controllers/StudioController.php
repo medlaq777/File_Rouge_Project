@@ -88,6 +88,16 @@ class StudioController extends Controller
             })->sortByDesc('created_at')
             ->take(5);
 
+        $studiosReviews = Studios::where('user_id', $ownerId)
+            ->with(['reviews' => function ($query) {
+                $query->orderBy('created_at', 'desc')->take(5);
+            }])
+            ->get()
+            ->pluck('reviews')
+            ->flatten()
+            ->sortByDesc('created_at')
+            ->take(5);
+
 
 
     return view('Dashboard.Owner.index', compact(
@@ -103,7 +113,8 @@ class StudioController extends Controller
     'paymentHistories',
     'averageRating',
     'recentReviews',
-    'recentActivity'
+    'recentActivity',
+    'studiosReviews'
     ));
     }
 
