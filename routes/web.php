@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExploreController;
-use App\Http\Controllers\StudioController;
+use App\Http\Controllers\OwnerController;
 #Provider Auth
 Route::get('/auth/{provider}', [AuthController::class, 'redirectToProvider'])->name('auth.provider');
 Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
@@ -48,9 +48,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showProfile')->middleware('auth');
 Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
 
-Route::get("dashboard", [StudioController::class, 'index'])->name("dashboard")->middleware('auth');
+Route::get("dashboard-Owner", [OwnerController::class, 'index'])->name("dashboard-Owner")->middleware('auth');
+Route::get("dashboard-Artist", [OwnerController::class, 'index'])->name("dashboard-Artist")->middleware('auth');
 
 
-Route::post('store/studio', [StudioController::class, 'store'])->name('store.studio')->middleware('auth');
-Route::put('update/studio', [StudioController::class, 'update'])->name('update.studio')->middleware('auth');
-Route::delete('/delete/studio/{id}', [StudioController::class, 'destroy'])->name('delete.studio')->middleware('auth');
+Route::post('store/studio', [OwnerController::class, 'store'])->name('store.studio')->middleware('auth');
+Route::put('update/studio', [OwnerController::class, 'update'])->name('update.studio')->middleware('auth');
+Route::delete('/delete/studio/{id}', [OwnerController::class, 'destroy'])->name('delete.studio')->middleware('auth');

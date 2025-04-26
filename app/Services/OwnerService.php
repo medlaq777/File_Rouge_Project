@@ -3,11 +3,9 @@
 namespace App\Services;
 
 use App\Models\Studios;
-use App\Models\Availability;
-use App\Models\Photo;
 use Illuminate\Support\Facades\Storage;
 
-class StudiosService
+class OwnerService
 {
     public function createStudios(array $data, array $features, array $photos, $ownerId)
     {

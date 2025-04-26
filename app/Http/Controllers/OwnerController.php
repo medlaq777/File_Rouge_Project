@@ -6,17 +6,17 @@ use App\Models\Studios;
 use App\Models\Category;
 use App\Models\Feature;
 use App\Models\Payment;
-use App\Services\StudiosService;
+use App\Services\OwnerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class StudioController extends Controller
+class OwnerController extends Controller
 {
-    private $StudiosService;
+    private $OwnerService;
 
-    public function __construct(StudiosService $StudiosService)
+    public function __construct(OwnerService $OwnerService)
     {
-        $this->StudiosService = $StudiosService;
+        $this->OwnerService = $OwnerService;
     }
 
 
@@ -188,7 +188,7 @@ class StudioController extends Controller
 
         $photos = $request->file('photos', []);
         $ownerId = Auth::user()->id;
-        $this->StudiosService->createStudios($data, $features, $photos, $ownerId);
+        $this->OwnerService->createStudios($data, $features, $photos, $ownerId);
 
         return redirect()->route('dashboard')->with('success', 'Studio created successfully.');
     }
@@ -266,14 +266,14 @@ class StudioController extends Controller
         $photos = $request->file('photos', []);
         $ownerId = Auth::user()->id;
         // dd($data, $features, $photos, $ownerId);
-        $this->StudiosService->updateStudios($data, $features, $photos, $ownerId);
+        $this->OwnerService->updateStudios($data, $features, $photos, $ownerId);
         return redirect()->route('dashboard')->with('success', 'Studio updated successfully.');
     }
 
     public function destroy($studioId)
     {
         $ownerId = Auth::id();
-        $this->StudiosService->destroy($studioId, $ownerId);
+        $this->OwnerService->destroy($studioId, $ownerId);
         return redirect()->route('dashboard')->with('success', 'Studio deleted successfully.');
     }
 }

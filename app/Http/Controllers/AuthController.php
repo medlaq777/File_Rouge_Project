@@ -44,12 +44,13 @@
             $login = $this->authService->login($credentials);
             $checkRole = $login->role->value;
             if($login && $checkRole == 'owner') {
-                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+                return redirect()->intended(route('dashboard-Owner'))->with('success', 'Logged in successfully.');
             }elseif($login && $checkRole == 'artist' ){
-                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
-            }elseif($login && $checkRole == 'admin'){
-                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+                return redirect()->intended(route('dashboard-Artist'))->with('success', 'Logged in successfully.');
             }
+            // elseif($login && $checkRole == 'admin'){
+            //     return redirect()->intended(route('dashboard-Owne'))->with('success', 'Logged in successfully.');
+            // }
 
         }
 
