@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Studios;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -35,4 +35,29 @@ class ArtistService
         return $favoriteStudios;
     }
 
+    public function getRecentlyViewedStudios()
+    {
+        $user = Auth::user();
+        $recentlyViewedStudios = $user->bookings()
+        ->where('user_id', $user->id)
+        ->orderBy('start_date', 'desc')
+        ->take(5)
+        ->get();
+        return $recentlyViewedStudios;
+    }
+
+    public function getMyBookings()
+    {
+        $user = Auth::user();
+        $bookings = Booking::where('user_id', $user->id)
+        ->with([
+            'studio',
+            'studio.category',
+            // 'studio.availability',
+            // 'studio.review',
+        ]);
+
+        $myBookings = $bookings->get();
+        return response()->json($myBookings);
+    }
 }

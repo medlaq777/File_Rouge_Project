@@ -178,74 +178,25 @@
                 <div class="bg-darkUI rounded-lg border border-border p-6 md:col-span-2">
                     <h3 class="text-lg font-semibold text-white mb-4">Recently Viewed Studios</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach($recentlyViewedStudios as $studio)
                         <div class="p-3 bg-darkAccent rounded-md flex">
                             <div class="w-16 h-16 rounded-md overflow-hidden mr-3 flex-shrink-0">
                                 <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
                             </div>
                             <div>
-                                <h4 class="text-light font-medium">Soundwave Studios</h4>
+                                <h4 class="text-light font-medium">{{ $studio->studio->name }}</h4>
                                 <div class="flex text-warning text-xs my-1">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-textMuted ml-1">(4.5)</span>
+                                    <span class="text-textMuted ml-1">{{ $studio->studio->rating }}</span>
                                 </div>
-                                <p class="text-textMuted text-xs">Pro Recording Studio • $50/hr</p>
+                                <p class="text-textMuted text-xs">{{ $studio->studio->description }} • ${{ $studio->studio->price }}/hr</p>
                             </div>
                         </div>
-                        <div class="p-3 bg-darkAccent rounded-md flex">
-                            <div class="w-16 h-16 rounded-md overflow-hidden mr-3 flex-shrink-0">
-                                <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h4 class="text-light font-medium">Beat Box Studio</h4>
-                                <div class="flex text-warning text-xs my-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-textMuted ml-1">(4.0)</span>
-                                </div>
-                                <p class="text-textMuted text-xs">Mixing Studio • $40/hr</p>
-                            </div>
-                        </div>
-                        <div class="p-3 bg-darkAccent rounded-md flex">
-                            <div class="w-16 h-16 rounded-md overflow-hidden mr-3 flex-shrink-0">
-                                <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h4 class="text-light font-medium">Rhythm Room</h4>
-                                <div class="flex text-warning text-xs my-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-textMuted ml-1">(5.0)</span>
-                                </div>
-                                <p class="text-textMuted text-xs">Podcast Studio • $35/hr</p>
-                            </div>
-                        </div>
-                        <div class="p-3 bg-darkAccent rounded-md flex">
-                            <div class="w-16 h-16 rounded-md overflow-hidden mr-3 flex-shrink-0">
-                                <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h4 class="text-light font-medium">Melody Makers</h4>
-                                <div class="flex text-warning text-xs my-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-textMuted ml-1">(3.5)</span>
-                                </div>
-                                <p class="text-textMuted text-xs">Recording Studio • $45/hr</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -583,6 +534,7 @@
             <div class="space-y-6">
                 <!-- Booking Card 1 -->
                 <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-md transition-all duration-300">
+                    @foreach($myBookings as $booking)
                     <div class="flex flex-col md:flex-row">
                         <!-- Studio Image -->
                         <div class="w-full md:w-64 h-48 md:h-auto flex-shrink-0">
@@ -592,7 +544,7 @@
                         <div class="flex-1 p-6">
                             <div class="flex flex-col md:flex-row justify-between">
                                 <div>
-                                    <h3 class="text-xl font-bold text-white">Soundwave Studios</h3>
+                                    <h3 class="text-xl font-bold text-white">{{ dd($booking) }}</h3>
                                     <div class="flex text-warning text-sm mt-1 mb-3">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -655,158 +607,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    @endforeach
 
-                <!-- Booking Card 2 -->
-                <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-md transition-all duration-300">
-                    <div class="flex flex-col md:flex-row">
-                        <!-- Studio Image -->
-                        <div class="w-full md:w-64 h-48 md:h-auto flex-shrink-0">
-                            <img src="/api/placeholder/300/300" alt="Beat Box Studio" class="w-full h-full object-cover">
-                        </div>
-                        <!-- Booking Details -->
-                        <div class="flex-1 p-6">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Beat Box Studio</h3>
-                                    <div class="flex text-warning text-sm mt-1 mb-3">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <span class="text-textMuted ml-1">(4.0)</span>
-                                    </div>
-                                </div>
-                                <div class="mt-2 md:mt-0">
-                                    <span class="bg-info/20 text-info text-xs px-3 py-1.5 rounded-full">
-                                        Confirmed
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-                                <div>
-                                    <p class="text-textMuted text-sm">Date & Time</p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="far fa-calendar text-primary mr-2"></i>
-                                        May 3, 2025
-                                    </p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="far fa-clock text-primary mr-2"></i>
-                                        10:00 AM - 1:00 PM
-                                    </p>
-                                </div>
-                                <div>
-                                    <p class="text-textMuted text-sm">Studio Type</p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="fas fa-music text-primary mr-2"></i>
-                                        Mixing Studio
-                                    </p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="fas fa-dollar-sign text-primary mr-2"></i>
-                                        $40/hour (3 hours)
-                                    </p>
-                                </div>
-                                <div>
-                                    <p class="text-textMuted text-sm">Booking ID</p>
-                                    <p class="text-light mt-1">BOK-4390-BBS</p>
-                                    <p class="text-success text-sm mt-1">Paid in Full</p>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-wrap gap-3 mt-6">
-                                <button class="bg-darkAccent hover:bg-border text-light py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-calendar-day mr-2"></i>
-                                    Reschedule
-                                </button>
-                                <button class="bg-darkAccent hover:bg-border text-light py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-comment-alt mr-2"></i>
-                                    Contact Studio
-                                </button>
-                                <button class="bg-danger/10 hover:bg-danger/20 text-danger py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-times mr-2"></i>
-                                    Cancel Booking
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Booking Card 3 -->
-                <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-md transition-all duration-300">
-                    <div class="flex flex-col md:flex-row">
-                        <!-- Studio Image -->
-                        <div class="w-full md:w-64 h-48 md:h-auto flex-shrink-0">
-                            <img src="/api/placeholder/300/300" alt="Rhythm Room" class="w-full h-full object-cover">
-                        </div>
-                        <!-- Booking Details -->
-                        <div class="flex-1 p-6">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Rhythm Room</h3>
-                                    <div class="flex text-warning text-sm mt-1 mb-3">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span class="text-textMuted ml-1">(5.0)</span>
-                                    </div>
-                                </div>
-                                <div class="mt-2 md:mt-0">
-                                    <span class="bg-warning/20 text-warning text-xs px-3 py-1.5 rounded-full">
-                                        Pending
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-                                <div>
-                                    <p class="text-textMuted text-sm">Date & Time</p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="far fa-calendar text-primary mr-2"></i>
-                                        May 12, 2025
-                                    </p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="far fa-clock text-primary mr-2"></i>
-                                        1:00 PM - 6:00 PM
-                                    </p>
-                                </div>
-                                <div>
-                                    <p class="text-textMuted text-sm">Studio Type</p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="fas fa-music text-primary mr-2"></i>
-                                        Podcast Studio
-                                    </p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="fas fa-dollar-sign text-primary mr-2"></i>
-                                        $35/hour (5 hours)
-                                    </p>
-                                </div>
-                                <div>
-                                    <p class="text-textMuted text-sm">Booking ID</p>
-                                    <p class="text-light mt-1">BOK-4401-RHR</p>
-                                    <p class="text-warning text-sm mt-1">Awaiting Confirmation</p>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-wrap gap-3 mt-6">
-                                <button class="bg-darkAccent hover:bg-border text-light py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-calendar-day mr-2"></i>
-                                    Reschedule
-                                </button>
-                                <button class="bg-darkAccent hover:bg-border text-light py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-comment-alt mr-2"></i>
-                                    Contact Studio
-                                </button>
-                                <button class="bg-danger/10 hover:bg-danger/20 text-danger py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-times mr-2"></i>
-                                    Cancel Booking
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
