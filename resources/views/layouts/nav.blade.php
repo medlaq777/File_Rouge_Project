@@ -33,12 +33,12 @@
                                 <a href="{{ route('showProfile') }}"
                                     class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Profile</a>
                                 @if (Auth::user()->isOwner())
-                                    <a href="{{ route('dashboard') }}"
+                                    <a href="{{ route('dashboard-Owner') }}"
                                         class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Dashboard</a>
                                 @elseif (Auth::user()->isArtist())
-                                    <a href=""
+                                    <a href="{{ route('dashboard-Artist') }}"
                                         class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">My
-                                        Reservations</a>
+                                        Dashboard</a>
                                 @elseif (Auth::user()->isAdmin())
                                     <a href=""
                                         class="block px-4 py-2 text-sm text-textMuted hover:text-light hover:bg-darkUI">Dashboard</a>

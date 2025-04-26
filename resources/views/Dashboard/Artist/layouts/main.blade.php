@@ -60,7 +60,7 @@
                             <i class="fas fa-calendar-check text-primary text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">14</p>
+                    <p class="text-3xl font-bold text-white">{{ $MytotalBookings }}</p>
                     <p class="text-sm text-textMuted mt-2">All your studio bookings</p>
                 </div>
 
@@ -71,7 +71,7 @@
                             <i class="fas fa-hourglass-half text-info text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">3</p>
+                    <p class="text-3xl font-bold text-white">{{ $upcomingBookings->count() }}</p>
                     <p class="text-sm text-textMuted mt-2">Sessions in the next 30 days</p>
                 </div>
 
@@ -93,7 +93,7 @@
                             <i class="fas fa-heart text-danger text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">5</p>
+                    <p class="text-3xl font-bold text-white">{{ $favoriteStudios->count() }}</p>
                     <p class="text-sm text-textMuted mt-2">Studios you've saved</p>
                 </div>
             </div>
@@ -116,80 +116,37 @@
                             <tr class="border-b border-border">
                                 <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Studio</th>
                                 <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Date & Time</th>
-                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Duration</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Description</th>
                                 <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Status</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($upcomingBookings as $studio)
                             <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
                                 <td class="py-4 px-4 text-light flex items-center">
                                     <i class="fas fa-music text-primary mr-3"></i>
-                                    Soundwave Studios
+                                    {{ $studio->studio->name }}
                                 </td>
                                 <td class="py-4 px-4 text-light">
                                     <span class="flex items-center">
                                         <i class="far fa-calendar text-textMuted mr-2"></i>
-                                        April 28, 2025 • 2:00 PM
+                                        {{ $studio->studio->created_at }}
                                     </span>
                                 </td>
                                 <td class="py-4 px-4 text-light">
                                     <span class="flex items-center">
-                                        <i class="far fa-clock text-textMuted mr-2"></i>
-                                        4 hours
+                                        <i class="fas fa-align-left text-textMuted mr-2"></i>
+                                        {{ $studio->studio->description }}
                                     </span>
                                 </td>
                                 <td class="py-4 px-4">
-                                    <span class="text-info text-xs px-2 py-1 rounded-full">
-                                        Confirmed
+                                    <span class="text-info text-s flex items-center">
+                                        <i class="fas fa-circle-check mr-2"></i>
+                                        {{ $studio->status }}
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
-                                <td class="py-4 px-4 text-light flex items-center">
-                                    <i class="fas fa-music text-primary mr-3"></i>
-                                    Beat Box Studio
-                                </td>
-                                <td class="py-4 px-4 text-light">
-                                    <span class="flex items-center">
-                                        <i class="far fa-calendar text-textMuted mr-2"></i>
-                                        May 3, 2025 • 10:00 AM
-                                    </span>
-                                </td>
-                                <td class="py-4 px-4 text-light">
-                                    <span class="flex items-center">
-                                        <i class="far fa-clock text-textMuted mr-2"></i>
-                                        3 hours
-                                    </span>
-                                </td>
-                                <td class="py-4 px-4">
-                                    <span class="text-info text-xs px-2 py-1 rounded-full">
-                                        Confirmed
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
-                                <td class="py-4 px-4 text-light flex items-center">
-                                    <i class="fas fa-music text-primary mr-3"></i>
-                                    Rhythm Room
-                                </td>
-                                <td class="py-4 px-4 text-light">
-                                    <span class="flex items-center">
-                                        <i class="far fa-calendar text-textMuted mr-2"></i>
-                                        May 12, 2025 • 1:00 PM
-                                    </span>
-                                </td>
-                                <td class="py-4 px-4 text-light">
-                                    <span class="flex items-center">
-                                        <i class="far fa-clock text-textMuted mr-2"></i>
-                                        5 hours
-                                    </span>
-                                </td>
-                                <td class="py-4 px-4">
-                                    <span class="text-warning text-xs px-2 py-1 rounded-full">
-                                        Pending
-                                    </span>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

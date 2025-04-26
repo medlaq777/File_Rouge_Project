@@ -190,7 +190,7 @@ class OwnerController extends Controller
         $ownerId = Auth::user()->id;
         $this->OwnerService->createStudios($data, $features, $photos, $ownerId);
 
-        return redirect()->route('dashboard')->with('success', 'Studio created successfully.');
+        return redirect()->route('dashboard-Owner')->with('success', 'Studio created successfully.');
     }
 
     public function update(Request $request)
@@ -267,13 +267,13 @@ class OwnerController extends Controller
         $ownerId = Auth::user()->id;
         // dd($data, $features, $photos, $ownerId);
         $this->OwnerService->updateStudios($data, $features, $photos, $ownerId);
-        return redirect()->route('dashboard')->with('success', 'Studio updated successfully.');
+        return redirect()->route('dashboard-Owner')->with('success', 'Studio updated successfully.');
     }
 
     public function destroy($studioId)
     {
         $ownerId = Auth::id();
         $this->OwnerService->destroy($studioId, $ownerId);
-        return redirect()->route('dashboard')->with('success', 'Studio deleted successfully.');
+        return redirect()->route('dashboard-Owner')->with('success', 'Studio deleted successfully.');
     }
 }

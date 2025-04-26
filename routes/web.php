@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\ArtistController;
 #Provider Auth
 Route::get('/auth/{provider}', [AuthController::class, 'redirectToProvider'])->name('auth.provider');
 Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
@@ -49,7 +50,7 @@ Route::get('/profile', [ProfileController::class, 'showProfile'])->name('showPro
 Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
 
 Route::get("dashboard-Owner", [OwnerController::class, 'index'])->name("dashboard-Owner")->middleware('auth');
-Route::get("dashboard-Artist", [OwnerController::class, 'index'])->name("dashboard-Artist")->middleware('auth');
+Route::get("dashboard-Artist", [ArtistController::class, 'index'])->name("dashboard-Artist")->middleware('auth');
 
 
 Route::post('store/studio', [OwnerController::class, 'store'])->name('store.studio')->middleware('auth');

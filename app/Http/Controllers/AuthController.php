@@ -4,7 +4,6 @@
 
     use App\Http\Controllers\Controller;
     use App\Services\AuthService;
-    use App\Services\StudiosService;
     use Illuminate\Http\Request;
     use Laravel\Socialite\Facades\Socialite;
 
@@ -72,12 +71,14 @@
             $user = $this->authService->handleSocialiteUser($provider, $socialiteUser);
 
             if ($user->isOwner()) {
-                return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+                return redirect()->intended(route('dashboard-Owner'))->with('success', 'Logged in successfully.');
             }
-            return redirect()->intended('/dashboard');
+            return redirect()->intended(route('dashboard-Artist'))->with('success', 'Logged in successfully.');
 
         } catch (\Exception $e) {
-            return redirect('/login')->withErrors(['error' => 'Unable to login using ' . ucfirst($provider)]);
+            return redirect(route('showLoginForm'))
+                ->withErrors(['email' => 'Failed to login with ' . $provider . '.'])
+                ->withInput();
         }
     }
 }
