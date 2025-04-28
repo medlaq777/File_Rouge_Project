@@ -50,11 +50,39 @@ class ArtistService
     {
         return Auth::user()
             ->bookings()
+            ->where('user_id', Auth::id())
             ->with([
                 'studio.category',
                 'studio.availabilities',
-                // …
             ])
             ->get();
     }
+
+
+    // public function getMyBookingDetails($bookingId)
+    // {
+    //     return Auth::user()
+    //         ->bookings()
+    //         ->where('id', $bookingId)
+    //         ->with([
+    //             'studio.category',
+    //             'studio.availabilities',
+    //         ])
+    //         ->first();
+    // }
+
+
+    public function getMyReviews()
+    {
+        return Auth::user()
+            ->reviews()
+            ->with([
+                'studio.category',
+                'studio.availabilities',
+            ])
+            ->get();
+    }
+
+
+
 }

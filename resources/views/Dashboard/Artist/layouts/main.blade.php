@@ -623,7 +623,7 @@
             </div>
 
             <!-- Review Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="bg-darkUI rounded-lg p-6 border border-border">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-semibold text-light">Total Reviews</h3>
@@ -631,7 +631,7 @@
                             <i class="fas fa-comment-dots text-primary text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">8</p>
+                    <p class="text-3xl font-bold text-white">{{ $myReviews->count() }}</p>
                     <p class="text-sm text-textMuted mt-2">Reviews you've written</p>
                 </div>
 
@@ -642,180 +642,70 @@
                             <i class="fas fa-star text-warning text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">4.2</p>
+                    <p class="text-3xl font-bold text-white">{{ number_format($myReviews->avg('rating'), 1) }}</p>
                     <p class="text-sm text-textMuted mt-2">Your average studio rating</p>
                 </div>
-
-                <div class="bg-darkUI rounded-lg p-6 border border-border">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-light">Pending Reviews</h3>
-                        <div class="p-2 rounded-md bg-info/10">
-                            <i class="fas fa-clipboard-list text-info text-xl"></i>
-                        </div>
-                    </div>
-                    <p class="text-3xl font-bold text-white">3</p>
-                    <p class="text-sm text-textMuted mt-2">Studios awaiting your review</p>
-                </div>
             </div>
 
-            <!-- Pending Reviews -->
-            <div class="bg-darkUI rounded-lg border border-border p-6 mb-8">
-                <h3 class="text-xl font-semibold text-white mb-6">Pending Reviews</h3>
-
-                <div class="space-y-6">
-                    <!-- Pending Review 1 -->
-                    <div class="border-b border-border pb-6">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center">
-                                <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
-                                    <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-white">Soundwave Studios</h4>
-                                    <p class="text-textMuted text-sm">Visited on April 10, 2025</p>
-                                </div>
-                            </div>
-                            <button class="mt-4 md:mt-0 bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                                Write Review
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Pending Review 2 -->
-                    <div class="border-b border-border pb-6">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center">
-                                <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
-                                    <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-white">Beat Box Studio</h4>
-                                    <p class="text-textMuted text-sm">Visited on March 28, 2025</p>
-                                </div>
-                            </div>
-                            <button class="mt-4 md:mt-0 bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                                Write Review
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Pending Review 3 -->
-                    <div>
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center">
-                                <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
-                                    <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-white">Melody Makers</h4>
-                                    <p class="text-textMuted text-sm">Visited on March 15, 2025</p>
-                                </div>
-                            </div>
-                            <button class="mt-4 md:mt-0 bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                                Write Review
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- My Past Reviews -->
             <div class="bg-darkUI rounded-lg border border-border p-6">
                 <h3 class="text-xl font-semibold text-white mb-6">My Past Reviews</h3>
 
                 <div class="space-y-8">
-                    <!-- Review 1 -->
+                    @forelse($myReviews as $review)
                     <div class="border-b border-border pb-6">
                         <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
                             <div class="flex items-center">
                                 <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
-                                    <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
+                                    @if ($review->studio->photos->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $review->studio->photos->first()->image_path) }}"
+                                        alt="{{ $studio->name }}" class="w-full h-48 object-cover">
+                                @else
+                                    <img src="{{ 'no image' }}" alt="Default Studio Image"
+                                        class="w-full h-48 object-cover">
+                                @endif
                                 </div>
                                 <div>
-                                    <h4 class="text-lg font-medium text-white">Rhythm Room</h4>
-                                    <div class="flex text-warning text-sm mt-1">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
+                                    <h4 class="text-lg font-medium text-white">{{ $review->studio->name }}</h4>
+                                    <div class="flex items-center text-warning text-sm mt-1">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= $review->rating)
+                                                <i class="fas fa-star"></i>
+                                            @elseif($i - 0.5 <= $review->rating)
+                                                <i class="fas fa-star-half-alt"></i>
+                                            @else
+                                                <i class="far fa-star"></i>
+                                            @endif
+                                        @endfor
+                                        <span class="text-light ml-2">({{ number_format($review->rating, 1) }})</span>
                                     </div>
-                                    <p class="text-textMuted text-sm mt-1">Reviewed on Feb 18, 2025</p>
+                                    <p class="text-textMuted text-sm mt-1">Reviewed on {{ $review->created_at->format('M d, Y') }}</p>
                                 </div>
                             </div>
                             <div class="flex gap-2 mt-4 md:mt-0">
-                                <button class="text-textMuted hover:text-light py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
+                                <button onclick="window.location.href=''"
+                                        class="text-textMuted hover:text-light py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
-                                <button class="text-textMuted hover:text-danger py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                <form action="" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this review?')"
+                                            class="text-textMuted hover:text-danger py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
-                        <p class="text-light">Absolutely amazing studio with top-notch equipment. The sound engineer was incredibly helpful and the acoustics are perfect for podcast recording. Would definitely book again!</p>
+                        <p class="text-light">{{ $review->content }}</p>
                     </div>
-
-                    <!-- Review 2 -->
-                    <div class="border-b border-border pb-6">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center">
-                                <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
-                                    <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-white">Soundwave Studios</h4>
-                                    <div class="flex text-warning text-sm mt-1">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <p class="text-textMuted text-sm mt-1">Reviewed on Jan 30, 2025</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 mt-4 md:mt-0">
-                                <button class="text-textMuted hover:text-light py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
-                                <button class="text-textMuted hover:text-danger py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <p class="text-light">Great studio with professional equipment. The staff was friendly and helpful. The only downside was that the air conditioning was a bit loud during quiet recordings, but they helped us work around it.</p>
+                    @empty
+                    <div class="text-center py-8">
+                        <i class="fas fa-comments text-textMuted text-4xl mb-4"></i>
+                        <p class="text-textMuted">You haven't written any reviews yet</p>
                     </div>
-
-                    <!-- Review 3 -->
-                    <div>
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center">
-                                <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
-                                    <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-white">Beat Box Studio</h4>
-                                    <div class="flex text-warning text-sm mt-1">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <p class="text-textMuted text-sm mt-1">Reviewed on Jan 12, 2025</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 mt-4 md:mt-0">
-                                <button class="text-textMuted hover:text-light py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
-                                <button class="text-textMuted hover:text-danger py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <p class="text-light">Solid mixing studio with good equipment. The engineer was knowledgeable but a bit rushed during our session. The location is convenient and the rates are reasonable for what you get.</p>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </section>

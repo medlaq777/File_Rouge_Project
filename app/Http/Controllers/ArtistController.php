@@ -19,12 +19,14 @@ class ArtistController extends Controller
         $favoriteStudios = $this->artistService->getMyFavoriteStudios();
         $recentlyViewedStudios = $this->artistService->getRecentlyViewedStudios();
         $myBookings = $this->artistService->getMyBookings();
+        $myReviews = $this->artistService->getMyReviews();
         return view('Dashboard.Artist.index',compact(
             'MytotalBookings',
             'upcomingBookings',
             'favoriteStudios',
             'recentlyViewedStudios',
-            'myBookings'
+            'myBookings',
+            'myReviews'
         ));
     }
 }
