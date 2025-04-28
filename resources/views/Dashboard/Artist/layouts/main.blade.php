@@ -510,105 +510,107 @@
 
         <!-- My Bookings Section -->
         <section id="my-bookings" class="hidden animate-fade-in">
+
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-white">My Bookings</h1>
-                <p class="text-textMuted mt-2">Manage all your studio bookings in one place</p>
+                <h1 class="text-3xl font-bold text-white">My Bookings History</h1>
+                <p class="text-textMuted mt-2">View all your studio booking history</p>
             </div>
 
-            <!-- Booking Tabs -->
-            <div class="mb-6">
-                <div class="flex border-b border-border">
-                    <button class="px-6 py-3 text-light font-medium border-b-2 border-primary">
-                        Upcoming (3)
-                    </button>
-                    <button class="px-6 py-3 text-textMuted font-medium border-b-2 border-transparent hover:text-light hover:border-border transition-all">
-                        Past (11)
-                    </button>
-                    <button class="px-6 py-3 text-textMuted font-medium border-b-2 border-transparent hover:text-light hover:border-border transition-all">
-                        Canceled (2)
-                    </button>
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div onclick="window.location.href='{{ route('explore') }}'" class="bg-darkUI p-6 rounded-lg border border-border hover:border-primary transition-all duration-200 cursor-pointer">
+                    <i class="fas fa-search text-primary text-2xl mb-4"></i>
+                    <h4 class="text-light font-medium mb-2">Find Studios</h4>
+                    <p class="text-textMuted text-sm">Browse our curated list of professional recording spaces</p>
+                </div>
+                <div class="bg-darkUI p-6 rounded-lg border border-border hover:border-primary transition-all duration-200 cursor-pointer">
+                    <i class="fas fa-star text-warning text-2xl mb-4"></i>
+                    <h4 class="text-light font-medium mb-2">Top Rated</h4>
+                    <p class="text-textMuted text-sm">Discover highly rated studios in your area</p>
                 </div>
             </div>
 
-            <!-- Upcoming Bookings -->
-            <div class="space-y-6">
-                <!-- Booking Card 1 -->
-                <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-md transition-all duration-300">
-                    @foreach($myBookings as $booking)
-                    <div class="flex flex-col md:flex-row">
-                        <!-- Studio Image -->
-                        <div class="w-full md:w-64 h-48 md:h-auto flex-shrink-0">
-                            <img src="/api/placeholder/300/300" alt="Soundwave Studios" class="w-full h-full object-cover">
-                        </div>
-                        <!-- Booking Details -->
-                        <div class="flex-1 p-6">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">{{ dd($booking) }}</h3>
-                                    <div class="flex text-warning text-sm mt-1 mb-3">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span class="text-textMuted ml-1">(4.5)</span>
-                                    </div>
-                                </div>
-                                <div class="mt-2 md:mt-0">
-                                    <span class="bg-info/20 text-info text-xs px-3 py-1.5 rounded-full">
-                                        Confirmed
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-                                <div>
-                                    <p class="text-textMuted text-sm">Date & Time</p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="far fa-calendar text-primary mr-2"></i>
-                                        April 28, 2025
-                                    </p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="far fa-clock text-primary mr-2"></i>
-                                        2:00 PM - 6:00 PM
-                                    </p>
-                                </div>
-                                <div>
-                                    <p class="text-textMuted text-sm">Studio Type</p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="fas fa-music text-primary mr-2"></i>
-                                        Pro Recording Studio
-                                    </p>
-                                    <p class="text-light flex items-center mt-1">
-                                        <i class="fas fa-dollar-sign text-primary mr-2"></i>
-                                        $50/hour (4 hours)
-                                    </p>
-                                </div>
-                                <div>
-                                    <p class="text-textMuted text-sm">Booking ID</p>
-                                    <p class="text-light mt-1">BOK-4382-SWS</p>
-                                    <p class="text-success text-sm mt-1">Paid in Full</p>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-wrap gap-3 mt-6">
-                                <button class="bg-darkAccent hover:bg-border text-light py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-calendar-day mr-2"></i>
-                                    Reschedule
-                                </button>
-                                <button class="bg-darkAccent hover:bg-border text-light py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-comment-alt mr-2"></i>
-                                    Contact Studio
-                                </button>
-                                <button class="bg-danger/10 hover:bg-danger/20 text-danger py-2 px-4 rounded-md transition-all duration-200 flex items-center">
-                                    <i class="fas fa-times mr-2"></i>
-                                    Cancel Booking
-                                </button>
-                            </div>
-                        </div>
+            <!-- Bookings Table -->
+            <div class="bg-darkUI rounded-lg border border-border p-6 mt-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-white">Recent Bookings</h2>
+                    <div class="flex gap-2">
+                        <button class="text-textMuted hover:text-light px-3 py-1 rounded-md bg-darkAccent">
+                            <i class="fas fa-filter mr-2"></i>Filter
+                        </button>
+                        <button class="text-textMuted hover:text-light px-3 py-1 rounded-md bg-darkAccent">
+                            <i class="fas fa-download mr-2"></i>Export
+                        </button>
                     </div>
-                    @endforeach
+                </div>
 
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-full">
+                        <thead>
+                            <tr class="border-b border-border">
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Studio Name</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Booking Date</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Time Slot</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Price</th>
+                                <th class="py-3 px-4 text-left text-sm font-medium text-textMuted">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($myBookings as $booking)
+                            <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
+                                <td class="py-4 px-4">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center mr-3">
+                                            <i class="fas fa-music text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-light font-medium">{{ $booking->studio->name }}</p>
+                                            <p class="text-xs text-textMuted">{{ $booking->studio->location }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <div class="flex items-center text-light">
+                                        <i class="far fa-calendar text-primary mr-2"></i>
+                                        {{ $booking->start_date }}
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <div class="flex items-center text-light">
+                                        <i class="far fa-clock text-primary mr-2"></i>
+                                        {{ $booking->end_date }}
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <div class="text-light font-medium">${{ $booking->total_price }}</div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    @if($booking->status === 'confirmed')
+                                    <span class="px-2 py-1 bg-success/20 text-success text-xs rounded-full">Confirmed</span>
+                                    @elseif($booking->status === 'cancelled')
+                                    <span class="px-2 py-1 bg-danger/20 text-danger text-xs rounded-full">Cancelled</span>
+                                    @elseif($booking->status === 'pending')
+                                    <span class="px-2 py-1 bg-warning/20 text-warning text-xs rounded-full">Pending</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="6">
+                                    <div class="text-center py-8">
+                                        <i class="fas fa-calendar-times text-textMuted text-4xl mb-4"></i>
+                                        <h3 class="text-xl font-semibold text-light mb-2">No Bookings Found</h3>
+                                        <p class="text-textMuted mb-4">Start your musical journey by booking your first studio session</p>
+                                        <button onclick="showTab('find-studios')"
+                                            class="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md transition-all duration-200">
+                                            Find Studios
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

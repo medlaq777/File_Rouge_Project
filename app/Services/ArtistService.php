@@ -48,16 +48,13 @@ class ArtistService
 
     public function getMyBookings()
     {
-        $user = Auth::user();
-        $bookings = Booking::where('user_id', $user->id)
-        ->with([
-            'studio',
-            'studio.category',
-            // 'studio.availability',
-            // 'studio.review',
-        ]);
-
-        $myBookings = $bookings->get();
-        return response()->json($myBookings);
+        return Auth::user()
+            ->bookings()
+            ->with([
+                'studio.category',
+                'studio.availabilities',
+                // …
+            ])
+            ->get();
     }
 }

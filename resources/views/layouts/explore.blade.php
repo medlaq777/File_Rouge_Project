@@ -135,8 +135,8 @@
                         <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card animate-fade-in"
                             style="animation-delay: {{ $loop->iteration * 0.1 }}s">
                             <div class="relative h-48 overflow-hidden">
-                                @if ($studio->images->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}"
+                                @if ($studio->photos->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $studio->photos->first()->image_path) }}"
                                         alt="{{ $studio->name }}" class="w-full h-48 object-cover">
                                 @else
                                     <img src="{{ 'no image' }}" alt="Default Studio Image"
