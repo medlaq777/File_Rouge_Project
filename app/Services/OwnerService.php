@@ -43,8 +43,6 @@ class OwnerService
         return $studio;
     }
 
-
-
     public function updateStudios(array $data, array $features, array $photos, $ownerId)
     {
         $studio = Studios::where('id', $data['id'])->where('user_id', $ownerId)->firstOrFail();
