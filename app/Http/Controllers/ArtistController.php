@@ -38,13 +38,13 @@ class ArtistController extends Controller
         ]);
 
         $this->artistService->getEditMyReview($id, $request->all());
-        return redirect()->route('dashboard-Artist')->with('success', 'Review updated successfully.');
+        return redirect()->back()->with('success', 'Review updated successfully.');
 
     }
 
     public function getDeleteMyReview($id)
     {
         $this->artistService->getDeleteMyReview($id);
-        return redirect()->route('dashboard-Artist')->with('success', 'Review deleted successfully.');
+        return redirect()->back()->with('success', 'Review deleted successfully.');
     }
 }
