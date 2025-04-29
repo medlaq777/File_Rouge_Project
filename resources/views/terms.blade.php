@@ -3,7 +3,7 @@
 @section('navbar')
     @include('layouts.nav')
 @endsection
-@section('help')
+@section('terms')
     @include('layouts.terms')
 @endsection
 @section('footer')

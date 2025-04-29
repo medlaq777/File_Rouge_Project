@@ -65,20 +65,20 @@
         }
 
         public function handleProviderCallback($provider)
-    {
-        try {
-            $socialiteUser = Socialite::driver($provider)->user();
-            $user = $this->authService->handleSocialiteUser($provider, $socialiteUser);
+        {
+            try {
+                $socialiteUser = Socialite::driver($provider)->user();
+                $user = $this->authService->handleSocialiteUser($provider, $socialiteUser);
 
-            if ($user->isOwner()) {
-                return redirect()->intended(route('dashboard-Owner'))->with('success', 'Logged in successfully.');
+                if ($user->isOwner()) {
+                    return redirect()->intended(route('dashboard-Owner'))->with('success', 'Logged in successfully.');
+                }
+                return redirect()->intended(route('dashboard-Artist'))->with('success', 'Logged in successfully.');
+
+            } catch (\Exception $e) {
+                return redirect(route('showLoginForm'))
+                    ->withErrors(['email' => 'Failed to login with ' . $provider . '.'])
+                    ->withInput();
             }
-            return redirect()->intended(route('dashboard-Artist'))->with('success', 'Logged in successfully.');
-
-        } catch (\Exception $e) {
-            return redirect(route('showLoginForm'))
-                ->withErrors(['email' => 'Failed to login with ' . $provider . '.'])
-                ->withInput();
         }
-    }
 }

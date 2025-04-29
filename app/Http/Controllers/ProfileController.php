@@ -16,18 +16,21 @@ class ProfileController extends Controller
         $this->profileService = $profileService;
     }
 
-    public function showProfile()
+    public function showProfile($id)
     {
         $user = Auth::user();
         if (!$user) {
             return redirect()->route('showLoginForm')->with('error', 'Please log in to view your profile.');
         }
-        $profile = $this->profileService->getProfile($user->id);
+
+        $profile = $this->profileService->getProfile($id);
         if (!$profile) {
-            return redirect()->route('showLoginForm')->with('error', 'Please log in to view your profile.');
+            return redirect()->back()->with('error', 'Profile not found.');
         }
+
         return view('profile', compact('user', 'profile'));
     }
+
 
     public function updateProfile(Request $request)
     {

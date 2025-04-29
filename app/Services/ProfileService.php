@@ -20,4 +20,5 @@ class ProfileService
         ProfileUser::create($data);
     }
 }
+
 }
