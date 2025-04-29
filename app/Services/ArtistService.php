@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class ArtistService
 {
@@ -83,6 +82,31 @@ class ArtistService
             ->get();
     }
 
+
+    public function getEditMyReview($id)
+    {
+        $review = Auth::user()
+            ->reviews()
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $review->update([
+            'comment' => request('comment'),
+            'rating' => request('rating'),
+        ]);
+
+        return $review;
+    }
+
+    public function getDeleteMyReview($id)
+    {
+        $review = Auth::user()
+            ->reviews()
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $review->delete();
+    }
 
 
 }

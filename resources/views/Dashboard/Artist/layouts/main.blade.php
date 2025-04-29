@@ -99,13 +99,15 @@
             </div>
 
             <!-- Recent Bookings -->
-            <div class="bg-darkUI rounded-lg border border-border p-6 mb-8 shadow-sm hover:shadow-md transition-all duration-300">
+            <div
+                class="bg-darkUI rounded-lg border border-border p-6 mb-8 shadow-sm hover:shadow-md transition-all duration-300">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-white flex items-center">
                         <i class="fas fa-calendar text-primary mr-3"></i>
                         Upcoming Sessions
                     </h2>
-                    <a href="#" onclick="showTab('my-bookings')" class="text-primary hover:text-primaryHover text-sm transition-colors flex items-center">
+                    <a href="#" onclick="showTab('my-bookings')"
+                        class="text-primary hover:text-primaryHover text-sm transition-colors flex items-center">
                         <span>View All Bookings</span>
                         <i class="fas fa-chevron-right ml-1 text-xs"></i>
                     </a>
@@ -121,31 +123,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($upcomingBookings as $studio)
-                            <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
-                                <td class="py-4 px-4 text-light flex items-center">
-                                    <i class="fas fa-music text-primary mr-3"></i>
-                                    {{ $studio->studio->name }}
-                                </td>
-                                <td class="py-4 px-4 text-light">
-                                    <span class="flex items-center">
-                                        <i class="far fa-calendar text-textMuted mr-2"></i>
-                                        {{ $studio->studio->created_at }}
-                                    </span>
-                                </td>
-                                <td class="py-4 px-4 text-light">
-                                    <span class="flex items-center">
-                                        <i class="fas fa-align-left text-textMuted mr-2"></i>
-                                        {{ $studio->studio->description }}
-                                    </span>
-                                </td>
-                                <td class="py-4 px-4">
-                                    <span class="text-info text-s flex items-center">
-                                        <i class="fas fa-circle-check mr-2"></i>
-                                        {{ $studio->status }}
-                                    </span>
-                                </td>
-                            </tr>
+                            @foreach ($upcomingBookings as $studio)
+                                <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
+                                    <td class="py-4 px-4 text-light flex items-center">
+                                        <i class="fas fa-music text-primary mr-3"></i>
+                                        {{ $studio->studio->name }}
+                                    </td>
+                                    <td class="py-4 px-4 text-light">
+                                        <span class="flex items-center">
+                                            <i class="far fa-calendar text-textMuted mr-2"></i>
+                                            {{ $studio->studio->created_at }}
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4 text-light">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-align-left text-textMuted mr-2"></i>
+                                            {{ $studio->studio->description }}
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <span class="text-info text-s flex items-center">
+                                            <i class="fas fa-circle-check mr-2"></i>
+                                            {{ $studio->status }}
+                                        </span>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -178,24 +180,26 @@
                 <div class="bg-darkUI rounded-lg border border-border p-6 md:col-span-2">
                     <h3 class="text-lg font-semibold text-white mb-4">Recently Viewed Studios</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        @foreach($recentlyViewedStudios as $studio)
-                        <div class="p-3 bg-darkAccent rounded-md flex">
-                            <div class="w-16 h-16 rounded-md overflow-hidden mr-3 flex-shrink-0">
-                                <img src="/api/placeholder/64/64" alt="Studio" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h4 class="text-light font-medium">{{ $studio->studio->name }}</h4>
-                                <div class="flex text-warning text-xs my-1">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-textMuted ml-1">{{ $studio->studio->rating }}</span>
+                        @foreach ($recentlyViewedStudios as $studio)
+                            <div class="p-3 bg-darkAccent rounded-md flex">
+                                <div class="w-16 h-16 rounded-md overflow-hidden mr-3 flex-shrink-0">
+                                    <img src="/api/placeholder/64/64" alt="Studio"
+                                        class="w-full h-full object-cover">
                                 </div>
-                                <p class="text-textMuted text-xs">{{ $studio->studio->description }} • ${{ $studio->studio->price }}/hr</p>
+                                <div>
+                                    <h4 class="text-light font-medium">{{ $studio->studio->name }}</h4>
+                                    <div class="flex text-warning text-xs my-1">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span class="text-textMuted ml-1">{{ $studio->studio->rating }}</span>
+                                    </div>
+                                    <p class="text-textMuted text-xs">{{ $studio->studio->description }} •
+                                        ${{ $studio->studio->price }}/hr</p>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -215,39 +219,46 @@
             <div class="bg-darkUI rounded-lg border border-border p-6 mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     <div class="relative">
-                        <input type="text" placeholder="Search studios..." class="w-full bg-inputBg text-light border border-border rounded-md p-3 pl-10 focus:outline-none focus:ring-1 focus:ring-primary">
+                        <input type="text" placeholder="Search studios..."
+                            class="w-full bg-inputBg text-light border border-border rounded-md p-3 pl-10 focus:outline-none focus:ring-1 focus:ring-primary">
                         <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-textMuted">
                             <i class="fas fa-search"></i>
                         </div>
                     </div>
                     <div class="relative">
-                        <select class="w-full bg-inputBg text-light border border-border rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-primary">
+                        <select
+                            class="w-full bg-inputBg text-light border border-border rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-primary">
                             <option>All Types</option>
                             <option>Recording Studio</option>
                             <option>Mixing Studio</option>
                             <option>Podcast Studio</option>
                             <option>Rehearsal Space</option>
                         </select>
-                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-textMuted pointer-events-none">
+                        <div
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-textMuted pointer-events-none">
                             <i class="fas fa-chevron-down"></i>
                         </div>
                     </div>
                     <div class="relative">
-                        <select class="w-full bg-inputBg text-light border border-border rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-primary">
+                        <select
+                            class="w-full bg-inputBg text-light border border-border rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-primary">
                             <option>Price Range</option>
                             <option>Under $30/hr</option>
                             <option>$30-50/hr</option>
                             <option>$50-100/hr</option>
                             <option>$100+/hr</option>
                         </select>
-                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-textMuted pointer-events-none">
+                        <div
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-textMuted pointer-events-none">
                             <i class="fas fa-chevron-down"></i>
                         </div>
                     </div>
                     <div class="relative">
-                        <input type="date" class="w-full bg-inputBg text-light border border-border rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-primary">
+                        <input type="date"
+                            class="w-full bg-inputBg text-light border border-border rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-primary">
                     </div>
-                    <button class="bg-primary hover:bg-primaryHover text-white font-medium py-3 px-6 rounded-md transition-all duration-200">
+                    <button
+                        class="bg-primary hover:bg-primaryHover text-white font-medium py-3 px-6 rounded-md transition-all duration-200">
                         <i class="fas fa-search mr-2"></i>
                         Search
                     </button>
@@ -257,16 +268,19 @@
             <!-- Studios Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Studio Card 1 -->
-                <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
+                <div
+                    class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                     <div class="relative">
                         <img src="/api/placeholder/400/200" alt="Soundwave Studios" class="w-full h-48 object-cover">
                         <div class="absolute top-3 right-3">
-                            <span class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
+                            <span
+                                class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
                                 <i class="fas fa-circle-check text-sm mr-1.5"></i>
                                 Available
                             </span>
                         </div>
-                        <button class="absolute top-3 left-3 text-white opacity-70 hover:opacity-100 transition-opacity">
+                        <button
+                            class="absolute top-3 left-3 text-white opacity-70 hover:opacity-100 transition-opacity">
                             <i class="far fa-heart text-xl"></i>
                         </button>
                     </div>
@@ -302,11 +316,13 @@
 
                         <!-- Action Buttons -->
                         <div class="flex space-x-2 mt-4">
-                            <button type="button" class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Details
                             </button>
-                            <button type="button" class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-calendar-plus mr-2"></i>
                                 Book Now
                             </button>
@@ -315,16 +331,19 @@
                 </div>
 
                 <!-- Studio Card 2 -->
-                <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
+                <div
+                    class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                     <div class="relative">
                         <img src="/api/placeholder/400/200" alt="Beat Box Studio" class="w-full h-48 object-cover">
                         <div class="absolute top-3 right-3">
-                            <span class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
+                            <span
+                                class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
                                 <i class="fas fa-circle-check text-sm mr-1.5"></i>
                                 Available
                             </span>
                         </div>
-                        <button class="absolute top-3 left-3 text-white opacity-70 hover:opacity-100 transition-opacity">
+                        <button
+                            class="absolute top-3 left-3 text-white opacity-70 hover:opacity-100 transition-opacity">
                             <i class="far fa-heart text-xl"></i>
                         </button>
                     </div>
@@ -360,11 +379,13 @@
 
                         <!-- Action Buttons -->
                         <div class="flex space-x-2 mt-4">
-                            <button type="button" class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Details
                             </button>
-                            <button type="button" class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-calendar-plus mr-2"></i>
                                 Book Now
                             </button>
@@ -373,16 +394,19 @@
                 </div>
 
                 <!-- Studio Card 3 -->
-                <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
+                <div
+                    class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                     <div class="relative">
                         <img src="/api/placeholder/400/200" alt="Rhythm Room" class="w-full h-48 object-cover">
                         <div class="absolute top-3 right-3">
-                            <span class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
+                            <span
+                                class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
                                 <i class="fas fa-circle-check text-sm mr-1.5"></i>
                                 Available
                             </span>
                         </div>
-                        <button class="absolute top-3 left-3 text-danger opacity-90 hover:opacity-100 transition-opacity">
+                        <button
+                            class="absolute top-3 left-3 text-danger opacity-90 hover:opacity-100 transition-opacity">
                             <i class="fas fa-heart text-xl"></i>
                         </button>
                     </div>
@@ -418,11 +442,13 @@
 
                         <!-- Action Buttons -->
                         <div class="flex space-x-2 mt-4">
-                            <button type="button" class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Details
                             </button>
-                            <button type="button" class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-calendar-plus mr-2"></i>
                                 Book Now
                             </button>
@@ -431,17 +457,20 @@
                 </div>
 
                 <!-- Studio Card 4 -->
-                <div class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
+                <div
+                    class="bg-darkUI rounded-lg border border-border overflow-hidden hover:shadow-lg transition-all duration-300">
                     <div class="relative">
                         <img src="/api/placeholder/400/200" alt="Melody Makers" class="w-full h-48 object-cover">
                         <div class="absolute top-3 right-3">
-                            <span class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
+                            <span
+                                class="shadow-md text-xs font-medium px-3 py-1.5 rounded-full flex items-center text-success">
                                 <i class="fas fa-circle-check text-sm mr-1.5"></i>
                                 Available
                             </span>
                         </div>
                         <!-- Completing the last Studio Card 4 that was cut off -->
-                        <button class="absolute top-3 left-3 text-white opacity-70 hover:opacity-100 transition-opacity">
+                        <button
+                            class="absolute top-3 left-3 text-white opacity-70 hover:opacity-100 transition-opacity">
                             <i class="far fa-heart text-xl"></i>
                         </button>
                     </div>
@@ -477,11 +506,13 @@
 
                         <!-- Action Buttons -->
                         <div class="flex space-x-2 mt-4">
-                            <button type="button" class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-darkAccent hover:bg-dark text-textMuted hover:text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Details
                             </button>
-                            <button type="button" class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
+                            <button type="button"
+                                class="flex-1 bg-primary hover:bg-primaryHover text-white py-2 px-3 rounded-md transition-all duration-200 flex items-center justify-center">
                                 <i class="fas fa-calendar-plus mr-2"></i>
                                 Book Now
                             </button>
@@ -495,13 +526,17 @@
             <!-- Pagination -->
             <div class="flex justify-center mt-8">
                 <nav class="flex space-x-2">
-                    <a href="#" class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">
+                    <a href="#"
+                        class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">
                         <i class="fas fa-chevron-left"></i>
                     </a>
                     <a href="#" class="px-3 py-1 bg-primary text-white rounded-md">1</a>
-                    <a href="#" class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">2</a>
-                    <a href="#" class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">3</a>
-                    <a href="#" class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">
+                    <a href="#"
+                        class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">2</a>
+                    <a href="#"
+                        class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">3</a>
+                    <a href="#"
+                        class="px-3 py-1 bg-darkAccent text-textMuted rounded-md hover:bg-primaryHover hover:text-white transition-colors">
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </nav>
@@ -518,12 +553,14 @@
 
             <!-- Quick Actions -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div onclick="window.location.href='{{ route('explore') }}'" class="bg-darkUI p-6 rounded-lg border border-border hover:border-primary transition-all duration-200 cursor-pointer">
+                <div onclick="window.location.href='{{ route('explore') }}'"
+                    class="bg-darkUI p-6 rounded-lg border border-border hover:border-primary transition-all duration-200 cursor-pointer">
                     <i class="fas fa-search text-primary text-2xl mb-4"></i>
                     <h4 class="text-light font-medium mb-2">Find Studios</h4>
                     <p class="text-textMuted text-sm">Browse our curated list of professional recording spaces</p>
                 </div>
-                <div class="bg-darkUI p-6 rounded-lg border border-border hover:border-primary transition-all duration-200 cursor-pointer">
+                <div
+                    class="bg-darkUI p-6 rounded-lg border border-border hover:border-primary transition-all duration-200 cursor-pointer">
                     <i class="fas fa-star text-warning text-2xl mb-4"></i>
                     <h4 class="text-light font-medium mb-2">Top Rated</h4>
                     <p class="text-textMuted text-sm">Discover highly rated studios in your area</p>
@@ -557,57 +594,62 @@
                         </thead>
                         <tbody>
                             @forelse($myBookings as $booking)
-                            <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center">
-                                        <div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center mr-3">
-                                            <i class="fas fa-music text-primary"></i>
+                                <tr class="border-b border-border hover:bg-darkAccent/30 transition-colors">
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div
+                                                class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center mr-3">
+                                                <i class="fas fa-music text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-light font-medium">{{ $booking->studio->name }}</p>
+                                                <p class="text-xs text-textMuted">{{ $booking->studio->location }}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p class="text-light font-medium">{{ $booking->studio->name }}</p>
-                                            <p class="text-xs text-textMuted">{{ $booking->studio->location }}</p>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center text-light">
+                                            <i class="far fa-calendar text-primary mr-2"></i>
+                                            {{ $booking->start_date }}
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center text-light">
-                                        <i class="far fa-calendar text-primary mr-2"></i>
-                                        {{ $booking->start_date }}
-                                    </div>
-                                </td>
-                                <td class="py-4 px-4">
-                                    <div class="flex items-center text-light">
-                                        <i class="far fa-clock text-primary mr-2"></i>
-                                        {{ $booking->end_date }}
-                                    </div>
-                                </td>
-                                <td class="py-4 px-4">
-                                    <div class="text-light font-medium">${{ $booking->total_price }}</div>
-                                </td>
-                                <td class="py-4 px-4">
-                                    @if($booking->status === 'confirmed')
-                                    <span class="px-2 py-1 bg-success/20 text-success text-xs rounded-full">Confirmed</span>
-                                    @elseif($booking->status === 'cancelled')
-                                    <span class="px-2 py-1 bg-danger/20 text-danger text-xs rounded-full">Cancelled</span>
-                                    @elseif($booking->status === 'pending')
-                                    <span class="px-2 py-1 bg-warning/20 text-warning text-xs rounded-full">Pending</span>
-                                    @endif
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center text-light">
+                                            <i class="far fa-clock text-primary mr-2"></i>
+                                            {{ $booking->end_date }}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="text-light font-medium">${{ $booking->total_price }}</div>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        @if ($booking->status === 'confirmed')
+                                            <span
+                                                class="px-2 py-1 bg-success/20 text-success text-xs rounded-full">Confirmed</span>
+                                        @elseif($booking->status === 'cancelled')
+                                            <span
+                                                class="px-2 py-1 bg-danger/20 text-danger text-xs rounded-full">Cancelled</span>
+                                        @elseif($booking->status === 'pending')
+                                            <span
+                                                class="px-2 py-1 bg-warning/20 text-warning text-xs rounded-full">Pending</span>
+                                        @endif
+                                    </td>
+                                </tr>
                             @empty
-                            <tr>
-                                <td colspan="6">
-                                    <div class="text-center py-8">
-                                        <i class="fas fa-calendar-times text-textMuted text-4xl mb-4"></i>
-                                        <h3 class="text-xl font-semibold text-light mb-2">No Bookings Found</h3>
-                                        <p class="text-textMuted mb-4">Start your musical journey by booking your first studio session</p>
-                                        <button onclick="showTab('find-studios')"
-                                            class="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md transition-all duration-200">
-                                            Find Studios
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="text-center py-8">
+                                            <i class="fas fa-calendar-times text-textMuted text-4xl mb-4"></i>
+                                            <h3 class="text-xl font-semibold text-light mb-2">No Bookings Found</h3>
+                                            <p class="text-textMuted mb-4">Start your musical journey by booking your
+                                                first studio session</p>
+                                            <button onclick="showTab('find-studios')"
+                                                class="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md transition-all duration-200">
+                                                Find Studios
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -654,57 +696,106 @@
 
                 <div class="space-y-8">
                     @forelse($myReviews as $review)
-                    <div class="border-b border-border pb-6">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center">
-                                <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
-                                    @if ($review->studio->photos->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $review->studio->photos->first()->image_path) }}"
-                                        alt="{{ $studio->name }}" class="w-full h-48 object-cover">
-                                @else
-                                    <img src="{{ 'no image' }}" alt="Default Studio Image"
-                                        class="w-full h-48 object-cover">
-                                @endif
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-white">{{ $review->studio->name }}</h4>
-                                    <div class="flex items-center text-warning text-sm mt-1">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            @if($i <= $review->rating)
-                                                <i class="fas fa-star"></i>
-                                            @elseif($i - 0.5 <= $review->rating)
-                                                <i class="fas fa-star-half-alt"></i>
-                                            @else
-                                                <i class="far fa-star"></i>
-                                            @endif
-                                        @endfor
-                                        <span class="text-light ml-2">({{ number_format($review->rating, 1) }})</span>
+                        <div class="border-b border-border pb-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div class="flex items-center">
+                                    <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
+                                        @if ($review->studio->photos->isNotEmpty())
+                                            <img src="{{ asset('storage/' . $review->studio->photos->first()->image_path) }}"
+                                                alt="{{ $studio->name }}" class="w-full h-48 object-cover">
+                                        @else
+                                            <img src="{{ 'no image' }}" alt="Default Studio Image"
+                                                class="w-full h-48 object-cover">
+                                        @endif
                                     </div>
-                                    <p class="text-textMuted text-sm mt-1">Reviewed on {{ $review->created_at->format('M d, Y') }}</p>
+                                    <div>
+                                        <h4 class="text-lg font-medium text-white">{{ $review->studio->name }}</h4>
+                                        <div id="review-display-{{ $review->id }}">
+                                            <p class="text-md font-medium text-white">{{ $review->comment }}</p>
+                                            <div class="flex items-center text-warning text-sm mt-1">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->rating)
+                                                        <i class="fas fa-star"></i>
+                                                    @elseif($i - 0.5 <= $review->rating)
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    @else
+                                                        <i class="far fa-star"></i>
+                                                    @endif
+                                                @endfor
+                                                <span
+                                                    class="text-light ml-2">({{ number_format($review->rating, 1) }})</span>
+                                            </div>
+                                        </div>
+
+                                        <div id="review-edit-{{ $review->id }}" class="hidden">
+                                            <form action="{{ route('editMyReview', $review->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <textarea name="comment" class="w-full bg-darkAccent text-white rounded-md p-2 mb-2">{{ $review->comment }}</textarea>
+                                                <div class="flex items-center mb-2">
+                                                    <select name="rating"
+                                                        class="bg-darkAccent text-white rounded-md p-2">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <option value="{{ $i }}"
+                                                                {{ $review->rating == $i ? 'selected' : '' }}>
+                                                                {{ $i }} stars</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <div class="flex gap-2">
+                                                    <button type="submit"
+                                                        class="bg-primary text-white px-3 py-1 rounded-md">Save</button>
+                                                    <button type="button"
+                                                        onclick="toggleEdit('{{ $review->id }}')"
+                                                        class="bg-darkAccent text-textMuted px-3 py-1 rounded-md">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <p class="text-textMuted text-sm mt-1">Reviewed on
+                                            {{ $review->created_at->format('M d, Y') }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 mt-4 md:mt-0">
+                                    <button onclick="toggleEdit('{{ $review->id }}')"
+                                        class="text-textMuted hover:text-light py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button>
+
+                                    <script>
+                                        function toggleEdit(reviewId) {
+                                            const displayElement = document.getElementById(`review-display-${reviewId}`);
+                                            const editElement = document.getElementById(`review-edit-${reviewId}`);
+
+                                            if (displayElement.classList.contains('hidden')) {
+                                                displayElement.classList.remove('hidden');
+                                                editElement.classList.add('hidden');
+                                            } else {
+                                                displayElement.classList.add('hidden');
+                                                editElement.classList.remove('hidden');
+                                            }
+                                        }
+                                    </script>
+
+                                    <form action="{{ route('deleteMyReview', $review->id) }}" method="POST"
+                                        class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            onclick="return confirm('Are you sure you want to delete this review?')"
+                                            class="text-textMuted hover:text-danger py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="flex gap-2 mt-4 md:mt-0">
-                                <button onclick="window.location.href=''"
-                                        class="text-textMuted hover:text-light py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
-                                <form action="" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this review?')"
-                                            class="text-textMuted hover:text-danger py-2 px-3 rounded-md bg-darkAccent hover:bg-border transition-all duration-200">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </div>
+                            <p class="text-light">{{ $review->content }}</p>
                         </div>
-                        <p class="text-light">{{ $review->content }}</p>
-                    </div>
                     @empty
-                    <div class="text-center py-8">
-                        <i class="fas fa-comments text-textMuted text-4xl mb-4"></i>
-                        <p class="text-textMuted">You haven't written any reviews yet</p>
-                    </div>
+                        <div class="text-center py-8">
+                            <i class="fas fa-comments text-textMuted text-4xl mb-4"></i>
+                            <p class="text-textMuted">You haven't written any reviews yet</p>
+                        </div>
                     @endforelse
                 </div>
             </div>
@@ -722,7 +813,8 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-white">Available Studios for Borrowing</h2>
                     <div class="flex space-x-2">
-                        <select class="bg-inputBg text-light border border-border rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+                        <select
+                            class="bg-inputBg text-light border border-border rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary">
                             <option>Sort by: Newest First</option>
                             <option>Sort by: Price Low to High</option>
                             <option>Sort by: Rating High to Low</option>
@@ -734,11 +826,14 @@
                 <!-- Borrowable Studios Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Borrowable Studio 1 -->
-                    <div class="bg-darkAccent rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300">
+                    <div
+                        class="bg-darkAccent rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300">
                         <div class="relative">
-                            <img src="/api/placeholder/400/200" alt="Community Studio" class="w-full h-40 object-cover">
+                            <img src="/api/placeholder/400/200" alt="Community Studio"
+                                class="w-full h-40 object-cover">
                             <div class="absolute top-3 right-3">
-                                <span class="bg-success/20 text-success text-xs font-medium px-2 py-1 rounded-full">Free</span>
+                                <span
+                                    class="bg-success/20 text-success text-xs font-medium px-2 py-1 rounded-full">Free</span>
                             </div>
                         </div>
                         <div class="p-4">
@@ -760,18 +855,22 @@
                                 </div>
                             </div>
 
-                            <button class="w-full bg-primary hover:bg-primaryHover text-white py-2 rounded-md transition-all duration-200">
+                            <button
+                                class="w-full bg-primary hover:bg-primaryHover text-white py-2 rounded-md transition-all duration-200">
                                 Apply for Access
                             </button>
                         </div>
                     </div>
 
                     <!-- Borrowable Studio 2 -->
-                    <div class="bg-darkAccent rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300">
+                    <div
+                        class="bg-darkAccent rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300">
                         <div class="relative">
-                            <img src="/api/placeholder/400/200" alt="Student Studio" class="w-full h-40 object-cover">
+                            <img src="/api/placeholder/400/200" alt="Student Studio"
+                                class="w-full h-40 object-cover">
                             <div class="absolute top-3 right-3">
-                                <span class="bg-success/20 text-success text-xs font-medium px-2 py-1 rounded-full">Free</span>
+                                <span
+                                    class="bg-success/20 text-success text-xs font-medium px-2 py-1 rounded-full">Free</span>
                             </div>
                         </div>
                         <div class="p-4">
@@ -793,18 +892,22 @@
                                 </div>
                             </div>
 
-                            <button class="w-full bg-primary hover:bg-primaryHover text-white py-2 rounded-md transition-all duration-200">
+                            <button
+                                class="w-full bg-primary hover:bg-primaryHover text-white py-2 rounded-md transition-all duration-200">
                                 Apply for Access
                             </button>
                         </div>
                     </div>
 
                     <!-- Borrowable Studio 3 -->
-                    <div class="bg-darkAccent rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300">
+                    <div
+                        class="bg-darkAccent rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300">
                         <div class="relative">
-                            <img src="/api/placeholder/400/200" alt="Non-profit Studio" class="w-full h-40 object-cover">
+                            <img src="/api/placeholder/400/200" alt="Non-profit Studio"
+                                class="w-full h-40 object-cover">
                             <div class="absolute top-3 right-3">
-                                <span class="bg-info/20 text-info text-xs font-medium px-2 py-1 rounded-full">$10/hr</span>
+                                <span
+                                    class="bg-info/20 text-info text-xs font-medium px-2 py-1 rounded-full">$10/hr</span>
                             </div>
                         </div>
                         <div class="p-4">
@@ -826,7 +929,8 @@
                                 </div>
                             </div>
 
-                            <button class="w-full bg-primary hover:bg-primaryHover text-white py-2 rounded-md transition-all duration-200">
+                            <button
+                                class="w-full bg-primary hover:bg-primaryHover text-white py-2 rounded-md transition-all duration-200">
                                 Apply for Access
                             </button>
                         </div>
@@ -838,15 +942,14 @@
             <div class="bg-darkUI rounded-lg border border-border p-6">
                 <h3 class="text-xl font-semibold text-white mb-4">Application Process</h3>
                 <div class="space-y-6">
-                    <div
-                    @yield('addStudios')
-                    @yield('editStudios')class="flex items-start">
+                    <div @yield('addStudios') @yield('editStudios')class="flex items-start">
                         <div class="bg-primary/20 text-primary rounded-full p-2 mr-4">
                             <i class="fas fa-file-alt"></i>
                         </div>
                         <div>
                             <h4 class="text-lg font-medium text-white">Submit Application</h4>
-                            <p class="text-textMuted mt-1">Complete a brief application form explaining your project and why you would like to use the space.</p>
+                            <p class="text-textMuted mt-1">Complete a brief application form explaining your project
+                                and why you would like to use the space.</p>
                         </div>
                     </div>
 
@@ -856,7 +959,8 @@
                         </div>
                         <div>
                             <h4 class="text-lg font-medium text-white">Schedule Interview</h4>
-                            <p class="text-textMuted mt-1">If your application meets the basic requirements, you'll be invited for a brief interview or orientation session.</p>
+                            <p class="text-textMuted mt-1">If your application meets the basic requirements, you'll be
+                                invited for a brief interview or orientation session.</p>
                         </div>
                     </div>
 
@@ -866,7 +970,8 @@
                         </div>
                         <div>
                             <h4 class="text-lg font-medium text-white">Receive Approval</h4>
-                            <p class="text-textMuted mt-1">Once approved, you'll receive access to the booking system to reserve available time slots.</p>
+                            <p class="text-textMuted mt-1">Once approved, you'll receive access to the booking system
+                                to reserve available time slots.</p>
                         </div>
                     </div>
                 </div>
@@ -884,19 +989,23 @@
             <div class="flex justify-between mb-8 relative">
                 <div class="absolute top-1/2 h-1 bg-border w-full -z-10"></div>
                 <div class="flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mb-2">1</div>
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mb-2">1
+                    </div>
                     <span class="text-sm text-primary font-medium">Select Studio</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mb-2">2</div>
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mb-2">2
+                    </div>
                     <span class="text-sm text-primary font-medium">Choose Date & Time</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full bg-darkAccent text-light flex items-center justify-center mb-2">3</div>
+                    <div class="w-10 h-10 rounded-full bg-darkAccent text-light flex items-center justify-center mb-2">
+                        3</div>
                     <span class="text-sm text-textMuted font-medium">Review Details</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full bg-darkAccent text-light flex items-center justify-center mb-2">4</div>
+                    <div class="w-10 h-10 rounded-full bg-darkAccent text-light flex items-center justify-center mb-2">
+                        4</div>
                     <span class="text-sm text-textMuted font-medium">Confirm & Pay</span>
                 </div>
             </div>
@@ -907,7 +1016,8 @@
 
                 <div class="flex flex-col md:flex-row items-center md:items-start">
                     <div class="w-full md:w-64 h-48 md:h-auto flex-shrink-0 mb-4 md:mb-0 md:mr-6">
-                        <img src="/api/placeholder/300/300" alt="Soundwave Studios" class="w-full h-full object-cover rounded-lg">
+                        <img src="/api/placeholder/300/300" alt="Soundwave Studios"
+                            class="w-full h-full object-cover rounded-lg">
                     </div>
                     <div class="flex-1">
                         <div class="flex flex-col md:flex-row justify-between mb-4">
@@ -923,7 +1033,8 @@
                                 </div>
                             </div>
                             <div class="mt-2 md:mt-0">
-                                <span class="text-light font-semibold text-lg">$50<span class="text-textMuted text-sm">/hour</span></span>
+                                <span class="text-light font-semibold text-lg">$50<span
+                                        class="text-textMuted text-sm">/hour</span></span>
                             </div>
                         </div>
 
@@ -981,11 +1092,13 @@
                         </div>
 
                         <div class="flex justify-between items-center">
-                            <button class="bg-darkAccent hover:bg-border text-light py-2 px-6 rounded-md transition-all duration-200">
+                            <button
+                                class="bg-darkAccent hover:bg-border text-light py-2 px-6 rounded-md transition-all duration-200">
                                 <i class="fas fa-arrow-left mr-2"></i>
                                 Choose Different Studio
                             </button>
-                            <button class="bg-primary hover:bg-primaryHover text-white py-2 px-6 rounded-md transition-all duration-200">
+                            <button
+                                class="bg-primary hover:bg-primaryHover text-white py-2 px-6 rounded-md transition-all duration-200">
                                 Continue
                                 <i class="fas fa-arrow-right ml-2"></i>
                             </button>
@@ -1026,41 +1139,101 @@
                         <div class="grid grid-cols-7 gap-1">
                             <!-- First row with empty spaces -->
                             <div class="h-10"></div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">1</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">2</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">3</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">4</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">5</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">6</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                1</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                2</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                3</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                4</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                5</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                6</div>
 
                             <!-- Other days -->
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">7</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">8</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">9</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">10</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">11</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">12</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">13</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                7</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                8</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                9</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                10</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                11</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                12</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                13</div>
 
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">14</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">15</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">16</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">17</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">18</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">19</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">20</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                14</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                15</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                16</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                17</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                18</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                19</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                20</div>
 
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">21</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">22</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">23</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">24</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">25</div>
-                            <div class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">26</div>
-                            <div class="text-white bg-primary border border-primary rounded-md flex items-center justify-center h-10 font-medium">27</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                21</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                22</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                23</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                24</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                25</div>
+                            <div
+                                class="text-textMuted border border-transparent rounded-md flex items-center justify-center h-10">
+                                26</div>
+                            <div
+                                class="text-white bg-primary border border-primary rounded-md flex items-center justify-center h-10 font-medium">
+                                27</div>
 
-                            <div class="text-light border border-transparent hover:border-primary hover:text-primary rounded-md flex items-center justify-center h-10 cursor-pointer">28</div>
-                            <div class="text-light border border-transparent hover:border-primary hover:text-primary rounded-md flex items-center justify-center h-10 cursor-pointer">29</div>
-                            <div class="text-light border border-transparent hover:border-primary hover:text-primary rounded-md flex items-center justify-center h-10 cursor-pointer">30</div>
+                            <div
+                                class="text-light border border-transparent hover:border-primary hover:text-primary rounded-md flex items-center justify-center h-10 cursor-pointer">
+                                28</div>
+                            <div
+                                class="text-light border border-transparent hover:border-primary hover:text-primary rounded-md flex items-center justify-center h-10 cursor-pointer">
+                                29</div>
+                            <div
+                                class="text-light border border-transparent hover:border-primary hover:text-primary rounded-md flex items-center justify-center h-10 cursor-pointer">
+                                30</div>
                         </div>
                     </div>
 
@@ -1068,19 +1241,23 @@
                     <div class="bg-darkAccent p-4 rounded-lg">
                         <h4 class="text-light font-medium mb-4">Available Times for April 27</h4>
                         <div class="space-y-2">
-                            <div class="bg-dark border border-border px-3 py-2 rounded flex items-center justify-between cursor-pointer hover:border-primary transition-all">
+                            <div
+                                class="bg-dark border border-border px-3 py-2 rounded flex items-center justify-between cursor-pointer hover:border-primary transition-all">
                                 <span class="text-light">10:00 AM - 12:00 PM</span>
                                 <span class="text-textMuted text-sm">2 hrs</span>
                             </div>
-                            <div class="bg-primary/10 border border-primary px-3 py-2 rounded flex items-center justify-between cursor-pointer">
+                            <div
+                                class="bg-primary/10 border border-primary px-3 py-2 rounded flex items-center justify-between cursor-pointer">
                                 <span class="text-primary font-medium">1:00 PM - 5:00 PM</span>
                                 <span class="text-primary text-sm">4 hrs</span>
                             </div>
-                            <div class="bg-dark border border-border px-3 py-2 rounded flex items-center justify-between cursor-pointer hover:border-primary transition-all">
+                            <div
+                                class="bg-dark border border-border px-3 py-2 rounded flex items-center justify-between cursor-pointer hover:border-primary transition-all">
                                 <span class="text-light">6:00 PM - 8:00 PM</span>
                                 <span class="text-textMuted text-sm">2 hrs</span>
                             </div>
-                            <div class="bg-dark border border-border px-3 py-2 rounded flex items-center justify-between cursor-pointer hover:border-primary transition-all">
+                            <div
+                                class="bg-dark border border-border px-3 py-2 rounded flex items-center justify-between cursor-pointer hover:border-primary transition-all">
                                 <span class="text-light">8:00 PM - 12:00 AM</span>
                                 <span class="text-textMuted text-sm">4 hrs</span>
                             </div>
@@ -1091,11 +1268,14 @@
                             <div class="mb-3">
                                 <label class="text-textMuted text-sm mb-1 block">Number of Hours</label>
                                 <div class="flex items-center">
-                                    <button class="bg-darkBg text-light w-10 h-10 rounded-l-md flex items-center justify-center border border-border">
+                                    <button
+                                        class="bg-darkBg text-light w-10 h-10 rounded-l-md flex items-center justify-center border border-border">
                                         <i class="fas fa-minus"></i>
                                     </button>
-                                    <input type="number" value="4" min="1" max="8" class="bg-darkBg text-light border-y border-border h-10 w-16 text-center focus:outline-none">
-                                    <button class="bg-darkBg text-light w-10 h-10 rounded-r-md flex items-center justify-center border border-border">
+                                    <input type="number" value="4" min="1" max="8"
+                                        class="bg-darkBg text-light border-y border-border h-10 w-16 text-center focus:outline-none">
+                                    <button
+                                        class="bg-darkBg text-light w-10 h-10 rounded-r-md flex items-center justify-center border border-border">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -1119,11 +1299,13 @@
                 </div>
 
                 <div class="flex justify-between items-center mt-6">
-                    <button class="bg-darkAccent hover:bg-border text-light py-2 px-6 rounded-md transition-all duration-200">
+                    <button
+                        class="bg-darkAccent hover:bg-border text-light py-2 px-6 rounded-md transition-all duration-200">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Back
                     </button>
-                    <button class="bg-primary hover:bg-primaryHover text-white py-2 px-6 rounded-md transition-all duration-200">
+                    <button
+                        class="bg-primary hover:bg-primaryHover text-white py-2 px-6 rounded-md transition-all duration-200">
                         Continue to Review
                         <i class="fas fa-arrow-right ml-2"></i>
                     </button>

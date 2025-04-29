@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Services\ArtistService;
-
-
+use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
@@ -26,7 +25,26 @@ class ArtistController extends Controller
             'favoriteStudios',
             'recentlyViewedStudios',
             'myBookings',
-            'myReviews'
+            'myReviews',
         ));
+    }
+
+
+    public function getEditMyReview(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:255',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $this->artistService->getEditMyReview($id, $request->all());
+        return redirect()->route('dashboard-Artist')->with('success', 'Review updated successfully.');
+
+    }
+
+    public function getDeleteMyReview($id)
+    {
+        $this->artistService->getDeleteMyReview($id);
+        return redirect()->route('dashboard-Artist')->with('success', 'Review deleted successfully.');
     }
 }
