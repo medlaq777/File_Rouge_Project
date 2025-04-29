@@ -47,7 +47,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('/profile/{id}', [ProfileController::class, 'showProfile'])->name('showProfile')->middleware('auth');
-Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
+Route::post('/profile/update/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
 
 Route::get("/dashboard-Owner", [OwnerController::class, 'index'])->name("dashboard-Owner")->middleware('auth');
 Route::get("/dashboard-Artist", [ArtistController::class, 'index'])->name("dashboard-Artist")->middleware('auth');

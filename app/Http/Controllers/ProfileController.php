@@ -85,7 +85,7 @@ class ProfileController extends Controller
 
         $profile = $this->profileService->getProfile($user->id);
 
-        return redirect()->route('showProfile', ['profile' => $profile])->with('success', 'Profile updated successfully.');
+        return redirect()->route('showProfile', ['profile' => $profile , $user->id])->with('success', 'Profile updated successfully.');
     }
 
 }

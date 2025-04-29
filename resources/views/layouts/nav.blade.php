@@ -23,7 +23,7 @@
                             <button
                                 class="user-menu-button flex items-center space-x-2 text-textMuted hover:text-light focus:outline-none"
                                 aria-expanded="false">
-                                <span>{{ Auth::user()->profile->full_name }}</span>
+                                <span>Welcome, {{ Auth::user()->profile->full_name }}</span>
                                 <img src="{{ Auth::user()->profile->profile_image == 'https://placehold.co/200x200/EEE/31343C' ? Auth::user()->profile->profile_image : asset('storage/' . Auth::user()->profile->profile_image) }}"
                                     alt="{{ Auth::user()->profile->full_name }}" class="h-8 w-8 rounded-full">
                                 <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>

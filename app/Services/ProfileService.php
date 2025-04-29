@@ -12,13 +12,13 @@ class ProfileService
     }
 
     public function updateProfile(array $data)
-{
-    $profile = ProfileUser::where('user_id', $data['user_id'])->first();
-    if ($profile) {
-        $profile->update($data);
-    } else {
-        ProfileUser::create($data);
+    {
+        $profile = ProfileUser::where('user_id', $data['user_id'])->first();
+        if ($profile) {
+            $profile->update($data);
+        } else {
+            ProfileUser::create($data);
+        }
     }
-}
 
 }
