@@ -14,10 +14,9 @@ Une Laravel web application Pour Finale Projet File Rouge
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Install PHP dependencies](#2-install-php-dependencies)
     - [3. Install Tailwind css 4 dependencies](#3-install-tailwind-css-4-dependencies)
-    - [4. Copy environment file and generate application key](#4-copy-environment-file-and-generate-application-key)
+    - [4. Copy environment file and generate application key### 1. Database Setup](#4-copy-environment-file-and-generate-application-key-1-database-setup)
   - [Configuration](#configuration)
-    - [1. Database Setup](#1-database-setup)
-    - [2. Run migrations with Seed the database](#2-run-migrations-with-seed-the-database)
+    - [1. Run migrations with Seed the database](#1-run-migrations-with-seed-the-database)
   - [Running the Application](#running-the-application)
     - [Frontend assets compilation](#frontend-assets-compilation)
   - [Testing](#testing)
@@ -53,16 +52,7 @@ composer install
 npm install tailwindcss @tailwindcss/vite
 ```
 
-### 4. Copy environment file and generate application key
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-## Configuration
-
-### 1. Database Setup
+### 4. Copy environment file and generate application key### 1. Database Setup
 
 Update the `.env` file with your database credentials:
 
@@ -75,14 +65,17 @@ DB_USERNAME=postgress
 DB_PASSWORD=postgress
 ```
 
-### 2. Run migrations with Seed the database
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+## Configuration
+
+### 1. Run migrations with Seed the database
 
 ```bash
 php artisan migrate
-```
-
-```bash
-php artisan db:seed
 ```
 
 ## Running the Application
