@@ -72,6 +72,10 @@
 
                 if ($user->isOwner()) {
                     return redirect()->intended(route('dashboard-Owner'))->with('success', 'Logged in successfully.');
+                }elseif ($user->isArtist()) {
+                    return redirect()->intended(route('dashboard-Artist'))->with('success', 'Logged in successfully.');
+                } elseif ($user->isAdmin()) {
+                    return redirect()->intended(route('dashboard-Owner'))->with('success', 'Logged in successfully.');
                 }
                 return redirect()->intended(route('dashboard-Artist'))->with('success', 'Logged in successfully.');
 

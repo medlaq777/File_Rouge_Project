@@ -91,7 +91,7 @@ class AuthService
                 'provider_id' => $socialiteUser->getId(),
                 'email_verified_at' => now(),
                 'password' => bcrypt(rand(100000, 999999)),
-                'role' => 'owner', // Default role for social login
+                'role' => 'artist', // Default role
             ]);
 
             // Create the profile with social data
