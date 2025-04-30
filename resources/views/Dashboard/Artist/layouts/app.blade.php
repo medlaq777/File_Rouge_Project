@@ -14,28 +14,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="BEATRECORDS - Premium Music Studio Rental">
-    <meta name="keywords" content="music, studio, rental, premium, beatrecords">
-    <meta name="author" content="BEATRECORDS">
+        <meta name="description" content="BEATRECORDS - Premium Music Studio Rental">
+        <meta name="keywords" content="music, studio, rental, premium, beatrecords">
+        <meta name="author" content="BEATRECORDS">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        @keyframes pulse {
-            0% {
-                opacity: 0.7;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0.7;
-            }
+        /* Enhanced Base Styles */
+        :root {
+            --primary: #e50000;
+            --primary-hover: #c70000;
+            --dark-bg: #0b0b0a;
+            --dark-accent: #131313;
+            --dark-ui: #1a1a1a;
+            --border: #2a2a2a;
+            --text-muted: #8a8a8a;
+            --text-light: #e0e0e0;
+            --success: #1db954;
+            --warning: #ffb800;
+            --info: #3291ff;
         }
 
-        .pulse-led {
-            animation: pulse 2s infinite;
-            text-shadow: 0 0 5px currentColor;
+        * {
+            transition: all 0.2s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
         }
 
         @keyframes fadeIn {
@@ -43,23 +49,24 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(229, 0, 0, 0.2);
             }
-
             50% {
-                opacity: 0.8;
+                box-shadow: 0 0 15px rgba(229, 0, 0, 0.4);
             }
+        }
+
+        .pulse-led {
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 5px currentColor;
         }
 
         .animate-fade-in {
@@ -79,16 +86,20 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e50000;
+            background: var(--primary);
             border-radius: 2px;
         }
 
         body {
             background-image: linear-gradient(to bottom,
-                    rgba(11, 11, 10, 0.95),
-                    rgba(11, 11, 10, 0.9)),
+                    rgba(11, 11, 10, 0.97),
+                    rgba(11, 11, 10, 0.95)),
                 url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23222222' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3C/svg%3E");
             background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-light);
+            line-height: 1.6;
+            letter-spacing: 0.2px;
         }
 
         .studio-card:hover .studio-image {
@@ -97,7 +108,7 @@
 
         .sidebar-active {
             color: white;
-            border-left-color: #e50000;
+            border-left-color: var(--primary);
             background-color: rgba(229, 0, 0, 0.1);
         }
 
@@ -110,24 +121,28 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background-color: #1a1a1a;
-            margin: 10% auto;
+            margin: 5% auto;
             border: 1px solid #2a2a2a;
             width: 90%;
             max-width: 700px;
-            border-radius: 8px;
-            animation: fadeIn 0.3s;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-out;
+            overflow: hidden;
         }
     </style>
 </head>
 
 <body class="bg-darkBg text-light min-h-screen font-sans antialiased custom-scrollbar">
-    @yield('nav')
-    @yield('main')
+    @yield('nav') <!-- Navbar -->
+    @yield('main') <!-- Main content -->
+    @yield('book') <!-- Book section -->
     <!-- JavaScript for Tab Navigation -->
     <script>
         // Function to hide all tabs and show the selected one

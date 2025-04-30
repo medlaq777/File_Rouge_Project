@@ -1,4 +1,4 @@
-@extends('Dashboard.Artist.layouts.app')
+@extends('layouts.app')
 @section('BEATRECORDS', 'Welcome to StudioSpace')
 @section('nav')
 @include('layouts.nav')

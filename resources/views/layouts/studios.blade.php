@@ -13,19 +13,11 @@
                 <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card animate-fade-in"
                     style="animation-delay: {{ $loop->iteration * 0.1 }}s">
                     <div class="relative h-48 overflow-hidden">
-                        @if ($studio->images)
-                            <img src="{{ asset('storage/' . $studio->images->first()->image_path) }}"
+                        @if ($studio->photos->isNotEmpty())
+                            <img src="{{ asset('storage/' . $studio->photos->first()->image_path) }}"
                                 alt="{{ $studio->name }}" class="w-full h-48 object-cover">
                         @else
                             <img src="{{ 'no image' }}" alt="Default Studio Image" class="w-full h-48 object-cover">
-                        @endif
-                        @if (isset($studio['badge']))
-                            <div class="absolute top-0 right-0 p-2">
-                                <span
-                                    class="bg-{{ $studio['badge']['color'] }} text-white text-xs font-medium px-2.5 py-0.5 rounded">
-                                    {{ $studio['badge']['text'] }}
-                                </span>
-                            </div>
                         @endif
                     </div>
                     <div class="p-4">
@@ -37,18 +29,20 @@
                             </div>
                         </div>
                         <p class="mt-1 text-sm text-textMuted">{{ $studio['location'] }}</p>
-                        <div class="mt-2 flex flex-wrap gap-1">
-                            {{-- @foreach ($studio['features'] as $feature)
-                                <span class="bg-darkUI text-textMuted text-xs px-2 py-1 rounded">{{ $feature }}</span>
-                            @endforeach --}}
-                        </div>
+                        {{-- <div class="mt-2 flex flex-wrap gap-1">
+                            @foreach ($studio['features'] as $feature)
+                                <span class="bg-darkUI text-textMuted text-xs px-2 py-1 rounded">{{ ($feature) }}</span>
+                            @endforeach
+                        </div> --}}
                         <div class="mt-4 flex items-center justify-between">
                             <span class="text-light font-bold">${{ $studio['price'] }}<span
                                     class="text-textMuted font-normal text-sm">/hr</span></span>
-                            <button
-                                class="px-3 py-1 bg-primary hover:bg-primaryHover text-white text-sm font-medium rounded">
-                                Book Now
-                            </button>
+                            <form action="{{ route('book.studio', $studio->id) }}" method="GET">
+                                <button type="submit"
+                                    class="px-3 py-1 bg-primary hover:bg-primaryHover text-white text-sm font-medium rounded">
+                                    Book Now
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
