@@ -13,93 +13,6 @@
 
         <!-- Booking Flow -->
         <section class="booking-flow">
-            <!-- Progress Tracker -->
-            <div class="relative mb-10" id="progress-tracker">
-                <div class="absolute top-1/2 h-1 transform -translate-y-1/2 bg-border w-full -z-10 rounded-full"></div>
-                <div id="progress-bar"
-                    class="absolute top-1/2 h-1 transform -translate-y-1/2 bg-primary w-1/4 -z-5 rounded-full transition-all duration-500">
-                </div>
-
-                <div class="flex justify-between">
-                    <div class="flex flex-col items-center relative" data-step="1">
-                        <div
-                            class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center mb-2 progress-step border-4 border-darkBg transition-all duration-300">
-                            <i class="fas fa-calendar"></i>
-                        </div>
-                        <span class="text-xs md:text-sm text-primary font-medium whitespace-nowrap">Select Time</span>
-                    </div>
-
-                    <div class="flex flex-col items-center relative" data-step="2">
-                        <div
-                            class="w-12 h-12 rounded-full bg-darkAccent text-textMuted flex items-center justify-center mb-2 progress-step border-4 border-darkBg transition-all duration-300">
-                            <i class="fas fa-credit-card"></i>
-                        </div>
-                        <span class="text-xs md:text-sm text-textMuted font-medium whitespace-nowrap">Pay</span>
-                    </div>
-
-                    <div class="flex flex-col items-center relative" data-step="3">
-                        <div
-                            class="w-12 h-12 rounded-full bg-darkAccent text-textMuted flex items-center justify-center mb-2 progress-step border-4 border-darkBg transition-all duration-300">
-                            <i class="fas fa-download"></i>
-                        </div>
-                        <span class="text-xs md:text-sm text-textMuted font-medium whitespace-nowrap">Download
-                            Invoice</span>
-                    </div>
-
-                    <div class="flex flex-col items-center relative" data-step="4">
-                        <div
-                            class="w-12 h-12 rounded-full bg-darkAccent text-textMuted flex items-center justify-center mb-2 progress-step border-4 border-darkBg transition-all duration-300">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="text-xs md:text-sm text-textMuted font-medium whitespace-nowrap">Review</span>
-                    </div>
-                </div>
-            </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    let currentStep = 1;
-                    const totalSteps = 4;
-                    const progressBar = document.getElementById('progress-bar');
-                    const steps = document.querySelectorAll('[data-step]');
-
-                    function updateProgress(step) {
-                        // Update progress bar width
-                        const progress = (step - 1) / (totalSteps - 1) * 100;
-                        progressBar.style.width = `${progress}%`;
-
-                        // Update step styles
-                        steps.forEach((stepElement, index) => {
-                            const stepNum = index + 1;
-                            const stepIcon = stepElement.querySelector('.progress-step');
-                            const stepText = stepElement.querySelector('span');
-
-                            if (stepNum <= step) {
-                                stepIcon.classList.remove('bg-darkAccent', 'text-textMuted');
-                                stepIcon.classList.add('bg-primary', 'text-white');
-                                stepText.classList.remove('text-textMuted');
-                                stepText.classList.add('text-primary');
-                            } else {
-                                stepIcon.classList.add('bg-darkAccent', 'text-textMuted');
-                                stepIcon.classList.remove('bg-primary', 'text-white');
-                                stepText.classList.add('text-textMuted');
-                                stepText.classList.remove('text-primary');
-                            }
-                        });
-                    }
-
-                    // Initialize first step
-                    updateProgress(currentStep);
-
-                    // Example: Update progress when clicking continue button
-                    document.querySelector('button').addEventListener('click', function() {
-                        if (currentStep < totalSteps) {
-                            currentStep++;
-                            updateProgress(currentStep);
-                        }
-                    });
-                });
-            </script>
-
             <!-- Content Container -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Main Booking Column -->
@@ -180,47 +93,18 @@
                                 </p>
                             </div>
 
-                            <!-- Equipment & Amenities Tabs -->
+                            <!-- Studio Categroy -->
                             <div class="mb-6">
-                                <div class="flex border-b border-border mb-4">
-                                    <button class="px-4 py-2 border-b-2 border-primary text-primary font-medium mr-4">
-                                        Equipment
-                                    </button>
-                                    <button class="px-4 py-2 text-textMuted hover:text-light">
-                                        Amenities
-                                    </button>
-                                    <button class="px-4 py-2 text-textMuted hover:text-light">
-                                        Rules
-                                    </button>
-                                </div>
 
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div class="flex items-center bg-darkAccent/30 rounded-lg p-3">
-                                        <i class="fas fa-check text-success mr-3"></i>
-                                        <div>
-                                            <h4 class="text-sm font-medium text-light">Pro Tools & Logic Pro</h4>
-                                            <p class="text-xs text-textMuted">Latest versions installed</p>
+                                <div class="space-y-4">
+                                    <h3 class="text-lg font-semibold text-white mb-3">Studio Category</h3>
+                                    <div class="flex items-center bg-darkAccent/30 rounded-lg p-4">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-success/10 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-music text-success"></i>
                                         </div>
-                                    </div>
-                                    <div class="flex items-center bg-darkAccent/30 rounded-lg p-3">
-                                        <i class="fas fa-check text-success mr-3"></i>
                                         <div>
-                                            <h4 class="text-sm font-medium text-light">Neumann & Shure Mics</h4>
-                                            <p class="text-xs text-textMuted">Professional recording quality</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center bg-darkAccent/30 rounded-lg p-3">
-                                        <i class="fas fa-check text-success mr-3"></i>
-                                        <div>
-                                            <h4 class="text-sm font-medium text-light">MIDI Controllers</h4>
-                                            <p class="text-xs text-textMuted">Keyboard and drum pads</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center bg-darkAccent/30 rounded-lg p-3">
-                                        <i class="fas fa-check text-success mr-3"></i>
-                                        <div>
-                                            <h4 class="text-sm font-medium text-light">Monitoring System</h4>
-                                            <p class="text-xs text-textMuted">Yamaha HS8 & headphones</p>
+                                            <h4 class="text-sm font-medium text-light">{{ $borrow['studio']->category->name }}</h4>
+                                            <p class="text-xs text-textMuted">{{ $borrow['studio']->category->description }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -253,83 +137,79 @@
                             Select Booking Period
                         </h3>
 
-                        <form class="space-y-8" method="POST" action="">
-                            @csrf
-
-                            <!-- Date Selection -->
-                            <div class="space-y-4">
-                                <label class="text-light font-medium text-sm">Select Date</label>
-                                <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2">
-                                    @foreach ($borrow['availabilities'] as $date)
-                                        <button type="button" data-date="{{ $date->date }}"
-                                            class="date-selector aspect-square rounded-lg border border-border
+                        <!-- Date Selection -->
+                        <div class="space-y-4">
+                            <label class="text-light font-medium text-sm">Select Date</label>
+                            <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2">
+                                @foreach ($borrow['availabilities'] as $date)
+                                    <button type="button" data-date="{{ $date->date }}"
+                                        class="date-selector aspect-square rounded-lg border border-border
                                                    bg-darkAccent hover:bg-primary/10 transition-all duration-200
                                                    focus:outline-none focus:ring-2 focus:ring-primary/50
                                                    flex flex-col items-center justify-center p-2
                                                    group hover:border-primary">
-                                            <span
-                                                class="text-[10px] uppercase text-textMuted group-hover:text-primary mb-1">
-                                                {{ date('D', strtotime($date->date)) }}
-                                            </span>
-                                            <span class="text-base font-medium text-light group-hover:text-primary">
-                                                {{ date('d', strtotime($date->date)) }}
-                                            </span>
-                                        </button>
-                                    @endforeach
-                                </div>
+                                        <span
+                                            class="text-[10px] uppercase text-textMuted group-hover:text-primary mb-1">
+                                            {{ date('D', strtotime($date->date)) }}
+                                        </span>
+                                        <span class="text-base font-medium text-light group-hover:text-primary">
+                                            {{ date('d', strtotime($date->date)) }}
+                                        </span>
+                                    </button>
+                                @endforeach
                             </div>
+                        </div>
 
-                            <!-- Time Selection -->
-                            <div class="space-y-4">
-                                <label class="text-light font-medium text-sm mb-4 block">Select Time Range</label>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div class="space-y-2">
-                                        <label class="text-xs text-textMuted block">Start Time</label>
-                                        <select id="start_time" name="start_time"
-                                            class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
+                        <!-- Time Selection -->
+                        <div class="space-y-4">
+                            <label class="text-light font-medium text-sm mb-4 block">Select Time Range</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <label class="text-xs text-textMuted block">Start Time</label>
+                                    <select id="start_time" name="start_time"
+                                        class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
                                                    focus:ring-2 focus:ring-primary/50 focus:border-primary
                                                    cursor-pointer hover:border-primary transition-all"
-                                            onchange="updateEndTimeOptions()">
-                                            @for ($hour = 10; $hour <= 23; $hour++)
-                                                <option value="{{ sprintf('%02d:00', $hour) }}">
-                                                    {{ sprintf('%d:00 %s', $hour > 12 ? $hour - 12 : $hour, $hour >= 12 ? 'PM' : 'AM') }}
-                                                </option>
-                                            @endfor
-                                        </select>
-                                    </div>
+                                        onchange="updateEndTimeOptions()">
+                                        @for ($hour = 10; $hour <= 23; $hour++)
+                                            <option value="{{ sprintf('%02d:00', $hour) }}">
+                                                {{ sprintf('%d:00 %s', $hour > 12 ? $hour - 12 : $hour, $hour >= 12 ? 'PM' : 'AM') }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
 
-                                    <div class="space-y-2">
-                                        <label class="text-xs text-textMuted block">End Time</label>
-                                        <select id="end_time" name="end_time"
-                                            class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
+                                <div class="space-y-2">
+                                    <label class="text-xs text-textMuted block">End Time</label>
+                                    <select id="end_time" name="end_time"
+                                        class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
                                                    focus:ring-2 focus:ring-primary/50 focus:border-primary
                                                    cursor-pointer hover:border-primary transition-all">
-                                        </select>
-                                    </div>
+                                    </select>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Duration Preview -->
-                            <div class="bg-darkAccent/30 rounded-lg p-4 border border-border/50">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-sm text-textMuted flex items-center">
-                                        <i class="fas fa-clock text-primary mr-2"></i>
-                                        Duration
-                                    </p>
-                                    <span id="duration-display" class="text-light font-medium text-sm">Select time
-                                        range</span>
-                                </div>
+                        <!-- Duration Preview -->
+                        <div class="bg-darkAccent/30 rounded-lg p-4 border border-border/50">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm text-textMuted flex items-center">
+                                    <i class="fas fa-clock text-primary mr-2"></i>
+                                    Duration
+                                </p>
+                                <span id="duration-display" class="text-light font-medium text-sm">Select time
+                                    range</span>
                             </div>
+                        </div>
 
-                            <input type="hidden" name="selected_date" id="selected_date">
-                            <button type="submit"
-                                class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
+                        <input type="hidden" name="selected_date" id="selected_date">
+                        <button type="button" onclick="populateHiddenFieldsAndSubmit()"
+                            class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
                                        transition-all duration-200 flex items-center justify-center text-sm
                                        hover:shadow-lg hover:shadow-primary/20">
-                                <i class="fas fa-check-circle mr-2"></i>
-                                Confirm Booking
-                            </button>
-                        </form>
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Confirm Booking
+                        </button>
                     </div>
 
                 </div>
@@ -375,8 +255,8 @@
                                 <div class="space-y-2">
                                     <div class="flex justify-between text-sm">
                                         <span class="text-textMuted">Studio price</span>
-                                        <span id="hourly-rate"
-                                            class="text-light">$ {{ $borrow['studio']->price }}</span>
+                                        <span id="hourly-rate" class="text-light">$
+                                            {{ $borrow['studio']->price }}</span>
                                     </div>
                                     <div class="flex justify-between font-medium mt-4">
                                         <span class="text-light">Total</span>
@@ -389,7 +269,11 @@
                         <!-- Action Buttons -->
                         <div class="space-y-3">
                             <form action="{{ route('payment.form') }}" method="GET">
-                                @csrf
+                                <input type="hidden" name="studio_id" value="{{ $borrow['studio']->id }}">
+                                <input type="hidden" name="start_time" id="hidden_start_time">
+                                <input type="hidden" name="end_time" id="hidden_end_time">
+                                <input type="hidden" name="selected_date" id="hidden_selected_date">
+                                <input type="hidden" name="total_price" id="hidden_total_price">
                                 <button type="submit"
                                     class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 rounded-lg transition-all flex items-center justify-center">
                                     <i class="fas fa-arrow-right mr-2"></i>
@@ -458,6 +342,24 @@
             while (width && num.length < width) num = '0' + num;
             return num;
         });
+
+        function populateHiddenFieldsAndSubmit() {
+            const selectedDate = document.querySelector('.date-selector.bg-primary')?.getAttribute('data-date');
+            const startTime = document.getElementById('start_time').value;
+            const endTime = document.getElementById('end_time').value;
+            const totalPrice = document.getElementById('total-price').textContent.replace('$', '').trim();
+
+            document.getElementById('hidden_selected_date').value = selectedDate || '';
+            document.getElementById('hidden_start_time').value = startTime || '';
+            document.getElementById('hidden_end_time').value = endTime || '';
+            document.getElementById('hidden_total_price').value = totalPrice || '';
+
+            if (selectedDate && startTime && endTime && totalPrice) {
+                document.querySelector('form[action="{{ route('payment.form') }}"]').submit();
+            } else {
+                alert('Please ensure all fields are selected before proceeding.');
+            }
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {

@@ -11,7 +11,7 @@ class PaymentService
 {
     public function showPaymentForm()
     {
-        return view('Dashboard.Artist.layouts.payment-form');
+        return view('Dashboard.Artist.payment');
     }
 
     public function processPayment(Request $request)

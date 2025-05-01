@@ -143,6 +143,7 @@
     @yield('nav') <!-- Navbar -->
     @yield('book') <!-- Book section -->
     @yield('main') <!-- Main content -->
+    @yield('payment-form') <!-- Payment form -->
     <!-- JavaScript for Tab Navigation -->
     <script>
         // Function to hide all tabs and show the selected one
