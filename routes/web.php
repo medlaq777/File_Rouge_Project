@@ -6,6 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\PaymentController;
+
 #Provider Auth
 Route::get('/auth/{provider}', [AuthController::class, 'redirectToProvider'])->name('auth.provider');
 Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
@@ -57,8 +59,10 @@ Route::post('/store/studio', [OwnerController::class, 'store'])->name('store.stu
 Route::put('/update/studio', [OwnerController::class, 'update'])->name('update.studio')->middleware('auth');
 Route::delete('/delete/studio/{id}', [OwnerController::class, 'destroy'])->name('delete.studio')->middleware('auth');
 
-Route::get('/book/studio/{id}', [ArtistController::class, 'showBookStudios'])
-    ->name('book.studio')
-    ->middleware('auth');
+Route::get('/book/studio/{id}', [ArtistController::class, 'showBookStudios'])->name('book.studio')->middleware('auth');
 Route::put('/update/review/{id}', [ArtistController::class, 'getEditMyReview'])->name('editMyReview')->middleware('auth');
 Route::delete('/delete/review/{id}', [ArtistController::class, 'getDeleteMyReview'])->name('deleteMyReview')->middleware('auth');
+
+
+Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
