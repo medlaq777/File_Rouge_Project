@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-4 md:mt-0 flex flex-col items-end">
-                                    <div class="text-2xl font-bold text-white">{{ $borrow['studio']->price }}<span
+                                    <div class="text-2xl font-bold text-white">$ {{ $borrow['studio']->price }}<span
                                             class="text-textMuted text-sm">/hour</span></div>
                                 </div>
                             </div>
@@ -247,181 +247,91 @@
 
                     <!-- Date and Time Selection -->
                     <div
-                        class="bg-darkUI rounded-xl border border-border p-6 hover:shadow-lg transition-all duration-300">
-                        <h3 class="text-xl font-semibold text-white mb-6">
+                        class="bg-darkUI rounded-xl border border-border p-6 hover:shadow-lg transition-all duration-300 space-y-8">
+                        <h3 class="text-xl font-semibold text-white flex items-center">
                             <i class="fas fa-calendar-alt text-primary mr-2"></i>
                             Select Booking Period
                         </h3>
 
-                        <form class="space-y-6" method="POST" action="">
+                        <form class="space-y-8" method="POST" action="">
                             @csrf
 
                             <!-- Date Selection -->
                             <div class="space-y-4">
-                                <label class="text-light block font-medium">Select Date</label>
-                                <div class="grid grid-cols-7 gap-2">
+                                <label class="text-light font-medium text-sm">Select Date</label>
+                                <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2">
                                     @foreach ($borrow['availabilities'] as $date)
-                                    {{ dd($borrow['availabilities']) }}
-                                        <button type="button"
-                                            data-date="{{ $date->date }}"
-                                            class="date-selector p-3 text-center rounded-lg border border-border
-                                               bg-darkAccent text-textMuted hover:bg-primary hover:text-white
-                                               transition-all">
+                                        <button type="button" data-date="{{ $date->date }}"
+                                            class="date-selector aspect-square rounded-lg border border-border
+                                                   bg-darkAccent hover:bg-primary/10 transition-all duration-200
+                                                   focus:outline-none focus:ring-2 focus:ring-primary/50
+                                                   flex flex-col items-center justify-center p-2
+                                                   group hover:border-primary">
                                             <span
-                                                class="block text-xs">{{ \Carbon\Carbon::parse($date->start_time)->format('d') }}</span>
-                                            <span
-                                                class="block text-sm font-medium">{{ \Carbon\Carbon::parse($date->end_time)->format('d') }}</span>
+                                                class="text-[10px] uppercase text-textMuted group-hover:text-primary mb-1">
+                                                {{ date('D', strtotime($date->date)) }}
+                                            </span>
+                                            <span class="text-base font-medium text-light group-hover:text-primary">
+                                                {{ date('d', strtotime($date->date)) }}
+                                            </span>
                                         </button>
                                     @endforeach
                                 </div>
                             </div>
 
-                            <!-- Time Slots -->
+                            <!-- Time Selection -->
                             <div class="space-y-4">
-                                <label class="text-light block font-medium">Available Time Slots</label>
-                                <div id="timeSlots" class="grid grid-cols-3 gap-3">
-                                    <!-- Time slots will be populated dynamically via JS -->
+                                <label class="text-light font-medium text-sm mb-4 block">Select Time Range</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-2">
+                                        <label class="text-xs text-textMuted block">Start Time</label>
+                                        <select id="start_time" name="start_time"
+                                            class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
+                                                   focus:ring-2 focus:ring-primary/50 focus:border-primary
+                                                   cursor-pointer hover:border-primary transition-all"
+                                            onchange="updateEndTimeOptions()">
+                                            @for ($hour = 10; $hour <= 23; $hour++)
+                                                <option value="{{ sprintf('%02d:00', $hour) }}">
+                                                    {{ sprintf('%d:00 %s', $hour > 12 ? $hour - 12 : $hour, $hour >= 12 ? 'PM' : 'AM') }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <label class="text-xs text-textMuted block">End Time</label>
+                                        <select id="end_time" name="end_time"
+                                            class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
+                                                   focus:ring-2 focus:ring-primary/50 focus:border-primary
+                                                   cursor-pointer hover:border-primary transition-all">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Duration Preview -->
-                            <div class="p-4 bg-darkAccent/30 rounded-lg">
-                                <p class="text-textMuted text-sm">
-                                    <i class="fas fa-clock text-primary mr-2"></i>
-                                    Selected Time: <span id="selected-time-display">Please select a time slot</span>
-                                </p>
+                            <div class="bg-darkAccent/30 rounded-lg p-4 border border-border/50">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm text-textMuted flex items-center">
+                                        <i class="fas fa-clock text-primary mr-2"></i>
+                                        Duration
+                                    </p>
+                                    <span id="duration-display" class="text-light font-medium text-sm">Select time
+                                        range</span>
+                                </div>
                             </div>
 
-                            <input type="hidden" name="selected_slot" id="selected_slot">
-                            <input type="hidden" name="studio_id" value="{{ $borrow['studio']->id }}">
-
+                            <input type="hidden" name="selected_date" id="selected_date">
                             <button type="submit"
                                 class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
-                                       transition-all flex items-center justify-center">
+                                       transition-all duration-200 flex items-center justify-center text-sm
+                                       hover:shadow-lg hover:shadow-primary/20">
                                 <i class="fas fa-check-circle mr-2"></i>
                                 Confirm Booking
                             </button>
                         </form>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const dateButtons = document.querySelectorAll('.date-selector');
 
-                            dateButtons.forEach(button => {
-                                button.addEventListener('click', async function() {
-                                    // Reset all buttons
-                                    dateButtons.forEach(btn => {
-                                        btn.classList.remove('bg-primary', 'text-white',
-                                            'border-primary', 'shadow-glow');
-                                        btn.classList.add('bg-darkAccent', 'text-textMuted');
-                                    });
-
-                                    // Enhanced selected state
-                                    this.classList.add('bg-primary', 'text-white', 'border-primary',
-                                        'shadow-glow');
-                                    this.classList.remove('bg-darkAccent', 'text-textMuted');
-
-                                    // Fetch time slots with loading state
-                                    const date = this.dataset.date;
-                                    const timeSlotsContainer = document.getElementById('timeSlots');
-                                    timeSlotsContainer.innerHTML = `
-                                    <div class="col-span-3 text-center py-8">
-                                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-primary"></div>
-                                        <p class="text-textMuted mt-2">Loading available times...</p>
-                                    </div>
-                                `;
-
-                                    try {
-                                        const response = await fetch(`/api/timeslots/${date}`);
-                                        const slots = await response.json();
-                                        updateTimeSlots(slots);
-                                    } catch (error) {
-                                        console.error('Error fetching time slots:', error);
-                                        timeSlotsContainer.innerHTML = `
-                                        <div class="col-span-3 text-center py-8 text-error">
-                                            <i class="fas fa-exclamation-circle text-2xl mb-2"></i>
-                                            <p>Failed to load time slots. Please try again.</p>
-                                        </div>
-                                    `;
-                                    }
-                                });
-                            });
-                        });
-
-                        function selectTimeSlot(element) {
-                            // Remove selection from all slots
-                            document.querySelectorAll('.time-slot').forEach(slot => {
-                                slot.classList.remove('bg-primary', 'text-white', 'border-primary', 'shadow-glow');
-                                slot.classList.add('bg-darkAccent', 'text-textMuted');
-                            });
-
-                            // Enhanced selected state
-                            element.classList.add('bg-primary', 'text-white', 'border-primary', 'shadow-glow');
-                            element.classList.remove('bg-darkAccent', 'text-textMuted');
-
-                            // Update hidden input and display
-                            document.getElementById('selected_slot').value = element.dataset.slotId;
-                            document.getElementById('selected-time-display').textContent =
-                                `${element.querySelector('.time-range').textContent}`;
-                        }
-
-                        function updateTimeSlots(slots) {
-                            const container = document.getElementById('timeSlots');
-                            container.innerHTML = slots.map(slot => `
-                            <button type="button"
-                                    class="time-slot relative group p-4 text-center rounded-lg border-2 transition-all duration-300
-                                           ${slot.status === 'available'
-                                               ? 'bg-darkAccent hover:bg-primary/10 text-textMuted hover:text-white border-border hover:border-primary'
-                                               : 'bg-darkAccent/50 text-textMuted/50 cursor-not-allowed border-border/50'}"
-                                    ${slot.status === 'available' ? `data-slot-id="${slot.id}" onclick="selectTimeSlot(this)"` : 'disabled'}>
-                                <div class="flex flex-col items-center">
-                                    <span class="time-range text-sm font-medium mb-1">
-                                        ${formatTime(slot.start_time)} - ${formatTime(slot.end_time)}
-                                    </span>
-                                    <span class="text-xs opacity-75">
-                                        ${slot.status === 'available' ? '60 min session' : 'Unavailable'}
-                                    </span>
-                                </div>
-                                ${slot.status === 'available' ? `
-                                                        <div class="absolute inset-0 bg-primary/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                                    ` : ''}
-                            </button>
-                        `).join('');
-                        }
-
-                        function formatTime(time) {
-                            return new Date('1970-01-01T' + time).toLocaleTimeString('en-US', {
-                                hour: 'numeric',
-                                minute: '2-digit',
-                                hour12: true
-                            });
-                        }
-                    </script>
-
-                    <style>
-                        .shadow-glow {
-                            box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.3);
-                        }
-
-                        .time-slot {
-                            transform: translateY(0);
-                            transition: all 0.3s ease;
-                        }
-
-                        .time-slot:hover:not(:disabled) {
-                            transform: translateY(-2px);
-                        }
-
-                        @keyframes spin {
-                            to {
-                                transform: rotate(360deg);
-                            }
-                        }
-
-                        .animate-spin {
-                            animation: spin 1s linear infinite;
-                        }
-                    </style>
                 </div>
 
                 <!-- Booking Summary Column -->
@@ -441,8 +351,8 @@
                                     <i class="fas fa-music text-primary"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-light font-medium">Soundwave Studios</h4>
-                                    <p class="text-xs text-textMuted">Professional Recording Studio</p>
+                                    <h4 class="text-light font-medium">{{ $borrow['studio']->name }}</h4>
+                                    <p class="text-xs text-textMuted">{{ $borrow['studio']->description }}</p>
                                 </div>
                             </div>
 
@@ -451,9 +361,9 @@
                                     class="w-10 h-10 rounded-full bg-darkAccent flex items-center justify-center mr-3">
                                     <i class="fas fa-calendar text-primary"></i>
                                 </div>
-                                <div>
-                                    <h4 class="text-light font-medium">Thursday, May 15, 2025</h4>
-                                    <p class="text-xs text-textMuted">10:00 AM - 11:00 AM (1 hour)</p>
+                                <div class="flex items-center justify-between">
+                                    <span id="duration-display2" class="text-light font-medium text-sm">Select time
+                                        range</span>
                                 </div>
                             </div>
                         </div>
@@ -462,38 +372,40 @@
                         <div class="border-t border-b border-border py-4 mb-6">
                             <h4 class="text-light font-medium mb-3">Price Details</h4>
                             <div class="space-y-2">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-textMuted">Studio rate (1 hour)</span>
-                                    <span class="text-light">$50.00</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-textMuted">Service fee</span>
-                                    <span class="text-light">$5.00</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-textMuted">Tax</span>
-                                    <span class="text-light">$4.50</span>
-                                </div>
-                                <div class="flex justify-between font-medium mt-4">
-                                    <span class="text-light">Total</span>
-                                    <span class="text-primary text-lg">$59.50</span>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-textMuted">Studio price</span>
+                                        <span id="hourly-rate"
+                                            class="text-light">$ {{ $borrow['studio']->price }}</span>
+                                    </div>
+                                    <div class="flex justify-between font-medium mt-4">
+                                        <span class="text-light">Total</span>
+                                        <span id="total-price" class="text-primary text-lg">0.00</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Action Buttons -->
                         <div class="space-y-3">
-                            <button
-                                class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 rounded-lg transition-all flex items-center justify-center">
-                                <i class="fas fa-arrow-right mr-2"></i>
-                                Continue to Review
-                            </button>
+                            <form action="" method="POST">
+                                @csrf
+                                <!-- Hidden fields to pass booking data -->
+                                <input type="hidden" name="selected_date" id="payment_selected_date">
+                                <input type="hidden" name="start_time" id="payment_start_time">
+                                <input type="hidden" name="end_time" id="payment_end_time">
+                                <button type="submit"
+                                    class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 rounded-lg transition-all flex items-center justify-center">
+                                    <i class="fas fa-arrow-right mr-2"></i>
+                                    Continue to Payment
+                                </button>
+                            </form>
 
-                            <button
+                            <a href="{{ redirect()->back()->getTargetUrl() }}"
                                 class="w-full bg-transparent border border-border hover:border-primary text-textMuted font-medium py-3 rounded-lg transition-all flex items-center justify-center">
                                 <i class="fas fa-times-circle mr-2"></i>
                                 Cancel Booking
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -501,6 +413,72 @@
         </section>
     </div>
 </main>
+
+<script>
+    function updateEndTimeOptions() {
+        const startTime = document.getElementById('start_time').value;
+        const startHour = parseInt(startTime.split(':')[0]);
+        const endTimeSelect = document.getElementById('end_time');
+        endTimeSelect.innerHTML = '';
+
+        for (let hour = startHour + 1; hour <= 24; hour++) {
+            const option = document.createElement('option');
+            option.value = sprintf('%02d:00', hour);
+            option.textContent = sprintf('%d:00 %s',
+                hour > 12 ? hour - 12 : hour,
+                hour >= 12 ? 'PM' : 'AM'
+            );
+            endTimeSelect.appendChild(option);
+        }
+        updateDurationDisplay();
+    }
+
+    function updateDurationDisplay() {
+        const startTime = document.getElementById('start_time').value;
+        const endTime = document.getElementById('end_time').value;
+
+        // Extract hours from the time strings
+        const startHour = parseInt(startTime.split(':')[0]);
+        const endHour = parseInt(endTime.split(':')[0]);
+
+        // Calculate duration
+        const duration = endHour - startHour;
+
+        // Update duration display
+        document.getElementById('duration-display').textContent =
+            `${duration} hour${duration > 1 ? 's' : ''} session`;
+        document.getElementById('duration-display2').textContent =
+            `${duration} hour${duration > 1 ? 's' : ''} session`;
+
+        // Calculate and update total price
+        const hourlyRate = parseFloat(document.getElementById('hourly-rate').textContent.replace('$', '').trim());
+        const totalPrice = duration * hourlyRate;
+        document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
+    }
+
+    function sprintf(format, ...args) {
+        return format.replace(/%([0-9]+)?d/, (match, width) => {
+            let num = args.shift().toString();
+            while (width && num.length < width) num = '0' + num;
+            return num;
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateEndTimeOptions();
+
+        // Add active state to date selectors
+        const dateSelectors = document.querySelectorAll('.date-selector');
+        dateSelectors.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dateSelectors.forEach(b => b.classList.remove('bg-primary', 'border-primary'));
+                btn.classList.add('bg-primary', 'border-primary');
+            });
+        });
+    });
+
+    document.getElementById('end_time').addEventListener('change', updateDurationDisplay);
+</script>
 <!-- End of Main Content -->
 <script>
     // Initialize calendar functionality
@@ -522,9 +500,18 @@
             slot.addEventListener('click', function() {
                 timeSlots.forEach(s => s.classList.remove('bg-primary', 'text-white'));
                 this.classList.add('bg-primary', 'text-white');
-                updateBookingSummary(this.dataset.time);
+                const timeRange = this.querySelector('.text-sm').textContent;
+                updateBookingSummary(timeRange);
             });
         });
+    }
+
+    // Function to update booking summary
+    function updateBookingSummary(timeRange) {
+        const summaryTime = document.querySelector('.booking-summary-time');
+        if (summaryTime) {
+            summaryTime.textContent = timeRange;
+        }
     }
 
     // Function to hide all tabs and show the selected one
@@ -578,15 +565,6 @@
                 Book Studio
             </a>
         `;
-
-        // Insert at appropriate position in sidebar
-        const sidebar = document.querySelector('nav ul');
-        const findStudiosLink = document.getElementById('find-studios-link').parentNode;
-        if (sidebar && findStudiosLink) {
-            sidebar.insertBefore(borrowStudiosLink, findStudiosLink.nextSibling);
-            sidebar.insertBefore(bookStudioLink, borrowStudiosLink.nextSibling);
-        }
-
         // Add animation styles
         document.head.insertAdjacentHTML('beforeend', `
             <style>

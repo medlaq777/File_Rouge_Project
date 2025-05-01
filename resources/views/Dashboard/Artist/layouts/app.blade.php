@@ -170,48 +170,6 @@
                 activeLink.classList.add('border-primary');
             }
         }
-
-        // Add new menu items for Borrow Studios, Book Studio
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add Borrow Studios link to sidebar
-            const borrowStudiosLink = document.createElement('li');
-            borrowStudiosLink.innerHTML = `
-                <a href="#" onclick="showTab('borrow-studios')" id="borrow-studios-link"
-                    class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200">
-                    <i class="fas fa-handshake mr-3"></i>
-                    Borrow Studios
-                </a>
-            `;
-
-            // Add Book Studio link to sidebar
-            const bookStudioLink = document.createElement('li');
-            bookStudioLink.innerHTML = `
-                <a href="#" onclick="showTab('book-studio')" id="book-studio-link"
-                    class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200">
-                    <i class="fas fa-calendar-plus mr-3"></i>
-                    Book Studio
-                </a>
-            `;
-
-            // Insert at appropriate position in sidebar
-            const sidebar = document.querySelector('nav ul');
-            const findStudiosLink = document.getElementById('find-studios-link').parentNode;
-            sidebar.insertBefore(borrowStudiosLink, findStudiosLink.nextSibling);
-            sidebar.insertBefore(bookStudioLink, borrowStudiosLink.nextSibling);
-
-            // Animation for page transitions
-            document.head.insertAdjacentHTML('beforeend', `
-                <style>
-                    .animate-fade-in {
-                        animation: fadeIn 0.3s ease-in-out;
-                    }
-                    @keyframes fadeIn {
-                        from { opacity: 0; transform: translateY(10px); }
-                        to { opacity: 1; transform: translateY(0); }
-                    }
-                </style>
-            `);
-        });
     </script>
 </body>
 
