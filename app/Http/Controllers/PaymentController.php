@@ -11,16 +11,16 @@ use App\Services\PaymentService;
 
 class PaymentController extends Controller
 {
-    protected $paymentService;
+    protected $PaymentService;
 
     public function __construct(PaymentService $paymentService)
     {
-        $this->paymentService = $paymentService;
+        $this->PaymentService = $paymentService;
     }
 
     public function showPaymentForm()
     {
-        return $this->paymentService->showPaymentForm();
+        return $this->PaymentService->showPaymentForm();
     }
 
 

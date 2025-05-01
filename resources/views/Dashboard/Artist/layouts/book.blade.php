@@ -388,12 +388,8 @@
 
                         <!-- Action Buttons -->
                         <div class="space-y-3">
-                            <form action="" method="POST">
+                            <form action="{{ route('payment.form') }}" method="GET">
                                 @csrf
-                                <!-- Hidden fields to pass booking data -->
-                                <input type="hidden" name="selected_date" id="payment_selected_date">
-                                <input type="hidden" name="start_time" id="payment_start_time">
-                                <input type="hidden" name="end_time" id="payment_end_time">
                                 <button type="submit"
                                     class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 rounded-lg transition-all flex items-center justify-center">
                                     <i class="fas fa-arrow-right mr-2"></i>
