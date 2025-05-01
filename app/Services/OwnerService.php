@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Studios;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class OwnerService
 {
@@ -17,7 +18,9 @@ class OwnerService
             return ['image_path' => $photo->store('studios/photos', 'public')];
         }, $photos));
         $studio->features()->sync($features);
+
         $availability = json_decode($data['availability'], true);
+
         if ($availability['type'] === 'custom' && !empty($availability['slots'])) {
             foreach ($availability['slots'] as $slot) {
                 $studio->availabilities()->create([
@@ -29,15 +32,8 @@ class OwnerService
                     'status' => 'available',
                 ]);
             }
-        } else {
-            $studio->availabilities()->create([
-                'studios_id' => $studio->id,
-                'user_id' => $ownerId,
-                'date' => null,
-                'start_time' => null,
-                'end_time' => null,
-                'status' => 'available',
-            ]);
+        } elseif ($availability['type'] === 'always') {
+            $this->create30DaysAvailability($studio, $ownerId);
         }
 
         return $studio;
@@ -47,6 +43,7 @@ class OwnerService
     {
         $studio = Studios::where('id', $data['id'])->where('user_id', $ownerId)->firstOrFail();
         $studio->update($data);
+
         if (!empty($photos)) {
             foreach ($studio->photos as $photo) {
                 Storage::disk('public')->delete($photo->image_path);
@@ -56,10 +53,13 @@ class OwnerService
                 return ['image_path' => $photo->store('studios/photos', 'public')];
             }, $photos));
         }
+
         $studio->features()->sync($features);
         $studio->availabilities()->delete();
         $studio->category()->associate($data['category_id']);
+
         $availability = json_decode($data['availability'], true);
+
         if ($availability['type'] === 'custom' && !empty($availability['slots'])) {
             foreach ($availability['slots'] as $slot) {
                 $studio->availabilities()->create([
@@ -71,17 +71,28 @@ class OwnerService
                     'status' => 'available',
                 ]);
             }
-        } else {
+        } elseif ($availability['type'] === 'always') {
+            $this->create30DaysAvailability($studio, $ownerId);
+        }
+
+        return $studio;
+    }
+
+    private function create30DaysAvailability($studio, $ownerId)
+    {
+        $startDate = Carbon::now();
+        $endDate = $startDate->copy()->addDays(30);
+
+        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
             $studio->availabilities()->create([
                 'studios_id' => $studio->id,
                 'user_id' => $ownerId,
-                'date' => null,
-                'start_time' => null,
-                'end_time' => null,
+                'date' => $date->toDateString(),
+                'start_time' => '00:00:00',
+                'end_time' => '23:59:59',
                 'status' => 'available',
             ]);
         }
-        return $studio;
     }
 
     public function findStudiosById($id)

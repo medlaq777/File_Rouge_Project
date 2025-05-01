@@ -127,9 +127,9 @@
 
 <body class="bg-darkBg text-light min-h-screen font-sans antialiased custom-scrollbar">
     @yield('nav')
-    @yield('main')
     @yield('addStudios')
     @yield('editStudios')
+    @yield('main')
 
     <script>
         function showTab(tabId) {
@@ -207,33 +207,65 @@
             const container = document.getElementById(`${modalPrefix}-additional-availability-slots`);
             const slotIndex = container.children.length;
             const slotHtml = `
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-            <div>
-                <input type="date" name="availability_date[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                <div>
+                    <input type="date" name="availability_date[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input">
+                </div>
+                <div>
+                    <input type="time" name="start_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input">
+                </div>
+                <div>
+                    <input type="time" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input">
+                </div>
             </div>
-            <div>
-                <input type="time" name="start_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input">
-            </div>
-            <div>
-                <input type="time" name="end_time[]" class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input">
-            </div>
-        </div>
-        `;
+            `;
             container.insertAdjacentHTML('beforeend', slotHtml);
         }
 
         // Quick setup handler
-        function setAvailability(option, modalPrefix) {
-            const typeSelect = document.getElementById(`${modalPrefix}-availability-type`);
+        function toggleCustomAvailability(prefix) {
+            const type = document.getElementById(`${prefix}-availability-type`).value;
+            document.getElementById(`${prefix}-custom-availability-section`).classList.toggle('hidden', type !== 'custom');
+            document.getElementById(`${prefix}-recurring-availability-section`).classList.toggle('hidden', type !==
+                'recurring');
+        }
+
+        function setAddAvailability(option) {
+            const typeSelect = document.getElementById('add-availability-type');
+            const customSection = document.getElementById('add-custom-availability-section');
+            const recurringSection = document.getElementById('add-recurring-availability-section');
+
             if (option === '24/7') {
                 typeSelect.value = 'always';
-            } else if (option === 'weekdays' || option === 'weekends' || option === 'current-month') {
+                customSection.classList.add('hidden');
+                recurringSection.classList.add('hidden');
+            } else if (option === 'weekdays') {
                 typeSelect.value = 'recurring';
-                // Optionally, pre-check days or set date ranges here
-            } else {
-                typeSelect.value = 'custom';
+                customSection.classList.add('hidden');
+                recurringSection.classList.remove('hidden');
+                // Set weekdays
+                document.querySelectorAll('input[name="recurring_days[]"]').forEach(checkbox => {
+                    checkbox.checked = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].includes(checkbox
+                        .value);
+                });
+            } else if (option === 'weekends') {
+                typeSelect.value = 'recurring';
+                customSection.classList.add('hidden');
+                recurringSection.classList.remove('hidden');
+                // Set weekends
+                document.querySelectorAll('input[name="recurring_days[]"]').forEach(checkbox => {
+                    checkbox.checked = ['saturday', 'sunday'].includes(checkbox.value);
+                });
+            } else if (option === 'current-month') {
+                typeSelect.value = 'recurring';
+                customSection.classList.add('hidden');
+                recurringSection.classList.remove('hidden');
+                // Set current month
+                const today = new Date();
+                const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                document.getElementById('recurring-start-date').value = today.toISOString().split('T')[0];
+                document.getElementById('recurring-end-date').value = lastDay.toISOString().split('T')[0];
             }
-            toggleCustomAvailability(modalPrefix);
         }
 
         // Attach event listeners for both modals

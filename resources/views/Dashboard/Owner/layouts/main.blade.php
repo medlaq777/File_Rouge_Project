@@ -240,7 +240,7 @@
                     <p class="text-textMuted mt-2">Manage your registered studios</p>
                 </div>
                 <button onclick="showAddStudioModal()"
-                    class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200 flex items-center">
+                    class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200 flex items-center cursor-pointer">
                     <i class="fas fa-plus-circle h-5 w-5 mr-2"></i>
                     Add New Studio
                 </button>
