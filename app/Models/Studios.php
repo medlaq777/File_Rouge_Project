@@ -50,11 +50,6 @@ class Studios extends Model
         return $this->hasMany(Booking::class, 'studio_id');
     }
 
-    // public function statistics()
-    // {
-    //     return $this->hasMany(StudioStatistics::class);
-    // }
-
     public function Photos(): HasMany
     {
         return $this->hasMany(Photos::class, 'studio_id');
@@ -66,9 +61,11 @@ class Studios extends Model
     }
 
     public function updateRating()
-    {
-        $this->note_moyenne = $this->reviews()->avg('note') ?? 0;
-        $this->nombre_avis = $this->reviews()->count();
-        $this->save();
-    }
+{
+    $this->rating = $this->reviews()->where('studio_id', $this->id)->avg('rating') ?? 0;
+    $this->TotalReviews = $this->reviews()->count();
+
+
+    $this->save();
+}
 }

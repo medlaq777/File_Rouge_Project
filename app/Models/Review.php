@@ -35,4 +35,19 @@ class Review extends Model
     {
         return $this->belongsTo(Studios::class, 'studio_id');
     }
+
+    protected static function booted()
+{
+    static::saved(function ($review) {
+        $review->studio->updateRating();
+    });
+
+    static::deleted(function ($review) {
+        $review->studio->updateRating();
+    });
+
+    static::updated(function ($review) {
+        $review->studio->updateRating();
+    });
+}
 }
