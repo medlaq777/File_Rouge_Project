@@ -46,7 +46,7 @@
                                         <div class="flex items-center mr-4">
                                             <i class="fas fa-map-marker-alt text-primary mr-1.5"></i>
                                             <span
-                                                class="text-sm text-textMuted">{{ $borrow['studio']->location }}</span>
+                                                class="text-md text-textMuted">{{ $borrow['studio']->location }}</span>
                                         </div>
                                         <div class="flex items-center text-warning">
                                             <i class="fas fa-star"></i>
@@ -55,13 +55,13 @@
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star-half-alt"></i>
                                             <span
-                                                class="ml-1 text-textMuted text-sm">({{ $borrow['studio']->rating }})</span>
+                                                class="ml-1 text-textMuted text-md">({{ $borrow['studio']->rating }})</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mt-4 md:mt-0 flex flex-col items-end">
                                     <div class="text-2xl font-bold text-white">$ {{ $borrow['studio']->price }}<span
-                                            class="text-textMuted text-sm">/hour</span></div>
+                                            class="text-textMuted text-md">/hour</span></div>
                                 </div>
                             </div>
 
@@ -69,26 +69,26 @@
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                                 <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
                                     <i class="fas fa-ruler-combined text-primary mb-1"></i>
-                                    <span class="text-xs text-textMuted">800 sq ft</span>
+                                    <span class="text-sm text-textMuted">800 sq ft</span>
                                 </div>
                                 <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
                                     <i class="fas fa-users text-primary mb-1"></i>
-                                    <span class="text-xs text-textMuted">Up to 8 people</span>
+                                    <span class="text-sm text-textMuted">Up to 8 people</span>
                                 </div>
                                 <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
                                     <i class="fas fa-volume-up text-primary mb-1"></i>
-                                    <span class="text-xs text-textMuted">Soundproofed</span>
+                                    <span class="text-sm text-textMuted">Soundproofed</span>
                                 </div>
                                 <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
                                     <i class="fas fa-parking text-primary mb-1"></i>
-                                    <span class="text-xs text-textMuted">Free Parking</span>
+                                    <span class="text-sm text-textMuted">Free Parking</span>
                                 </div>
                             </div>
 
                             <!-- Studio Description -->
                             <div class="mb-6">
                                 <h3 class="text-lg font-semibold text-white mb-3">About this studio</h3>
-                                <p class="text-textMuted text-sm leading-relaxed">
+                                <p class="text-textMuted text-md leading-relaxed">
                                     {{ $borrow['studio']->description }}
                                 </p>
                             </div>
@@ -100,11 +100,11 @@
                                     <h3 class="text-lg font-semibold text-white mb-3">Studio Category</h3>
                                     <div class="flex items-center bg-darkAccent/30 rounded-lg p-4">
                                         <div class="flex-shrink-0 w-10 h-10 bg-success/10 rounded-full flex items-center justify-center mr-4">
-                                            <i class="fas fa-music text-success"></i>
+                                            <i class="fas fa-music text-primary"></i>
                                         </div>
                                         <div>
-                                            <h4 class="text-sm font-medium text-light">{{ $borrow['studio']->category->name }}</h4>
-                                            <p class="text-xs text-textMuted">{{ $borrow['studio']->category->description }}</p>
+                                            <h4 class="text-md font-medium text-light">{{ $borrow['studio']->category->name }}</h4>
+                                            <p class="text-sm text-textMuted">{{ $borrow['studio']->category->description }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -120,10 +120,10 @@
                                     <div class="flex items-center justify-between">
                                         <h4 class="text-light font-medium">
                                             {{ $borrow['studio']->owner->profile->full_name }}</h4>
-                                        <span class="text-xs text-textMuted">Host since
+                                        <span class="text-sm text-textMuted">Host since
                                             {{ $borrow['studio']->owner->created_at }}</span>
                                     </div>
-                                    <p class="text-xs text-textMuted">{{ $borrow['studio']->owner->profile->bio }}</p>
+                                    <p class="text-sm text-textMuted">{{ $borrow['studio']->owner->profile->bio }}</p>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
 
                         <!-- Date Selection -->
                         <div class="space-y-4">
-                            <label class="text-light font-medium text-sm">Select Date</label>
+                            <label class="text-light font-medium text-md">Select Date</label>
                             <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2">
                                 @foreach ($borrow['availabilities'] as $date)
                                     <button type="button" data-date="{{ $date->date }}"
@@ -162,12 +162,12 @@
 
                         <!-- Time Selection -->
                         <div class="space-y-4">
-                            <label class="text-light font-medium text-sm mb-4 block">Select Time Range</label>
+                            <label class="text-light font-medium text-md mb-4 block">Select Time Range</label>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div class="space-y-2">
-                                    <label class="text-xs text-textMuted block">Start Time</label>
+                                    <label class="text-sm text-textMuted block">Start Time</label>
                                     <select id="start_time" name="start_time"
-                                        class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
+                                        class="w-full bg-darkAccent border border-border rounded-lg p-3 text-md text-light
                                                    focus:ring-2 focus:ring-primary/50 focus:border-primary
                                                    cursor-pointer hover:border-primary transition-all"
                                         onchange="updateEndTimeOptions()">
@@ -180,9 +180,9 @@
                                 </div>
 
                                 <div class="space-y-2">
-                                    <label class="text-xs text-textMuted block">End Time</label>
+                                    <label class="text-sm text-textMuted block">End Time</label>
                                     <select id="end_time" name="end_time"
-                                        class="w-full bg-darkAccent border border-border rounded-lg p-3 text-sm text-light
+                                        class="w-full bg-darkAccent border border-border rounded-lg p-3 text-md text-light
                                                    focus:ring-2 focus:ring-primary/50 focus:border-primary
                                                    cursor-pointer hover:border-primary transition-all">
                                     </select>
@@ -193,11 +193,11 @@
                         <!-- Duration Preview -->
                         <div class="bg-darkAccent/30 rounded-lg p-4 border border-border/50">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm text-textMuted flex items-center">
+                                <p class="text-md text-textMuted flex items-center">
                                     <i class="fas fa-clock text-primary mr-2"></i>
                                     Duration
                                 </p>
-                                <span id="duration-display" class="text-light font-medium text-sm">Select time
+                                <span id="duration-display" class="text-light font-medium text-md">Select time
                                     range</span>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                         <input type="hidden" name="selected_date" id="selected_date">
                         <button type="button" onclick="populateHiddenFieldsAndSubmit()"
                             class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
-                                       transition-all duration-200 flex items-center justify-center text-sm
+                                       transition-all duration-200 flex items-center justify-center text-md
                                        hover:shadow-lg hover:shadow-primary/20">
                             <i class="fas fa-check-circle mr-2"></i>
                             Confirm Booking
@@ -232,7 +232,7 @@
                                 </div>
                                 <div>
                                     <h4 class="text-light font-medium">{{ $borrow['studio']->name }}</h4>
-                                    <p class="text-xs text-textMuted">{{ $borrow['studio']->description }}</p>
+                                    <p class="text-sm text-textMuted">{{ $borrow['studio']->description }}</p>
                                 </div>
                             </div>
 
@@ -242,7 +242,7 @@
                                     <i class="fas fa-calendar text-primary"></i>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span id="duration-display2" class="text-light font-medium text-sm">Select time
+                                    <span id="duration-display2" class="text-light font-medium text-md">Select time
                                         range</span>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                             <h4 class="text-light font-medium mb-3">Price Details</h4>
                             <div class="space-y-2">
                                 <div class="space-y-2">
-                                    <div class="flex justify-between text-sm">
+                                    <div class="flex justify-between text-md">
                                         <span class="text-textMuted">Studio price</span>
                                         <span id="hourly-rate" class="text-light">$
                                             {{ $borrow['studio']->price }}</span>
@@ -398,7 +398,7 @@
             slot.addEventListener('click', function() {
                 timeSlots.forEach(s => s.classList.remove('bg-primary', 'text-white'));
                 this.classList.add('bg-primary', 'text-white');
-                const timeRange = this.querySelector('.text-sm').textContent;
+                const timeRange = this.querySelector('.text-md').textContent;
                 updateBookingSummary(timeRange);
             });
         });
