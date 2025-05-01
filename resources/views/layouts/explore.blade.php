@@ -164,10 +164,12 @@
                                 <div class="mt-4 flex items-center justify-between">
                                     <span class="text-light font-bold">${{ $studio['price'] }}<span
                                             class="text-textMuted font-normal text-sm">/hr</span></span>
-                                    <button
-                                        class="px-3 py-1 bg-primary hover:bg-primaryHover text-white text-sm font-medium rounded">
-                                        Book Now
-                                    </button>
+                                    <form action="{{ route('book.studio', $studio->id) }}" method="GET">
+                                        <button type="submit"
+                                            class="px-3 py-1 bg-primary hover:bg-primaryHover text-white text-sm font-medium rounded">
+                                            Book Now
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -248,14 +250,14 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Cache DOM elements to avoid repeated queries
+
         const elements = {
-            // Search elements
+
             searchInput: document.getElementById('searchInput'),
             searchButton: document.getElementById('searchButton'),
             studiosContainer: document.getElementById('studiosContainer'),
 
-            // Filter elements
+
             priceRange: document.getElementById('priceRange'),
             priceValue: document.getElementById('priceValue'),
             filterCheckboxes: document.querySelectorAll('.filter-checkbox'),
@@ -263,22 +265,22 @@
             resetFiltersButton: document.getElementById('resetFiltersButton'),
             availabilityCalendar: document.getElementById('availabilityCalendar'),
 
-            // Mobile menu elements
+
             mobileMenuButton: document.getElementById('mobile-menu-button'),
             mobileMenu: document.getElementById('mobile-menu'),
 
-            // Sort dropdown
+
             sortSelect: document.querySelector('select[onchange]')
         };
 
-        // Initialize components
+
         initializeMobileMenu();
         initializeFilters();
         initializeSearch();
         initializeSorting();
         initializeCalendar();
 
-        // Mobile menu functionality
+
         function initializeMobileMenu() {
             if (!elements.mobileMenuButton || !elements.mobileMenu) return;
 
@@ -302,7 +304,7 @@
                 });
             });
 
-            // Handle resize event
+
             window.addEventListener('resize', () => {
                 if (window.innerWidth >= 768) {
                     elements.mobileMenu.classList.add('hidden');
@@ -310,16 +312,16 @@
             });
         }
 
-        // Filter functionality
+
         function initializeFilters() {
             if (!elements.priceRange || !elements.priceValue) return;
 
-            // Price range slider
+
             elements.priceRange.addEventListener('input', () => {
                 elements.priceValue.textContent = `$${elements.priceRange.value}`;
             });
 
-            // Filter checkboxes
+
             elements.filterCheckboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', () => {
                     const label = document.querySelector(`label[for="${checkbox.id}"]`);
@@ -331,12 +333,12 @@
                 });
             });
 
-            // Apply filters button
+
             if (elements.applyFiltersButton) {
                 elements.applyFiltersButton.addEventListener('click', applyFilters);
             }
 
-            // Reset filters button
+
             if (elements.resetFiltersButton) {
                 elements.resetFiltersButton.addEventListener('click', resetFilters);
             }
@@ -345,18 +347,18 @@
         function applyFilters() {
             const priceRange = elements.priceRange.value;
             const params = new URLSearchParams({
-                min: 0, // Default minimum value
+                min: 0,
                 max: priceRange
             });
 
-            // Add selected equipment to params
+
             elements.filterCheckboxes.forEach(checkbox => {
                 if (checkbox.checked) {
                     params.append('equipment', checkbox.id);
                 }
             });
 
-            // Add date if selected
+
             if (elements.availabilityCalendar && elements.availabilityCalendar.value) {
                 params.append('date', elements.availabilityCalendar.value);
             }
@@ -365,29 +367,29 @@
         }
 
         function resetFilters() {
-            // Reset price range
+
             if (elements.priceRange) {
                 elements.priceRange.value = 50;
                 elements.priceValue.textContent = '$50';
             }
 
-            // Reset checkboxes
+
             elements.filterCheckboxes.forEach(checkbox => {
                 checkbox.checked = false;
                 const label = document.querySelector(`label[for="${checkbox.id}"]`);
                 label.classList.remove('bg-primary', 'text-white', 'border-primary');
             });
 
-            // Reset calendar
+
             if (elements.availabilityCalendar) {
                 elements.availabilityCalendar.value = '';
             }
 
-            // Fetch all studios
+
             fetchData('/explore/filters');
         }
 
-        // Search functionality
+
         function initializeSearch() {
             if (!elements.searchInput || !elements.searchButton) return;
 
@@ -402,11 +404,11 @@
             fetchData(url);
         }
 
-        // Sorting functionality
+
         function initializeSorting() {
             if (!elements.sortSelect) return;
 
-            // Remove the inline onchange attribute
+
             elements.sortSelect.removeAttribute('onchange');
             elements.sortSelect.addEventListener('change', function() {
                 handleSortChange(this.value);
@@ -417,7 +419,7 @@
             fetchData(`/explore/sort?sort=${value}`);
         }
 
-        // Calendar initialization
+
         function initializeCalendar() {
             if (!elements.availabilityCalendar || !window.flatpickr) return;
 
@@ -427,7 +429,7 @@
             });
         }
 
-        // Utility function to fetch data and update UI
+
         function fetchData(url) {
             fetch(url)
                 .then(response => {
@@ -442,7 +444,7 @@
                 .catch(error => console.error('Error:', error));
         }
 
-        // Update the studios container with new data
+
         function updateStudiosContainer(data) {
             if (!elements.studiosContainer) return;
 
@@ -460,7 +462,7 @@
             });
         }
 
-        // Create HTML for a studio card
+
         function createStudioCard(studio) {
             return `
           <div class="bg-darkAccent rounded-lg overflow-hidden border border-border studio-card">
@@ -495,7 +497,7 @@
             `;
         }
 
-        // Utility function to debounce frequent events
+
         function debounce(func, delay) {
             let timeout;
             return function() {
