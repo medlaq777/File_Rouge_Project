@@ -31,8 +31,8 @@ class ArtistController extends Controller
 
     public function showBookStudios($id)
     {
-        $booking = $this->artistService->getBookingStudio($id);
-        return view('Dashboard.Artist.book', compact('booking'));
+        $borrow = $this->artistService->getBookingStudio($id);
+        return view('Dashboard.Artist.book', compact('borrow'));
     }
 
     public function getEditMyReview(Request $request, $id)

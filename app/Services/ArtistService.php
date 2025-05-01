@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Booking;
+use App\Models\Studios;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,10 +62,20 @@ class ArtistService
     public function getBookingStudio($id)
     {
         $userArtist = Auth::user();
-        $studioId = $id;
+        $studio = Studios::findOrFail($id);
+        $owner = $studio->user_id;
+        $availabilities = $studio->availabilities;
+        $categories = $studio->category;
+        $features = $studio->features;
+        $reviews = $studio->reviews;
         return [
             'user' => $userArtist,
-            'studio_id' => $studioId
+            'studio' => $studio,
+            'owner' => $owner,
+            'availabilities' => $availabilities,
+            'categories' => $categories,
+            'features' => $features,
+            'reviews' => $reviews,
         ];
     }
 

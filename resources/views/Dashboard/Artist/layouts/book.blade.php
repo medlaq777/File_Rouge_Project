@@ -3,11 +3,11 @@
     <div class="flex flex-col min-h-screen bg-darkBg text-light">
         <!-- Studio Hub Header -->
         <header class="mb-8">
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <h1 class="text-3xl font-bold text-white">Borrow Studios</h1>
-                            <p class="text-textMuted mt-1">Discover and access premium music spaces</p>
-                        </div>
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Borrow Studios</h1>
+                    <p class="text-textMuted mt-1">Discover and access premium music spaces</p>
+                </div>
             </div>
         </header>
 
@@ -42,7 +42,8 @@
                             class="w-12 h-12 rounded-full bg-darkAccent text-textMuted flex items-center justify-center mb-2 progress-step border-4 border-darkBg transition-all duration-300">
                             <i class="fas fa-download"></i>
                         </div>
-                        <span class="text-xs md:text-sm text-textMuted font-medium whitespace-nowrap">Download Invoice</span>
+                        <span class="text-xs md:text-sm text-textMuted font-medium whitespace-nowrap">Download
+                            Invoice</span>
                     </div>
 
                     <div class="flex flex-col items-center relative" data-step="4">
@@ -110,26 +111,6 @@
                         <div class="relative h-64 w-full bg-darkAccent overflow-hidden">
                             <img src="/api/placeholder/800/400" alt="Studio Main View"
                                 class="w-full h-full object-cover">
-                            <div
-                                class="absolute top-4 left-4 bg-dark/80 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-sm flex items-center">
-                                <i class="fas fa-award text-primary mr-1"></i>
-                                <span>Premium Studio</span>
-                            </div>
-                            <div
-                                class="absolute top-4 right-4 bg-dark/80 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-sm flex items-center">
-                                <i class="fas fa-bolt text-warning mr-1"></i>
-                                <span>Instant Book</span>
-                            </div>
-                            <div class="absolute bottom-4 right-4 flex space-x-2">
-                                <button
-                                    class="w-8 h-8 bg-dark/80 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-primary transition-all">
-                                    <i class="fas fa-heart text-white"></i>
-                                </button>
-                                <button
-                                    class="w-8 h-8 bg-dark/80 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-primary transition-all">
-                                    <i class="fas fa-share text-white"></i>
-                                </button>
-                            </div>
                             <div class="absolute bottom-4 left-4 flex space-x-2">
                                 <button
                                     class="w-8 h-8 bg-dark/80 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-primary transition-all">
@@ -147,11 +128,12 @@
                             <!-- Studio Header -->
                             <div class="flex flex-col md:flex-row justify-between mb-6">
                                 <div>
-                                    <h2 class="text-2xl font-bold text-white mb-2">Soundwave Studios</h2>
+                                    <h2 class="text-2xl font-bold text-white mb-2">{{ $borrow['studio']->name }}</h2>
                                     <div class="flex items-center">
                                         <div class="flex items-center mr-4">
                                             <i class="fas fa-map-marker-alt text-primary mr-1.5"></i>
-                                            <span class="text-sm text-textMuted">Downtown Music District</span>
+                                            <span
+                                                class="text-sm text-textMuted">{{ $borrow['studio']->location }}</span>
                                         </div>
                                         <div class="flex items-center text-warning">
                                             <i class="fas fa-star"></i>
@@ -159,17 +141,14 @@
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star-half-alt"></i>
-                                            <span class="ml-1 text-textMuted text-sm">(4.5)</span>
+                                            <span
+                                                class="ml-1 text-textMuted text-sm">({{ $borrow['studio']->rating }})</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mt-4 md:mt-0 flex flex-col items-end">
-                                    <div class="text-2xl font-bold text-white">$50<span
+                                    <div class="text-2xl font-bold text-white">{{ $borrow['studio']->price }}<span
                                             class="text-textMuted text-sm">/hour</span></div>
-                                    <span class="text-xs text-success flex items-center mt-1">
-                                        <i class="fas fa-check-circle mr-1"></i>
-                                        Verified Host
-                                    </span>
                                 </div>
                             </div>
 
@@ -197,9 +176,7 @@
                             <div class="mb-6">
                                 <h3 class="text-lg font-semibold text-white mb-3">About this studio</h3>
                                 <p class="text-textMuted text-sm leading-relaxed">
-                                    Soundwave Studios offers a professional recording environment with state-of-the-art
-                                    equipment and acoustically treated rooms. Perfect for bands, solo artists,
-                                    podcasters, and voice-over professionals looking for premium sound quality.
+                                    {{ $borrow['studio']->description }}
                                 </p>
                             </div>
 
@@ -257,8 +234,8 @@
                                 </div>
                                 <div class="flex-1">
                                     <div class="flex items-center justify-between">
-                                        <h4 class="text-light font-medium">John Doe</h4>
-                                        <span class="text-xs text-textMuted">Host since 2023</span>
+                                        <h4 class="text-light font-medium">{{ $borrow['studio']->owner->profile->full_name }}</h4>
+                                        <span class="text-xs text-textMuted">Host since {{ $borrow['studio']->owner->created_at}}</span>
                                     </div>
                                     <p class="text-xs text-textMuted">Professional audio engineer with 10+ years of
                                         recording experience</p>
@@ -268,40 +245,130 @@
                     </div>
 
                     <!-- Date and Time Selection -->
-                    <div class="bg-darkUI rounded-xl border border-border p-6 hover:shadow-lg transition-all duration-300">
+                    <div
+                        class="bg-darkUI rounded-xl border border-border p-6 hover:shadow-lg transition-all duration-300">
                         <h3 class="text-xl font-semibold text-white mb-6">
-                            Select Date & Time
+                            <i class="fas fa-calendar-alt text-primary mr-2"></i>
+                            Available Time Slots
                         </h3>
 
-                        <form class="space-y-6">
-                            <!-- Date Input -->
-                            <div class="space-y-2">
-                                <label for="booking-date" class="text-light block">Select Date</label>
-                                <input type="date"
-                                       id="booking-date"
-                                       name="booking-date"
-                                       min="{{ date('Y-m-d') }}"
-                                       class="w-full bg-darkAccent border border-border rounded-lg p-3 text-light focus:border-primary focus:outline-none">
+                        <form class="space-y-6" method="POST" action="">
+                            @csrf
+                            {{-- <input type="hidden" name="studio_id" value="{{ $studio->id }}"> --}}
+
+                            <!-- Date Selection -->
+                            <div class="space-y-4">
+                                <label class="text-light block font-medium">Select Date</label>
+                                <div class="grid grid-cols-7 gap-2">
+                                    {{-- @foreach ($availabilities as $date => $slots)
+                                        <button type="button"
+                                                class="date-selector p-3 text-center rounded-lg border border-border hover:border-primary transition-all
+                                                       @if ($loop->first) bg-primary text-white @else bg-darkAccent text-textMuted @endif"
+                                                data-date="{{ $date }}">
+                                            <span class="block text-xs">{{ \Carbon\Carbon::parse($date)->format('D') }}</span>
+                                            <span class="block text-lg font-bold">{{ \Carbon\Carbon::parse($date)->format('d') }}</span>
+                                        </button>
+                                    @endforeach --}}
+                                </div>
                             </div>
 
-                            <!-- Time Input -->
-                            <div class="space-y-2">
-                                <label for="booking-time" class="text-light block">Select Time</label>
-                                <input type="time"
-                                       id="booking-time"
-                                       name="booking-time"
-                                       min="09:00"
-                                       max="18:00"
-                                       step="3600"
-                                       class="w-full bg-darkAccent border border-border rounded-lg p-3 text-light focus:border-primary focus:outline-none">
+                            <!-- Time Slots -->
+                            <div class="space-y-4">
+                                <label class="text-light block font-medium">Select Time Slot</label>
+                                <div class="grid grid-cols-3 gap-3" id="timeSlots">
+                                    {{-- @foreach ($availabilities[array_key_first($availabilities)] as $slot) --}}
+                                    {{-- <button type="button" --}}
+                                    {{-- class="time-slot p-3 text-center rounded-lg border border-border hover:border-primary transition-all --}}
+                                    {{-- @if ($slot->status === 'available') bg-darkAccent text-textMuted hover:bg-primary hover:text-white --}}
+                                    {{-- @else bg-darkAccent/50 text-textMuted/50 cursor-not-allowed @endif" --}}
+                                    {{-- @if ($slot->status === 'available') --}}
+                                    {{-- data-slot-id="{{ $slot->id }}" --}}
+                                    {{-- onclick="selectTimeSlot(this)" --}}
+                                    {{-- @endif --}}
+                                    {{-- disabled="{{ $slot->status !== 'available' }}"> --}}
+                                    {{-- <span class="block text-sm"> --}}
+                                    {{-- {{ \Carbon\Carbon::parse($slot->start_time)->format('H:i') }} - --}}
+                                    {{-- {{ \Carbon\Carbon::parse($slot->end_time)->format('H:i') }} --}}
+                                    {{-- </span> --}}
+                                    {{-- </button> --}}
+                                    {{-- @endforeach --}}
+                                </div>
                             </div>
+
+                            <input type="hidden" name="availability_id" id="selected_slot">
 
                             <button type="submit"
-                                    class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 rounded-lg transition-all">
-                                Confirm Selection
+                                class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg transition-all flex items-center justify-center">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                Confirm Booking
                             </button>
                         </form>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const dateButtons = document.querySelectorAll('.date-selector');
+
+                            dateButtons.forEach(button => {
+                                button.addEventListener('click', async function() {
+                                    // Reset all buttons
+                                    dateButtons.forEach(btn => {
+                                        btn.classList.remove('bg-primary', 'text-white');
+                                        btn.classList.add('bg-darkAccent', 'text-textMuted');
+                                    });
+
+                                    // Highlight selected button
+                                    this.classList.add('bg-primary', 'text-white');
+                                    this.classList.remove('bg-darkAccent', 'text-textMuted');
+
+                                    // Fetch time slots for selected date
+                                    const date = this.dataset.date;
+                                    try {
+                                        const response = await fetch(`/api/timeslots/${date}`);
+                                        const slots = await response.json();
+                                        updateTimeSlots(slots);
+                                    } catch (error) {
+                                        console.error('Error fetching time slots:', error);
+                                    }
+                                });
+                            });
+                        });
+
+                        function selectTimeSlot(element) {
+                            // Remove selection from all slots
+                            document.querySelectorAll('.time-slot').forEach(slot => {
+                                slot.classList.remove('bg-primary', 'text-white');
+                            });
+
+                            // Highlight selected slot
+                            element.classList.add('bg-primary', 'text-white');
+
+                            // Update hidden input
+                            document.getElementById('selected_slot').value = element.dataset.slotId;
+                        }
+
+                        function updateTimeSlots(slots) {
+                            const container = document.getElementById('timeSlots');
+                            container.innerHTML = slots.map(slot => `
+                            <button type="button"
+                                    class="time-slot p-3 text-center rounded-lg border border-border hover:border-primary transition-all
+                                           ${slot.status === 'available' ? 'bg-darkAccent text-textMuted hover:bg-primary hover:text-white' : 'bg-darkAccent/50 text-textMuted/50 cursor-not-allowed'}"
+                                    ${slot.status === 'available' ? `data-slot-id="${slot.id}" onclick="selectTimeSlot(this)"` : 'disabled'}">
+                                <span class="block text-sm">
+                                    ${formatTime(slot.start_time)} - ${formatTime(slot.end_time)}
+                                </span>
+                            </button>
+                        `).join('');
+                        }
+
+                        function formatTime(time) {
+                            return new Date('1970-01-01T' + time).toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: false
+                            });
+                        }
+                    </script>
                 </div>
 
                 <!-- Booking Summary Column -->
