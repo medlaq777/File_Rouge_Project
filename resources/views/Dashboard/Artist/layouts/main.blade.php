@@ -75,7 +75,7 @@
                             <i class="fas fa-comment-alt text-success text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">8</p>
+                    <p class="text-3xl font-bold text-white">{{ $myReviews->count() }}</p>
                     <p class="text-sm text-textMuted mt-2">Your reviews on studios</p>
                 </div>
 
@@ -227,14 +227,6 @@
             <div class="bg-darkUI rounded-lg border border-border p-6 mt-8">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-white">Recent Bookings</h2>
-                    <div class="flex gap-2">
-                        <button class="text-textMuted hover:text-light px-3 py-1 rounded-md bg-darkAccent">
-                            <i class="fas fa-filter mr-2"></i>Filter
-                        </button>
-                        <button class="text-textMuted hover:text-light px-3 py-1 rounded-md bg-darkAccent">
-                            <i class="fas fa-download mr-2"></i>Export
-                        </button>
-                    </div>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -299,10 +291,11 @@
                                             <h3 class="text-xl font-semibold text-light mb-2">No Bookings Found</h3>
                                             <p class="text-textMuted mb-4">Start your musical journey by booking your
                                                 first studio session</p>
-                                            <button onclick="showTab('find-studios')"
-                                                class="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md transition-all duration-200">
-                                                Find Studios
-                                            </button>
+                                            <form action="{{ route('explore') }}" method="GET" class="inline">
+                                                <button type="submit" class="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-md transition-all duration-200">
+                                                    Find Studios
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

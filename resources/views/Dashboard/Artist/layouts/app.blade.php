@@ -141,8 +141,8 @@
 
 <body class="bg-darkBg text-light min-h-screen font-sans antialiased custom-scrollbar">
     @yield('nav') <!-- Navbar -->
-    @yield('main') <!-- Main content -->
     @yield('book') <!-- Book section -->
+    @yield('main') <!-- Main content -->
     <!-- JavaScript for Tab Navigation -->
     <script>
         // Function to hide all tabs and show the selected one
