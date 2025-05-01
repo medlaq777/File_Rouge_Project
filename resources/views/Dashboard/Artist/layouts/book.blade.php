@@ -234,11 +234,12 @@
                                 </div>
                                 <div class="flex-1">
                                     <div class="flex items-center justify-between">
-                                        <h4 class="text-light font-medium">{{ $borrow['studio']->owner->profile->full_name }}</h4>
-                                        <span class="text-xs text-textMuted">Host since {{ $borrow['studio']->owner->created_at}}</span>
+                                        <h4 class="text-light font-medium">
+                                            {{ $borrow['studio']->owner->profile->full_name }}</h4>
+                                        <span class="text-xs text-textMuted">Host since
+                                            {{ $borrow['studio']->owner->created_at }}</span>
                                     </div>
-                                    <p class="text-xs text-textMuted">Professional audio engineer with 10+ years of
-                                        recording experience</p>
+                                    <p class="text-xs text-textMuted">{{ $borrow['studio']->owner->profile->bio }}</p>
                                 </div>
                             </div>
                         </div>
@@ -249,62 +250,59 @@
                         class="bg-darkUI rounded-xl border border-border p-6 hover:shadow-lg transition-all duration-300">
                         <h3 class="text-xl font-semibold text-white mb-6">
                             <i class="fas fa-calendar-alt text-primary mr-2"></i>
-                            Available Time Slots
+                            Select Booking Period
                         </h3>
 
                         <form class="space-y-6" method="POST" action="">
                             @csrf
-                            {{-- <input type="hidden" name="studio_id" value="{{ $studio->id }}"> --}}
 
                             <!-- Date Selection -->
                             <div class="space-y-4">
                                 <label class="text-light block font-medium">Select Date</label>
                                 <div class="grid grid-cols-7 gap-2">
-                                    {{-- @foreach ($availabilities as $date => $slots)
+                                    @foreach ($borrow['availabilities'] as $date)
+                                    {{ dd($borrow['availabilities']) }}
                                         <button type="button"
-                                                class="date-selector p-3 text-center rounded-lg border border-border hover:border-primary transition-all
-                                                       @if ($loop->first) bg-primary text-white @else bg-darkAccent text-textMuted @endif"
-                                                data-date="{{ $date }}">
-                                            <span class="block text-xs">{{ \Carbon\Carbon::parse($date)->format('D') }}</span>
-                                            <span class="block text-lg font-bold">{{ \Carbon\Carbon::parse($date)->format('d') }}</span>
+                                            data-date="{{ $date->date }}"
+                                            class="date-selector p-3 text-center rounded-lg border border-border
+                                               bg-darkAccent text-textMuted hover:bg-primary hover:text-white
+                                               transition-all">
+                                            <span
+                                                class="block text-xs">{{ \Carbon\Carbon::parse($date->start_time)->format('d') }}</span>
+                                            <span
+                                                class="block text-sm font-medium">{{ \Carbon\Carbon::parse($date->end_time)->format('d') }}</span>
                                         </button>
-                                    @endforeach --}}
+                                    @endforeach
                                 </div>
                             </div>
 
                             <!-- Time Slots -->
                             <div class="space-y-4">
-                                <label class="text-light block font-medium">Select Time Slot</label>
-                                <div class="grid grid-cols-3 gap-3" id="timeSlots">
-                                    {{-- @foreach ($availabilities[array_key_first($availabilities)] as $slot) --}}
-                                    {{-- <button type="button" --}}
-                                    {{-- class="time-slot p-3 text-center rounded-lg border border-border hover:border-primary transition-all --}}
-                                    {{-- @if ($slot->status === 'available') bg-darkAccent text-textMuted hover:bg-primary hover:text-white --}}
-                                    {{-- @else bg-darkAccent/50 text-textMuted/50 cursor-not-allowed @endif" --}}
-                                    {{-- @if ($slot->status === 'available') --}}
-                                    {{-- data-slot-id="{{ $slot->id }}" --}}
-                                    {{-- onclick="selectTimeSlot(this)" --}}
-                                    {{-- @endif --}}
-                                    {{-- disabled="{{ $slot->status !== 'available' }}"> --}}
-                                    {{-- <span class="block text-sm"> --}}
-                                    {{-- {{ \Carbon\Carbon::parse($slot->start_time)->format('H:i') }} - --}}
-                                    {{-- {{ \Carbon\Carbon::parse($slot->end_time)->format('H:i') }} --}}
-                                    {{-- </span> --}}
-                                    {{-- </button> --}}
-                                    {{-- @endforeach --}}
+                                <label class="text-light block font-medium">Available Time Slots</label>
+                                <div id="timeSlots" class="grid grid-cols-3 gap-3">
+                                    <!-- Time slots will be populated dynamically via JS -->
                                 </div>
                             </div>
 
-                            <input type="hidden" name="availability_id" id="selected_slot">
+                            <!-- Duration Preview -->
+                            <div class="p-4 bg-darkAccent/30 rounded-lg">
+                                <p class="text-textMuted text-sm">
+                                    <i class="fas fa-clock text-primary mr-2"></i>
+                                    Selected Time: <span id="selected-time-display">Please select a time slot</span>
+                                </p>
+                            </div>
+
+                            <input type="hidden" name="selected_slot" id="selected_slot">
+                            <input type="hidden" name="studio_id" value="{{ $borrow['studio']->id }}">
 
                             <button type="submit"
-                                class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg transition-all flex items-center justify-center">
+                                class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
+                                       transition-all flex items-center justify-center">
                                 <i class="fas fa-check-circle mr-2"></i>
                                 Confirm Booking
                             </button>
                         </form>
                     </div>
-
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             const dateButtons = document.querySelectorAll('.date-selector');
@@ -313,22 +311,38 @@
                                 button.addEventListener('click', async function() {
                                     // Reset all buttons
                                     dateButtons.forEach(btn => {
-                                        btn.classList.remove('bg-primary', 'text-white');
+                                        btn.classList.remove('bg-primary', 'text-white',
+                                            'border-primary', 'shadow-glow');
                                         btn.classList.add('bg-darkAccent', 'text-textMuted');
                                     });
 
-                                    // Highlight selected button
-                                    this.classList.add('bg-primary', 'text-white');
+                                    // Enhanced selected state
+                                    this.classList.add('bg-primary', 'text-white', 'border-primary',
+                                        'shadow-glow');
                                     this.classList.remove('bg-darkAccent', 'text-textMuted');
 
-                                    // Fetch time slots for selected date
+                                    // Fetch time slots with loading state
                                     const date = this.dataset.date;
+                                    const timeSlotsContainer = document.getElementById('timeSlots');
+                                    timeSlotsContainer.innerHTML = `
+                                    <div class="col-span-3 text-center py-8">
+                                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-primary"></div>
+                                        <p class="text-textMuted mt-2">Loading available times...</p>
+                                    </div>
+                                `;
+
                                     try {
                                         const response = await fetch(`/api/timeslots/${date}`);
                                         const slots = await response.json();
                                         updateTimeSlots(slots);
                                     } catch (error) {
                                         console.error('Error fetching time slots:', error);
+                                        timeSlotsContainer.innerHTML = `
+                                        <div class="col-span-3 text-center py-8 text-error">
+                                            <i class="fas fa-exclamation-circle text-2xl mb-2"></i>
+                                            <p>Failed to load time slots. Please try again.</p>
+                                        </div>
+                                    `;
                                     }
                                 });
                             });
@@ -337,38 +351,77 @@
                         function selectTimeSlot(element) {
                             // Remove selection from all slots
                             document.querySelectorAll('.time-slot').forEach(slot => {
-                                slot.classList.remove('bg-primary', 'text-white');
+                                slot.classList.remove('bg-primary', 'text-white', 'border-primary', 'shadow-glow');
+                                slot.classList.add('bg-darkAccent', 'text-textMuted');
                             });
 
-                            // Highlight selected slot
-                            element.classList.add('bg-primary', 'text-white');
+                            // Enhanced selected state
+                            element.classList.add('bg-primary', 'text-white', 'border-primary', 'shadow-glow');
+                            element.classList.remove('bg-darkAccent', 'text-textMuted');
 
-                            // Update hidden input
+                            // Update hidden input and display
                             document.getElementById('selected_slot').value = element.dataset.slotId;
+                            document.getElementById('selected-time-display').textContent =
+                                `${element.querySelector('.time-range').textContent}`;
                         }
 
                         function updateTimeSlots(slots) {
                             const container = document.getElementById('timeSlots');
                             container.innerHTML = slots.map(slot => `
                             <button type="button"
-                                    class="time-slot p-3 text-center rounded-lg border border-border hover:border-primary transition-all
-                                           ${slot.status === 'available' ? 'bg-darkAccent text-textMuted hover:bg-primary hover:text-white' : 'bg-darkAccent/50 text-textMuted/50 cursor-not-allowed'}"
-                                    ${slot.status === 'available' ? `data-slot-id="${slot.id}" onclick="selectTimeSlot(this)"` : 'disabled'}">
-                                <span class="block text-sm">
-                                    ${formatTime(slot.start_time)} - ${formatTime(slot.end_time)}
-                                </span>
+                                    class="time-slot relative group p-4 text-center rounded-lg border-2 transition-all duration-300
+                                           ${slot.status === 'available'
+                                               ? 'bg-darkAccent hover:bg-primary/10 text-textMuted hover:text-white border-border hover:border-primary'
+                                               : 'bg-darkAccent/50 text-textMuted/50 cursor-not-allowed border-border/50'}"
+                                    ${slot.status === 'available' ? `data-slot-id="${slot.id}" onclick="selectTimeSlot(this)"` : 'disabled'}>
+                                <div class="flex flex-col items-center">
+                                    <span class="time-range text-sm font-medium mb-1">
+                                        ${formatTime(slot.start_time)} - ${formatTime(slot.end_time)}
+                                    </span>
+                                    <span class="text-xs opacity-75">
+                                        ${slot.status === 'available' ? '60 min session' : 'Unavailable'}
+                                    </span>
+                                </div>
+                                ${slot.status === 'available' ? `
+                                                        <div class="absolute inset-0 bg-primary/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                                    ` : ''}
                             </button>
                         `).join('');
                         }
 
                         function formatTime(time) {
                             return new Date('1970-01-01T' + time).toLocaleTimeString('en-US', {
-                                hour: '2-digit',
+                                hour: 'numeric',
                                 minute: '2-digit',
-                                hour12: false
+                                hour12: true
                             });
                         }
                     </script>
+
+                    <style>
+                        .shadow-glow {
+                            box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.3);
+                        }
+
+                        .time-slot {
+                            transform: translateY(0);
+                            transition: all 0.3s ease;
+                        }
+
+                        .time-slot:hover:not(:disabled) {
+                            transform: translateY(-2px);
+                        }
+
+                        @keyframes spin {
+                            to {
+                                transform: rotate(360deg);
+                            }
+                        }
+
+                        .animate-spin {
+                            animation: spin 1s linear infinite;
+                        }
+                    </style>
                 </div>
 
                 <!-- Booking Summary Column -->

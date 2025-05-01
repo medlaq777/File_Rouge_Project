@@ -64,7 +64,7 @@ class ArtistService
         $userArtist = Auth::user();
         $studio = Studios::findOrFail($id);
         $owner = $studio->user_id;
-        $availabilities = $studio->availabilities;
+        $availabilities = $studio->availabilities->where('studio_id', $studio->id)->where('status', 'available');
         $categories = $studio->category;
         $features = $studio->features;
         $reviews = $studio->reviews;
