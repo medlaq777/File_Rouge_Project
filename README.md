@@ -103,3 +103,6 @@ php artisan test
 ```
 
 ## Deployement
+
+medlaq777.github.io
+
