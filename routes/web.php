@@ -64,6 +64,6 @@ Route::put('/update/review/{id}', [ArtistController::class, 'getEditMyReview'])-
 Route::delete('/delete/review/{id}', [ArtistController::class, 'getDeleteMyReview'])->name('deleteMyReview')->middleware('auth');
 
 
-Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form')->middleware('auth');
+Route::POST('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form')->middleware('auth');
 Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process')->middleware('auth');
 Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success')->middleware('auth');

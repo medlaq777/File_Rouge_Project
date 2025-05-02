@@ -1,5 +1,5 @@
 <!-- Main Content -->
-<main class="flex-1 p-4 md:p-6">
+<main class="flex-1 bg-darkBg text-light p-12 lg:p-24">
     <div class="flex flex-col min-h-screen bg-darkBg text-light">
         <!-- Studio Hub Header -->
         <header class="mb-8">
@@ -67,7 +67,15 @@
 
                             <!-- Studio Features -->
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
+                                {{ dd($borrow['studio']->features) }}
+                                {{-- @foreach($borrow['studio']->features as $feature)
+
+                                    <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
+                                        <i class="{{ $feature['icon'] }} text-primary mb-1"></i>
+                                        <span class="text-sm text-textMuted">{{ $feature['label'] }}</span>
+                                    </div>
+                                @endforeach --}}
+                                {{-- <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
                                     <i class="fas fa-ruler-combined text-primary mb-1"></i>
                                     <span class="text-sm text-textMuted">800 sq ft</span>
                                 </div>
@@ -82,7 +90,7 @@
                                 <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
                                     <i class="fas fa-parking text-primary mb-1"></i>
                                     <span class="text-sm text-textMuted">Free Parking</span>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <!-- Studio Description -->
@@ -99,12 +107,15 @@
                                 <div class="space-y-4">
                                     <h3 class="text-lg font-semibold text-white mb-3">Studio Category</h3>
                                     <div class="flex items-center bg-darkAccent/30 rounded-lg p-4">
-                                        <div class="flex-shrink-0 w-10 h-10 bg-success/10 rounded-full flex items-center justify-center mr-4">
+                                        <div
+                                            class="flex-shrink-0 w-10 h-10 bg-success/10 rounded-full flex items-center justify-center mr-4">
                                             <i class="fas fa-music text-primary"></i>
                                         </div>
                                         <div>
-                                            <h4 class="text-md font-medium text-light">{{ $borrow['studio']->category->name }}</h4>
-                                            <p class="text-sm text-textMuted">{{ $borrow['studio']->category->description }}</p>
+                                            <h4 class="text-md font-medium text-light">
+                                                {{ $borrow['studio']->category->name }}</h4>
+                                            <p class="text-sm text-textMuted">
+                                                {{ $borrow['studio']->category->description }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -189,27 +200,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Duration Preview -->
-                        <div class="bg-darkAccent/30 rounded-lg p-4 border border-border/50">
-                            <div class="flex items-center justify-between">
-                                <p class="text-md text-textMuted flex items-center">
-                                    <i class="fas fa-clock text-primary mr-2"></i>
-                                    Duration
-                                </p>
-                                <span id="duration-display" class="text-light font-medium text-md">Select time
-                                    range</span>
-                            </div>
-                        </div>
-
-                        <input type="hidden" name="selected_date" id="selected_date">
-                        <button type="button" onclick="populateHiddenFieldsAndSubmit()"
-                            class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
-                                       transition-all duration-200 flex items-center justify-center text-md
-                                       hover:shadow-lg hover:shadow-primary/20">
-                            <i class="fas fa-check-circle mr-2"></i>
-                            Confirm Booking
-                        </button>
                     </div>
 
                 </div>
@@ -236,13 +226,14 @@
                                 </div>
                             </div>
 
-                            <div class="flex items-center">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-darkAccent flex items-center justify-center mr-3">
-                                    <i class="fas fa-calendar text-primary"></i>
-                                </div>
+                            <!-- Duration Preview -->
+                            <div class="bg-darkAccent/30 rounded-lg p-4 border border-border/50">
                                 <div class="flex items-center justify-between">
-                                    <span id="duration-display2" class="text-light font-medium text-md">Select time
+                                    <p class="text-md text-textMuted flex items-center">
+                                        <i class="fas fa-clock text-primary mr-2"></i>
+                                        Duration
+                                    </p>
+                                    <span id="duration-display" class="text-light font-medium text-md">Select time
                                         range</span>
                                 </div>
                             </div>
@@ -268,20 +259,30 @@
 
                         <!-- Action Buttons -->
                         <div class="space-y-3">
-                            <form action="{{ route('payment.form') }}" method="GET">
+                            <form action="{{ route('payment.form') }}" method="POST">
+                                @csrf
                                 <input type="hidden" name="studio_id" value="{{ $borrow['studio']->id }}">
-                                <input type="hidden" name="start_time" id="hidden_start_time">
-                                <input type="hidden" name="end_time" id="hidden_end_time">
-                                <input type="hidden" name="selected_date" id="hidden_selected_date">
-                                <input type="hidden" name="total_price" id="hidden_total_price">
+                                <input type="hidden" name="selected_date" id="selected_date" value="{{ old('selected_date') }}">
+                                <input type="hidden" name="start_time" value="{{ old('start_time') }}">
+                                <input type="hidden" name="end_time" value="{{ old('end_time') }}">
+                                <input type="hidden" name="total_price" value="{{ old('total_price') }}">
+
                                 <button type="submit"
-                                    class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-3 rounded-lg transition-all flex items-center justify-center">
-                                    <i class="fas fa-arrow-right mr-2"></i>
-                                    Continue to Payment
+                                    class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
+                                       transition-all duration-200 flex items-center justify-center text-md
+                                       hover:shadow-lg hover:shadow-primary/20">
+                                    <i class="fas fa-check-circle mr-2"></i>
+                                    Confirm Booking
                                 </button>
+
+                                @if ($errors->any())
+                                    <div class="mt-3 text-red-500 text-sm">
+                                        Please ensure all fields are selected before proceeding.
+                                    </div>
+                                @endif
                             </form>
 
-                            <a href="{{ redirect()->back()->getTargetUrl() }}"
+                            <a href="{{ url()->previous() }}"
                                 class="w-full bg-transparent border border-border hover:border-primary text-textMuted font-medium py-3 rounded-lg transition-all flex items-center justify-center">
                                 <i class="fas fa-times-circle mr-2"></i>
                                 Cancel Booking
@@ -327,8 +328,6 @@
         // Update duration display
         document.getElementById('duration-display').textContent =
             `${duration} hour${duration > 1 ? 's' : ''} session`;
-        document.getElementById('duration-display2').textContent =
-            `${duration} hour${duration > 1 ? 's' : ''} session`;
 
         // Calculate and update total price
         const hourlyRate = parseFloat(document.getElementById('hourly-rate').textContent.replace('$', '').trim());
@@ -342,24 +341,6 @@
             while (width && num.length < width) num = '0' + num;
             return num;
         });
-
-        function populateHiddenFieldsAndSubmit() {
-            const selectedDate = document.querySelector('.date-selector.bg-primary')?.getAttribute('data-date');
-            const startTime = document.getElementById('start_time').value;
-            const endTime = document.getElementById('end_time').value;
-            const totalPrice = document.getElementById('total-price').textContent.replace('$', '').trim();
-
-            document.getElementById('hidden_selected_date').value = selectedDate || '';
-            document.getElementById('hidden_start_time').value = startTime || '';
-            document.getElementById('hidden_end_time').value = endTime || '';
-            document.getElementById('hidden_total_price').value = totalPrice || '';
-
-            if (selectedDate && startTime && endTime && totalPrice) {
-                document.querySelector('form[action="{{ route('payment.form') }}"]').submit();
-            } else {
-                alert('Please ensure all fields are selected before proceeding.');
-            }
-        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {

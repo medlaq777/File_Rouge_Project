@@ -76,7 +76,6 @@ class User extends Authenticatable
     {
         return $this->role === RoleEnum::artist;
     }
-
     public function isOwner(): bool
     {
         return $this->role === RoleEnum::owner;
