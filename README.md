@@ -5,6 +5,8 @@
 
 Une Laravel web application Pour Finale Projet File Rouge
 
+https://baytrecord.me
+
 ## Table of Contents
 
 - [BeatRecords](#beatrecords)
