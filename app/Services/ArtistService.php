@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Booking;
 use App\Models\Studios;
+use App\Models\Bookings;
 use App\Models\Feature;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 
 class ArtistService
@@ -11,51 +14,57 @@ class ArtistService
     public function getMyTotalBookings()
     {
         $user = Auth::user();
-        $totalBookings = $user->bookings()->count();
-        return $totalBookings;
+        $bookings = Booking::where('user_id', $user->id)
+            ->where('status','confirmed')
+            ->count();
+        return $bookings;
     }
 
     public function getMyUpcomingBookings()
     {
         $user = Auth::user();
-        $upcomingBookings = $user->bookings()
-        ->where('start_date', '>', now())
-        ->with(['studio', 'artist'])
-        ->orderBy('start_date', 'asc')
-        ->get();
+        $upcomingBookings = Booking::where('user_id', $user->id)
+            ->where('status','confirmed')
+            ->where('start_date', '>=', now())
+            ->with(['studio.category', 'studio.availabilities'])
+            ->orderBy('start_date', 'asc')
+            ->get();
         return $upcomingBookings;
     }
 
     public function getMyFavoriteStudios()
     {
         $user = Auth::user();
-        $favoriteStudios = $user->bookings()
-        ->where('user_id', $user->id)
-        ->get();
+        $favoriteStudios = Booking::where('user_id', $user->id)
+            ->where('status','confirmed')
+            ->with(['studio.category', 'studio.availabilities'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
         return $favoriteStudios;
     }
 
     public function getRecentlyViewedStudios()
     {
         $user = Auth::user();
-        $recentlyViewedStudios = $user->bookings()
-        ->where('user_id', $user->id)
-        ->orderBy('start_date', 'desc')
-        ->take(5)
-        ->get();
+        $recentlyViewedStudios = booking::where('user_id', $user->id)
+            ->where('status','confirmed')
+            ->with(['studio.category', 'studio.availabilities'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
         return $recentlyViewedStudios;
     }
 
     public function getMyBookings()
     {
-        return Auth::user()
-            ->bookings()
-            ->where('user_id', Auth::id())
-            ->with([
-                'studio.category',
-                'studio.availabilities',
-            ])
+        $user = Auth::user();
+        $bookings = booking::where('user_id', $user->id)
+            ->where('status','confirmed')
+            ->with(['studio.category', 'studio.availabilities'])
+            ->orderBy('created_at', 'desc')
             ->get();
+        return $bookings;
     }
 
     public function getBookingStudio($id)
@@ -78,38 +87,18 @@ class ArtistService
         ];
     }
 
-
-    // public function getMyBookingDetails($bookingId)
-    // {
-    //     return Auth::user()
-    //         ->bookings()
-    //         ->where('id', $bookingId)
-    //         ->with([
-    //             'studio.category',
-    //             'studio.availabilities',
-    //         ])
-    //         ->first();
-    // }
-
-
     public function getMyReviews()
     {
-        return Auth::user()
-            ->reviews()
-            ->with([
-                'studio.category',
-                'studio.availabilities',
-            ])
-            ->get();
+        $user = Auth::user();
+        $reviews = Review::where('user_id', $user->id)->get();
+        return $reviews;
     }
 
 
     public function getEditMyReview($id)
     {
-        $review = Auth::user()
-            ->reviews()
-            ->where('id', $id)
-            ->firstOrFail();
+        $user = Auth::user();
+        $review = Review::where('user_id', $user->id)->where('id', $id);
 
         $review->update([
             'comment' => request('comment'),
@@ -121,13 +110,10 @@ class ArtistService
 
     public function getDeleteMyReview($id)
     {
-        $review = Auth::user()
-            ->reviews()
-            ->where('id', $id)
-            ->firstOrFail();
+        $user = Auth::user();
+        $review = Review::where('user_id', $user->id)->where('id', $id);
 
         $review->delete();
+        return $review;
     }
-
-
 }
