@@ -65,7 +65,7 @@ class ArtistService
         $owner = $studio->user_id;
         $availabilities = $studio->availabilities->where('studio_id', $studio->id)->where('status', 'available');
         $categories = $studio->category;
-        $features =
+        $features = Feature::all();
         $reviews = $studio->reviews;
         return [
             'user' => $userArtist,
@@ -73,7 +73,7 @@ class ArtistService
             'owner' => $owner,
             'availabilities' => $availabilities,
             'categories' => $categories,
-            'features' => $features,
+            'features' => dd($features),
             'reviews' => $reviews,
         ];
     }

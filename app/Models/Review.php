@@ -21,11 +21,6 @@ class Review extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
     public function artist()
     {
         return $this->belongsTo(User::class, 'artist_id');
@@ -37,7 +32,7 @@ class Review extends Model
     }
 
     protected static function booted()
-{
+    {
     static::saved(function ($review) {
         $review->studio->updateRating();
     });
@@ -49,5 +44,5 @@ class Review extends Model
     static::updated(function ($review) {
         $review->studio->updateRating();
     });
-}
+    }
 }

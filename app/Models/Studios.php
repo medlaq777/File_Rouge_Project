@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
 class Studios extends Model
 {
     /** @use HasFactory<\Database\Factories\StudiosFactory> */
@@ -15,7 +14,6 @@ class Studios extends Model
 
     protected $fillable = [
         'user_id',
-        'category_id',
         'name',
         'description',
         'location',
@@ -26,19 +24,23 @@ class Studios extends Model
 
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->where('role', RoleEnum::owner);
     }
 
-    public function category(): BelongsTo
+    public function artist(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(User::class, 'user_id')->where('role', RoleEnum::artist);
     }
 
-    public function features(): BelongsToMany
+    public function category(): HasMany
     {
-        return $this->belongsToMany(Feature::class, 'feature_studio', 'studio_id', 'feature_id');
+        return $this->hasMany(Category::class, 'studio_id');
     }
 
+    public function features(): HasMany
+    {
+        return $this->hasMany(Feature::class, 'studio_id');
+    }
 
     public function reviews(): HasMany
     {
@@ -61,11 +63,11 @@ class Studios extends Model
     }
 
     public function updateRating()
-{
+    {
     $this->rating = $this->reviews()->where('studio_id', $this->id)->avg('rating') ?? 0;
     $this->TotalReviews = $this->reviews()->count();
 
 
     $this->save();
-}
+    }
 }

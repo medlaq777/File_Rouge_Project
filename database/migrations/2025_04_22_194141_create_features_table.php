@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('studio_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->timestamps();

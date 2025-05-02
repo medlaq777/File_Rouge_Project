@@ -25,18 +25,13 @@ class Booking extends Model
     ];
 
     public function artist()
-{
-    return $this->belongsTo(User::class, 'user_id')->where('role', RoleEnum::artist);
-}
+    {
+        return $this->belongsTo(User::class, 'user_id')->where('role', RoleEnum::artist);
+    }
 
     public function studio()
     {
         return $this->belongsTo(Studios::class);
-    }
-
-    public function availability()
-    {
-        return $this->belongsTo(Availability::class);
     }
 
     public function payment()

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class Payment extends Model
 
     protected $fillable = [
         'booking_id',
+        'studio_id',
         'user_id',
         'total_price',
         'payment_date',
@@ -23,9 +25,9 @@ class Payment extends Model
         'payment_date' => 'datetime',
     ];
 
-    public function user()
+    public function artist()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->where(RoleEnum::artist);
     }
 
     public function booking()
@@ -33,10 +35,6 @@ class Payment extends Model
         return $this->belongsTo(Booking::class, 'booking_id');
     }
 
-    public function artist()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 
     public function markAsSuccessful()
     {

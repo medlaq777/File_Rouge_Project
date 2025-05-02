@@ -58,20 +58,6 @@ class User extends Authenticatable
         return $this->hasMany(Studios::class, 'user_id');
     }
 
-    public function bookings(): HasOneOrMany
-    {
-        return $this->hasMany(Booking::class, 'user_id');
-    }
-
-    public function reviews(): HasOneOrMany
-    {
-        return $this->hasMany(Review::class, 'user_id');
-    }
-    public function payments()
-    {
-        return $this->hasMany(Payment::class, 'user_id');
-    }
-
     public function isArtist(): bool
     {
         return $this->role === RoleEnum::artist;

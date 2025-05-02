@@ -13,7 +13,6 @@ class Availability extends Model
     use HasFactory;
     protected $fillable = [
         'studio_id',
-        'user_id',
         'date',
         'start_time',
         'end_time',
