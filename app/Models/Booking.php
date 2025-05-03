@@ -13,15 +13,15 @@ class Booking extends Model
     protected $fillable = [
         'studio_id',
         'user_id',
-        'date_debut',
-        'date_fin',
-        'prix_total',
-        'statut',
+        'date',
+        'time',
+        'total_price',
+        'status',
     ];
 
     protected $casts = [
-        'date_debut' => 'datetime',
-        'date_fin' => 'datetime',
+        'date' => 'date',
+        'time' => 'time',
     ];
 
     public function artist()

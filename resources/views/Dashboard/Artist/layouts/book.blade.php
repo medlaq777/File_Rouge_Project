@@ -246,10 +246,12 @@
 
                         <!-- Action Buttons -->
                         <div class="space-y-3">
-                            <form action="{{ route('payment.form') }}" method="POST">
+                            <form id="booking-form" action="{{ route('payment.form') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="studio_id" value="{{ $borrow['studio']->id }}">
                                 <input type="hidden" name="totalPrice" id="hidden-totalPrice" value="0.00">
+                                <input type="hidden" name="start_date" id="hidden-start_date" value="">
+                                <input type="hidden" name="end_date" id="hidden-end_date" value="">
 
                                 <button type="submit"
                                     class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
@@ -278,8 +280,15 @@
         </section>
     </div>
 </main>
-
 <script>
+    function sprintf(format, ...args) {
+        return format.replace(/%([0-9]+)?d/, (match, width) => {
+            let num = args.shift().toString();
+            while (width && num.length < width) num = '0' + num;
+            return num;
+        });
+    }
+
     function updateEndTimeOptions() {
         const startTime = document.getElementById('start_time').value;
         const startHour = parseInt(startTime.split(':')[0]);
@@ -295,6 +304,7 @@
             );
             endTimeSelect.appendChild(option);
         }
+
         updateDurationDisplay();
     }
 
@@ -302,52 +312,29 @@
         const startTime = document.getElementById('start_time').value;
         const endTime = document.getElementById('end_time').value;
 
-
         const startHour = parseInt(startTime.split(':')[0]);
         const endHour = parseInt(endTime.split(':')[0]);
 
-
         const duration = endHour - startHour;
-
 
         document.getElementById('duration-display').textContent =
             `${duration} hour${duration > 1 ? 's' : ''} session`;
 
-
         const hourlyRate = parseFloat(document.getElementById('hourly-rate').textContent.replace('$', '').trim());
         const totalPrice = duration * hourlyRate;
 
-
         document.getElementById('totalPrice').textContent = `$${totalPrice.toFixed(2)}`;
-
-
         document.getElementById('hidden-totalPrice').value = totalPrice.toFixed(2);
+
+        const selectedDate = document.querySelector('.date-selector.bg-primary')?.getAttribute('data-date');
+        if (selectedDate) {
+            const startDateTime = `${selectedDate} ${startTime}`;
+            const endDateTime = `${selectedDate} ${endTime}`;
+            document.getElementById('hidden-start_date').value = startDateTime;
+            document.getElementById('hidden-end_date').value = endDateTime;
+        }
     }
 
-    function sprintf(format, ...args) {
-        return format.replace(/%([0-9]+)?d/, (match, width) => {
-            let num = args.shift().toString();
-            while (width && num.length < width) num = '0' + num;
-            return num;
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        updateEndTimeOptions();
-
-
-        const dateSelectors = document.querySelectorAll('.date-selector');
-        dateSelectors.forEach(btn => {
-            btn.addEventListener('click', () => {
-                dateSelectors.forEach(b => b.classList.remove('bg-primary', 'border-primary'));
-                btn.classList.add('bg-primary', 'border-primary');
-            });
-        });
-    });
-
-    document.getElementById('end_time').addEventListener('change', updateDurationDisplay);
-</script>
-<script>
     function initializeCalendar() {
         const calendarDays = document.querySelectorAll('.calendar-day');
         calendarDays.forEach(day => {
@@ -358,7 +345,6 @@
             });
         });
     }
-
 
     function initializeTimeSlots() {
         const timeSlots = document.querySelectorAll('.time-slot');
@@ -372,7 +358,6 @@
         });
     }
 
-
     function updateBookingSummary(timeRange) {
         const summaryTime = document.querySelector('.booking-summary-time');
         if (summaryTime) {
@@ -380,39 +365,46 @@
         }
     }
 
-
     function showTab(tabId) {
-
         document.querySelectorAll('main > section').forEach(section => {
             section.classList.add('hidden');
         });
 
-
         document.getElementById(tabId).classList.remove('hidden');
 
-
         document.querySelectorAll('.sidebar-active').forEach(link => {
-            link.classList.remove('sidebar-active');
-            link.classList.remove('border-primary');
+            link.classList.remove('sidebar-active', 'border-primary');
             link.classList.add('border-transparent');
         });
 
-
         const activeLink = document.getElementById(tabId + '-link');
         if (activeLink) {
-            activeLink.classList.add('sidebar-active');
+            activeLink.classList.add('sidebar-active', 'border-primary');
             activeLink.classList.remove('border-transparent');
-            activeLink.classList.add('border-primary');
         }
     }
 
-
     document.addEventListener('DOMContentLoaded', function() {
+        // Time and price logic
+        updateEndTimeOptions();
+        document.getElementById('start_time').addEventListener('change', updateEndTimeOptions);
+        document.getElementById('end_time').addEventListener('change', updateDurationDisplay);
 
+        // Date selector
+        const dateSelectors = document.querySelectorAll('.date-selector');
+        dateSelectors.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dateSelectors.forEach(b => b.classList.remove('bg-primary', 'border-primary'));
+                btn.classList.add('bg-primary', 'border-primary');
+                updateDurationDisplay(); // Ensure date is reflected in datetime
+            });
+        });
+
+        // Calendar & slot interaction
         initializeCalendar();
         initializeTimeSlots();
 
-
+        // Tabs
         const borrowStudiosLink = document.createElement('li');
         borrowStudiosLink.innerHTML = `
             <a href="#" onclick="showTab('borrow-studios')" id="borrow-studios-link"
@@ -421,7 +413,6 @@
                 Borrow Studios
             </a>
         `;
-
 
         const bookStudioLink = document.createElement('li');
         bookStudioLink.innerHTML = `
@@ -432,6 +423,7 @@
             </a>
         `;
 
+        // Optional CSS for animation
         document.head.insertAdjacentHTML('beforeend', `
             <style>
                 .animate-fade-in {
@@ -443,5 +435,19 @@
                 }
             </style>
         `);
+        const form = document.getElementById('booking-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const selectedDate = document.querySelector('.date-selector.bg-primary');
+                const startTime = document.getElementById('start_time').value;
+                const endTime = document.getElementById('end_time').value;
+
+                if (!selectedDate || !startTime || !endTime) {
+                    e.preventDefault(); // Stop form from submitting
+                    alert("Please select a date, start time, and end time before submitting.");
+                    return false;
+                }
+            });
+        }
     });
 </script>

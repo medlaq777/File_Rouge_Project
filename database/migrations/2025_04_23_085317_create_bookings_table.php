@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('studio_id')->constrained('studios')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->datetime('start_date');
-            $table->datetime('end_date');
+            $table->date('date');
+            $table->time('time');
             $table->decimal('total_price', 10, 2);
             $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();

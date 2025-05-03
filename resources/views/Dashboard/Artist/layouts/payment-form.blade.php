@@ -247,7 +247,14 @@
 
 
     <form id="payment-form" action="/payment/process" method="POST">
+        @csrf
         <input type="hidden" name="payment_type" id="payment-type" value="card">
+        <input type="hidden" name="user_id" value="{{ $userId }}">
+        <input type="hidden" name="studio_id" value="{{ $studioId }}">
+        <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+        <input type="hidden" name="startDate" value="{{ $startDate }}">
+        <input type="hidden" name="endDate" value="{{ $endDate }}">
+
         <div id="card-payment-form">
             <div class="form-group">
                 <label>Amount (USD)</label>
@@ -257,7 +264,8 @@
             </div>
             <div class="form-group">
                 <label for="cardholder">Cardholder Name</label>
-                <input type="text" name="cardholder" id="cardholder" class="form-control" value="{{ Auth::user()->profile->full_name }}">
+                <input type="text" name="cardholder" id="cardholder" class="form-control"
+                    value="{{ Auth::user()->profile->full_name }}">
             </div>
 
             <div class="form-group">
@@ -337,32 +345,34 @@
         const stripe = Stripe('{{ config('services.stripe.key') }}');
         const elements = stripe.elements({
             fonts: [{
-            cssSrc: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap',
+                cssSrc: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap',
             }],
         });
 
         // Style configuration for the card element
         const style = {
             base: {
-            color: '#e0e0e0',
-            fontFamily: '"Montserrat", sans-serif',
-            fontSmoothing: 'antialiased',
-            fontSize: '16px',
-            '::placeholder': {
-                color: '#8a8a8a'
-            },
-            ':-webkit-autofill': {
                 color: '#e0e0e0',
-            }
+                fontFamily: '"Montserrat", sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#8a8a8a'
+                },
+                ':-webkit-autofill': {
+                    color: '#e0e0e0',
+                }
             },
             invalid: {
-            color: '#e50000',
-            iconColor: '#e50000'
+                color: '#e50000',
+                iconColor: '#e50000'
             }
         };
 
         // Create and mount the card element
-        const cardElement = elements.create('card', { style });
+        const cardElement = elements.create('card', {
+            style
+        });
         cardElement.mount('#card-element');
 
         // Form handling
@@ -372,36 +382,40 @@
 
         form.addEventListener('submit', async (event) => {
             if (paymentTypeInput.value === 'card') {
-            event.preventDefault();
-            paymentProcessing.style.display = 'flex';
+                event.preventDefault();
+                paymentProcessing.style.display = 'flex';
 
-            try {
-                const { paymentMethod, error } = await stripe.createPaymentMethod({
-                type: 'card',
-                card: cardElement,
-                billing_details: {
-                    name: document.getElementById('cardholder').value,
-                },
-                });
+                try {
+                    const {
+                        paymentMethod,
+                        error
+                    } = await stripe.createPaymentMethod({
+                        type: 'card',
+                        card: cardElement,
+                        billing_details: {
+                            name: document.getElementById('cardholder').value,
+                        },
+                    });
 
-                if (error) {
-                throw error;
+                    if (error) {
+                        throw error;
+                    }
+
+                    // Add payment method ID to form
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', 'payment_method');
+                    hiddenInput.setAttribute('value', paymentMethod.id);
+                    form.appendChild(hiddenInput);
+
+                    // Submit the form
+                    form.submit();
+
+                } catch (error) {
+                    cardErrors.textContent = error.message ||
+                    'An error occurred. Please try again.';
+                    paymentProcessing.style.display = 'none';
                 }
-
-                // Add payment method ID to form
-                const hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'payment_method');
-                hiddenInput.setAttribute('value', paymentMethod.id);
-                form.appendChild(hiddenInput);
-
-                // Submit the form
-                form.submit();
-
-            } catch (error) {
-                cardErrors.textContent = error.message || 'An error occurred. Please try again.';
-                paymentProcessing.style.display = 'none';
-            }
             }
         });
     });
