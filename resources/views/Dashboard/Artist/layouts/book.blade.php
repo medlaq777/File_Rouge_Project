@@ -67,33 +67,18 @@
 
                             <!-- Studio Features -->
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                {{-- {{ dd($borrow['studio']->studio->features->first()) }} --}}
-                                {{-- <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
-                                    <i class="fas fa-microphone text-primary mb-1"></i>
-                                    <span class="text-sm text-textMuted">Microphone</span>
-                                {{-- @foreach($borrow['studio']->features as $feature)
-
-                                    <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
-                                        <i class="{{ $feature['icon'] }} text-primary mb-1"></i>
-                                        <span class="text-sm text-textMuted">{{ $feature['label'] }}</span>
+                                @foreach($borrow['studio']->features as $feature)
+                                    <div class="flex items-center bg-darkAccent/30 rounded-lg p-4">
+                                        <div
+                                            class="flex-shrink-0 w-10 h-10 bg-success/10 rounded-full flex items-center justify-center mr-4">
+                                            <i class="{{ $feature->icon }} text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-md font-medium text-light">{{ $feature->name }}</h4>
+                                            <p class="text-sm text-textMuted">{{ $feature->description }}</p>
+                                        </div>
                                     </div>
-                                @endforeach --}}
-                                {{-- <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
-                                    <i class="fas fa-ruler-combined text-primary mb-1"></i>
-                                    <span class="text-sm text-textMuted">800 sq ft</span>
-                                </div>
-                                <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
-                                    <i class="fas fa-users text-primary mb-1"></i>
-                                    <span class="text-sm text-textMuted">Up to 8 people</span>
-                                </div>
-                                <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
-                                    <i class="fas fa-volume-up text-primary mb-1"></i>
-                                    <span class="text-sm text-textMuted">Soundproofed</span>
-                                </div>
-                                <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
-                                    <i class="fas fa-parking text-primary mb-1"></i>
-                                    <span class="text-sm text-textMuted">Free Parking</span>
-                                </div> --}}
+                                @endforeach
                             </div>
 
                             <!-- Studio Description -->
@@ -116,9 +101,9 @@
                                         </div>
                                         <div>
                                             <h4 class="text-md font-medium text-light">
-                                                {{ $borrow['studio']->category->name }}</h4>
+                                                {{ $borrow['studio']->category->first()->name }}</h4>
                                             <p class="text-sm text-textMuted">
-                                                {{ $borrow['studio']->category->description }}</p>
+                                                {{ $borrow['studio']->category->first()->description }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +118,7 @@
                                 <div class="flex-1">
                                     <div class="flex items-center justify-between">
                                         <h4 class="text-light font-medium">
-                                            {{ $borrow['studio']->owner->profile->full_name }}</h4>
+                                            {{ $borrow['studio']->owner->profile->username }}</h4>
                                         <span class="text-sm text-textMuted">Host since
                                             {{ $borrow['studio']->owner->created_at }}</span>
                                     </div>
