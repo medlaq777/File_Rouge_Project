@@ -82,7 +82,7 @@ class ArtistService
             'owner' => $owner,
             'availabilities' => $availabilities,
             'categories' => $categories,
-            'features' => dd($features),
+            'features' => $features,
             'reviews' => $reviews,
         ];
     }
@@ -98,13 +98,17 @@ class ArtistService
     public function getEditMyReview($id)
     {
         $user = Auth::user();
-        $review = Review::where('user_id', $user->id)->where('id', $id);
+        $review = Review::where('user_id', $user->id)->where('id', $id)->first();
+
+        if (!$review) {
+            return response()->json(['error' => 'Review not found'], 404);
+        }
 
         $review->update([
             'comment' => request('comment'),
             'rating' => request('rating'),
         ]);
-
+    
         return $review;
     }
 

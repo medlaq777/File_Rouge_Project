@@ -351,7 +351,7 @@
                                     <div class="w-16 h-16 rounded-md overflow-hidden mr-4">
                                         @if ($review->studio->photos->isNotEmpty())
                                             <img src="{{ asset('storage/' . $review->studio->photos->first()->image_path) }}"
-                                                alt="{{ $studio->name }}" class="w-full h-48 object-cover">
+                                                alt="{{ $review->studio->name }}" class="w-full h-48 object-cover">
                                         @else
                                             <img src="{{ 'no image' }}" alt="Default Studio Image"
                                                 class="w-full h-48 object-cover">

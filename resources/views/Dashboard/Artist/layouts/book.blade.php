@@ -67,7 +67,7 @@
 
                             <!-- Studio Features -->
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                {{ dd($borrow['studio']->studio->features->first()) }}
+                                {{-- {{ dd($borrow['studio']->studio->features->first()) }} --}}
                                 {{-- <div class="flex flex-col items-center bg-darkAccent/50 p-3 rounded-lg">
                                     <i class="fas fa-microphone text-primary mb-1"></i>
                                     <span class="text-sm text-textMuted">Microphone</span>

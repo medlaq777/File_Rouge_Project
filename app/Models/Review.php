@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log; // Import Log facade
 
 class Review extends Model
 {
@@ -23,7 +24,7 @@ class Review extends Model
 
     public function artist()
     {
-        return $this->belongsTo(User::class, 'artist_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function studio()

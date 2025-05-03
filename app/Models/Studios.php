@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 class Studios extends Model
 {
     /** @use HasFactory<\Database\Factories\StudiosFactory> */
@@ -19,7 +21,7 @@ class Studios extends Model
         'location',
         'price',
         'rating',
-        'TotalReviews',
+        'total_reviews',
     ];
 
     public function owner(): BelongsTo
@@ -42,11 +44,6 @@ class Studios extends Model
         return $this->hasMany(Feature::class, 'studio_id');
     }
 
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class, 'studio_id');
-    }
-
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class, 'studio_id');
@@ -62,12 +59,26 @@ class Studios extends Model
         return $this->hasMany(Availability::class, 'studio_id');
     }
 
-    public function updateRating()
+    public function reviews(): HasMany
     {
-    $this->rating = $this->reviews()->where('studio_id', $this->id)->avg('rating') ?? 0;
-    $this->TotalReviews = $this->reviews()->count();
-
-
-    $this->save();
+        return $this->hasMany(Review::class, 'studio_id');
     }
+
+    public function updateRating()
+{
+    try {
+        Log::info('updateRating method called for studio ID: ' . $this->id);
+
+        $this->rating = $this->reviews()->where('studio_id', $this->id)->avg('rating') ?? 0;
+        $this->total_reviews = $this->reviews()->count();
+
+        Log::info('New rating: ' . $this->rating . ', Total reviews: ' . $this->total_reviews);
+
+        $this->save();
+
+        Log::info('Rating updated successfully for studio ID: ' . $this->id);
+    } catch (\Exception $e) {
+        Log::error('Error in updateRating: ' . $e->getMessage());
+    }
+}
 }
