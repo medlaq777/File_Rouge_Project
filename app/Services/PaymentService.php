@@ -36,10 +36,11 @@ class PaymentService
             return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+    
 
-    public function paymentSuccess()
-    {
-        return view('payment.success');
-    }
+    // public function paymentSuccess()
+    // {
+    //     return view('payment.success');
+    // }
 
 }

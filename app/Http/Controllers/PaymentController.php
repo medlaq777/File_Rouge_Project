@@ -22,5 +22,10 @@ class PaymentController extends Controller
         return $this->PaymentService->showPaymentForm();
     }
 
+    public function processPayment(Request $request)
+    {
+        return $this->PaymentService->processPayment($request);
+    }
+
 
 }
