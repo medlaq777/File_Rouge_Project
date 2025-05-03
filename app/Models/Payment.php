@@ -38,19 +38,19 @@ class Payment extends Model
 
     public function markAsSuccessful()
     {
-        $this->statut = 'Success';
+        $this->status = 'Success';
         $this->save();
     }
 
     public function markAsFailed()
     {
-        $this->statut = 'Failure';
+        $this->status = 'Failure';
         $this->save();
     }
 
     public function refund()
     {
-        $this->statut = 'refund';
+        $this->status = 'refund';
         $this->save();
     }
 }

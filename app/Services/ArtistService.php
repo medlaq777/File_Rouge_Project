@@ -25,9 +25,9 @@ class ArtistService
         $user = Auth::user();
         $upcomingBookings = Booking::where('user_id', $user->id)
             ->where('status','confirmed')
-            ->where('start_date', '>=', now())
+            ->where('date', '>=', now())
             ->with(['studio.category', 'studio.availabilities'])
-            ->orderBy('start_date', 'asc')
+            ->orderBy('date', 'asc')
             ->get();
         return $upcomingBookings;
     }
@@ -108,7 +108,7 @@ class ArtistService
             'comment' => request('comment'),
             'rating' => request('rating'),
         ]);
-    
+
         return $review;
     }
 

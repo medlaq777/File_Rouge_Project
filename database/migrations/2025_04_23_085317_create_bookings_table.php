@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->decimal('total_price', 10, 2);
-            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->nullable();
             $table->timestamps();
         });
     }

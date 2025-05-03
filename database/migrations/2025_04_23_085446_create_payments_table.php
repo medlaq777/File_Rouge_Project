@@ -20,7 +20,7 @@ return new class extends Migration
             $table->datetime('payment_date');
             $table->string('transaction_id')->nullable();
             $table->enum('method', ['stripe', 'paypal'])->default('stripe');
-            $table->enum('status', ['pending', 'completed', 'failed'])->default('pending');
+            $table->enum('status', ['refund', 'Success', 'Failure'])->nullable();
             $table->timestamps();
         });
     }

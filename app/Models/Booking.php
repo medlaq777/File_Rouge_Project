@@ -21,7 +21,7 @@ class Booking extends Model
 
     protected $casts = [
         'date' => 'date',
-        'time' => 'time',
+        'time' => 'datetime',
     ];
 
     public function artist()
@@ -41,13 +41,13 @@ class Booking extends Model
 
     public function confirm()
     {
-        $this->statut = 'confirmée';
+        $this->status = 'confirmée';
         $this->save();
     }
 
     public function cancel()
     {
-        $this->statut = 'annulée';
+        $this->status = 'annulée';
         $this->save();
     }
 }
