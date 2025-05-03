@@ -71,13 +71,6 @@
                                 Reviews
                             </a>
                         </li>
-                        <li>
-                            <a href="#" onclick="showTab('settings')" id="settings-link"
-                                class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200">
-                                <i class="fas fa-cog mr-3"></i>
-                                Settings
-                            </a>
-                        </li>
                     </ul>
                 </nav>
             </div>
@@ -187,11 +180,13 @@
                                     <i class="fas fa-calendar-alt mr-2"></i>
                                     Last 30 Days
                                 </button>
-                                <button class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
+                                <button
+                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
                                     <i class="fas fa-calendar-alt mr-2"></i>
                                     Last 7 Days
                                 </button>
-                                <button class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
+                                <button
+                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
                                     <i class="fas fa-calendar-alt mr-2"></i>
                                     Today
                                 </button>
@@ -208,11 +203,13 @@
                                     <i class="fas fa-calendar-alt mr-2"></i>
                                     Last 30 Days
                                 </button>
-                                <button class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
+                                <button
+                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
                                     <i class="fas fa-calendar-alt mr-2"></i>
                                     Last 7 Days
                                 </button>
-                                <button class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
+                                <button
+                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
                                     <i class="fas fa-calendar-alt mr-2"></i>
                                     Today
                                 </button>
@@ -399,7 +396,8 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40" alt="User Avatar">
+                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                            alt="User Avatar">
                                         <div>
                                             <div class="text-sm font-medium text-white">John Doe</div>
                                             <div class="text-sm text-textMuted">Joined on Jan 1, 2025</div>
@@ -410,10 +408,12 @@
                                     <div class="text-sm text-white">john.doe@example.com</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-primary text-white">Admin</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-primary text-white">Admin</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -425,7 +425,8 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40" alt="User Avatar">
+                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                            alt="User Avatar">
                                         <div>
                                             <div class="text-sm font-medium text-white">Jane Smith</div>
                                             <div class="text-sm text-textMuted">Joined on Feb 15, 2025</div>
@@ -436,10 +437,12 @@
                                     <div class="text-sm text-white">jane.smith@example.com</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-info text-white">User</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-info text-white">User</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -451,7 +454,8 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40" alt="User Avatar">
+                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40"
+                                            alt="User Avatar">
                                         <div>
                                             <div class="text-sm font-medium text-white">Mike Johnson</div>
                                             <div class="text-sm text-textMuted">Joined on Mar 10, 2025</div>
@@ -462,10 +466,12 @@
                                     <div class="text-sm text-white">mike.johnson@example.com</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-warning text-white">Moderator</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-warning text-white">Moderator</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -552,7 +558,8 @@
                                     <div class="text-sm text-white">John Doe</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-primary text-white">Active</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-primary text-white">Active</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -571,7 +578,8 @@
                                     <div class="text-sm text-white">Jane Smith</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-info text-white">Pending</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-info text-white">Pending</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -590,7 +598,8 @@
                                     <div class="text-sm text-white">Mike Johnson</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -618,6 +627,531 @@
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             3
                         </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </section>
+            <!-- Category Section -->
+            <section id="categories" class="hidden animate-fade-in">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">Categories</h1>
+                        <p class="text-textMuted mt-2">Manage categories and their details</p>
+                    </div>
+                    <button
+                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
+                        <i class="fas fa-plus mr-2"></i>
+                        Add Category
+                    </button>
+                </div>
+
+                <!-- Categories Table -->
+                <div class="overflow-x-auto bg-darkUI rounded-lg border border-border p-6">
+                    <table class="min-w-full divide-y divide-border">
+                        <thead>
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Category Name
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Description
+                                </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-darkUI divide-y divide-border">
+                            <!-- Row 1 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Category A</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">Description for Category A</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Category B</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">Description for Category B</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Category C</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">Description for Category C</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-textMuted">
+                        Showing 1 to 3 of 6 categories
+                    </div>
+                    <nav class="flex space-x-2">
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            1
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            2
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            3
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </section>
+            <!-- Features Section -->
+            <section id="features" class="hidden animate-fade-in">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">Features</h1>
+                        <p class="text-textMuted mt-2">Manage studio features and amenities</p>
+                    </div>
+                    <button class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
+                        <i class="fas fa-plus mr-2"></i>
+                        Add Feature
+                    </button>
+                </div>
+
+                <!-- Features Table -->
+                <div class="overflow-x-auto bg-darkUI rounded-lg border border-border p-6">
+                    <table class="min-w-full divide-y divide-border">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Feature Name
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Description
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Icon
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-darkUI divide-y divide-border">
+                            <!-- Row 1 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Recording Equipment</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-white">Professional recording equipment including microphones and mixers</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <i class="fas fa-microphone text-primary"></i>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Sound Treatment</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-white">Acoustic panels and soundproofing materials</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <i class="fas fa-wave-square text-primary"></i>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Instruments</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-white">Various musical instruments available for use</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <i class="fas fa-guitar text-primary"></i>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-textMuted">
+                        Showing 1 to 3 of 9 features
+                    </div>
+                    <nav class="flex space-x-2">
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </section>
+            <!-- Bookings Section -->
+            <section id="bookings" class="hidden animate-fade-in">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">Bookings</h1>
+                        <p class="text-textMuted mt-2">Manage studio bookings and reservations</p>
+                    </div>
+                    <button class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
+                        <i class="fas fa-plus mr-2"></i>
+                        New Booking
+                    </button>
+                </div>
+
+                <!-- Bookings Table -->
+                <div class="overflow-x-auto bg-darkUI rounded-lg border border-border p-6">
+                    <table class="min-w-full divide-y divide-border">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Booking ID
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Studio
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Customer
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Date & Time
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-darkUI divide-y divide-border">
+                            <!-- Booking entries -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">#12345</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Studio A</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">John Doe</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">May 15, 2025 14:00</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Confirmed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                    <button class="text-danger hover:text-red-400">Cancel</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-textMuted">
+                        Showing 1 to 10 of 50 bookings
+                    </div>
+                    <nav class="flex space-x-2">
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </section>
+
+            <!-- Payments Section -->
+            <section id="payments" class="hidden animate-fade-in">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">Payments</h1>
+                        <p class="text-textMuted mt-2">Track and manage payment transactions</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button class="bg-success hover:bg-green-600 text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-download mr-2"></i>
+                            Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Payment Statistics -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-darkUI rounded-lg p-6 border border-border">
+                        <h3 class="text-lg font-semibold text-white mb-4">Total Revenue</h3>
+                        <p class="text-3xl font-bold text-success">$245,689.00</p>
+                        <p class="text-sm text-textMuted mt-2">Last 30 days</p>
+                    </div>
+                    <div class="bg-darkUI rounded-lg p-6 border border-border">
+                        <h3 class="text-lg font-semibold text-white mb-4">Pending Payments</h3>
+                        <p class="text-3xl font-bold text-warning">$12,450.00</p>
+                        <p class="text-sm text-textMuted mt-2">8 transactions</p>
+                    </div>
+                    <div class="bg-darkUI rounded-lg p-6 border border-border">
+                        <h3 class="text-lg font-semibold text-white mb-4">Failed Payments</h3>
+                        <p class="text-3xl font-bold text-danger">$1,240.00</p>
+                        <p class="text-sm text-textMuted mt-2">3 transactions</p>
+                    </div>
+                </div>
+
+                <!-- Payments Table -->
+                <div class="overflow-x-auto bg-darkUI rounded-lg border border-border p-6">
+                    <table class="min-w-full divide-y divide-border">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Transaction ID
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Customer
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Amount
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Date
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-darkUI divide-y divide-border">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">#TX12345</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">John Doe</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-success">$150.00</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">May 15, 2025</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover">View Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-textMuted">
+                        Showing 1 to 10 of 100 payments
+                    </div>
+                    <nav class="flex space-x-2">
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </section>
+            <!-- Reviews Section -->
+            <section id="reviews" class="hidden animate-fade-in">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">Reviews</h1>
+                        <p class="text-textMuted mt-2">Manage and monitor studio reviews</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <select class="bg-darkUI border border-border text-white rounded-md px-4 py-2">
+                            <option>All Studios</option>
+                            <option>Studio A</option>
+                            <option>Studio B</option>
+                            <option>Studio C</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Reviews Table -->
+                <div class="overflow-x-auto bg-darkUI rounded-lg border border-border p-6">
+                    <table class="min-w-full divide-y divide-border">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Studio
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Customer
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Rating
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Review
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Date
+                                </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-darkUI divide-y divide-border">
+                            <!-- Review Row 1 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Studio A</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">John Doe</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-white">Great experience, professional equipment and staff!</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">May 15, 2025</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Reply</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+
+                            <!-- Review Row 2 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-white">Studio B</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">Jane Smith</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-white">Decent studio but could use better soundproofing.</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-white">May 14, 2025</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-primary hover:text-primaryHover mr-3">Reply</button>
+                                    <button class="text-danger hover:text-red-400">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-textMuted">
+                        Showing 1 to 10 of 50 reviews
+                    </div>
+                    <nav class="flex space-x-2">
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-right"></i>
                         </button>
