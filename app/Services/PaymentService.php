@@ -5,13 +5,13 @@ namespace App\Services;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
-use Stripe\Charge;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentService
 {
-    public function showPaymentForm()
+    public function showPaymentForm($studioId, $totalPrice, $userId)
     {
-        return view('Dashboard.Artist.payment');
+        return view('Dashboard.Artist.payment', compact('studioId', 'totalPrice', 'userId'));
     }
 
     public function processPayment(Request $request)
@@ -36,7 +36,7 @@ class PaymentService
             return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    
+
 
     // public function paymentSuccess()
     // {

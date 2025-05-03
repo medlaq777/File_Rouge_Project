@@ -252,13 +252,12 @@
             <div class="form-group">
                 <label>Amount (USD)</label>
                 <div class="form-control">
-                    <span>$150.00</span>
+                    <span>${{ $totalPrice }}</span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="cardholder">Cardholder Name</label>
-                <input type="text" name="cardholder" id="cardholder" class="form-control" required
-                    placeholder="As it appears on your card">
+                <input type="text" name="cardholder" id="cardholder" class="form-control" value="{{ Auth::user()->profile->full_name }}">
             </div>
 
             <div class="form-group">

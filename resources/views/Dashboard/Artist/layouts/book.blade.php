@@ -67,7 +67,7 @@
 
                             <!-- Studio Features -->
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                @foreach($borrow['studio']->features as $feature)
+                                @foreach ($borrow['studio']->features as $feature)
                                     <div class="flex items-center bg-darkAccent/30 rounded-lg p-4">
                                         <div
                                             class="flex-shrink-0 w-10 h-10 bg-success/10 rounded-full flex items-center justify-center mr-4">
@@ -204,8 +204,7 @@
                         <!-- Booking Details -->
                         <div class="space-y-4 mb-6">
                             <div class="flex items-center">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-darkAccent flex items-center justify-center mr-3">
+                                <div class="w-10 h-10 rounded-full bg-darkAccent flex items-center justify-center mr-3">
                                     <i class="fas fa-music text-primary"></i>
                                 </div>
                                 <div>
@@ -239,7 +238,7 @@
                                     </div>
                                     <div class="flex justify-between font-medium mt-4">
                                         <span class="text-light">Total</span>
-                                        <span id="total-price" class="text-primary text-lg">0.00</span>
+                                        <span id="totalPrice" class="text-primary text-lg">0.00</span>
                                     </div>
                                 </div>
                             </div>
@@ -250,10 +249,7 @@
                             <form action="{{ route('payment.form') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="studio_id" value="{{ $borrow['studio']->id }}">
-                                <input type="hidden" name="selected_date" id="selected_date" value="{{ old('selected_date') }}">
-                                <input type="hidden" name="start_time" value="{{ old('start_time') }}">
-                                <input type="hidden" name="end_time" value="{{ old('end_time') }}">
-                                <input type="hidden" name="total_price" value="{{ old('total_price') }}">
+                                <input type="hidden" name="totalPrice" id="hidden-totalPrice" value="0.00">
 
                                 <button type="submit"
                                     class="w-full bg-primary hover:bg-primaryHover text-white font-medium py-4 rounded-lg
@@ -306,21 +302,26 @@
         const startTime = document.getElementById('start_time').value;
         const endTime = document.getElementById('end_time').value;
 
-        // Extract hours from the time strings
+
         const startHour = parseInt(startTime.split(':')[0]);
         const endHour = parseInt(endTime.split(':')[0]);
 
-        // Calculate duration
+
         const duration = endHour - startHour;
 
-        // Update duration display
+
         document.getElementById('duration-display').textContent =
             `${duration} hour${duration > 1 ? 's' : ''} session`;
 
-        // Calculate and update total price
+
         const hourlyRate = parseFloat(document.getElementById('hourly-rate').textContent.replace('$', '').trim());
         const totalPrice = duration * hourlyRate;
-        document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
+
+
+        document.getElementById('totalPrice').textContent = `$${totalPrice.toFixed(2)}`;
+
+
+        document.getElementById('hidden-totalPrice').value = totalPrice.toFixed(2);
     }
 
     function sprintf(format, ...args) {
@@ -334,7 +335,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         updateEndTimeOptions();
 
-        // Add active state to date selectors
+
         const dateSelectors = document.querySelectorAll('.date-selector');
         dateSelectors.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -346,9 +347,7 @@
 
     document.getElementById('end_time').addEventListener('change', updateDurationDisplay);
 </script>
-<!-- End of Main Content -->
 <script>
-    // Initialize calendar functionality
     function initializeCalendar() {
         const calendarDays = document.querySelectorAll('.calendar-day');
         calendarDays.forEach(day => {
@@ -360,7 +359,7 @@
         });
     }
 
-    // Initialize time slots functionality
+
     function initializeTimeSlots() {
         const timeSlots = document.querySelectorAll('.time-slot');
         timeSlots.forEach(slot => {
@@ -373,7 +372,7 @@
         });
     }
 
-    // Function to update booking summary
+
     function updateBookingSummary(timeRange) {
         const summaryTime = document.querySelector('.booking-summary-time');
         if (summaryTime) {
@@ -381,24 +380,24 @@
         }
     }
 
-    // Function to hide all tabs and show the selected one
+
     function showTab(tabId) {
-        // Hide all sections
+
         document.querySelectorAll('main > section').forEach(section => {
             section.classList.add('hidden');
         });
 
-        // Show the selected section
+
         document.getElementById(tabId).classList.remove('hidden');
 
-        // Update sidebar active state
+
         document.querySelectorAll('.sidebar-active').forEach(link => {
             link.classList.remove('sidebar-active');
             link.classList.remove('border-primary');
             link.classList.add('border-transparent');
         });
 
-        // Add active state to clicked link
+
         const activeLink = document.getElementById(tabId + '-link');
         if (activeLink) {
             activeLink.classList.add('sidebar-active');
@@ -407,13 +406,13 @@
         }
     }
 
-    // Initialize everything when DOM is loaded
+
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize main functionalities
+
         initializeCalendar();
         initializeTimeSlots();
 
-        // Add Borrow Studios link to sidebar
+
         const borrowStudiosLink = document.createElement('li');
         borrowStudiosLink.innerHTML = `
             <a href="#" onclick="showTab('borrow-studios')" id="borrow-studios-link"
@@ -423,7 +422,7 @@
             </a>
         `;
 
-        // Add Book Studio link to sidebar
+
         const bookStudioLink = document.createElement('li');
         bookStudioLink.innerHTML = `
             <a href="#" onclick="showTab('book-studio')" id="book-studio-link"
@@ -432,7 +431,7 @@
                 Book Studio
             </a>
         `;
-        // Add animation styles
+
         document.head.insertAdjacentHTML('beforeend', `
             <style>
                 .animate-fade-in {

@@ -17,9 +17,13 @@ class PaymentController extends Controller
         $this->PaymentService = $paymentService;
     }
 
-    public function showPaymentForm()
+    public function showPaymentForm(Request $request)
     {
-        return $this->PaymentService->showPaymentForm();
+        $studioId = $request->input('studio_id');
+        $totalPrice = $request->input('totalPrice');
+        $userId = Auth::user()->id;
+        $payment = $this->PaymentService->showPaymentForm($studioId, $totalPrice, $userId);
+        return $payment;
     }
 
     public function processPayment(Request $request)
