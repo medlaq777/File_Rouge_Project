@@ -47,9 +47,9 @@
             }elseif($login && $checkRole == 'artist' ){
                 return redirect()->intended(route('dashboard-Artist'))->with('success', 'Logged in successfully.');
             }
-            // elseif($login && $checkRole == 'admin'){
-            //     return redirect()->intended(route('dashboard-Owne'))->with('success', 'Logged in successfully.');
-            // }
+            elseif($login && $checkRole == 'admin'){
+                return redirect()->intended(route('dashboard-Admin'))->with('success', 'Logged in successfully.');
+            }
 
         }
 

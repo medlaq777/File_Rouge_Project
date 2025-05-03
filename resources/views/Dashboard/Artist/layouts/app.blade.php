@@ -144,6 +144,7 @@
     @yield('book') <!-- Book section -->
     @yield('main') <!-- Main content -->
     @yield('payment-form') <!-- Payment form -->
+    @yield('payment-success') <!-- Payment success modal -->
     <!-- JavaScript for Tab Navigation -->
     <script>
         // Function to hide all tabs and show the selected one

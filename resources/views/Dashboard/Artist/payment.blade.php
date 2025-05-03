@@ -6,3 +6,6 @@
 @section('payment-form')
 @include('Dashboard.Artist.layouts.payment-form')
 @endsection
+@section('payment-success')
+@include('Dashboard.Artist.layouts.payment-success')
+@endsection

@@ -9,6 +9,7 @@ use App\Models\Booking;
 use Stripe\PaymentIntent;
 use Stripe\PaymentMethod;
 use Stripe\Customer;
+use Illuminate\Support\Facades\Auth;
 class PaymentService
 {
     public function showPaymentForm($studioId, $totalPrice, $userId, $startDate, $endDate)
@@ -76,9 +77,15 @@ class PaymentService
 
 
 
-    // public function paymentSuccess()
-    // {
-    //     return view('payment.success');
-    // }
+// public function paymentSuccess()
+// {
+//     if (!Auth::check()) {
+//         return redirect()->route('login')->with('error', 'You must be logged in to view this page.');
+//     }
+
+//     $borrowing = Booking::where('user_id', Auth::user()->id)->latest()->first();
+
+//     return dd($borrowing);
+// }
 
 }
