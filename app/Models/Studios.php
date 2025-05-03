@@ -65,20 +65,9 @@ class Studios extends Model
     }
 
     public function updateRating()
-{
-    try {
-        Log::info('updateRating method called for studio ID: ' . $this->id);
-
+    {
         $this->rating = $this->reviews()->where('studio_id', $this->id)->avg('rating') ?? 0;
         $this->total_reviews = $this->reviews()->count();
-
-        Log::info('New rating: ' . $this->rating . ', Total reviews: ' . $this->total_reviews);
-
         $this->save();
-
-        Log::info('Rating updated successfully for studio ID: ' . $this->id);
-    } catch (\Exception $e) {
-        Log::error('Error in updateRating: ' . $e->getMessage());
     }
-}
 }
