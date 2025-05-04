@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use App\Models\Booking;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Studios;
 use App\Models\Payment;
-use Stripe\Payout;
-
+use App\Models\Feature;
 class AdminService
 {
     public function index()
@@ -18,6 +18,9 @@ class AdminService
         $getAllUsersPagination = User::paginate(6);
         $getAllStudios = Studios::all();
         $getAllStudiosPagination = Studios::paginate(6);
+        $getAllCategories = Category::paginate(6);
+        $getAllFeatures = Feature::paginate(6);
+        $getAllBookings = Booking::paginate(6)->where('status', '=', 'confirmed');
         $mounthlyBooking = Booking::whereMonth('created_at', date('m'))
             ->whereYear('created_at', date('Y'))
             ->where('status', '=', 'confirmed')
@@ -73,6 +76,9 @@ class AdminService
             'mounthlyRevenue' => $mounthlyRevenue,
             'allActivity' => $recentActivity,
             'getAllStudiosPagination' => $getAllStudiosPagination,
+            'getAllCategories' => $getAllCategories,
+            'getAllFeatures' => $getAllFeatures,
+            'getAllBookings' => $getAllBookings,
         ];
     }
 

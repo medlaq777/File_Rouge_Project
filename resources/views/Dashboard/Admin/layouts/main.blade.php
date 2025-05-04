@@ -16,7 +16,7 @@
                                 class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200">
                                 <i class="fas fa-users mr-3"></i>
                                 Users
-                                <span class="sidebar-badge">24</span>
+                                <span class="sidebar-badge"></span>
                             </a>
                         </li>
                         <li>
@@ -45,7 +45,7 @@
                                 class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200">
                                 <i class="fas fa-calendar-alt mr-3"></i>
                                 Bookings
-                                <span class="sidebar-badge">8</span>
+                                <span class="sidebar-badge"></span>
                             </a>
                         </li>
                         <li>
@@ -409,11 +409,6 @@
                         <h1 class="text-3xl font-bold text-white">Categories</h1>
                         <p class="text-textMuted mt-2">Manage categories and their details</p>
                     </div>
-                    <button
-                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                        <i class="fas fa-plus mr-2"></i>
-                        Add Category
-                    </button>
                 </div>
 
                 <!-- Categories Table -->
@@ -435,70 +430,38 @@
                             </tr>
                         </thead>
                         <tbody class="bg-darkUI divide-y divide-border">
-                            <!-- Row 1 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md font-medium text-white">Category A</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md text-white">Description for Category A</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-
-                            <!-- Row 2 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md font-medium text-white">Category B</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md text-white">Description for Category B</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-                            <!-- Row 3 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md font-medium text-white">Category C</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md text-white">Description for Category C</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
+                            @foreach ($user['getAllCategories'] as $category)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md font-medium text-white">{{ $category->name }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md text-white">{{ $category->description }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                        <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                        <button class="text-danger hover:text-red-400">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <!-- Pagination -->
-                <div class="mt-6 flex justify-between items-center">
+                <div class="mt-6 flex justify-between items-center" id="categories-pagination-container">
                     <div class="text-md text-textMuted">
-                        Showing 1 to 3 of 6 categories
+                        Showing {{ $user['getAllCategories']->firstItem() }} to
+                        {{ $user['getAllCategories']->lastItem() }} of
+                        {{ $user['getAllCategories']->total() }} categories
                     </div>
                     <nav class="flex space-x-2">
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            1
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            2
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            3
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        @foreach ($user['getAllCategories']->getUrlRange(1, $user['getAllCategories']->lastPage()) as $page => $url)
+                            <button onclick="loadCategoriesPage('{{ $url }}')"
+                                class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200
+                                        {{ $user['getAllCategories']->currentPage() == $page ? 'bg-primaryHover' : '' }}">
+                                {{ $page }}
+                            </button>
+                        @endforeach
                     </nav>
                 </div>
             </section>
@@ -509,11 +472,6 @@
                         <h1 class="text-3xl font-bold text-white">Features</h1>
                         <p class="text-textMuted mt-2">Manage studio features and amenities</p>
                     </div>
-                    <button
-                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                        <i class="fas fa-plus mr-2"></i>
-                        Add Feature
-                    </button>
                 </div>
 
                 <!-- Features Table -->
@@ -543,93 +501,50 @@
                             </tr>
                         </thead>
                         <tbody class="bg-darkUI divide-y divide-border">
-                            <!-- Row 1 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md font-medium text-white">Recording Equipment</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-md text-white">Professional recording equipment including
-                                        microphones and mixers</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <i class="fas fa-microphone text-primary"></i>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-
-                            <!-- Row 2 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md font-medium text-white">Sound Treatment</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-md text-white">Acoustic panels and soundproofing materials</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <i class="fas fa-wave-square text-primary"></i>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-
-                            <!-- Row 3 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md font-medium text-white">Instruments</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-md text-white">Various musical instruments available for use</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <i class="fas fa-guitar text-primary"></i>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
+                            @foreach ($user['getAllFeatures'] as $feature)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md font-medium text-white">{{ $feature->name }}</div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-md text-white">{{ $feature->description }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <i class="{{ $feature->icon }} text-primary"></i>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2 py-1 text-xs font-medium rounded-full {{ $feature->status === 'active' ? 'bg-success' : 'bg-danger' }} text-white">
+                                            {{ ucfirst($feature->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                        <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                        <button class="text-danger hover:text-red-400">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-
                 <!-- Pagination -->
-                <div class="mt-6 flex justify-between items-center">
+                <div class="mt-6 flex justify-between items-center" id="features-pagination-container">
                     <div class="text-md text-textMuted">
-                        Showing 1 to 3 of 9 features
+                        Showing {{ $user['getAllFeatures']->firstItem() }} to
+                        {{ $user['getAllFeatures']->lastItem() }} of
+                        {{ $user['getAllFeatures']->total() }} features
                     </div>
                     <nav class="flex space-x-2">
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button
-                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
-                        <button
-                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
-                        <button
-                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        @foreach ($user['getAllFeatures']->getUrlRange(1, $user['getAllFeatures']->lastPage()) as $page => $url)
+                            <button onclick="loadFeaturesPage('{{ $url }}')"
+                                class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200
+                                        {{ $user['getAllFeatures']->currentPage() == $page ? 'bg-primaryHover' : '' }}">
+                                {{ $page }}
+                            </button>
+                        @endforeach
                     </nav>
                 </div>
+
             </section>
             <!-- Bookings Section -->
             <section id="bookings" class="hidden animate-fade-in">
@@ -638,11 +553,6 @@
                         <h1 class="text-3xl font-bold text-white">Bookings</h1>
                         <p class="text-textMuted mt-2">Manage studio bookings and reservations</p>
                     </div>
-                    <button
-                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                        <i class="fas fa-plus mr-2"></i>
-                        New Booking
-                    </button>
                 </div>
 
                 <!-- Bookings Table -->
@@ -670,40 +580,47 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Status
                                 </th>
-                                <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Actions</span>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Actions
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="bg-darkUI divide-y divide-border">
-                            <!-- Booking entries -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md text-white">#12345</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md font-medium text-white">Studio A</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md text-white">John Doe</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-md text-white">May 15, 2025 14:00</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Confirmed</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Cancel</button>
-                                </td>
-                            </tr>
+                            @foreach ($user['getAllBookings'] as $booking)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md text-white">#{{ $booking->id }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md font-medium text-white">{{ $booking->studio->name }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md text-white">
+                                            {{ $booking->artist->profile->full_name }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md text-white">{{ $booking->time }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs font-medium rounded-full text-success">
+                                            {{ ucfirst($booking->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-md font-medium">
+                                        <button class="text-primary hover:text-primaryHover mr-3">
+                                            <i class="fas fa-edit mr-1"></i>
+                                        </button>
+                                        <button class="text-danger hover:text-red-400">
+                                            <i class="fas fa-times mr-1"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
-                </div>
-
-                <!-- Pagination -->
+                </div> <!-- Pagination -->
                 <div class="mt-6 flex justify-between items-center">
                     <div class="text-md text-textMuted">
                         Showing 1 to 10 of 50 bookings
@@ -1081,5 +998,46 @@
                     }
                 })
                 .catch(error => console.error('Error loading studios page:', error));
+        }
+    </script>
+
+    <script>
+        function loadCategoriesPage(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newTable = doc.querySelector('section#categories tbody');
+                    const newPagination = doc.querySelector('#categories-pagination-container');
+
+                    if (newTable && newPagination) {
+                        document.querySelector('section#categories tbody').innerHTML = newTable.innerHTML;
+                        document.querySelector('#categories-pagination-container').innerHTML = newPagination.innerHTML;
+                    } else {
+                        console.error('Failed to update pagination or table content for categories.');
+                    }
+                })
+                .catch(error => console.error('Error loading categories page:', error));
+        }
+    </script>
+    <script>
+        function loadFeaturesPage(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newTable = doc.querySelector('section#features tbody');
+                    const newPagination = doc.querySelector('#features-pagination-container');
+
+                    if (newTable && newPagination) {
+                        document.querySelector('section#features tbody').innerHTML = newTable.innerHTML;
+                        document.querySelector('#features-pagination-container').innerHTML = newPagination.innerHTML;
+                    } else {
+                        console.error('Failed to update pagination or table content for features.');
+                    }
+                })
+                .catch(error => console.error('Error loading features page:', error));
         }
     </script>
