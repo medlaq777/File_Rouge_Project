@@ -200,12 +200,12 @@
                                                 <span
                                                     class="text-success ml-2">${{ number_format(json_decode($activity['data'], true)['total_price'] ?? 0, 2) }}</span>
                                             </p>
-                                            <div class="mt-1 text-sm">
+                                            <div class="mt-1 text-md">
                                                 <span class="text-textMuted">Transaction ID: </span>
                                                 <span
                                                     class="text-white">{{ data_get($activity['data'], 'transaction_id') }}</span>
                                             </div>
-                                            <div class="text-sm">
+                                            <div class="text-md">
                                                 <span class="text-textMuted">Payment Method: </span>
                                                 <span
                                                     class="text-white capitalize">{{ data_get($activity['data'], 'method') }}</span>
@@ -216,7 +216,7 @@
                                                 class="px-2 py-1 text-xs font-medium rounded-full {{ json_decode($activity['data'], true)['status'] === 'Success' ? 'bg-success' : 'bg-danger' }} text-white">
                                                 {{ json_decode($activity['data'], true)['status'] }}
                                             </span>
-                                            <div class="text-sm text-textMuted mt-1">
+                                            <div class="text-md text-textMuted mt-1">
                                                 {{ date('F j, Y, g:i a', strtotime(json_decode($activity['data'], true)['created_at'])) }}
                                             </div>
                                         </div>
@@ -239,11 +239,6 @@
                         <h1 class="text-3xl font-bold text-white">Users</h1>
                         <p class="text-textMuted mt-2">Manage users and their permissions</p>
                     </div>
-                    <button
-                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                        <i class="fas fa-plus mr-2"></i>
-                        Add User
-                    </button>
                 </div>
 
                 <!-- Users Table -->
@@ -264,125 +259,64 @@
                                     Role
                                 </th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
-                                    Status
-                                </th>
-                                <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Actions</span>
+                                    class="px-6 py-3 text-center text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    Actions
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="bg-darkUI divide-y divide-border">
-                            <!-- Row 1 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                            alt="User Avatar">
-                                        <div>
-                                            <div class="text-sm font-medium text-white">John Doe</div>
-                                            <div class="text-sm text-textMuted">Joined on Jan 1, 2025</div>
+                            @foreach ($user['getAllUsersPagination'] as $profileUser)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <img class="h-10 w-10 rounded-full mr-4"
+                                                src="https://via.placeholder.com/40" alt="User Avatar">
+                                            <div>
+                                                <div class="text-md font-medium text-white">
+                                                    {{ $profileUser->profile->full_name }}</div>
+                                                <div class="text-md text-textMuted">Joined on
+                                                    {{ $profileUser->created_at }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">john.doe@example.com</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-primary text-white">Admin</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-
-                            <!-- Row 2 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                            alt="User Avatar">
-                                        <div>
-                                            <div class="text-sm font-medium text-white">Jane Smith</div>
-                                            <div class="text-sm text-textMuted">Joined on Feb 15, 2025</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">jane.smith@example.com</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-info text-white">User</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-
-                            <!-- Row 3 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <img class="h-10 w-10 rounded-full mr-4" src="https://via.placeholder.com/40"
-                                            alt="User Avatar">
-                                        <div>
-                                            <div class="text-sm font-medium text-white">Mike Johnson</div>
-                                            <div class="text-sm text-textMuted">Joined on Mar 10, 2025</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">mike.johnson@example.com</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-warning text-white">Moderator</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md text-white">{{ $profileUser->email }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2 py-1 text-xs font-medium rounded-full {{ $profileUser->role === 'admin' ? 'bg-primary' : 'bg-success' }} text-white">{{ $profileUser->role }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-md font-medium">
+                                        <button
+                                            class="text-primary hover:text-primaryHover mr-3 px-3 py-2 rounded-md transition-all duration-200 hover:bg-primary/10">
+                                            <i class="fas fa-edit mr-1"></i>
+                                        </button>
+                                        <button
+                                            class="text-danger hover:text-red-400 px-3 py-2 rounded-md transition-all duration-200 hover:bg-danger/10">
+                                            <i class="fas fa-trash-alt mr-1"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <!-- Pagination -->
-                <div class="mt-6 flex justify-between items-center">
-                    <div class="text-sm text-textMuted">
-                        Showing 1 to 3 of 24 users
+                <div class="mt-6 flex justify-between items-center" id="pagination-container">
+                    <div class="text-md text-textMuted">
+                        {{ $user['getAllUsersPagination']->firstItem() }} to
+                        {{ $user['getAllUsersPagination']->lastItem() }} of
+                        {{ $user['getAllUsersPagination']->total() }} users
                     </div>
-                    <nav class="flex space-x-2">
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            1
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            2
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            3
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                    <nav>
+                        <div class="flex space-x-2">
+                            @foreach ($user['getAllUsersPagination']->getUrlRange(1, $user['getAllUsersPagination']->lastPage()) as $page => $url)
+                                <button onclick="loadPage('{{ $url }}')"
+                                    class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200 {{ $user['getAllUsersPagination']->currentPage() == $page ? 'bg-primaryHover' : '' }}">
+                                    {{ $page }}
+                                </button>
+                            @endforeach
+                        </div>
                     </nav>
                 </div>
             </section>
@@ -393,11 +327,6 @@
                         <h1 class="text-3xl font-bold text-white">Studios</h1>
                         <p class="text-textMuted mt-2">Manage studios and their details</p>
                     </div>
-                    <button
-                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                        <i class="fas fa-plus mr-2"></i>
-                        Add Studio
-                    </button>
                 </div>
 
                 <!-- Studios Table -->
@@ -427,90 +356,49 @@
                             </tr>
                         </thead>
                         <tbody class="bg-darkUI divide-y divide-border">
-                            <!-- Row 1 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Studio A</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">123 Main St, City</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">John Doe</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-primary text-white">Active</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-                            <!-- Row 2 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Studio B</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">456 Elm St, City</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">Jane Smith</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-info text-white">Pending</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
-                            <!-- Row 3 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Studio C</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">789 Oak St, City</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">Mike Johnson</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
-                                    <button class="text-danger hover:text-red-400">Delete</button>
-                                </td>
-                            </tr>
+                            @foreach ($user['getAllStudiosPagination'] as $studio)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md font-medium text-white">{{ $studio->name }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md text-white">{{ $studio->location }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-md text-white">{{ $studio->owner->profile->full_name }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2 py-1 text-xs font-medium rounded-full
+                                                    {{ $studio->status === 'active' ? 'bg-primary' : ($studio->status === 'pending' ? 'bg-info' : 'bg-danger') }}
+                                                    text-white">
+                                            {{ ucfirst($studio->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                        <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                        <button class="text-danger hover:text-red-400">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <!-- Pagination -->
-                <div class="mt-6 flex justify-between items-center">
-                    <div class="text-sm text-textMuted">
-                        Showing 1 to 3 of 12 studios
+                <div class="mt-6 flex justify-between items-center" id="studios-pagination-container">
+                    <div class="text-md text-textMuted">
+                        Showing {{ $user['getAllStudiosPagination']->firstItem() }} to
+                        {{ $user['getAllStudiosPagination']->lastItem() }} of
+                        {{ $user['getAllStudiosPagination']->total() }} studios
                     </div>
                     <nav class="flex space-x-2">
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            1
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            2
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            3
-                        </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        @foreach ($user['getAllStudiosPagination']->getUrlRange(1, $user['getAllStudiosPagination']->lastPage()) as $page => $url)
+                            <button onclick="loadStudiosPage('{{ $url }}')"
+                                class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200
+                                            {{ $user['getAllStudiosPagination']->currentPage() == $page ? 'bg-primaryHover' : '' }}">
+                                {{ $page }}
+                            </button>
+                        @endforeach
                     </nav>
                 </div>
             </section>
@@ -550,12 +438,12 @@
                             <!-- Row 1 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Category A</div>
+                                    <div class="text-md font-medium text-white">Category A</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">Description for Category A</div>
+                                    <div class="text-md text-white">Description for Category A</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -564,12 +452,12 @@
                             <!-- Row 2 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Category B</div>
+                                    <div class="text-md font-medium text-white">Category B</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">Description for Category B</div>
+                                    <div class="text-md text-white">Description for Category B</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -577,12 +465,12 @@
                             <!-- Row 3 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Category C</div>
+                                    <div class="text-md font-medium text-white">Category C</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">Description for Category C</div>
+                                    <div class="text-md text-white">Description for Category C</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -592,7 +480,7 @@
                 </div>
                 <!-- Pagination -->
                 <div class="mt-6 flex justify-between items-center">
-                    <div class="text-sm text-textMuted">
+                    <div class="text-md text-textMuted">
                         Showing 1 to 3 of 6 categories
                     </div>
                     <nav class="flex space-x-2">
@@ -658,10 +546,10 @@
                             <!-- Row 1 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Recording Equipment</div>
+                                    <div class="text-md font-medium text-white">Recording Equipment</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Professional recording equipment including
+                                    <div class="text-md text-white">Professional recording equipment including
                                         microphones and mixers</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -671,7 +559,7 @@
                                     <span
                                         class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -680,10 +568,10 @@
                             <!-- Row 2 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Sound Treatment</div>
+                                    <div class="text-md font-medium text-white">Sound Treatment</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Acoustic panels and soundproofing materials</div>
+                                    <div class="text-md text-white">Acoustic panels and soundproofing materials</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <i class="fas fa-wave-square text-primary"></i>
@@ -692,7 +580,7 @@
                                     <span
                                         class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -701,10 +589,10 @@
                             <!-- Row 3 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Instruments</div>
+                                    <div class="text-md font-medium text-white">Instruments</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Various musical instruments available for use</div>
+                                    <div class="text-md text-white">Various musical instruments available for use</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <i class="fas fa-guitar text-primary"></i>
@@ -713,7 +601,7 @@
                                     <span
                                         class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -724,7 +612,7 @@
 
                 <!-- Pagination -->
                 <div class="mt-6 flex justify-between items-center">
-                    <div class="text-sm text-textMuted">
+                    <div class="text-md text-textMuted">
                         Showing 1 to 3 of 9 features
                     </div>
                     <nav class="flex space-x-2">
@@ -791,22 +679,22 @@
                             <!-- Booking entries -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">#12345</div>
+                                    <div class="text-md text-white">#12345</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Studio A</div>
+                                    <div class="text-md font-medium text-white">Studio A</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">John Doe</div>
+                                    <div class="text-md text-white">John Doe</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">May 15, 2025 14:00</div>
+                                    <div class="text-md text-white">May 15, 2025 14:00</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Confirmed</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
                                     <button class="text-danger hover:text-red-400">Cancel</button>
                                 </td>
@@ -817,7 +705,7 @@
 
                 <!-- Pagination -->
                 <div class="mt-6 flex justify-between items-center">
-                    <div class="text-sm text-textMuted">
+                    <div class="text-md text-textMuted">
                         Showing 1 to 10 of 50 bookings
                     </div>
                     <nav class="flex space-x-2">
@@ -858,17 +746,17 @@
                     <div class="bg-darkUI rounded-lg p-6 border border-border">
                         <h3 class="text-lg font-semibold text-white mb-4">Total Revenue</h3>
                         <p class="text-3xl font-bold text-success">$245,689.00</p>
-                        <p class="text-sm text-textMuted mt-2">Last 30 days</p>
+                        <p class="text-md text-textMuted mt-2">Last 30 days</p>
                     </div>
                     <div class="bg-darkUI rounded-lg p-6 border border-border">
                         <h3 class="text-lg font-semibold text-white mb-4">Pending Payments</h3>
                         <p class="text-3xl font-bold text-warning">$12,450.00</p>
-                        <p class="text-sm text-textMuted mt-2">8 transactions</p>
+                        <p class="text-md text-textMuted mt-2">8 transactions</p>
                     </div>
                     <div class="bg-darkUI rounded-lg p-6 border border-border">
                         <h3 class="text-lg font-semibold text-white mb-4">Failed Payments</h3>
                         <p class="text-3xl font-bold text-danger">$1,240.00</p>
-                        <p class="text-sm text-textMuted mt-2">3 transactions</p>
+                        <p class="text-md text-textMuted mt-2">3 transactions</p>
                     </div>
                 </div>
 
@@ -905,22 +793,22 @@
                         <tbody class="bg-darkUI divide-y divide-border">
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">#TX12345</div>
+                                    <div class="text-md text-white">#TX12345</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">John Doe</div>
+                                    <div class="text-md text-white">John Doe</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-success">$150.00</div>
+                                    <div class="text-md font-medium text-success">$150.00</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">May 15, 2025</div>
+                                    <div class="text-md text-white">May 15, 2025</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover">View Details</button>
                                 </td>
                             </tr>
@@ -930,7 +818,7 @@
 
                 <!-- Pagination -->
                 <div class="mt-6 flex justify-between items-center">
-                    <div class="text-sm text-textMuted">
+                    <div class="text-md text-textMuted">
                         Showing 1 to 10 of 100 payments
                     </div>
                     <nav class="flex space-x-2">
@@ -1000,10 +888,10 @@
                             <!-- Review Row 1 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Studio A</div>
+                                    <div class="text-md font-medium text-white">Studio A</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">John Doe</div>
+                                    <div class="text-md text-white">John Doe</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex text-warning">
@@ -1015,13 +903,13 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Great experience, professional equipment and staff!
+                                    <div class="text-md text-white">Great experience, professional equipment and staff!
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">May 15, 2025</div>
+                                    <div class="text-md text-white">May 15, 2025</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Reply</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -1030,10 +918,10 @@
                             <!-- Review Row 2 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-white">Studio B</div>
+                                    <div class="text-md font-medium text-white">Studio B</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">Jane Smith</div>
+                                    <div class="text-md text-white">Jane Smith</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex text-warning">
@@ -1045,13 +933,13 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Decent studio but could use better soundproofing.
+                                    <div class="text-md text-white">Decent studio but could use better soundproofing.
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-white">May 14, 2025</div>
+                                    <div class="text-md text-white">May 14, 2025</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Reply</button>
                                     <button class="text-danger hover:text-red-400">Delete</button>
                                 </td>
@@ -1062,7 +950,7 @@
 
                 <!-- Pagination -->
                 <div class="mt-6 flex justify-between items-center">
-                    <div class="text-sm text-textMuted">
+                    <div class="text-md text-textMuted">
                         Showing 1 to 10 of 50 reviews
                     </div>
                     <nav class="flex space-x-2">
@@ -1157,4 +1045,41 @@
                 }
             }
         });
+    </script>
+
+    <script>
+        function loadPage(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newTable = doc.querySelector('tbody');
+                    const newPagination = doc.querySelector('#pagination-container');
+
+                    document.querySelector('tbody').innerHTML = newTable.innerHTML;
+                    document.querySelector('#pagination-container').innerHTML = newPagination.innerHTML;
+                });
+        }
+    </script>
+
+    <script>
+        function loadStudiosPage(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newTable = doc.querySelector('section#studios tbody');
+                    const newPagination = doc.querySelector('#studios-pagination-container');
+
+                    if (newTable && newPagination) {
+                        document.querySelector('section#studios tbody').innerHTML = newTable.innerHTML;
+                        document.querySelector('#studios-pagination-container').innerHTML = newPagination.innerHTML;
+                    } else {
+                        console.error('Failed to update pagination or table content for studios.');
+                    }
+                })
+                .catch(error => console.error('Error loading studios page:', error));
+        }
     </script>

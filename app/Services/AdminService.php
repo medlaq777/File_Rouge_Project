@@ -15,7 +15,9 @@ class AdminService
     {
         $user = Auth::user()->isAdmin();
         $getAllUsers = User::all();
+        $getAllUsersPagination = User::paginate(6);
         $getAllStudios = Studios::all();
+        $getAllStudiosPagination = Studios::paginate(6);
         $mounthlyBooking = Booking::whereMonth('created_at', date('m'))
             ->whereYear('created_at', date('Y'))
             ->where('status', '=', 'confirmed')
@@ -65,10 +67,12 @@ class AdminService
         return [
             'user' => $user,
             'getAllUsers' => $getAllUsers,
+            'getAllUsersPagination' => $getAllUsersPagination,
             'getAllStudios' => $getAllStudios,
             'mounthlyBooking' => $mounthlyBooking,
             'mounthlyRevenue' => $mounthlyRevenue,
             'allActivity' => $recentActivity,
+            'getAllStudiosPagination' => $getAllStudiosPagination,
         ];
     }
 
