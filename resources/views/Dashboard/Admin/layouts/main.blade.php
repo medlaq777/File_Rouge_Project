@@ -2,22 +2,13 @@
         <!-- Sidebar (Desktop) -->
         <aside class="w-64 bg-darkAccent border-r border-border min-h-screen">
             <div class="p-4">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-primary rounded-md p-2">
-                        <i class="fas fa-waveform-path text-white"></i>
-                    </div>
-                    <h1 class="text-xl font-bold text-white">SoundSpot</h1>
-                </div>
-                <div class="mt-2 text-xs text-textMuted">
-                    Admin Dashboard
-                </div>
                 <nav class="mt-8">
                     <ul class="space-y-2">
                         <li>
                             <a href="#" onclick="showTab('dashboard')" id="dashboard-link"
                                 class="flex items-center py-3 px-4 text-textMuted hover:text-light border-l-2 border-transparent hover:border-primary transition-all duration-200 sidebar-active">
                                 <i class="fas fa-th-large mr-3"></i>
-                                Dashboard
+                                Overview
                             </a>
                         </li>
                         <li>
@@ -83,18 +74,12 @@
                 <div class="flex justify-between items-center mb-8">
                     <div>
                         <h1 class="text-3xl font-bold text-white">Admin Dashboard</h1>
-                        <p class="text-textMuted mt-2">Overview of platform performance and statistics</p>
                     </div>
                     <div class="flex space-x-3">
                         <div class="bg-darkUI border border-border rounded-md px-4 py-2 flex items-center">
                             <i class="fas fa-calendar-alt text-textMuted mr-2"></i>
-                            <span class="text-light">May 1 - May 31, 2025</span>
+                            <span class="text-light">{{ now() }}</span>
                         </div>
-                        <button
-                            class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-download mr-2"></i>
-                            Export
-                        </button>
                     </div>
                 </div>
 
@@ -107,14 +92,7 @@
                                 <i class="fas fa-users text-primary text-xl"></i>
                             </div>
                         </div>
-                        <p class="text-3xl font-bold text-white">4,289</p>
-                        <div class="flex items-center mt-2 text-sm">
-                            <span class="text-success flex items-center">
-                                <i class="fas fa-arrow-up mr-1"></i>
-                                12.5%
-                            </span>
-                            <span class="text-textMuted ml-2">vs last month</span>
-                        </div>
+                        <p class="text-3xl font-bold text-white">{{ $user['getAllUsers']->count() }}</p>
                     </div>
 
                     <div class="bg-darkUI rounded-lg p-6 border border-border">
@@ -124,14 +102,7 @@
                                 <i class="fas fa-building text-danger text-xl"></i>
                             </div>
                         </div>
-                        <p class="text-3xl font-bold text-white">873</p>
-                        <div class="flex items-center mt-2 text-sm">
-                            <span class="text-success flex items-center">
-                                <i class="fas fa-arrow-up mr-1"></i>
-                                8.3%
-                            </span>
-                            <span class="text-textMuted ml-2">vs last month</span>
-                        </div>
+                        <p class="text-3xl font-bold text-white">{{ $user['getAllStudios']->count() }}</p>
                     </div>
 
                     <div class="bg-darkUI rounded-lg p-6 border border-border">
@@ -141,14 +112,7 @@
                                 <i class="fas fa-calendar-check text-info text-xl"></i>
                             </div>
                         </div>
-                        <p class="text-3xl font-bold text-white">1,342</p>
-                        <div class="flex items-center mt-2 text-sm">
-                            <span class="text-success flex items-center">
-                                <i class="fas fa-arrow-up mr-1"></i>
-                                15.2%
-                            </span>
-                            <span class="text-textMuted ml-2">vs last month</span>
-                        </div>
+                        <p class="text-3xl font-bold text-white">{{ $user['mounthlyBooking'] }}</p>
                     </div>
 
                     <div class="bg-darkUI rounded-lg p-6 border border-border">
@@ -158,14 +122,7 @@
                                 <i class="fas fa-dollar-sign text-success text-xl"></i>
                             </div>
                         </div>
-                        <p class="text-3xl font-bold text-white">$92,548</p>
-                        <div class="flex items-center mt-2 text-sm">
-                            <span class="text-success flex items-center">
-                                <i class="fas fa-arrow-up mr-1"></i>
-                                10.8%
-                            </span>
-                            <span class="text-textMuted ml-2">vs last month</span>
-                        </div>
+                        <p class="text-3xl font-bold text-white">{{ $user['mounthlyRevenue'] }}</p>
                     </div>
                 </div>
 
@@ -221,134 +178,58 @@
                 <!-- Recent Activity -->
                 <div class="bg-darkUI rounded-lg border border-border p-6">
                     <h2 class="text-xl font-semibold text-white mb-4">Recent Activity</h2>
-                    <ul class="space-y-4">
-                        <li class="flex items-center">
-                            <div class="bg-primary rounded-full p-2 mr-4">
-                                <i class="fas fa-user-plus text-white"></i>
+                    @if ($user['allActivity']->isNotEmpty())
+                        @foreach ($user['allActivity'] as $activity)
+                            <div class="flex items-start mb-4 bg-opacity-50 bg-gray-800 rounded-lg p-4">
+                                <div class="flex-shrink-0">
+                                    @if ($activity['type'] === 'Payment')
+                                        <div class="bg-success rounded-full p-3">
+                                            <i class="fas fa-dollar-sign text-white"></i>
+                                        </div>
+                                    @else
+                                        <div class="bg-primary rounded-full p-3">
+                                            <i class="fas fa-clock text-white"></i>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="ml-4 flex-grow">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-white font-medium">
+                                                {{ $activity['type'] }}
+                                                <span
+                                                    class="text-success ml-2">${{ number_format(json_decode($activity['data'], true)['total_price'] ?? 0, 2) }}</span>
+                                            </p>
+                                            <div class="mt-1 text-sm">
+                                                <span class="text-textMuted">Transaction ID: </span>
+                                                <span
+                                                    class="text-white">{{ data_get($activity['data'], 'transaction_id') }}</span>
+                                            </div>
+                                            <div class="text-sm">
+                                                <span class="text-textMuted">Payment Method: </span>
+                                                <span
+                                                    class="text-white capitalize">{{ data_get($activity['data'], 'method') }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span
+                                                class="px-2 py-1 text-xs font-medium rounded-full {{ json_decode($activity['data'], true)['status'] === 'Success' ? 'bg-success' : 'bg-danger' }} text-white">
+                                                {{ json_decode($activity['data'], true)['status'] }}
+                                            </span>
+                                            <div class="text-sm text-textMuted mt-1">
+                                                {{ date('F j, Y, g:i a', strtotime(json_decode($activity['data'], true)['created_at'])) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p class="text-white">John Doe registered as a new user</p>
-                                <span class="text-textMuted text-sm">2 hours ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-success rounded-full p-2 mr-4">
-                                <i class="fas fa-calendar-check text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Jane Smith booked a studio</p>
-                                <span class="text-textMuted text-sm">3 hours ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-danger rounded-full p-2 mr-4">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Studio XYZ received a negative review</p>
-                                <span class="text-textMuted text-sm">5 hours ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-info rounded-full p-2 mr-4">
-                                <i class="fas fa-credit-card text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Payment of $150 received from John Doe</p>
-                                <span class="text-textMuted text-sm">1 day ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-warning rounded-full p-2 mr-4">
-                                <i class="fas fa-user-slash text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">User Jane Smith was deactivated</p>
-                                <span class="text-textMuted text-sm">2 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-primary rounded-full p-2 mr-4">
-                                <i class="fas fa-user-plus text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">New studio added: Studio ABC</p>
-                                <span class="text-textMuted text-sm">3 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-success rounded-full p-2 mr-4">
-                                <i class="fas fa-calendar-check text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Booking confirmed for Studio XYZ</p>
-                                <span class="text-textMuted text-sm">4 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-danger rounded-full p-2 mr-4">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Studio ABC received a negative review</p>
-                                <span class="text-textMuted text-sm">5 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-info rounded-full p-2 mr-4">
-                                <i class="fas fa-credit-card text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Payment of $200 received from Jane Smith</p>
-                                <span class="text-textMuted text-sm">6 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-warning rounded-full p-2 mr-4">
-                                <i class="fas fa-user-slash text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">User John Doe was deactivated</p>
-                                <span class="text-textMuted text-sm">7 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-primary rounded-full p-2 mr-4">
-                                <i class="fas fa-user-plus text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">New studio added: Studio DEF</p>
-                                <span class="text-textMuted text-sm">8 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-success rounded-full p-2 mr-4">
-                                <i class="fas fa-calendar-check text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Booking confirmed for Studio ABC</p>
-                                <span class="text-textMuted text-sm">9 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-danger rounded-full p-2 mr-4">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Studio DEF received a negative review</p>
-                                <span class="text-textMuted text-sm">10 days ago</span>
-                            </div>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="bg-info rounded-full p-2 mr-4">
-                                <i class="fas fa-credit-card text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-white">Payment of $300 received from John Doe</p>
-                                <span class="text-textMuted text-sm">11 days ago</span>
-                            </div>
-                        </li>
-                    </ul>
+                        @endforeach
+                    @else
+                        <div class="text-center py-6">
+                            <i class="fas fa-inbox text-4xl text-textMuted mb-2"></i>
+                            <p class="text-textMuted">No recent activity to display.</p>
+                        </div>
+                    @endif
                 </div>
             </section>
             <!-- Users Section -->
@@ -740,7 +621,8 @@
                         <h1 class="text-3xl font-bold text-white">Features</h1>
                         <p class="text-textMuted mt-2">Manage studio features and amenities</p>
                     </div>
-                    <button class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
+                    <button
+                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
                         <i class="fas fa-plus mr-2"></i>
                         Add Feature
                     </button>
@@ -751,16 +633,20 @@
                     <table class="min-w-full divide-y divide-border">
                         <thead>
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Feature Name
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Description
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Icon
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Status
                                 </th>
                                 <th scope="col" class="relative px-6 py-3">
@@ -775,13 +661,15 @@
                                     <div class="text-sm font-medium text-white">Recording Equipment</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Professional recording equipment including microphones and mixers</div>
+                                    <div class="text-sm text-white">Professional recording equipment including
+                                        microphones and mixers</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <i class="fas fa-microphone text-primary"></i>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -801,7 +689,8 @@
                                     <i class="fas fa-wave-square text-primary"></i>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Active</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -821,7 +710,8 @@
                                     <i class="fas fa-guitar text-primary"></i>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-danger text-white">Inactive</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -841,9 +731,12 @@
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -857,7 +750,8 @@
                         <h1 class="text-3xl font-bold text-white">Bookings</h1>
                         <p class="text-textMuted mt-2">Manage studio bookings and reservations</p>
                     </div>
-                    <button class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
+                    <button
+                        class="bg-primary hover:bg-primaryHover text-white py-2 px-4 rounded-md transition-all duration-200">
                         <i class="fas fa-plus mr-2"></i>
                         New Booking
                     </button>
@@ -868,19 +762,24 @@
                     <table class="min-w-full divide-y divide-border">
                         <thead>
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Booking ID
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Studio
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Customer
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Date & Time
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Status
                                 </th>
                                 <th scope="col" class="relative px-6 py-3">
@@ -904,7 +803,8 @@
                                     <div class="text-sm text-white">May 15, 2025 14:00</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Confirmed</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Confirmed</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
@@ -924,9 +824,12 @@
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -942,7 +845,8 @@
                         <p class="text-textMuted mt-2">Track and manage payment transactions</p>
                     </div>
                     <div class="flex space-x-3">
-                        <button class="bg-success hover:bg-green-600 text-white py-2 px-4 rounded-md transition-all duration-200">
+                        <button
+                            class="bg-success hover:bg-green-600 text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-download mr-2"></i>
                             Export Report
                         </button>
@@ -973,19 +877,24 @@
                     <table class="min-w-full divide-y divide-border">
                         <thead>
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Transaction ID
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Customer
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Amount
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Date
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Status
                                 </th>
                                 <th scope="col" class="relative px-6 py-3">
@@ -1008,7 +917,8 @@
                                     <div class="text-sm text-white">May 15, 2025</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button class="text-primary hover:text-primaryHover">View Details</button>
@@ -1027,9 +937,12 @@
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -1058,19 +971,24 @@
                     <table class="min-w-full divide-y divide-border">
                         <thead>
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Studio
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Customer
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Rating
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Review
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Date
                                 </th>
                                 <th scope="col" class="relative px-6 py-3">
@@ -1097,7 +1015,8 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Great experience, professional equipment and staff!</div>
+                                    <div class="text-sm text-white">Great experience, professional equipment and staff!
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-white">May 15, 2025</div>
@@ -1126,7 +1045,8 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-white">Decent studio but could use better soundproofing.</div>
+                                    <div class="text-sm text-white">Decent studio but could use better soundproofing.
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-white">May 14, 2025</div>
@@ -1149,9 +1069,12 @@
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
+                        <button
+                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
                         <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
                             <i class="fas fa-chevron-right"></i>
                         </button>

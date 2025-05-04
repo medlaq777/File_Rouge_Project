@@ -2,13 +2,74 @@
 
 namespace App\Services;
 
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Studios;
+use App\Models\Payment;
+use Stripe\Payout;
 
 class AdminService
 {
     public function index()
     {
-        $user = Auth::user();
-        return $user->isAdmin();
+        $user = Auth::user()->isAdmin();
+        $getAllUsers = User::all();
+        $getAllStudios = Studios::all();
+        $mounthlyBooking = Booking::whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
+            ->where('status', '=', 'confirmed')
+            ->count();
+
+        $mounthlyRevenue = Payment::get()
+            ->where('status', '=', 'Success')
+            ->where('payment_date', '>=', now()->startOfMonth())
+            ->sum('total_price');
+
+        $allActivity = [
+            'recentPayments' => Payment::where('status', '=', 'Success')
+            ->where('payment_date', '>=', now()->subDays(30))
+            ->orderBy('payment_date', 'desc')
+            ->take(10)
+            ->get(),
+            'recentBookings' => Booking::where('created_at', '>=', now()->subDays(30))
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get(),
+            'recentUsers' => User::where('created_at', '>=', now()->subDays(30))
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get(),
+        ];
+
+        $recentActivity = collect()
+            ->merge($allActivity['recentPayments'])
+            ->merge($allActivity['recentBookings'])
+            ->merge($allActivity['recentUsers'])
+            ->filter(function ($activity) {
+                return $activity->created_at >= now()->subDays(30);
+            })
+            ->sortByDesc('created_at')
+            ->take(10);
+        $recentActivity = $recentActivity->map(function ($activity) {
+            return [
+                'type' => class_basename($activity),
+                'data' => $activity,
+            ];
+        });
+        $recentActivity = $recentActivity->values()->all();
+        $recentActivity = collect($recentActivity)->sortByDesc('data.created_at')->take(10);
+
+
+
+        return [
+            'user' => $user,
+            'getAllUsers' => $getAllUsers,
+            'getAllStudios' => $getAllStudios,
+            'mounthlyBooking' => $mounthlyBooking,
+            'mounthlyRevenue' => $mounthlyRevenue,
+            'allActivity' => $recentActivity,
+        ];
     }
+
 }
