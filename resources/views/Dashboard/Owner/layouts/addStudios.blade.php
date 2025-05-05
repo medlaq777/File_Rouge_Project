@@ -133,24 +133,15 @@
             </div>
 
             <!-- Features Section -->
-            <div class="border-t border-border pt-6">
-                <h3 class="text-lg font-semibold text-white mb-4">Studio Features</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div>
+                <label for="features" class="block text-light mb-2">Studio Features</label>
+                <select id="features" name="feature_id"
+                    class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    required>
                     @foreach ($features ?? [] as $feature)
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="features[]" value="{{ $feature->id }}"
-                                class="form-checkbox h-5 w-5 text-primary border-border bg-inputBg rounded focus:ring-primary">
-                            <span class="text-light">{{ $feature->name }}</span>
-                        </label>
+                        <option value="{{ $feature->id }}">{{ $feature->name }}</option>
                     @endforeach
-                </div>
-                <div class="mt-4">
-                    <label for="custom_features" class="block text-light mb-2">Other Features
-                        (comma-separated)</label>
-                    <input type="text" id="custom_features" name="custom_features"
-                        class="w-full p-3 bg-inputBg border border-border rounded-md text-light shadow-input focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder="e.g., Green Room, Lounge Area, Kitchen">
-                </div>
+                </select>
             </div>
 
             <!-- Image Upload -->

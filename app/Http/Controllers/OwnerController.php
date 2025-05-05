@@ -100,22 +100,22 @@ class OwnerController extends Controller
 
 
 
-    return view('Dashboard.Owner.index', compact(
-    'studios',
-    'categories',
-    'features',
-    'count',
-    'myStudios',
-    'studioAvailability',
-    'myTotalIncome',
-    'thisMonthIncome',
-    'pendingPayment',
-    'paymentHistories',
-    'averageRating',
-    'recentReviews',
-    'recentActivity',
-    'studiosReviews'
-    ));
+        return view('Dashboard.Owner.index', compact(
+        'studios',
+        'categories',
+        'features',
+        'count',
+        'myStudios',
+        'studioAvailability',
+        'myTotalIncome',
+        'thisMonthIncome',
+        'pendingPayment',
+        'paymentHistories',
+        'averageRating',
+        'recentReviews',
+        'recentActivity',
+        'studiosReviews'
+        ));
     }
 
     public function store(Request $request)
@@ -126,6 +126,7 @@ class OwnerController extends Controller
             'location' => 'required|string|max:255',
             'price' => 'required|numeric|min:0|max:200',
             'category_id' => 'required|exists:categories,id',
+            'feature_id' => 'required|exists:features,id',
             'availability_type' => 'required|in:custom,always,recurring',
             'availability_dates' => 'array',
             'availability_dates.*' => 'nullable|date',
@@ -139,9 +140,7 @@ class OwnerController extends Controller
             'recurring_end_time' => 'nullable|date_format:H:i',
             'recurring_start_date' => 'nullable|date',
             'recurring_end_date' => 'nullable|date|after_or_equal:recurring_start_date',
-            'features' => 'array',
-            'features.*' => 'exists:features,id',
-            'custom_features' => 'nullable|string',
+            'feature_id' => 'required|exists:features,id',
             'photos' => 'array',
             'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -153,11 +152,10 @@ class OwnerController extends Controller
             'location' => $request->input('location'),
             'price' => $request->input('price'),
             'category_id' => $request->input('category_id'),
+            'feature_id' => $request->input('feature_id'),
             'user_id' => Auth::id(),
         ];
 
-        $features = $request->input('features', []);
-        $customFeatures = $request->input('custom_features', '');
 
         $availability = [
             'type' => $request->input('availability_type'),
@@ -188,8 +186,7 @@ class OwnerController extends Controller
 
         $photos = $request->file('photos', []);
         $ownerId = Auth::user()->id;
-        $this->OwnerService->createStudios($data, $features, $photos, $ownerId);
-
+        $this->OwnerService->createStudios($data, $photos, $ownerId);
         return redirect()->route('dashboard-Owner')->with('success', 'Studio created successfully.');
     }
 
@@ -202,6 +199,7 @@ class OwnerController extends Controller
             'location' => 'required|string|max:255',
             'price' => 'required|numeric|min:0|max:200',
             'category_id' => 'required|exists:categories,id',
+            'feature_id' => 'required|exists:features,id',
             'availability_type' => 'required|in:custom,always,recurring',
             'availability_dates' => 'array',
             'availability_dates.*' => 'nullable|date',
@@ -230,11 +228,9 @@ class OwnerController extends Controller
             'location' => $request->input('location'),
             'price' => $request->input('price'),
             'category_id' => $request->input('category_id'),
+            'feature_id' => $request->input('feature_id'),
             'user_id' => Auth::id(),
         ];
-
-        $features = $request->input('features', []);
-        $customFeatures = $request->input('custom_features', '');
 
         $availability = [
             'type' => $request->input('availability_type'),
@@ -265,8 +261,7 @@ class OwnerController extends Controller
 
         $photos = $request->file('photos', []);
         $ownerId = Auth::user()->id;
-        // dd($data, $features, $photos, $ownerId);
-        $this->OwnerService->updateStudios($data, $features, $photos, $ownerId);
+        $this->OwnerService->updateStudios($data, $photos, $ownerId);
         return redirect()->route('dashboard-Owner')->with('success', 'Studio updated successfully.');
     }
 

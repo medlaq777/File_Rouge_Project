@@ -126,55 +126,6 @@
                     </div>
                 </div>
 
-                <!-- Charts Row -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <!-- Revenue Chart -->
-                    <div class="bg-darkUI rounded-lg border border-border p-6">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-xl font-semibold text-white">Revenue Overview</h2>
-                            <div class="flex space-x-2">
-                                <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                                    <i class="fas fa-calendar-alt mr-2"></i>
-                                    Last 30 Days
-                                </button>
-                                <button
-                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
-                                    <i class="fas fa-calendar-alt mr-2"></i>
-                                    Last 7 Days
-                                </button>
-                                <button
-                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
-                                    <i class="fas fa-calendar-alt mr-2"></i>
-                                    Today
-                                </button>
-                            </div>
-                        </div>
-                        <canvas id="revenueChart" class="h-64"></canvas>
-                    </div>
-                    <!-- Bookings Chart -->
-                    <div class="bg-darkUI rounded-lg border border-border p-6">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-xl font-semibold text-white">Bookings Overview</h2>
-                            <div class="flex space-x-2">
-                                <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                                    <i class="fas fa-calendar-alt mr-2"></i>
-                                    Last 30 Days
-                                </button>
-                                <button
-                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
-                                    <i class="fas fa-calendar-alt mr-2"></i>
-                                    Last 7 Days
-                                </button>
-                                <button
-                                    class="bg-darkAccent text-white py-2 px-4 rounded-md transition-all duration-200">
-                                    <i class="fas fa-calendar-alt mr-2"></i>
-                                    Today
-                                </button>
-                            </div>
-                        </div>
-                        <canvas id="bookingsChart" class="h-64"></canvas>
-                    </div>
-                </div>
                 <!-- Recent Activity -->
                 <div class="bg-darkUI rounded-lg border border-border p-6">
                     <h2 class="text-xl font-semibold text-white mb-4">Recent Activity</h2>
@@ -903,7 +854,6 @@
             </section>
         </main>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
         // Revenue Chart
         const ctxRevenue = document.getElementById('revenueChart').getContext('2d');

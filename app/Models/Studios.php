@@ -22,6 +22,8 @@ class Studios extends Model
         'price',
         'rating',
         'total_reviews',
+        'category_id',
+        'feature_id',
     ];
 
     public function owner(): BelongsTo
@@ -34,14 +36,14 @@ class Studios extends Model
         return $this->belongsTo(User::class, 'user_id')->where('role', RoleEnum::artist);
     }
 
-    public function category(): HasMany
+    public function category(): BelongsTo
     {
-        return $this->hasMany(Category::class, 'studio_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function features(): HasMany
+    public function features(): BelongsTo
     {
-        return $this->hasMany(Feature::class, 'studio_id');
+        return $this->belongsTo(Feature::class, 'feature_id');
     }
 
     public function bookings(): HasMany

@@ -8,16 +8,15 @@ use Carbon\Carbon;
 
 class OwnerService
 {
-    public function createStudios(array $data, array $features, array $photos, $ownerId)
+    public function createStudios(array $data, $photos, $ownerId)
     {
         $data['user_id'] = $ownerId;
         $studio = Studios::create($data);
-        $studio->category()->associate($data['category_id']);
+        $studio->features()->associate($data['feature_id']);
         $studio->save();
         $studio->photos()->createMany(array_map(function ($photo) {
             return ['image_path' => $photo->store('studios/photos', 'public')];
         }, $photos));
-        $studio->features()->sync($features);
 
         $availability = json_decode($data['availability'], true);
 
@@ -39,7 +38,7 @@ class OwnerService
         return $studio;
     }
 
-    public function updateStudios(array $data, array $features, array $photos, $ownerId)
+    public function updateStudios(array $data, $photos, $ownerId)
     {
         $studio = Studios::where('id', $data['id'])->where('user_id', $ownerId)->firstOrFail();
         $studio->update($data);
@@ -54,7 +53,6 @@ class OwnerService
             }, $photos));
         }
 
-        $studio->features()->sync($features);
         $studio->availabilities()->delete();
         $studio->category()->associate($data['category_id']);
 

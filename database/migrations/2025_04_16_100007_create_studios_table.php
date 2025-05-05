@@ -20,6 +20,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2)->nullable();
             $table->decimal('rating', 3, 2)->default(0);
             $table->integer('total_reviews')->default(0);
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('feature_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

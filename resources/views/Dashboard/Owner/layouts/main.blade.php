@@ -68,7 +68,7 @@
                             <i class="fas fa-calendar-alt text-info text-xl"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-bold text-white">24</p>
+                    <p class="text-3xl font-bold text-white">0</p>
                     <p class="text-sm text-textMuted mt-2">+8% from last month</p>
                 </div>
 
