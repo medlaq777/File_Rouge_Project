@@ -2,9 +2,6 @@
 
 ![BeatRecords Logo](./resources/img/logo.svg "BeatRecords Logo")
 
-
-Une Laravel web application Pour Finale Projet File Rouge
-
 https://baytrecord.me
 
 ## Table of Contents
@@ -105,4 +102,3 @@ php artisan test
 ```
 
 ## Deployement
-
