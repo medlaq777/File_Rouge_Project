@@ -9,6 +9,7 @@ https://baytrecord.me
 - [BeatRecords](#beatrecords)
   - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
+  - [USE CASE UML](#use-case-uml)
   - [Installation](#installation)
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Install PHP dependencies](#2-install-php-dependencies)
@@ -30,6 +31,10 @@ https://baytrecord.me
 - POSTGRESQL
 - NODE.JS & NPM
 - [Laravel requirements](https://laravel.com/docs/12.x/deployment#server-requirements)
+
+## USE CASE UML
+
+![BeatRecords Use Case](./UML/UseCaseDiagram1.png "Use Case UML")
 
 ## Installation
 
