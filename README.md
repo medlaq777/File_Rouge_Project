@@ -20,6 +20,7 @@ https://baytrecord.me
     - [Frontend assets compilation](#frontend-assets-compilation)
   - [Testing](#testing)
   - [Deployement](#deployement)
+  - [FIGMA DESIGN](#figma-design)
 
 ## Requirements
 
@@ -102,3 +103,7 @@ php artisan test
 ```
 
 ## Deployement
+
+## FIGMA DESIGN
+
+https://www.figma.com/design/0G7MVqtTSTfvAeQP5DgjZ5/Untitled?node-id=0-1&t=IxXjtxW9usvGb8gs-1
