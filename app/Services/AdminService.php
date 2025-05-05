@@ -20,7 +20,7 @@ class AdminService
         $getAllStudiosPagination = Studios::paginate(6);
         $getAllCategories = Category::paginate(6);
         $getAllFeatures = Feature::paginate(6);
-        $getAllBookings = Booking::paginate(6)->where('status', '=', 'confirmed');
+        $getAllBookings = Booking::paginate(6);
         $mounthlyBooking = Booking::whereMonth('created_at', date('m'))
             ->whereYear('created_at', date('Y'))
             ->where('status', '=', 'confirmed')

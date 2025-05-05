@@ -16,7 +16,7 @@ https://baytrecord.me
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Install PHP dependencies](#2-install-php-dependencies)
     - [3. Install Tailwind css 4 dependencies](#3-install-tailwind-css-4-dependencies)
-    - [4. Copy environment file and generate application key### 1. Database Setup](#4-copy-environment-file-and-generate-application-key-1-database-setup)
+    - [4. Copy environment file and generate application key](#4-copy-environment-file-and-generate-application-key)
   - [Configuration](#configuration)
     - [1. Run migrations with Seed the database](#1-run-migrations-with-seed-the-database)
   - [Running the Application](#running-the-application)
@@ -54,7 +54,7 @@ composer install
 npm install tailwindcss @tailwindcss/vite
 ```
 
-### 4. Copy environment file and generate application key### 1. Database Setup
+### 4. Copy environment file and generate application key
 
 Update the `.env` file with your database credentials:
 
@@ -105,6 +105,4 @@ php artisan test
 ```
 
 ## Deployement
-
-medlaq777.github.io
 

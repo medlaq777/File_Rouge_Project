@@ -122,7 +122,7 @@
                                 <i class="fas fa-dollar-sign text-success text-xl"></i>
                             </div>
                         </div>
-                        <p class="text-3xl font-bold text-white">{{ $user['mounthlyRevenue'] }}</p>
+                        <p class="text-3xl font-bold text-white">${{ $user['mounthlyRevenue'] }}</p>
                     </div>
                 </div>
 
@@ -547,7 +547,7 @@
 
             </section>
             <!-- Bookings Section -->
-            <section id="bookings" class="hidden animate-fade-in">
+            {{-- <section id="bookings" class="hidden animate-fade-in">
                 <div class="flex justify-between items-center mb-8">
                     <div>
                         <h1 class="text-3xl font-bold text-white">Bookings</h1>
@@ -581,7 +581,7 @@
                                     Status
                                 </th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-textMuted uppercase tracking-wider">
+                                    class="relative px-6 py-3 text-center text-xs font-medium text-textMuted uppercase tracking-wider">
                                     Actions
                                 </th>
                             </tr>
@@ -596,51 +596,66 @@
                                         <div class="text-md font-medium text-white">{{ $booking->studio->name }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-md text-white">
-                                            {{ $booking->artist->profile->full_name }}
+                                        <div class="text-md text-white">{{ $booking->artist->profile->full_name }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-md text-white">{{ $booking->time }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 py-1 text-xs font-medium rounded-full text-success">
+                                        <span
+                                            class="px-2 py-1 text-xs font-medium rounded-full {{ $booking->status === 'confirmed' ? 'bg-success' : 'bg-danger' }} text-white">
                                             {{ ucfirst($booking->status) }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-md font-medium">
-                                        <button class="text-primary hover:text-primaryHover mr-3">
-                                            <i class="fas fa-edit mr-1"></i>
-                                        </button>
-                                        <button class="text-danger hover:text-red-400">
-                                            <i class="fas fa-times mr-1"></i>
-                                        </button>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                        <button class="text-primary hover:text-primaryHover mr-3">Edit</button>
+                                        <button class="text-danger hover:text-red-400">Cancel</button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                </div> <!-- Pagination -->
-                <div class="mt-6 flex justify-between items-center">
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center" id="bookings-pagination-container">
                     <div class="text-md text-textMuted">
-                        Showing 1 to 10 of 50 bookings
+                        Showing {{ $user['getAllBookings']->firstItem() }} to
+                        {{ $user['getAllBookings']->lastItem() }} of
+                        {{ $user['getAllBookings']->total() }} bookings
                     </div>
                     <nav class="flex space-x-2">
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button
-                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">1</button>
-                        <button
-                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">2</button>
-                        <button
-                            class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">3</button>
-                        <button class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        @foreach ($user['getAllBookings']->getUrlRange(1, $user['getAllBookings']->lastPage()) as $page => $url)
+                            <button onclick="loadBookingsPage('{{ $url }}')"
+                                class="bg-primary text-white py-2 px-4 rounded-md transition-all duration-200
+                                        {{ $user['getAllBookings']->currentPage() == $page ? 'bg-primaryHover' : '' }}">
+                                {{ $page }}
+                            </button>
+                        @endforeach
                     </nav>
                 </div>
-            </section>
+
+                <script>
+                    function loadBookingsPage(url) {
+                        fetch(url)
+                            .then(response => response.text())
+                            .then(html => {
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+                                const newTable = doc.querySelector('section#bookings tbody');
+                                const newPagination = doc.querySelector('#bookings-pagination-container');
+                                if (newTable && newPagination) {
+                                    document.querySelector('section#categories tbody').innerHTML = newTable.innerHTML;
+                                    document.querySelector('#categories-pagination-container').innerHTML = newPagination.innerHTML;
+                                } else {
+                                    console.error('Failed to update pagination or table content for categories.');
+                                }
+                            })
+                            .catch(error => console.error('Error loading categories page:', error));
+                    }
+                </script>
+            </section> --}}
 
             <!-- Payments Section -->
             <section id="payments" class="hidden animate-fade-in">
