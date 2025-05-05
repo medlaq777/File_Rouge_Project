@@ -1,15 +1,16 @@
-# BeatRecords
+# baytrecord
 
-![BeatRecords Logo](./resources/img/logo.svg "BeatRecords Logo")
+![baytrecord Logo](./resources/img/logo.svg "baytrecord Logo")
 
-https://baytrecord.me
+(https://baytrecord.me)
 
 ## Table of Contents
 
-- [BeatRecords](#beatrecords)
+- [baytrecord](#baytrecord)
   - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
   - [USE CASE UML](#use-case-uml)
+  - [DIAGRAM CLASS UML](#diagram-class-uml)
   - [Installation](#installation)
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Install PHP dependencies](#2-install-php-dependencies)
@@ -34,7 +35,11 @@ https://baytrecord.me
 
 ## USE CASE UML
 
-![BeatRecords Use Case](./UML/UseCaseDiagram1.png "Use Case UML")
+![baytrecord Use Case](./UML/UseCaseDiagram1.png "Use Case UML")
+
+## DIAGRAM CLASS UML
+
+![baytrecord Use Case](./UML/Diagramme_classe.png "Use Case UML")
 
 ## Installation
 
@@ -42,7 +47,7 @@ https://baytrecord.me
 
 ```bash
 git clone [https://github.com/medlaq777/File_Rouge_Project]
-cd beatrecords
+cd baytrecord
 ```
 
 ### 2. Install PHP dependencies
@@ -65,7 +70,7 @@ Update the `.env` file with your database credentials:
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=beatrecords
+DB_DATABASE=baytrecord
 DB_USERNAME=postgress
 DB_PASSWORD=postgress
 ```
