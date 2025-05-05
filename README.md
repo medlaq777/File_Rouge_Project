@@ -2,8 +2,6 @@
 
 ![baytrecord Logo](./resources/img/logo.svg "baytrecord Logo")
 
-(https://baytrecord.me)
-
 ## Table of Contents
 
 - [baytrecord](#baytrecord)
@@ -113,6 +111,8 @@ php artisan test
 ```
 
 ## Deployement
+
+(https://baytrecord.me)
 
 ## FIGMA DESIGN
 
